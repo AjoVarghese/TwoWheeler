@@ -1,8 +1,12 @@
 import React from 'react'
+import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar'
 
 function Users() {
   return (
-    <div>Users</div>
+    <div>
+      <AdminSideBar/>
+      users
+    </div>
   )
 }
 

@@ -1,5 +1,6 @@
 import React  from 'react';
 // import './App.css';
+import { ChakraProvider } from '@chakra-ui/react'
 import { useSelector } from 'react-redux';
 import {BrowserRouter as Router,Navigate,Route,Routes} from 'react-router-dom'
 import Bookings from './PAGES/Admin/Bookings/Bookings';

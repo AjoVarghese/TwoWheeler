@@ -1,0 +1,14 @@
+
+.nav-custom{
+    background-color: #fed250;
+    color : black
+}
+
+.nav-title{
+    font-weight: 600px;
+}
+
+ .sub-menu{
+    font-weight: 400px;
+    color: red;
+}

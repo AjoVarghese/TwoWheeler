@@ -10,10 +10,11 @@ const vehicleSchema = new mongoose.Schema({
     Fuel : {type : String },
     Description : {type : String },
     Price : {type : Number },
-    Image1 : {type : String },
-    Image2 : {type : String },
-    Image3 : {type : String },
-    Image4: {type : String }
+    Photo : [],
+    // Image1 : {type : String },
+    // Image2 : {type : String },
+    // Image3 : {type : String },
+    // Image4: {type : String }
 })
 
 const model = mongoose.model("Vehicles",vehicleSchema)
