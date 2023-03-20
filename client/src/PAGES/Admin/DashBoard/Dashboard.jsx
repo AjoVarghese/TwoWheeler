@@ -27,6 +27,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar';
+import Sideebar, { NavbarNested } from '../../../COMPONENTS/NAVBAR/Navvbar';
 
 function Dashboard() {
   return (
@@ -34,7 +35,9 @@ function Dashboard() {
       {/* <Box sx={{ display: 'flex' }}> */}
 
       {/* <AdminNavbar/> */}
-      <AdminSideBar/>
+      {/* <AdminSideBar/> */}
+      {/* <NavbarNested/> */}
+      <Sideebar/>
     
      {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}> */}
      {/* <h1> DASHBOARD</h1> */}

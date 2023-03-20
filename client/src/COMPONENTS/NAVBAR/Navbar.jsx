@@ -4,6 +4,7 @@ import './Navbar.css'
 // import {GiHamburgerMenu} from 'react-icons/gi'
 import { Link, useNavigate } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogoutAction } from '../../REDUX/Actions/USER_ACTIONS/LogoutAction';
 import {
@@ -132,18 +133,18 @@ const mockdata = [
 ];
 
 function Navbar() {
-  // const dispatch = useDispatch()
-  // const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   
-  // const user = useSelector((state) => state.userLoginReducer)
-  // const {userLoginDetails} = user
-  // console.log("DDDDD",userLoginDetails);
+  const user = useSelector((state) => state.userLoginReducer)
+  const {userLoginDetails} = user
+  console.log("DDDDD",userLoginDetails);
 
   
-  // const logout = () => {
-  //   dispatch(userLogoutAction())
-  //   navigate('/login')
-  // }
+  const logout = () => {
+    dispatch(userLogoutAction())
+    navigate('/login')
+  }
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const { classes, theme } = useStyles();
@@ -220,71 +221,46 @@ function Navbar() {
           </div>
         </nav> */}
         <Box pb={120}>
-      <Header height={60} px="md">
+      <Header height={60} px="md" style={{backgroundColor : "#fed250"}}>
         <Group position="apart" sx={{ height: '100%' }}>
-          <MantineLogo size={30} />
+          {/* <MantineLogo size={30} /> */}
+          <h1 style={{fontSize : "27px"}}>Two Wheeler</h1>
 
           <Group sx={{ height: '100%' }} spacing={0} className={classes.hiddenMobile}>
             <a href="#" className={classes.link}>
-              Home
+            <Link to = '/'>Home</Link>
             </a>
-            <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
-              <HoverCard.Target>
-                <a href="#" className={classes.link}>
-                  <Center inline>
-                    <Box component="span" mr={5}>
-                      Features
-                    </Box>
-                    <IconChevronDown size={16} color={theme.fn.primaryColor()} />
-                  </Center>
-                </a>
-              </HoverCard.Target>
-
-              <HoverCard.Dropdown sx={{ overflow: 'hidden' }}>
-                <Group position="apart" px="md">
-                  <Text fw={500}>Features</Text>
-                  <Anchor href="#" fz="xs">
-                    View all
-                  </Anchor>
-                </Group>
-
-                <Divider
-                  my="sm"
-                  mx="-md"
-                  color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}
-                />
-
-                <SimpleGrid cols={2} spacing={0}>
-                  {links}
-                </SimpleGrid>
-
-                <div className={classes.dropdownFooter}>
-                  <Group position="apart">
-                    <div>
-                      <Text fw={500} fz="sm">
-                        Get started
-                      </Text>
-                      <Text size="xs" color="dimmed">
-                        Their food sources have decreased, and their numbers
-                      </Text>
-                    </div>
-                    <Button variant="default">Get started</Button>
-                  </Group>
-                </div>
-              </HoverCard.Dropdown>
-            </HoverCard>
+            
             <a href="#" className={classes.link}>
-              Learn
+              
+              <Link to = '/bikes'>Bikes</Link>
             </a>
             <a href="#" className={classes.link}>
-              Academy
+              Rent a Bike
             </a>
           </Group>
+           {
+            userLoginDetails ? 
+            <DropdownButton id="dropdown-basic-button" title={userLoginDetails.Name} >
+      <Dropdown.Item><Link to = '/profile'>My Profile</Link></Dropdown.Item>
+      <Dropdown.Item href="#/action-2">My Rides</Dropdown.Item>
+      <Dropdown.Item href="#/action-2">My Rents</Dropdown.Item>
+      <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
+    </DropdownButton>
+            
+            :
+            <Group className={classes.hiddenMobile}>
+            <Button variant="default"><Link to = '/login'>Login</Link></Button>
+            <Button><Link to = '/signup'>Sign up</Link></Button>
+          </Group> 
 
-          <Group className={classes.hiddenMobile}>
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
-          </Group>
+            
+
+           }
+          {/* <Group className={classes.hiddenMobile}>
+            <Button variant="default"><Link to = '/login'>Login</Link></Button>
+            <Button><Link to = '/signup'>Sign up</Link></Button>
+          </Group> */}
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop} />
         </Group>
@@ -305,20 +281,20 @@ function Navbar() {
           <a href="#" className={classes.link}>
             Home
           </a>
-          <UnstyledButton className={classes.link} onClick={toggleLinks}>
+          {/* <UnstyledButton className={classes.link} onClick={toggleLinks}>
             <Center inline>
               <Box component="span" mr={5}>
                 Features
               </Box>
               <IconChevronDown size={16} color={theme.fn.primaryColor()} />
             </Center>
-          </UnstyledButton>
+          </UnstyledButton> */}
           <Collapse in={linksOpened}>{links}</Collapse>
           <a href="#" className={classes.link}>
-            Learn
+            Bikes
           </a>
           <a href="#" className={classes.link}>
-            Academy
+            Rent A Bike
           </a>
 
           <Divider my="sm" color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'} />
