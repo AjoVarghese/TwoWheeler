@@ -26,6 +26,7 @@ import {
   Collapse,
   ScrollArea,
   rem,
+  Avatar,
 } from '@mantine/core';
 import { MantineLogo } from '@mantine/ds';
 import { useDisclosure } from '@mantine/hooks';
@@ -240,13 +241,17 @@ function Navbar() {
             </a>
           </Group>
            {
-            userLoginDetails ? 
-            <DropdownButton id="dropdown-basic-button" title={userLoginDetails.Name} >
+            userLoginDetails ?
+            <>
+            
+            <DropdownButton id="dropdown-basic-button" title={userLoginDetails.Name} className = 'profile-dropdown'>
+            <Avatar image={userLoginDetails? userLoginDetails.ProfileImage : ""} size="xlarge" shape="circle" />
       <Dropdown.Item><Link to = '/profile'>My Profile</Link></Dropdown.Item>
       <Dropdown.Item href="#/action-2">My Rides</Dropdown.Item>
       <Dropdown.Item href="#/action-2">My Rents</Dropdown.Item>
       <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
     </DropdownButton>
+    </>
             
             :
             <Group className={classes.hiddenMobile}>

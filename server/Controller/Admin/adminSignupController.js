@@ -8,6 +8,7 @@ exports.adminSignupPost = async(req,res) => {
    try {
      let {Email,Password} = req.body
      let details = {Email,Password}
+     console.log(details);
      details.Password = await bcrypt.hash(details.Password,10)
      adminSchema.create(details).then((data) => {
         console.log("ADMIN DATA",data);
@@ -20,6 +21,6 @@ exports.adminSignupPost = async(req,res) => {
         res.status(200).json(result)
      })
    } catch (error) {
-    
+     res.status(400).json(error)
    }
 }

@@ -69,8 +69,8 @@ app.use(cors(corsOptions))
 // });  
 
 
-app.use('/user', userRouter);
-app.use('/admin', adminRouter);
+app.use('/api/user', userRouter);
+app.use('/api/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

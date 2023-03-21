@@ -1,4 +1,6 @@
 import { combineReducers } from "redux";
+import { adminLoginReducer } from "./ADMIN/adminLoginReducer";
+import { adminUserGetReducer } from "./ADMIN/adminUserReducer";
 import { imageUploadReducer } from "./USER/imageUploadReducer";
 import { userGetProfileReduer } from "./USER/userGetProfileReducer";
 import { userHomeReducer } from "./USER/userHomeReducer";
@@ -10,7 +12,11 @@ const reducers = combineReducers({
     userLoginReducer : userLoginReducer,
     userHomeReducer : userHomeReducer,
     userGetProfileReduer : userGetProfileReduer,
-    imageUploadReducer : imageUploadReducer
+    imageUploadReducer : imageUploadReducer,
+
+
+    adminLoginReducer : adminLoginReducer,
+    adminUserGetReducer : adminUserGetReducer
 })
 
 

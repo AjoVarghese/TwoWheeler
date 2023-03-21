@@ -130,5 +130,9 @@ li{
  */
  
  .mantine-1grbdle {
-    padding-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.profile-dropdown{
+    color: rgb(176, 121, 49);
 }

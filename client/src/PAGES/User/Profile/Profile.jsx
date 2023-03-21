@@ -138,8 +138,8 @@ function Profile() {
                   type = 'file'
                   src={profileData?profileData.ProfileImage:"https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"}
                   alt="avatar"
-                  className="rounded-circle"
-                  style={{ width: '150px' }}
+                  className="circle"
+                  style={{ width: '200px',height:"200x",borderRadius:"50%" }}
                   fluid />
                 <p className="text-muted mb-1">Full Stack Developer</p>
                 <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
@@ -147,7 +147,7 @@ function Profile() {
                   {/* <MDBBtn><input type="file" /></MDBBtn> */}
                   {/* <input type="file" /> */}
                   {/* <MDBBtn outline className="ms-1">Message</MDBBtn> */}
-                  <Button variant="secondary"><input type="file" /></Button>{' '}
+                  <Button variant="secondary"><input type="file" onChange={(e) => setImage(e.target.files[0])}/></Button>{' '}
                   <Button variant="warning ms-4" onClick={handleClick} style={{backgroundColor : "#fed250"}}>Upload</Button>{' '}
                 </div>
               </MDBCardBody>
@@ -291,7 +291,9 @@ function Profile() {
                   <MDBCardBody>
                     <MDBCardText className="mb-4"><span className="text-primary font-italic me-1"></span> <h1 style={{fontSize : '25px'}}>Upload Documents</h1></MDBCardText>
                      
-                    
+                    <div className="card">
+            <FileUpload name="demo[]" url={'/api/upload'} multiple accept="image/*" maxFileSize={1000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
+        </div>
                     {/* <div className="card">
             <FileUpload name="demo[]" url={'/api/upload'} multiple accept="image/*" maxFileSize={1000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
         </div> */}

@@ -1,6 +1,6 @@
 import React  from 'react';
 // import './App.css';
-import { ChakraProvider } from '@chakra-ui/react'
+// import { ChakraProvider } from '@chakra-ui/react'
 import { useSelector } from 'react-redux';
 import {BrowserRouter as Router,Navigate,Route,Routes} from 'react-router-dom'
 import Bookings from './PAGES/Admin/Bookings/Bookings';
@@ -8,6 +8,7 @@ import Bookings from './PAGES/Admin/Bookings/Bookings';
 import Dashboard from './PAGES/Admin/DashBoard/Dashboard';
 import AdminLogin from './PAGES/Admin/Login/AdminLogin';
 import Users from './PAGES/Admin/Users/Users';
+import AddVehicle from './PAGES/Admin/Vehicles/AddVehicle';
 import Vehicle from './PAGES/Admin/Vehicles/Vehicle';
 import Bikes from './PAGES/User/Bikes/Bikes';
 import Home from './PAGES/User/Home/Home';
@@ -19,6 +20,8 @@ import Signup from "./PAGES/User/Signup/Signup";
 
 function App() {
   const userdata = useSelector((state)=>state.userLoginReducer.userLoginDetails);
+  const adminData = useSelector((state) => state.adminLoginReducer.adminLoginData)
+  console.log("ADMINdata",adminData);
   return (
     <div className="App">
       <Router>
@@ -32,10 +35,11 @@ function App() {
 
 
           {/* admin */}
-          <Route exact path='/admin/login' element = {<AdminLogin/>}></Route>
-          <Route exact path='/admin/dashboard' element = {<Dashboard/>}></Route>
+          <Route exact path='/admin/login' element = {adminData ? <Navigate to = '/admin/dashboard'/> : <AdminLogin/>}></Route>
+          <Route exact path='/admin/dashboard' element = {adminData ? <Dashboard/> : <Navigate to = '/admin/login'/> }></Route>
           <Route exact path='/admin/users' element = {<Users/>}></Route>
-          <Route exact path='/admin/vehicles' element = {<Vehicle/>}></Route>
+          <Route exact path='/admin/bikes' element = {<Vehicle/>}></Route>
+          <Route exact path = '/admin/add-bikes' element = {<AddVehicle/>}></Route>
           <Route exact path='/admin/bookings' element = {<Bookings/>}></Route>
           
         </Routes>
