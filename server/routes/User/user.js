@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
+const upload = require('../../Utils/multer')
 
 const signupController = require('../../Controller/User/userRegisterController')
 const loginController = require('../../Controller/User/userLoginController')
 const profilerImageUpdateController = require('../../Controller/User/profileImageUpdateController')
 const viewVehiclesController = require('../../Controller/User/Vehicles/VehicleStoreController')
 const userProfileController = require('../../Controller/User/getUserProfileController')
+const addVehicleController = require('../../Controller/User/Vehicles/addVehicle')
 const {protect} = require('../../middleware/jwtAuth')
 
 router.use(function(req, res, next) {
@@ -28,5 +30,7 @@ router.route('/profileImageUpdate').post(protect,profilerImageUpdateController.p
 // router.post('/profileImageUpdate',profilerImageUpdateController.profileImageUploadPost)
 
 router.route('/vehicles').get(viewVehiclesController.viewVehicles)
+
+router.route('/rent-bikes').post(protect,upload.array('images'),addVehicleController.addVehicle)
 
 module.exports = router;

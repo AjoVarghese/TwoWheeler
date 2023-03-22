@@ -237,7 +237,8 @@ function Navbar() {
               <Link to = '/bikes'>Bikes</Link>
             </a>
             <a href="#" className={classes.link}>
-              Rent a Bike
+              
+              <Link to = '/rent-bikes'>Rent A Bike</Link>
             </a>
           </Group>
            {

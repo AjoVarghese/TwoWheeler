@@ -10,10 +10,19 @@ const config = {
 let user = JSON.parse(localStorage.getItem('userInfo'))
 console.log("API CALL USER TOKEN",user);
 
+const ID = user.id
+
 const configTOken = {
   headers : {
    "Content-Type" : "application/json",
    Authorization:"Bearer"+' '+user?.token   
+  }
+}
+
+const configFormData = {
+  headers : {
+    "Content-Type": "multipart/form-data",
+    Authorization:"Bearer"+' '+user?.token   
   }
 }
 
@@ -23,3 +32,4 @@ export const userLoginAPi = (Mobile,Password) => API.post('/login',{Mobile,Passw
 export const userHomeApi = () => API.get('/',config)
 export const userProfileApi = (id) =>API.get('/profile?id='+id,configTOken)
 export const imageUploadApi = (id,image) => API.post('/profileImageUpdate?id='+id,{image},configTOken)
+export const userAddBikeApi = (formData)=> API.post('/rent-bikes?id='+ID,formData,configFormData)

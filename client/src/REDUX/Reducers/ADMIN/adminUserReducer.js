@@ -9,7 +9,7 @@ export const adminUserGetReducer = (state = {} , {type,payload}) => {
 
         case AdminActionTypes.GET_USERS_SUCCESS :
             return {
-                loading : true,
+                loading : false,
                 adminUserData : payload
             } 
 

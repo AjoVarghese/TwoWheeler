@@ -5,7 +5,7 @@ import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar'
 import Table from 'react-bootstrap/Table';
 
 // import { Button } from 'primereact/button';
-import Loading from '../../../COMPONENTS/NAVBAR/Loading/Loading';
+// import Loading from '../../../COMPONENTS/NAVBAR/Loading/Loading';
 // import { styled } from '@mui/material/styles';
 
 import { DataTable } from 'primereact/datatable';
@@ -61,7 +61,7 @@ function Vehicle() {
                 <Column field="category" header="Category" sortable style={{ width: '20%' }}></Column>
                 <Column field="quantity" header="Quantity" sortable style={{ width: '20%' }}></Column>
             </DataTable> */}
-<Loading/>
+{/* <Loading/> */}
 <Table striped >
       <thead >
         <tr style={{backgroundColor : "grey"}}>

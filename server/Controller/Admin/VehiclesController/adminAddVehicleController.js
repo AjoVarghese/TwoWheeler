@@ -40,16 +40,17 @@ exports.addVehicle = async(req,res) => {
       Photo.push(urls[i].url)
     }
      let details = {
-      OwnerName : req.body.OwnerName,
-      vehicleName : req.body.BikeName,
-      vehicleModel : req.body.BikeModel,
-      Brand : req.body.Brand,
-      Fuel : req.body.Fuel,
-      EngineNo : req.body.EngineNo,
-      Color : req.body.Color,
-      Description : req.body.Description,
-      Price : req.body.Price,
-      Photo
+      // OwnerName : req.body.OwnerName,
+      vehicleName : req.body.bikeName,
+      vehicleModel : req.body.bikeModel,
+      Brand : req.body.brand,
+      Fuel : req.body.fuel,
+      EngineNo : req.body.engineNo,
+      Color : req.body.color,
+      Description : req.body.desc,
+      Price : req.body.price,
+      Assured : true,
+      Photo,
      }
 
       vehicleSchema.create(details).then((data) => {

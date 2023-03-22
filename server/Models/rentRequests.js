@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const vehicleSchema = new mongoose.Schema({
+const rentRequetsScheme = new mongoose.Schema({
     OwnerName : {type : String },
     vehicleName : {type : String },
     vehicleModel : {type : String },
@@ -11,13 +11,9 @@ const vehicleSchema = new mongoose.Schema({
     Description : {type : String },
     Price : {type : Number },
     Photo : [],
-    Assured : {type : Boolean,default : true}
-    // Image1 : {type : String },
-    // Image2 : {type : String },
-    // Image3 : {type : String },
-    // Image4: {type : String }
+    Assured : {type : Boolean,default : false}
 })
 
-const model = mongoose.model("Vehicles",vehicleSchema)
+const model = mongoose.model("rentRequets",rentRequetsScheme)
 
 module.exports = model

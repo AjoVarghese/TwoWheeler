@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { blockUnblockApi } from '../../../API/Admin/ApiCalls';
+import Loading from '../../../COMPONENTS/Loading/Loading';
 import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar'
 import { adminUserAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/adminUserActions';
 
@@ -18,7 +19,8 @@ function Users() {
 }));
   const dispatch = useDispatch()
 
-  const users = useSelector((state) => state.adminUserGetReducer.adminUserData)
+  const adminUserdata = useSelector((state) => state.adminUserGetReducer)
+  const {loading,adminUserData} = adminUserdata;
   // console.log("USERS",users.id);
 
  const handleAction = (id) => {
@@ -36,10 +38,9 @@ function Users() {
 
   return (
     <div>
+      
      <Box sx={{ display : 'flex' }}>
-      {users? users.map((m)=>{
-        console.log(m._id)
-      }):''}
+     <Loading/>
       <AdminSideBar/>
       <Box component = 'main' sx={{flexGrow : 1,p:3}}>
         <DrawerHeader/>
@@ -74,7 +75,7 @@ function Users() {
       <tbody>
         
           {
-            users? users.map((m,index )=>{
+            loading? <Loading/> :adminUserData? adminUserData.map((m,index )=>{
               console.log(m);
               return(
                 <>
@@ -86,7 +87,7 @@ function Users() {
                   <td>{m.Status?'Access Allowed':'Acces Suspended'}</td>
                   <td><button onClick={()=>{
                     handleAction(m._id)
-                  }}>Block</button></td>
+                  }}>{m.Status ? 'Block' : "Unblock"}</button></td>
                 </tr>
                 </>
               )

@@ -10,6 +10,13 @@ export const AdminActionTypes = {
     GET_USERS_SUCCESS : "GET_USERS_SUCCESS",
     GET_USERS_FAILED : "GET_USERS_FAILED",
 
+
+    ADD_BIKE_REQ : "ADD_BIKE_REQ",
+    ADD_BIKE_SUCCESS : "ADD_BIKE_SUCCESS",
+    ADD_BIKE_FAILED : "ADD_BIKE_FAILED",
+
+    
+
     
 
 }

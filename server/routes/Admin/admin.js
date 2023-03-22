@@ -26,8 +26,8 @@ router.route('/blockUnblock').get(protect,blockUnblockController.userBlockUnBloc
 
 // router.post('/blockUnblock',blockUnblockController.userBlockUnBlockPost)
 
-router.route('/add_vehicle').post(upload.array('images'),addVehicleController.addVehicle)
+router.route('/add-bikes').post(protect,upload.array('images'),addVehicleController.addVehicle)
 
-router.route('/vehicles').get(viewVehiclesController.viewVehicles)
+router.route('/bikes').get(viewVehiclesController.viewVehicles)
 
 module.exports = router;

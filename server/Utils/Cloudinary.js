@@ -35,16 +35,21 @@ cloudinary.config({
 })
 
 exports.uploads = (file, folder) => {
-    return new Promise(resolve => {
-        cloudinary.uploader.upload(file, (result) => {
-            // console.log("CLOUDINARY RESUKT",result);
-            resolve({
-                url: result.url,
-                id: result.public_id
+    try {
+        return new Promise(resolve => {
+            cloudinary.uploader.upload(file, (result) => {
+                // console.log("CLOUDINARY RESUKT",result);
+                resolve({
+                    url: result.url,
+                    id: result.public_id
+                })
+            }, {
+                resource_type: "auto",
+                folder: folder
             })
-        }, {
-            resource_type: "auto",
-            folder: folder
         })
-    })
+    } catch (error) {
+        console.log("CLOUD ERROR",error);
+    }
+    
 }
