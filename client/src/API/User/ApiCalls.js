@@ -10,7 +10,7 @@ const config = {
 let user = JSON.parse(localStorage.getItem('userInfo'))
 console.log("API CALL USER TOKEN",user);
 
-const ID = user.id
+const ID = user?.id
 
 const configTOken = {
   headers : {

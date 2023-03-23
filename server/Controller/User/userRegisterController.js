@@ -1,6 +1,7 @@
 const userSchema = require('../../Models/userSchema')
 const bcrypt = require('bcrypt')
 const generateToken = require('../../Utils/generateToken')
+const axios = require('axios')
 
 // require('dotenv').config()
 // console.log(process.env.TOKEN_CODE);
@@ -8,7 +9,11 @@ const generateToken = require('../../Utils/generateToken')
 exports.signUpPost = async(req,res) => {
     // console.log("SignData",req.body);
     try {
-        
+        // if(req.body.googleAccessToken){
+
+        // } else {
+            
+        // }
 
         let email = await userSchema.findOne({Email : req.body.Email})
         let mobile = await userSchema.findOne({Mobile : req.body.Mobile})

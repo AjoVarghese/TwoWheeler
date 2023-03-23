@@ -1,6 +1,7 @@
 const userSchema = require('../../Models/userSchema')
 const bcrypt = require('bcrypt')
 const generateToken = require('../../Utils/generateToken')
+const axios = require('axios')
 
 exports.LoginPost = async(req,res) => {
     console.log("LOGIN",req.body);

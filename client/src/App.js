@@ -33,7 +33,7 @@ function App() {
           <Route exact path = '/signup' element = {userdata?<Navigate to='../'/> :<Signup/>}></Route>
           <Route exact path='/login' element = {userdata?<Navigate to='../'/> :<Login/>}></Route>
           <Route exact path='/bikes' element = {<Bikes/>}></Route>
-          <Route exact path='/otp_login' element = {<Otplogin/>}></Route>
+          <Route exact path='/otp-login' element = {<Otplogin/>}></Route>
           <Route exact path = '/profile' element = {userdata?<Profile/>:<Navigate to='/login' />}></Route>
           <Route path='/rent-bikes' element={<RentBikes/>} />
 

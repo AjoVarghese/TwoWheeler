@@ -8,11 +8,16 @@ import './Login.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { userLoginAction} from '../../../REDUX/Actions/USER_ACTIONS/LoginAction'
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import { auth } from '../../../FIREBASE/firebase.config';
 
 function Login() {
   // const clientId = ''
-  const [mobile,setMobile] = useState('')
+  const [mobile,setMobile] = useState('+91')
   const [password,setPassword] = useState('')
+  const [load,setLoad] = useState(false)
+  const [showOtp,setShowOtp] = useState(false)
+
   // const [showLoginButton,setShowLoginButton] = useState(true)
   // const [showLogoutButton,setShowLogoutButton] = useState(false)
 
@@ -34,6 +39,45 @@ function Login() {
     dispatch(userLoginAction(mobile,password))
     // navigate('/')
   }
+
+
+  // function onCaptchaVerify(){
+  //   if(!window.recaptchaVerifier){
+  //     window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+  //       'size': 'invisible',
+  //       'callback': (response) => {
+  //         console.log("callback response",response);
+  //         onOTPLogin()
+  //       },
+  //       'expired-callback': () => {
+         
+  //       }
+  //     }, auth);
+  //   }
+  // }
+  // const onOTPLogin = () => {
+  //  setLoad(true)
+  //  onCaptchaVerify()
+
+  //  const appVerifier = window.recaptchaVerifier
+  //  console.log("Mobile",mobile);
+  //  const format = '+' + mobile
+
+  //  signInWithPhoneNumber(auth,format,appVerifier).then((confirmationResult) => {
+  //   console.log("confirmation result",confirmationResult);
+        
+  //   window.confirmationResult = confirmationResult;
+
+  //   setLoad(false)
+  //   navigate('/otp-login')
+  //  })
+  //  .catch((error) => {
+  //   console.log(error,"OTP");
+  //   window.prompt("Invalid Mobile No")
+  //  })
+  // }
+  
+  
    
   // useEffect(() => {
 
@@ -113,7 +157,7 @@ function Login() {
             {errors.Password && <p style={{color : "red"}}>Please check the Password</p>}
             <Button type='submit' style={{color:"white",backgroundColor : "blue"}} className = "login-button">Login</Button>
             <p className='or'>OR</p>
-          <Button type='submit' style={{color:"white",backgroundColor : "blue"}} className = "otp-button"><Link className='link' to = '/otp_login'>Login With OTP</Link></Button>
+          <Button  style={{color:"white",backgroundColor : "blue"}} className = "otp-button"><Link to='/otp-login'>Login with OTP</Link></Button>
           <h4 className='no-account'><Link to='/signup'>Don't have an account? Signup</Link></h4>
           </Form>
          
