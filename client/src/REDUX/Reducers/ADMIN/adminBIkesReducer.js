@@ -1,18 +1,19 @@
-import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes";
+// import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes";
 
-export const adminBikesReducer = (state = {} , {type,payload}) => {
-    switch(type){
+// export const adminBikesReducer = (state = {} , {type,payload}) => {
+//     switch(type){
 
-        case AdminActionTypes.ADD_BIKE_SUCCESS : 
-         return  {
-            BikeData : {...state,payload}
-         }
+//         case AdminActionTypes.ADD_BIKE_SUCCESS : 
+//         console.log("PAYLOD",payload);
+//          return  {
+//             BikeData : {...state,payload}
+//          }
 
-        case AdminActionTypes.ADD_BIKE_FAILED : 
-         return {
-            BikeDataError : payload
-         } 
+//         case AdminActionTypes.ADD_BIKE_FAILED : 
+//          return {
+//             BikeDataError : payload
+//          } 
 
-         default : return state
-    }
-}
+//          default : return state
+//     }
+// }

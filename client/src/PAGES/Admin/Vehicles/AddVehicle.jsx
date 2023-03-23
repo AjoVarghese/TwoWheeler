@@ -161,7 +161,7 @@ const submit = async() => {
       {/* <ToastContainer /> */}
 
    {
-    loading?    <Button className='mb-4 container col-md-4 sm-3' style ={{backgroundColor : '#fed250'}} ><CircularProgress /></Button>   : 
+    loading?    <Button className='mb-4 container col-md-4 sm-3' style ={{backgroundColor : '#fed250'}} disabled ><CircularProgress /></Button>   : 
  
     <Button className='mb-4 container col-md-4 sm-3' style ={{backgroundColor : '#fed250'}} onClick = {submit}>ADD</Button>
    }
