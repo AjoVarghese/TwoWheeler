@@ -5,6 +5,27 @@ const axios = require('axios')
 
 exports.LoginPost = async(req,res) => {
     console.log("LOGIN",req.body);
+    if(req.body.googleAccessToken){
+      axios.get("https://www.googleapis.com/oauth2/v3/userinfo",{
+                headers : {
+                    "Authorization" : `Bearer ${req.body.googleAccessToken}`
+                }
+             }).then(async(response) => {
+              const Email = response.data.email
+
+              const alreadyExistUser  = await userSchema.findOne({Email})
+
+              if(!alreadyExistUser){
+                console.log("User don't exists");
+                return res.status(400).json({message : "User don't exists"})
+              }
+              const token = generateToken(alreadyExistUser._id)
+               console.log("TOken",token);
+                res.status(200).json({alreadyExistUser,token})
+             })
+    } else {
+
+    }
   try {
     let {Mobile,Password} = req.body
 

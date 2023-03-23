@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from './REDUX/Store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import { GoogleAuthProvider } from '@react-oauth/google';
 
 
 

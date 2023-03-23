@@ -26,7 +26,13 @@ const configFormData = {
   }
 }
 
+export const signInGoogleApi = (accessToken) => API.post('/login',{
+  googleAccessToken : accessToken
+})
 
+export const signUpGoogleApi = (accessToken) => API.post('/signup',{
+  googleAccessToken : accessToken
+})
 export const userSignupApi = (Name,Email,Mobile,Password) => API.post('/signup',{Name,Email,Mobile,Password},config)
 export const userLoginAPi = (Mobile,Password) => API.post('/login',{Mobile,Password},config)
 export const userHomeApi = () => API.get('/',config)
