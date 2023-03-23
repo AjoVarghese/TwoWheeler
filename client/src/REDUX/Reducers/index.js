@@ -1,6 +1,9 @@
 import { combineReducers } from "redux";
+import { adminBikesReducer } from "./ADMIN/adminBIkesReducer";
+import { getAllBikesReducer } from "./ADMIN/adminGetAllBikesReducer";
 import { adminLoginReducer } from "./ADMIN/adminLoginReducer";
 import { adminUserGetReducer } from "./ADMIN/adminUserReducer";
+import { bikesReducer } from "./USER/bikesReducer";
 import { imageUploadReducer } from "./USER/imageUploadReducer";
 import { userGetProfileReduer } from "./USER/userGetProfileReducer";
 import { userHomeReducer } from "./USER/userHomeReducer";
@@ -13,10 +16,13 @@ const reducers = combineReducers({
     userHomeReducer : userHomeReducer,
     userGetProfileReduer : userGetProfileReduer,
     imageUploadReducer : imageUploadReducer,
+    bikesReducer : bikesReducer,
 
 
     adminLoginReducer : adminLoginReducer,
-    adminUserGetReducer : adminUserGetReducer
+    adminUserGetReducer : adminUserGetReducer,
+    adminBikesReducer : adminBikesReducer,
+    admingetAllBikesReducer :getAllBikesReducer
 })
 
 

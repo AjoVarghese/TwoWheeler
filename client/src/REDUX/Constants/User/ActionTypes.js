@@ -27,6 +27,13 @@ export const ActionTypes = {
     UPDATE_PROFILE : "UPDATE_PROFILE",
 
 
+    GET_BIKES_REQ : "GET_BIKES_REQ",
+    GET_BIKES_SUCCESS : "GET_BIKES_SUCCESS",
+    GET_BIKES_FAILED : "GET_BIKES_FAILED",
+
+    
+
+
     
     
 }

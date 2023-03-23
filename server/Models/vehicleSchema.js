@@ -11,7 +11,8 @@ const vehicleSchema = new mongoose.Schema({
     Description : {type : String },
     Price : {type : Number },
     Photo : [],
-    Assured : {type : Boolean,default : true}
+    Assured : {type : Boolean,default : true},
+    Status : {type : String}
     // Image1 : {type : String },
     // Image2 : {type : String },
     // Image3 : {type : String },

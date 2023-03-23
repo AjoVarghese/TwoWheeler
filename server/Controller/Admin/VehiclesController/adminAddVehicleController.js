@@ -50,6 +50,7 @@ exports.addVehicle = async(req,res) => {
       Description : req.body.desc,
       Price : req.body.price,
       Assured : true,
+      Status : "Acccepted",
       Photo,
      }
 

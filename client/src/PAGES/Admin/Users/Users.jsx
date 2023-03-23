@@ -40,7 +40,7 @@ function Users() {
     <div>
       
      <Box sx={{ display : 'flex' }}>
-     <Loading/>
+     {/* <Loading/> */}
       <AdminSideBar/>
       <Box component = 'main' sx={{flexGrow : 1,p:3}}>
         <DrawerHeader/>

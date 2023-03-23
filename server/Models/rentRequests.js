@@ -11,7 +11,8 @@ const rentRequetsScheme = new mongoose.Schema({
     Description : {type : String },
     Price : {type : Number },
     Photo : [],
-    Assured : {type : Boolean,default : false}
+    Assured : {type : Boolean,default : false},
+    Status : {type : Boolean , default : false}
 })
 
 const model = mongoose.model("rentRequets",rentRequetsScheme)

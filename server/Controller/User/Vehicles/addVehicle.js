@@ -1,4 +1,4 @@
-// const vehicleSchema = require('../../../Models/vehicleSchema')
+ const vehicleSchema = require('../../../Models/vehicleSchema')
 const rentRequetsScheme = require('../../../Models/rentRequests')
 const path = require('path')
 const fs = require('fs')
@@ -42,10 +42,11 @@ exports.addVehicle = async (req,res) => {
         Description : req.body.desc,
         Price : req.body.price,
         Assured : false,
+        Status : "Pending",
         Photo,
        }
   
-       rentRequetsScheme.create(details).then((data) => {
+       vehicleSchema.create(details).then((data) => {
            console.log("VEHICLE DATA : ",data);
            res.status(200).json(data)
         } )

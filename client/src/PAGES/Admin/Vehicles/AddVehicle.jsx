@@ -1,4 +1,4 @@
-import { Box, styled } from '@mui/material';
+import { Alert, Box, CircularProgress, styled } from '@mui/material';
 import React, { useState } from 'react'
 import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
@@ -9,6 +9,9 @@ import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { adminAddBikeApi } from '../../../API/Admin/ApiCalls';
 import { adminAddBikeAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/adminAddBike';
+import { useNavigate } from 'react-router-dom';
+import Alerts from '../../../COMPONENTS/Alert/Alerts';
+import { ToastContainer, toast } from 'react-toastify';
 
 function AddVehicle() {
   const DrawerHeader = styled('div')(({ theme }) => ({
@@ -30,8 +33,10 @@ const [price,setPrice] = useState('')
 const [color,setColor] = useState('')
 const [images,setImages] = useState([])
 const [loading,setLoading]=useState(false);
+const [sucess,setSuccess]=useState(false);
 
 const dispatch = useDispatch()
+const navigate = useNavigate();
 
 const submit = async() => {
   setLoading(true)
@@ -53,11 +58,19 @@ const submit = async() => {
 
  adminAddBikeApi(formdata).then((data) => {
   console.log("ADMIN BIKE API DATA",data.data);
+  // <Alerts/>
   dispatch(adminAddBikeAction(data.data))
   setLoading(false)
+  // toast.success("added")
+  setSuccess(true)
+  setTimeout(() => {
+    navigate("/admin/bikes",{state:{bikeAdded:true}})
+    setSuccess(false)
+  }, 3000);
  })
  .catch((err) => {
   console.log("SOME ERROR IN ADD BIKE",err);
+  setLoading(false);
  })
 }
 
@@ -69,6 +82,9 @@ const submit = async() => {
         <DrawerHeader/>
         
         <Card className='container col-md-6' style={{ boxShadow : "2px 2px 2px 1px"}}>
+     {
+      sucess?   <Alert severity="success">This is a success alert — check it out!</Alert>:''
+     }
         
         <div className="card flex flex-column md:flex-row gap-3">
             {/* <div className="p-inputgroup flex-1">
@@ -131,7 +147,7 @@ const submit = async() => {
           <MDBInput id='form3Example2'  type='file'  onChange={(e) => setImages([...images,e.target.files[0]])} />
         </MDBCol>
       </MDBRow>
-
+      
       <MDBRow className='pt-2 ms-3 me-3 mb-4'>
         <MDBCol>
         <label htmlFor="">Image3</label>
@@ -142,10 +158,15 @@ const submit = async() => {
           <MDBInput id='form3Example2'  type='file'  onChange={(e) => setImages([...images,e.target.files[0]])} />
         </MDBCol>
       </MDBRow>
+      {/* <ToastContainer /> */}
 
-      <Button className='mb-4 container col-md-4 sm-3' style ={{backgroundColor : '#fed250'}} onClick = {submit}>ADD</Button>
+   {
+    loading?    <Button className='mb-4 container col-md-4 sm-3' style ={{backgroundColor : '#fed250'}} ><CircularProgress /></Button>   : 
+ 
+    <Button className='mb-4 container col-md-4 sm-3' style ={{backgroundColor : '#fed250'}} onClick = {submit}>ADD</Button>
+   }
             </div>
-            {/* </div> */}
+            
 </Card>
       </Box>
       </Box>

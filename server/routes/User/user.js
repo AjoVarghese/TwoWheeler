@@ -10,11 +10,11 @@ const userProfileController = require('../../Controller/User/getUserProfileContr
 const addVehicleController = require('../../Controller/User/Vehicles/addVehicle')
 const {protect} = require('../../middleware/jwtAuth')
 
-router.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "*");
-    res.header("Access-Control-Allow-Headers", "*");
-    next();});
+// router.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Methods", "*");
+//     res.header("Access-Control-Allow-Headers", "*");
+//     next();});
 
 /* GET home page. */
 router.post('/signup',signupController.signUpPost)
@@ -29,7 +29,7 @@ router.route('/profileImageUpdate').post(protect,profilerImageUpdateController.p
 
 // router.post('/profileImageUpdate',profilerImageUpdateController.profileImageUploadPost)
 
-router.route('/vehicles').get(viewVehiclesController.viewVehicles)
+router.route('/bikes').get(viewVehiclesController.viewVehicles)
 
 router.route('/rent-bikes').post(protect,upload.array('images'),addVehicleController.addVehicle)
 

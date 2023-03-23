@@ -10,6 +10,7 @@ const userController = require('../../Controller/Admin/userController')
 const blockUnblockController = require('../../Controller/Admin/adminUserBlockUnblock')
 const addVehicleController = require('../../Controller/Admin/VehiclesController/adminAddVehicleController')
 const viewVehiclesController = require('../../Controller/Admin/VehiclesController/adminViewVehiclesController')
+const rentRequetsController = require('../../Controller/Admin/rentRequetsController')
 
 const {protect} = require('../../middleware/jwtAuth')
 
@@ -28,6 +29,8 @@ router.route('/blockUnblock').get(protect,blockUnblockController.userBlockUnBloc
 
 router.route('/add-bikes').post(protect,upload.array('images'),addVehicleController.addVehicle)
 
-router.route('/bikes').get(viewVehiclesController.viewVehicles)
+router.route('/bikes').get(protect,viewVehiclesController.viewVehicles)
+
+router.route('/accept-request').post(protect,rentRequetsController.acceptRequetsController)
 
 module.exports = router;

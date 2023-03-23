@@ -29,3 +29,4 @@ export const adminLoginApi = (Email,Password) => API.post('/login',{Email,Passwo
 export const getUsersApi = () => API.get('/users',configToken)
 export const blockUnblockApi = (id) => API.get('/blockUnblock?id=' +id,configToken)
 export const adminAddBikeApi = (formData) => API.post('/add-bikes',formData,configFormData)
+export const getAllBikesApi = () => API.get('/bikes',configToken)
