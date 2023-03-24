@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import { adminBikesReducer } from "./ADMIN/adminBIkesReducer";
 import { getAllBikesReducer } from "./ADMIN/adminGetAllBikesReducer";
+import { singleViewBikeReducer } from "./ADMIN/adminGetSingleBikeReducer";
 import { adminLoginReducer } from "./ADMIN/adminLoginReducer";
 import { adminUserGetReducer } from "./ADMIN/adminUserReducer";
 import { singleBikeReducer } from "./ADMIN/singleBikeReducer";
@@ -25,6 +26,7 @@ const reducers = combineReducers({
     // adminBikesReducer : adminBikesReducer,
     admingetAllBikesReducer :getAllBikesReducer,
     singleBikeReducer : singleBikeReducer,
+    singleViewBikeReducer : singleViewBikeReducer,
 
 })
 

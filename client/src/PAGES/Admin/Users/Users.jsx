@@ -1,5 +1,5 @@
-import { Box, styled } from '@mui/material';
-import React, { useEffect } from 'react'
+import { Box, CircularProgress, styled } from '@mui/material';
+import React, { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { blockUnblockApi } from '../../../API/Admin/ApiCalls';
@@ -19,6 +19,9 @@ function Users() {
 }));
   const dispatch = useDispatch()
 
+  const [load,setLoading]=useState(false);
+const [sucess,setSuccess]=useState(false);
+
   const adminUserdata = useSelector((state) => state.adminUserGetReducer)
   const {loading,adminUserData} = adminUserdata;
   // console.log("USERS",users.id);
@@ -27,8 +30,18 @@ function Users() {
     blockUnblockApi(id).then((data) => {
       if(data){
         dispatch(adminUserAction())
+        setLoading(false)
+        setSuccess(true)
+        setTimeout(() => {
+          // navigate("/admin/bikes",{state:{bikeAdded:true}})
+          setSuccess(false)
+        }, 3000);
       }
     })
+    .catch((err) => {
+      console.log("SOME ERROR IN ADD BIKE",err);
+      setLoading(false);
+     })
  }
 
 
@@ -85,9 +98,14 @@ function Users() {
                   <td>{m.Email}</td>
                   <td>{m.Mobile}</td>
                   <td>{m.Status?'Access Allowed':'Acces Suspended'}</td>
-                  <td><button onClick={()=>{
-                    handleAction(m._id)
-                  }}>{m.Status ? 'Block' : "Unblock"}</button></td>
+                  <td>
+                    {
+                      load ?  <button className='mb-4 container col-md-4 sm-3' style ={{backgroundColor : '#fed250'}} disabled ><CircularProgress /></button> :
+                     <button button onClick={()=>{
+                      handleAction(m._id)
+                    }}>{m.Status ? 'Block' : "Unblock"}</button>
+                    }
+                    </td>
                 </tr>
                 </>
               )

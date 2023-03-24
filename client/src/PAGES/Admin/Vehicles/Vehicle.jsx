@@ -64,7 +64,7 @@ function Vehicle() {
       <Box component = 'main' sx={{flexGrow : 1,p:3}}>
         <DrawerHeader/>
         <h1>Bikes</h1>
-        <Button className='pl-auto' >Add Bike</Button>
+        {/* <Button className='pl-auto' >Add Bike</Button> */}
         <div className="card container md-12">
            
     <Table striped bordered hover centered>

@@ -228,26 +228,26 @@ function Navbar() {
           <h1 style={{fontSize : "27px"}}>Two Wheeler</h1>
 
           <Group sx={{ height: '100%' }} spacing={0} className={classes.hiddenMobile}>
-            <a href="#" className={classes.link}>
-            <Link to = '/'>Home</Link>
+            <a  className={classes.link}>
+            <Link to = '/' style={{color :'black',textDecoration :'none'}}>Home</Link>
             </a>
             
-            <a href="#" className={classes.link}>
+            <a className={classes.link}>
               
-              <Link to = '/bikes'>Bikes</Link>
+              <Link to = '/bikes' style={{color :'black',textDecoration :'none'}}>Bikes</Link>
             </a>
-            <a href="#" className={classes.link}>
+            <a className={classes.link}>
               
-              <Link to = '/rent-bikes'>Rent A Bike</Link>
+              <Link to = '/rent-bikes' style={{color :'black',textDecoration :'none'}}>Rent A Bike</Link>
             </a>
           </Group>
            {
             userLoginDetails ?
             <>
             
-            <DropdownButton id="dropdown-basic-button" title={userLoginDetails.Name} className = 'profile-dropdown'>
+          <DropdownButton id="dropdown-basic-button" title={userLoginDetails.Name} className = ' bg-warning profile-dropdown'style={{backgroundColor : ''}}>
             <Avatar image={userLoginDetails? userLoginDetails.ProfileImage : ""} size="xlarge" shape="circle" />
-      <Dropdown.Item><Link to = '/profile'>My Profile</Link></Dropdown.Item>
+      <Dropdown.Item><Link to = '/profile' style={{color :'black',textDecoration :'none'}}>My Profile</Link></Dropdown.Item>
       <Dropdown.Item href="#/action-2">My Rides</Dropdown.Item>
       <Dropdown.Item href="#/action-2">My Rents</Dropdown.Item>
       <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
@@ -256,8 +256,8 @@ function Navbar() {
             
             :
             <Group className={classes.hiddenMobile}>
-            <Button variant="default"><Link to = '/login'>Login</Link></Button>
-            <Button><Link to = '/signup'>Sign up</Link></Button>
+            <Button  ><Link to = '/login' style={{color : 'white',textDecoration : "none"}}>Login</Link></Button>
+            <Button><Link to = '/signup' style={{color : 'white',textDecoration : "none"}}>Sign up</Link></Button>
           </Group> 
 
             

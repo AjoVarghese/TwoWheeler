@@ -52,10 +52,10 @@ function Signup() {
         <div className='signup-box'>
           <div className='signup-body'>
             <h2 className='signup-header'>Create Account</h2>
-            <div className='google'>
+            {/* <div className='google'>
                 <button><img src="" alt="Sign Up with Google" /></button>
              
-            </div>
+            </div> */}
             <div className='form-div'>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <Form.Field>

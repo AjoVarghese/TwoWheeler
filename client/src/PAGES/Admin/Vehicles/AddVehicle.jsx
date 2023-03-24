@@ -1,9 +1,12 @@
-import { Alert, Box, CircularProgress, styled } from '@mui/material';
+import { Alert, Box, CircularProgress, styled, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { Card } from 'primereact/card';
 
 import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar';
 import {  MDBCol, MDBInput, MDBRow } from 'mdb-react-ui-kit';
+
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import { useDispatch } from 'react-redux';
 import { adminAddBikeApi } from '../../../API/Admin/ApiCalls';
@@ -12,6 +15,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { Form, Button } from 'semantic-ui-react';
 import { useForm , Controller} from "react-hook-form";
+
+const schema = yup.object().shape({
+  bikeName : yup.string().required()
+})
 
 function AddVehicle() {
   const DrawerHeader = styled('div')(({ theme }) => ({
@@ -38,7 +45,10 @@ const [sucess,setSuccess]=useState(false);
 const dispatch = useDispatch()
 const navigate = useNavigate();
 
-const { register, handleSubmit, formState: { errors } } = useForm();
+const { register,
+   handleSubmit,
+    formState: { errors }
+   } = useForm();
 
 const onSubmit = (data) => {
   console.log(data);
@@ -77,43 +87,6 @@ const onSubmit = (data) => {
  })
 }
 
-
-// const submit = async() => {
-//   setLoading(true)
-//   const formdata = new FormData();
-    
-
-//     images.forEach((m)=>{
-//       formdata.append("images",m)
-//     })
-
-//     formdata.append("bikeName", bikeName);
-//     formdata.append("bikeModel", bikeModel);
-//     formdata.append("engineNo", engineNo);
-//     formdata.append("fuel", fuel);
-//     formdata.append("brand", brand);
-//     formdata.append("desc", desc);
-//     formdata.append("price", price);
-//     formdata.append("color", color);
-
-//  adminAddBikeApi(formdata).then((data) => {
-//   console.log("ADMIN BIKE API DATA",data.data);
-//   // <Alerts/>
-//   dispatch(adminAddBikeAction(data.data))
-//   setLoading(false)
-//   // toast.success("added")
-//   setSuccess(true)
-//   setTimeout(() => {
-//     navigate("/admin/bikes",{state:{bikeAdded:true}})
-//     setSuccess(false)
-//   }, 3000);
-//  })
-//  .catch((err) => {
-//   console.log("SOME ERROR IN ADD BIKE",err);
-//   setLoading(false);
-//  })
-// }
-
   return (
     <div>
         <Box sx={{ display : 'flex' }}>
@@ -135,17 +108,27 @@ const onSubmit = (data) => {
                 
                 <MDBRow className='pt-2 ms-3 me-3 mb-4'>
         <MDBCol>
+        {/* <TextField 
+        id="bikeName" 
+        autoFocus
+        label="Bike Name" 
+        variant="outlined" 
+        error = {!!errors.bikeName}
+        helperText = {errors.bikeName ? errors.bikeName.message : ""}
+        {...register('bikeName')}
+        /> */}
           <Form.Field>
           <label htmlFor="">Bike Name</label>
           <MDBInput id='form3Example1' 
           {...register("bikeName",
           {
-            required : true , minLength : 3
+            required : "This is required" , minLength : 3
           }
           )}
           onChange={(e) => setBikeName(e.target.value)} />
+         
           </Form.Field>
-          {errors.bikeName && <p style={{color : 'red'}}>Please enter the bike name </p>}
+          {errors.bikeName && <p style={{color : 'red'}}>Please enter the bike name</p>}
         </MDBCol>
         <MDBCol>
         <Form.Field>

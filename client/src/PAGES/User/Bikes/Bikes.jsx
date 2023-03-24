@@ -10,10 +10,13 @@ import {
   MDBCol,
   MDBListGroup,
   MDBListGroupItem,
-  MDBCardLink
+  MDBCardLink,
+  MDBContainer,
+  MDBIcon
 } from 'mdb-react-ui-kit';
+import Stack from 'react-bootstrap/Stack'
 import Button from 'react-bootstrap/Button';
-import './Bikes.css'
+// import './Bikes.css'
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../../COMPONENTS/Loading/Loading'
 import { getBikesAction } from '../../../REDUX/Actions/USER_ACTIONS/getBikesAction';
@@ -34,7 +37,7 @@ function Bikes() {
          <Navbar/>
          <section className='bikes'>
            <div className='cards'>
-           <MDBRow className='row-cols-1 row-cols-md-3 g-4'>
+           {/* <MDBRow className='row-cols-1 row-cols-md-3 g-4'>
             {
               loading ? <Loading/> : 
                
@@ -49,113 +52,84 @@ function Bikes() {
                       />
                       <MDBCardBody>
                         <MDBCardTitle><h1>{x.vehicleName}</h1></MDBCardTitle>
-                        <MDBCardText>
-                          <h5>Vehicle Model : {x.vehicleModel}</h5>
-                          <span className='me-auto' style={{float : 'right'}}>hh</span>
-                        </MDBCardText>
+                        
+                         <Stack direction="horizontal" gap={3} className = 'mt-3'>
+      <div className="bg-light border ms-auto">Brand :{x.Brand}</div>
+      <div className="bg-light border ms-auto">Model : {x.vehicleModel}</div>
+      <div className="vr" />
+      <div className="bg-light border">EngineNo : {x.EngineNo}</div>
+    </Stack>
                         <MDBCardBody>
-        <MDBCardLink href='#' style={{textDecoration : "none",color : "black"}}>Card link</MDBCardLink>   :
-        <MDBCardLink href='#' style={{textDecoration : "none",color : "black"}}>Card link</MDBCardLink>
-        <div>
-        <MDBCardLink href='#' style={{textDecoration : "none",color : "black"}}>Card link</MDBCardLink>    :
-        <MDBCardLink href='#' style={{textDecoration : "none",color : "black"}}><span>hi</span></MDBCardLink>
-        </div>
+                        <Stack direction="horizontal" gap={3} className = 'mt-3'>
+      <div className="bg-light border ms-auto">Fuel Used : {x.Fuel}</div>
+      <div className="bg-light border ms-auto">Color : {x.Color}</div>
+      <div className="vr" />
+      <div className="bg-light border">Assured : {x.Assured ? "Assured" : 'Not Assured'}</div>
+    </Stack>
+       
        
       </MDBCardBody>
-                        {/* <MDBCardText className='card-text' >
-                          <div className='mb-5'>
-                          <h5>Vehicle Model : {x.vehicleModel}</h5>
-                          <h1>ddd</h1>
-                          </div>
-                         
-                          <span className='me-auto' style={{float : 'right'}}>hh</span>
-                        </MDBCardText> */}
-                        {/* <button>SEARCH</button> */}
-                        <button type="button" class="btn btn-warning">Book Now</button>
-                        {/* <Button style={{backgroundColor:'hsl(203, 85%, 58%); '}}>Go somewhere</Button> */}
+                        <h5>Price : Rs.{x.Price}</h5>
+                        <button type="button" class="btn btn-warning" style={{width : "100%"}}>Book Now</button>
+                        
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>
                   )
                 }) : ""
             }
-    </MDBRow>
+    </MDBRow> */}
+    <MDBContainer  className="my-5">
+      <MDBRow className="col-xs-6">
+        {
+          loading ? <Loading/> : 
+            bikesData ? bikesData.map((x,i) => {
+              return (
+                <MDBCol md="3 mt-3">
+                <MDBCard className="text-black">
+                  <MDBIcon fab icon="apple" size="lg" className="px-3 pt-3 pb-2" />
+                  <MDBCardImage
+                    src={x.Photo[0]}
+                    position="top"
+                    alt="Apple Computer"
+                  />
+                  <MDBCardBody style={{backgroundColor : "#DCDCDC"}}>
+                    <div className="text-center">
+                      <MDBCardTitle>{x.vehicleName}</MDBCardTitle>
+                      <p className="text-muted mb-4">{x.Description}</p>
+                    </div>
+                    <div>
+                      <div className="d-flex justify-content-between">
+                        <span>Model</span>
+                        <span>{x.vehicleModel}</span>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <span>Brand</span>
+                        <span>{x.Brand}</span>
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <span>Color</span>
+                        <span>{x.Color}</span>
+                      </div>
+                    </div>
+                    <div className="d-flex justify-content-between total font-weight-bold mt-4">
+                      <span>Rent Amount(per hr)</span>
+                      <span>Rs.{x.Price}</span>
+                    </div>
+                    <div className='mt-3'>
+                    <button type="button" style={{width : "100%",backgroundColor: '#fed250',borderRadius : '6px',height : '3rem',border : 'none'}}>Book Now</button>
+                    </div>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>       
+              )
+            }) : ''
+        }
+      </MDBRow>
+    </MDBContainer>
                 
            </div>
-{/* <div className='container ms-5 mt-5 col-md-3' style={{width : "25rem"}}> */}
-{/* <MDBCard>
-      <MDBCardImage position='top' alt='...' src='https://mdbootstrap.com/img/new/standard/city/062.webp' />
-      <MDBCardBody>
-        <MDBCardTitle>Card title</MDBCardTitle>
-        <MDBCardText>
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-        </MDBCardText>
-      </MDBCardBody>
-      <MDBListGroup flush>
-        <MDBListGroupItem>Cras justo odio</MDBListGroupItem>
-        <MDBListGroupItem>Dapibus ac facilisis in</MDBListGroupItem>
-        <MDBListGroupItem>Vestibulum at eros</MDBListGroupItem>
-      </MDBListGroup>
-      <MDBCardBody>
-        <MDBCardLink href='#' style={{textDecoration : "none",color : "black"}}>Card link</MDBCardLink>
-        <MDBCardLink href='#'>Card link</MDBCardLink>
-      </MDBCardBody>
-    </MDBCard>
-    <MDBCard>
-      <MDBCardImage position='top' alt='...' src='https://mdbootstrap.com/img/new/standard/city/062.webp' />
-      <MDBCardBody>
-        <MDBCardTitle>Card title</MDBCardTitle>
-        <MDBCardText>
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-        </MDBCardText>
-      </MDBCardBody>
-      <MDBListGroup flush>
-        <MDBListGroupItem>Cras justo odio</MDBListGroupItem>
-        <MDBListGroupItem>Dapibus ac facilisis in</MDBListGroupItem>
-        <MDBListGroupItem>Vestibulum at eros</MDBListGroupItem>
-      </MDBListGroup>
-      <MDBCardBody>
-        <MDBCardLink href='#' style={{textDecoration : "none",color : "black"}}>Card link</MDBCardLink>
-        <MDBCardLink href='#'>Card link</MDBCardLink>
-      </MDBCardBody>
-    </MDBCard>
-    <MDBCard>
-      <MDBCardImage position='top' alt='...' src='https://mdbootstrap.com/img/new/standard/city/062.webp' />
-      <MDBCardBody>
-        <MDBCardTitle>Card title</MDBCardTitle>
-        <MDBCardText>
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-        </MDBCardText>
-      </MDBCardBody>
-      <MDBListGroup flush>
-        <MDBListGroupItem>Cras justo odio</MDBListGroupItem>
-        <MDBListGroupItem>Dapibus ac facilisis in</MDBListGroupItem>
-        <MDBListGroupItem>Vestibulum at eros</MDBListGroupItem>
-      </MDBListGroup>
-      <MDBCardBody>
-        <MDBCardLink href='#' style={{textDecoration : "none",color : "black"}}>Card link</MDBCardLink>
-        <MDBCardLink href='#'>Card link</MDBCardLink>
-      </MDBCardBody>
-    </MDBCard>
-    <MDBCard>
-      <MDBCardImage position='top' alt='...' src='https://mdbootstrap.com/img/new/standard/city/062.webp' />
-      <MDBCardBody>
-        <MDBCardTitle>Card title</MDBCardTitle>
-        <MDBCardText>
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-        </MDBCardText>
-      </MDBCardBody>
-      <MDBListGroup flush>
-        <MDBListGroupItem>Cras justo odio</MDBListGroupItem>
-        <MDBListGroupItem>Dapibus ac facilisis in</MDBListGroupItem>
-        <MDBListGroupItem>Vestibulum at eros</MDBListGroupItem>
-      </MDBListGroup>
-      <MDBCardBody>
-        <MDBCardLink href='#' style={{textDecoration : "none",color : "black"}}>Card link</MDBCardLink>
-        <MDBCardLink href='#'>Card link</MDBCardLink>
-      </MDBCardBody>
-    </MDBCard> */}
-    {/* </div> */}
+
          </section>
        </>   
   

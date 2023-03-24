@@ -6,6 +6,7 @@ const signupController = require('../../Controller/User/userRegisterController')
 const loginController = require('../../Controller/User/userLoginController')
 const profilerImageUpdateController = require('../../Controller/User/profileImageUpdateController')
 const viewVehiclesController = require('../../Controller/User/Vehicles/VehicleStoreController')
+const singleViewController = require('../../Controller/User/Vehicles/singleViewController')
 const userProfileController = require('../../Controller/User/getUserProfileController')
 const addVehicleController = require('../../Controller/User/Vehicles/addVehicle')
 const {protect} = require('../../middleware/jwtAuth')
@@ -30,6 +31,8 @@ router.route('/profileImageUpdate').post(protect,profilerImageUpdateController.p
 // router.post('/profileImageUpdate',profilerImageUpdateController.profileImageUploadPost)
 
 router.route('/bikes').get(viewVehiclesController.viewVehicles)
+
+// router.route('/view-bike').get(singleViewController.singleViewController)
 
 router.route('/rent-bikes').post(protect,upload.array('images'),addVehicleController.addVehicle)
 
