@@ -37,6 +37,8 @@ function RentBikes() {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
+    console.log(data);
+    setLoading(true)
     const formdata = new FormData();
       
   
@@ -106,7 +108,7 @@ function RentBikes() {
           
           <Card className='container col-md-6' style={{ boxShadow : "2px 2px 2px 1px"}}>
           {
-      sucess?   <Alert severity="success">This is a success alert — check it out!</Alert>:''
+      sucess?   <Alert severity="warning">Your Request has been submitted.Wait for some time until we verifies the details!</Alert>:''
      }
           <Form onSubmit={handleSubmit(onSubmit)}>
           <div className="card flex flex-column md:flex-row gap-3">

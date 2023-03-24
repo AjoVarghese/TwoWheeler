@@ -1,19 +1,17 @@
 import { Alert, Box, CircularProgress, styled } from '@mui/material';
 import React, { useState } from 'react'
 import { Card } from 'primereact/card';
-import { InputText } from 'primereact/inputtext';
-import { InputNumber } from 'primereact/inputnumber';
+
 import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar';
-import { MDBCard, MDBCardBody, MDBCol, MDBInput, MDBRow } from 'mdb-react-ui-kit';
-// import { Button } from 'react-bootstrap';
+import {  MDBCol, MDBInput, MDBRow } from 'mdb-react-ui-kit';
+
 import { useDispatch } from 'react-redux';
 import { adminAddBikeApi } from '../../../API/Admin/ApiCalls';
 import { adminAddBikeAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/adminAddBike';
 import { useNavigate } from 'react-router-dom';
-import Alerts from '../../../COMPONENTS/Alert/Alerts';
-import { ToastContainer, toast } from 'react-toastify';
+
 import { Form, Button } from 'semantic-ui-react';
-import { useForm } from "react-hook-form";
+import { useForm , Controller} from "react-hook-form";
 
 function AddVehicle() {
   const DrawerHeader = styled('div')(({ theme }) => ({
@@ -125,7 +123,7 @@ const onSubmit = (data) => {
         
         <Card className='container col-md-6' style={{ boxShadow : "2px 2px 2px 1px"}}>
      {
-      sucess?   <Alert severity="success">This is a success alert — check it out!</Alert>:''
+      sucess?   <Alert severity="success">Bike Added Successfully!</Alert>:''
      }
         <Form onSubmit={handleSubmit(onSubmit)}>
         <div className="card flex flex-column md:flex-row gap-3">

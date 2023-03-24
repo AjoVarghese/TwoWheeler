@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllBikesAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/getAllBikesAction';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loading from '../../../COMPONENTS/Loading/Loading'
+import { bikeSingleViewApi } from '../../../API/Admin/ApiCalls';
+import { bikeSingleViewAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/bikeSingleViewAction';
 
 
 function Vehicle() {
@@ -36,6 +38,14 @@ function Vehicle() {
    const bikes = useSelector((state) => state.admingetAllBikesReducer)
    const {loading,bikesData,bikesDataError} = bikes
    console.log("bikes",bikesData);
+
+   const handleClick = (id) => {
+      bikeSingleViewApi(id).then((data) => {
+        console.log("SINGLE BIKE VIEW",data.data);
+        dispatch(bikeSingleViewAction(data.data))
+        navigate('/admin/bike-detailed-view')
+      })
+   }
 
   useEffect(() => {
     
@@ -79,7 +89,9 @@ function Vehicle() {
               <td>{x.vehicleModel}</td>
               <td>{x.Color}</td>
               <td>{x.Price}</td>
-              <td><VisibilityIcon/></td>
+              <td><VisibilityIcon onClick={(e) => {
+                 handleClick(x._id)
+              }}/></td>
             </tr>
              )
           }) : ""

@@ -3,6 +3,7 @@ import { adminBikesReducer } from "./ADMIN/adminBIkesReducer";
 import { getAllBikesReducer } from "./ADMIN/adminGetAllBikesReducer";
 import { adminLoginReducer } from "./ADMIN/adminLoginReducer";
 import { adminUserGetReducer } from "./ADMIN/adminUserReducer";
+import { singleBikeReducer } from "./ADMIN/singleBikeReducer";
 import { bikesReducer } from "./USER/bikesReducer";
 import { imageUploadReducer } from "./USER/imageUploadReducer";
 import { userGetProfileReduer } from "./USER/userGetProfileReducer";
@@ -21,8 +22,10 @@ const reducers = combineReducers({
 
     adminLoginReducer : adminLoginReducer,
     adminUserGetReducer : adminUserGetReducer,
-    adminBikesReducer : adminBikesReducer,
-    admingetAllBikesReducer :getAllBikesReducer
+    // adminBikesReducer : adminBikesReducer,
+    admingetAllBikesReducer :getAllBikesReducer,
+    singleBikeReducer : singleBikeReducer,
+
 })
 
 

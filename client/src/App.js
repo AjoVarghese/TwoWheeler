@@ -9,6 +9,7 @@ import Dashboard from './PAGES/Admin/DashBoard/Dashboard';
 import AdminLogin from './PAGES/Admin/Login/AdminLogin';
 import Users from './PAGES/Admin/Users/Users';
 import AddVehicle from './PAGES/Admin/Vehicles/AddVehicle';
+import SingleBikeView from './PAGES/Admin/Vehicles/SingleBikeView';
 import Vehicle from './PAGES/Admin/Vehicles/Vehicle';
 import Bikes from './PAGES/User/Bikes/Bikes';
 import Home from './PAGES/User/Home/Home';
@@ -43,6 +44,7 @@ function App() {
           <Route exact path='/admin/dashboard' element = {adminData ? <Dashboard/> : <Navigate to = '/admin/login'/> }></Route>
           <Route exact path='/admin/users' element = {adminData ? <Users/> : <Navigate to = '/admin/login'/>}></Route>
           <Route exact path='/admin/bikes' element = {adminData ? <Vehicle/> : <Navigate to = '/admin/login'/>}></Route>
+          <Route exact path = '/admin/bike-detailed-view' element = {adminData ? <SingleBikeView/> : <Navigate to = '/admin/login'/>}></Route>
           <Route exact path = '/admin/add-bikes' element = {adminData ? <AddVehicle/> : <Navigate to = '/admin/login'/>}></Route>
           <Route exact path='/admin/bookings' element = {adminData ? <Bookings/> : <Navigate to={'/admin/login'}/>}></Route>
           
