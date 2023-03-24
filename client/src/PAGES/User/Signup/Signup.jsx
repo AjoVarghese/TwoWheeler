@@ -5,7 +5,9 @@ import {Form,Button} from 'semantic-ui-react'
 import {useForm} from "react-hook-form"
 import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
-import { userRegister } from '../../../REDUX/Actions/USER_ACTIONS/RegisterAction'
+import {GoogleLogin} from '@react-oauth/google';
+import { signUpGoogle, userRegister } from '../../../REDUX/Actions/USER_ACTIONS/RegisterAction'
+import { signUpGoogleApi } from '../../../API/User/ApiCalls'
 
 function Signup() {
     const [Name,setName] = useState('')
@@ -35,7 +37,12 @@ function Signup() {
         }
     },[])
 
-    
+//     function handleGoogleLoginSuccess(tokenResponse){
+//         const accessToken = tokenResponse.access_token;
+//         dispatch(signUpGoogleApi(accessToken))
+//     }
+
+//    const handleClick = GoogleLogin({onSuccess : handleGoogleLoginSuccess})
 
   return (
     <div className='signup'>

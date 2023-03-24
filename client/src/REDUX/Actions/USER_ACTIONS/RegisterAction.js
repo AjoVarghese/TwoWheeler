@@ -1,6 +1,8 @@
 import { ActionTypes } from "../../Constants/User/ActionTypes"
-import { userSignupApi } from "../../../API/User/ApiCalls"
+import { signUpGoogleApi, userSignupApi } from "../../../API/User/ApiCalls"
+import { useNavigate } from "react-router-dom"
 
+// var navigate = useNavigate()
 export const userRegister = (Name,Email,Mobile,Password) => async(dispatch) => {
   try {
 
@@ -10,21 +12,8 @@ export const userRegister = (Name,Email,Mobile,Password) => async(dispatch) => {
         }
     )
 
-    // const config = {
-    //     headers : {
-    //       "Content-Type" : "application/json"
-    //     }
-    // }
-
      userSignupApi(Name,Email,Mobile,Password)
-    // {
-    //     Name,
-    //     Email,
-    //     Mobile,
-    //     Password,
-        
-    // },
-    // config
+   
     .then((data) => {
       console.log("API DATA",data.data);
       dispatch({
@@ -45,6 +34,18 @@ export const userRegister = (Name,Email,Mobile,Password) => async(dispatch) => {
     console.log("ERROR",error);
    
   }
-   
+}
+
+export const signUpGoogle = (accessToken,navigate) => async(dispatch) => {
+  try {
+      const {data} = await signUpGoogleApi(accessToken)
+
+      dispatch({
+        type : ActionTypes.REGISTER_REQUEST_SUCCESS,
+        payload : data,
+        // navigate('/')
+      })
+  } catch (error) {
     
+  }
 }
