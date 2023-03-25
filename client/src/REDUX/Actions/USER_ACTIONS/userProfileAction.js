@@ -1,4 +1,5 @@
 import { imageUploadApi, userProfileApi } from "../../../API/User/ApiCalls";
+import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes";
 import { ActionTypes } from "../../Constants/User/ActionTypes"
 
 export const getUserProfileAction = () => async(dispatch) => {
@@ -30,24 +31,8 @@ export const getUserProfileAction = () => async(dispatch) => {
 
 export const imageUploadAction = (image) => async(dispatch) => {
     try {
-        // dispatch({
-        //     type : ActionTypes.IMAGE_UPLOAD_REQ
-        // })
          const user = JSON.parse(localStorage.getItem("userInfo"))
-        // console.log("TOken_id",user.id);
-        // imageUploadApi(user.id,image).then((data) => {
-        //     console.log("imageuploadApiData",data.data.ProfileImage);
-        //     dispatch({
-        //         type : ActionTypes.IMAGE_UPLOAD_REQ_SUCCESS,
-        //         payload : data.data
-        //     })
-        // })
-        // .catch((err) => {
-        //     dispatch({
-        //         type : ActionTypes.IMAGE_UPLOAD_REQ_FAILED,
-        //         payload : err.response.message
-        //     })
-        // })
+        
         imageUploadApi(user.id,image).then((data) => {
             console.log("imageuploadApiData",data.data);
             localStorage.setItem("userInfo",JSON.stringify(data.data))
@@ -59,4 +44,12 @@ export const imageUploadAction = (image) => async(dispatch) => {
     } catch (error) {
         
     }
+}
+
+export const updateProfile = (data) => async(dispatch) => {
+    console.log("DISPATCH DATA");
+    dispatch({
+        type : ActionTypes.UPDATE_PROFILE_DETAILS,
+        payload : data
+    })
 }

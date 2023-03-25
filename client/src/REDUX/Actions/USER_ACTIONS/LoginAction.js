@@ -22,7 +22,7 @@ export const userLoginAction = (Mobile,Password) => async(dispatch) => {
         })
 
         .catch((error) => {
-            console.log(" USER LOGIN ERROR",error.response.data);
+            // console.log(" USER LOGIN ERROR",error.response.data);
             dispatch( 
                 {
                     type : ActionTypes.LOGIN_REQUEST_FAILED,

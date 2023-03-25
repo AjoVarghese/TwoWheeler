@@ -183,7 +183,7 @@ export default function AdminSideBar() {
                   text2 === "dashboard" && navigate('/admin/dashboard')
                   text2 === 'users' && navigate('/admin/users')
                   text2 === 'bikes' && navigate('/admin/bikes')
-                  text2 === 'Add bikes' && navigate('/admin/add-bikes')
+                  text2 === 'add bikes' && navigate('/admin/add-bikes')
                   text2 === 'rides' && navigate('/admin/rides')
                   text2 === 'rent requests' && navigate('/admin/rent-requests')
                   text2 === 'offers' && navigate('/admin/offers')

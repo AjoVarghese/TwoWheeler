@@ -27,6 +27,11 @@ export const userLoginReducer =  (state = {} , {type,payload}) => {
                 userLoginDetails : payload
             }
 
+            case ActionTypes.UPDATE_PROFILE_DETAILS :
+                return{
+                    userLoginDetails : payload
+                }
+
         default : return state    
     }
 }

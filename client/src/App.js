@@ -7,6 +7,7 @@ import Bookings from './PAGES/Admin/Bookings/Bookings';
 // import SideBar from './Pages/Admin/Components/Navbar/SideBar';
 import Dashboard from './PAGES/Admin/DashBoard/Dashboard';
 import AdminLogin from './PAGES/Admin/Login/AdminLogin';
+import RentRequets from './PAGES/Admin/RentRequets/RentRequets';
 import Users from './PAGES/Admin/Users/Users';
 import AddVehicle from './PAGES/Admin/Vehicles/AddVehicle';
 import SingleBikeView from './PAGES/Admin/Vehicles/SingleBikeView';
@@ -20,6 +21,7 @@ import Profile from './PAGES/User/Profile/Profile';
 import RentBikes from './PAGES/User/Rent Bikes/RentBikes';
 
 import Signup from "./PAGES/User/Signup/Signup";
+import SingleView from './PAGES/User/SingleView/SingleView';
 
 function App() {
   const userdata = useSelector((state)=>state.userLoginReducer.userLoginDetails);
@@ -34,6 +36,7 @@ function App() {
           <Route exact path = '/signup' element = {userdata?<Navigate to='../'/> :<Signup/>}></Route>
           <Route exact path='/login' element = {userdata?<Navigate to='../'/> :<Login/>}></Route>
           <Route exact path='/bikes' element = {<Bikes/>}></Route>
+          <Route exact path = '/bike-detailed-view' element={<SingleView/>}></Route>
           <Route exact path='/otp-login' element = {<Otplogin/>}></Route>
           <Route exact path = '/profile' element = {userdata?<Profile/>:<Navigate to='/login' />}></Route>
           <Route path='/rent-bikes' element={<RentBikes/>} />
@@ -46,6 +49,7 @@ function App() {
           <Route exact path='/admin/bikes' element = {adminData ? <Vehicle/> : <Navigate to = '/admin/login'/>}></Route>
           <Route exact path = '/admin/bike-detailed-view' element = {adminData ? <SingleBikeView/> : <Navigate to = '/admin/login'/>}></Route>
           <Route exact path = '/admin/add-bikes' element = {adminData ? <AddVehicle/> : <Navigate to = '/admin/login'/>}></Route>
+          <Route exact path='/admin/rent-requests' element = {adminData ? <RentRequets/> : <Navigate to = '/admin/login'/>}></Route>
           <Route exact path='/admin/bookings' element = {adminData ? <Bookings/> : <Navigate to={'/admin/login'}/>}></Route>
           
         </Routes>

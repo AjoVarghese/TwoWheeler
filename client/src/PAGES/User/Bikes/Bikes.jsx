@@ -21,9 +21,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../../../COMPONENTS/Loading/Loading'
 import { getBikesAction } from '../../../REDUX/Actions/USER_ACTIONS/getBikesAction';
 import { width } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
 
 function Bikes() {
    const dispatch = useDispatch()
+   const navigate = useNavigate()
 
   const bikes = useSelector((state) => state.bikesReducer)
   const {loading , bikesData , bikesDataError} = bikes
@@ -37,48 +39,6 @@ function Bikes() {
          <Navbar/>
          <section className='bikes'>
            <div className='cards'>
-           {/* <MDBRow className='row-cols-1 row-cols-md-3 g-4'>
-            {
-              loading ? <Loading/> : 
-               
-                bikesData ? bikesData.map((x,i) => {
-                  return (
-                    <MDBCol >
-                    <MDBCard>
-                      <MDBCardImage
-                        src={x.Photo[0]}
-                        alt='...'
-                        position='top'
-                      />
-                      <MDBCardBody>
-                        <MDBCardTitle><h1>{x.vehicleName}</h1></MDBCardTitle>
-                        
-                         <Stack direction="horizontal" gap={3} className = 'mt-3'>
-      <div className="bg-light border ms-auto">Brand :{x.Brand}</div>
-      <div className="bg-light border ms-auto">Model : {x.vehicleModel}</div>
-      <div className="vr" />
-      <div className="bg-light border">EngineNo : {x.EngineNo}</div>
-    </Stack>
-                        <MDBCardBody>
-                        <Stack direction="horizontal" gap={3} className = 'mt-3'>
-      <div className="bg-light border ms-auto">Fuel Used : {x.Fuel}</div>
-      <div className="bg-light border ms-auto">Color : {x.Color}</div>
-      <div className="vr" />
-      <div className="bg-light border">Assured : {x.Assured ? "Assured" : 'Not Assured'}</div>
-    </Stack>
-       
-       
-      </MDBCardBody>
-                        <h5>Price : Rs.{x.Price}</h5>
-                        <button type="button" class="btn btn-warning" style={{width : "100%"}}>Book Now</button>
-                        
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
-                  )
-                }) : ""
-            }
-    </MDBRow> */}
     <MDBContainer  className="my-5">
       <MDBRow className="col-xs-6">
         {
@@ -92,6 +52,7 @@ function Bikes() {
                     src={x.Photo[0]}
                     position="top"
                     alt="Apple Computer"
+                    onClick={(e) => navigate('/bike-detailed-view')}
                   />
                   <MDBCardBody style={{backgroundColor : "#DCDCDC"}}>
                     <div className="text-center">

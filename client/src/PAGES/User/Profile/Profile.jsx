@@ -30,24 +30,28 @@ import { FileUpload } from 'primereact/fileupload';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getUserProfileAction, getUserProfileReducer, imageUploadAction } from '../../../REDUX/Actions/USER_ACTIONS/userProfileAction';
+import ModalBox from '../../../COMPONENTS/Modal/ModalBox';
+
+
 
 function Profile() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const [image,setImage] = useState("")
+  const [modal,setModal] = useState(false)
 
-  const toast = useRef(null);
+  // const toast = useRef(null);
 
-    const onUpload = () => {
-        toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
-    };
+  //   const onUpload = () => {
+  //       toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
+  //   };
     
     const profileData = useSelector((state)=>state.userLoginReducer.userLoginDetails)
-  console.log("profileData",profileData);
+     console.log("profileData",profileData);
             
-            const profileImage = useSelector((state) =>state.imageUploadReducer.profileImage )
-  console.log("PROFILEIMAGE",profileImage);
+    // const profileImage = useSelector((state) =>state.imageUploadReducer.profileImage )
+    //  console.log("PROFILEIMAGE",profileImage);
 
   // useEffect(() => {
   //   dispatch(getUserProfileAction())
@@ -76,46 +80,11 @@ function Profile() {
   return (
     <>
     <Navbar/>
-    {/* <div className='main-div'>
-
-      <div className='left-section'>
-
-       <div className='profile'>
-        <h2 className='header'>PROFILE</h2>
-         <div className='img-div'>
-           <img src= {profileData?profileData.ProfileImage:''} alt="" className='image' />
-         </div>
-         <div className='upload-field'>
-          <input type="file" 
-          onChange={(e) => setImage(e.target.files[0])}/>
-         </div>
-         <div className='upload-button'>
-            <button onClick={handleClick}>Upload Image</button>
-         </div>
-         <div className='details-div'>
-            <p>{profileData ? profileData.Name : ""}</p>
-            <p>{ profileData ? profileData.Mobile : ""}</p>
-            <p>{profileData ? profileData.Email : ""}</p>
-         </div>
-         
-       </div>
-
-       <div className='wallet-card'>
-         <p>My Wallet Balance : 0.0</p>
-         <button>Check My Wallet</button>
-        
-        </div>
-      </div>
-
-      <div className='right-section'>
-        <div className='documents'>
-          fff
-        </div>
-      </div>
-    </div> */}
 
 <section>
+
       <MDBContainer className="py-5">
+      
         <MDBRow>
           <MDBCol>
             {/* <MDBBreadcrumb className="bg-light rounded-3">
@@ -128,8 +97,11 @@ function Profile() {
               <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
             </MDBBreadcrumb> */}
           </MDBCol>
+         
         </MDBRow>
-
+        {
+          modal ? <ModalBox closeModal={setModal} details = {profileData}/> : ""
+        }
         <MDBRow>
           <MDBCol lg="4">
             <MDBCard className="mb-4">
@@ -156,22 +128,7 @@ function Profile() {
             <MDBCard className="mb-4 mb-lg-0">
               <MDBCardBody className="p-0">
                 <MDBListGroup flush className="rounded-3">
-                  {/* <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fas icon="globe fa-lg text-warning" />
-                    <MDBCardText>https://mdbootstrap.com</MDBCardText>
-                  </MDBListGroupItem> */}
-                  {/* <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="github fa-lg" style={{ color: '#333333' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
-                  </MDBListGroupItem> */}
-                  {/* <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="twitter fa-lg" style={{ color: '#55acee' }} />
-                    <MDBCardText>@mdbootstrap</MDBCardText>
-                  </MDBListGroupItem> */}
-                  {/* <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="instagram fa-lg" style={{ color: '#ac2bac' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
-                  </MDBListGroupItem> */}
+                 
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                     <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
                     <p>Wallet Amount <span>0.0</span></p>
@@ -187,13 +144,31 @@ function Profile() {
             <MDBCard className="mb-4">
             <h1 className='mt-3 ms-4' style={{fontSize : '25px'}}>User Details</h1>
               <MDBCardBody>
+                <label htmlFor="">Username</label>
                 <MDBRow>
                   {/* <MDBCol sm="3">
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol> */}
                  <MDBInput
-      label='Username'
-      placeholder='Ajo Varghese'
+      
+      placeholder={profileData.Name}
+      id='formControlReadOnly'
+      type='text'
+      readonly
+    />
+         
+                  {/* <MDBCol sm="9">
+                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
+                  </MDBCol> */}
+                </MDBRow>
+                <label htmlFor="">Email</label>
+                <MDBRow>
+                  {/* <MDBCol sm="3">
+                    <MDBCardText>Full Name</MDBCardText>
+                  </MDBCol> */}
+                 <MDBInput
+     
+      placeholder={profileData.Email}
       id='formControlReadOnly'
       type='text'
       readonly
@@ -202,28 +177,14 @@ function Profile() {
                     <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
                   </MDBCol> */}
                 </MDBRow>
+                <label htmlFor="">Mobile No</label>
                 <MDBRow>
                   {/* <MDBCol sm="3">
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol> */}
                  <MDBInput
-      label='Email'
-      placeholder='email'
-      id='formControlReadOnly'
-      type='text'
-      readonly
-    />
-                  {/* <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
-                  </MDBCol> */}
-                </MDBRow>
-                <MDBRow>
-                  {/* <MDBCol sm="3">
-                    <MDBCardText>Full Name</MDBCardText>
-                  </MDBCol> */}
-                 <MDBInput
-      label='Mobile No'
-      placeholder='232323212'
+     
+      placeholder={profileData.Mobile}
       id='formControlReadOnly'
       type='number'
       readonly
@@ -231,7 +192,10 @@ function Profile() {
             
                 </MDBRow>
                 <MDBRow>
-                <Button variant="warning ms-6 me-6 mt-3" style={{backgroundColor : "#fed250"}} >Edit Details</Button>{' '}
+                <Button variant="warning ms-6 me-6 mt-3" style={{backgroundColor : "#fed250"}} onClick = {(e) => 
+                  {setModal(true)}
+                  } 
+                  >Edit Details</Button>{' '}
                 </MDBRow>
                
                 {/* <hr /> */}

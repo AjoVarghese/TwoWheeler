@@ -1,16 +1,33 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { useForm } from 'react-hook-form'
 import 'semantic-ui-css/semantic.min.css'
 // import {GoogleLogin,GoogleLogout} from 'react-google-login '
-import { Button, Form } from 'semantic-ui-react'
-import Dropdown from 'react-bootstrap/Dropdown';
+import { Button } from 'semantic-ui-react'
+// import Dropdown from 'react-bootstrap/Dropdown';
 import './Login.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { userLoginAction} from '../../../REDUX/Actions/USER_ACTIONS/LoginAction'
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { auth } from '../../../FIREBASE/firebase.config';
+import { Box, TextField, Typography } from '@mui/material';
+import {  MDBCheckbox, MDBCol, MDBContainer, MDBRow } from 'mdb-react-ui-kit';
 
+
+const schema = yup.object().shape({
+  mobile : yup
+          .string("email should be a string")
+          .min(10, "Mobile No should have a minimum length of 10")
+          .max(10, "Mobile No  should have a maximum length of 10")
+          .required('Mobile No  is required'),
+  password : yup  
+             .string("password should be a string")
+             .min(5, "password should have a minimum length of 5")
+             .max(12, "password should have a maximum length of 12")
+             .required("password is required"),
+})
 function Login() {
   // const clientId = ''
   const [mobile,setMobile] = useState('+91')
@@ -32,14 +49,26 @@ function Login() {
 
   const {userLoginDetails,userLoginError,loading} = userLoginData
 
-  const {register,handleSubmit,formState:{errors}} = useForm()
 
-  const onSubmit = (data) => {
-    console.log(data);
-    dispatch(userLoginAction(mobile,password))
-    // navigate('/')
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const submitHandler = async(data) => {
+    try {
+        console.log("form",data);
+        dispatch(userLoginAction(data.mobile,data.password))
+    } catch (error) {
+      
+    }
   }
 
+ 
 
   // function onCaptchaVerify(){
   //   if(!window.recaptchaVerifier){
@@ -101,26 +130,21 @@ function Login() {
 
   return (
     <div className='login'>
-     <div className='imgg-div'>
-       <img src={require('../../../ASSETS/Images/login.jpg')} alt="" />
-     </div>
-     <div className='login-box'>
-        <div className='login-body'>
-         <h2 className='login-header'>Login</h2>
-         {/* <div className='google'>
-             <button><img src = '' alt = 'Login with Google'></img></button>
-         </div> */}
-         {/* <GoogleLogin
-    clientId={clientId}
-    render={renderProps => (
-      <button onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
-    )}
-    buttonText="Login"
-    onSuccess={onLoginSuccess}
-    onFailure={onLoginFailure}
-    cookiePolicy={'single_host_origin'}
-  />, */}
-         {
+
+<MDBContainer className="p-3 my-5 mt-5">
+
+<MDBRow>
+
+  <MDBCol col='10' md='6' className='mt-5'>
+    <img src={require('../../../ASSETS/Images/userLogin.png')} class="img-fluid" alt="Phone image" />
+  </MDBCol>
+
+  <MDBCol col='4' md='6'  className='mt-5'>
+  <Typography component="h1" variant="h5">
+        Sign In To Your Account!!
+        </Typography>
+
+     {
           userLoginError ? <p className='p-error' style={{color : 'red'}}>{userLoginError}</p> : ""
          }
           
@@ -128,48 +152,92 @@ function Login() {
             loading ? <p>{userLoginError}</p> : ''
           }
 
-         <div className='form-div'>
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <Form.Field>
-              <label>Mobile No*</label>
-              <input type="number" placeholder='Enter registered Mobile NO' style={{textDecoration: 'none'}}
-              {...register('Email',{
-                required : true,
-                maxLength : 10,
-                minLength : 10
-                // pattern : /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ 
-              })}
-              onChange = {(e) => setMobile(e.target.value)}
-               />
-            </Form.Field>
-            {errors.Email && <p style={{color : "red"}}>Please check the Mobile No</p>}
-            <Form.Field>
-              <label>Password*</label>
-              <input type="password" placeholder='Enter your password'
-              {...register('Password',{
-                required:true,
-                minLength:8,
-                maxLength:16
-              })}
-              onChange = {(e) => setPassword(e.target.value)}
-               />
-            </Form.Field>
-            {errors.Password && <p style={{color : "red"}}>Please check the Password</p>}
-            <Button type='submit' style={{color:"white",backgroundColor : "blue"}} className = "login-button">Login</Button>
-            <p className='or'>OR</p>
-          <Button  style={{color:"white",backgroundColor : "blue"}} className = "otp-button"><Link to='/otp-login'>Login with OTP</Link></Button>
-          <h4 className='no-account'><Link to='/signup'>Don't have an account? Signup</Link></h4>
-          </Form>
-         
-         </div>
-        </div>
-     </div>
-     {/* <GoogleLogout
-      clientId={clientId}
-      buttonText="Logout"
-      onLogoutSuccess={onLogoutSuccess}
-    >
-    </GoogleLogout> */}
+         <Box
+          component="form"
+          onSubmit={handleSubmit(submitHandler)}
+          sx={{ mt: 1 }}
+        >
+            
+           <TextField
+            margin="normal"
+            type='number'
+            fullWidth
+            name = 'mobile'
+            id="mobile"
+            autoFocus
+            label="Mobile"
+            error={!!errors.mobile}
+            helperText={errors.mobile ? errors.mobile.message : ""}
+            {...register("mobile")}
+          />
+          
+          <TextField
+            margin="normal"
+            fullWidth
+            name = 'password'
+            id="password"
+            label="Password"
+            error={!!errors.password}
+            helperText={errors.password ? errors.password.message : ""}
+            {...register("password")}
+          />
+           
+            <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            style={{backgroundColor : "#F7CA18"}}
+          >
+            Sign In
+          </Button>
+             </Box>
+
+    <div className="d-flex justify-content-between mx-4 mb-4">
+      <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
+      <a href="!#">Forgot password?</a>
+    </div>
+
+    {/* <MDBBtn className="mb-4 w-100" size="lg">Sign in</MDBBtn> */}
+
+    <div className="divider d-flex align-items-center my-4">
+      <p className="text-center fw-bold mx-3 mb-0">OR</p>
+    </div>
+
+    {/* <MDBBtn className="mb-4 w-100" size="lg" style={{backgroundColor: '#3b5998'}}>
+      <MDBIcon fab icon="facebook-f" className="mx-2"/>
+      Continue with facebook
+    </MDBBtn> */}
+    <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            <Link to='/signup'> Sign Up</Link>
+           
+          </Button>
+
+    {/* <MDBBtn className="mb-4 w-100" size="lg" style={{backgroundColor: '#55acee'}}>
+      <MDBIcon fab icon="twitter" className="mx-2"/>
+      SignIn With Google
+    </MDBBtn> */}
+
+<Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign In with Ggogle
+          </Button>
+
+  </MDBCol>
+
+</MDBRow>
+
+</MDBContainer>
+     
     </div>
   )
 }

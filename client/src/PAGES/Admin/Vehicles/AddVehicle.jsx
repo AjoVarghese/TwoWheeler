@@ -1,3 +1,5 @@
+
+
 import { Alert, Box, CircularProgress, styled, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { Card } from 'primereact/card';
@@ -5,8 +7,8 @@ import { Card } from 'primereact/card';
 import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar';
 import {  MDBCol, MDBInput, MDBRow } from 'mdb-react-ui-kit';
 
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+// import { yupResolver } from "@hookform/resolvers/yup";
+// import * as yup from "yup";
 
 import { useDispatch } from 'react-redux';
 import { adminAddBikeApi } from '../../../API/Admin/ApiCalls';
@@ -14,11 +16,11 @@ import { adminAddBikeAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/adminAd
 import { useNavigate } from 'react-router-dom';
 
 import { Form, Button } from 'semantic-ui-react';
-import { useForm , Controller} from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-const schema = yup.object().shape({
-  bikeName : yup.string().required()
-})
+// const schema = yup.object().shape({
+//   bikeName : yup.string().required()
+// })
 
 function AddVehicle() {
   const DrawerHeader = styled('div')(({ theme }) => ({

@@ -31,3 +31,4 @@ export const blockUnblockApi = (id) => API.get('/blockUnblock?id=' +id,configTok
 export const adminAddBikeApi = (formData) => API.post('/add-bikes',formData,configFormData)
 export const getAllBikesApi = () => API.get('/bikes',configToken)
 export const bikeSingleViewApi = (id) => API.get('/bike-detailed-view?id='+id , configToken)
+export const getRentRequetsApi = () => API.get('/rent-requests',configToken)

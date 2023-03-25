@@ -4,10 +4,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^3.0.0",
     "@mantine/core": "^6.0.2",
     "@mantine/ds": "^6.0.2",
     "@mantine/hooks": "^6.0.2",
     "@mui/icons-material": "^5.11.11",
+    "@mui/joy": "^5.0.0-alpha.72",
     "@mui/material": "^5.11.13",
     "@mui/styled-engine-sc": "^5.11.11",
     "@react-oauth/google": "^0.9.0",
@@ -20,6 +22,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
     "firebase": "^9.18.0",
+    "formik": "^2.2.9",
     "framer-motion": "^10.6.0",
     "mdb-react-ui-kit": "^5.1.0",
     "otp-input-react": "^0.3.0",
@@ -42,7 +45,8 @@
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.4",
     "styled-components": "^5.3.9",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
