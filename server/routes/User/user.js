@@ -5,6 +5,7 @@ const upload = require('../../Utils/multer')
 const signupController = require('../../Controller/User/userRegisterController')
 const loginController = require('../../Controller/User/userLoginController')
 const profilerImageUpdateController = require('../../Controller/User/profileImageUpdateController')
+const updateProfileController = require('../../Controller/User/updateProfileController')
 const viewVehiclesController = require('../../Controller/User/Vehicles/VehicleStoreController')
 const singleViewController = require('../../Controller/User/Vehicles/singleViewController')
 const userProfileController = require('../../Controller/User/getUserProfileController')
@@ -27,6 +28,8 @@ router.get('/')
 router.route('/profile').get(protect,userProfileController.getUserProfile)
 
 router.route('/profileImageUpdate').post(protect,profilerImageUpdateController.profileImageUploadPost)
+
+router.route('/edit-profile').post(protect,updateProfileController.updateProfile)
 
 // router.post('/profileImageUpdate',profilerImageUpdateController.profileImageUploadPost)
 

@@ -38,7 +38,7 @@ exports.uploads = (file, folder) => {
     try {
         return new Promise(resolve => {
             cloudinary.uploader.upload(file, (result) => {
-                // console.log("CLOUDINARY RESUKT",result);
+                 console.log("CLOUDINARY RESUKT",result);
                 resolve({
                     url: result.url,
                     id: result.public_id

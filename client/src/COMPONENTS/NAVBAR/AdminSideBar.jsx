@@ -25,6 +25,7 @@ import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AddIcon from '@mui/icons-material/Add';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -154,6 +155,7 @@ export default function AdminSideBar() {
             {name : "Rides" , icon : <SportsMotorsportsIcon/>},
             {name : "Add Bikes" , icon : <AddIcon/>},
             {name : "Rent Requests" , icon : <RequestPageIcon/>},
+            {name : "Locations" , icon : <LocationOnIcon/>},
             {name : "Offers" , icon : <LocalOfferIcon/>},
             {name : "Logout" , icon : <LogoutIcon/>}
 
@@ -186,6 +188,7 @@ export default function AdminSideBar() {
                   text2 === 'add bikes' && navigate('/admin/add-bikes')
                   text2 === 'rides' && navigate('/admin/rides')
                   text2 === 'rent requests' && navigate('/admin/rent-requests')
+                  text2 === 'locations' && navigate('/admin/locations')
                   text2 === 'offers' && navigate('/admin/offers')
                  text2 === 'logout' && handleLogout()
                  }}

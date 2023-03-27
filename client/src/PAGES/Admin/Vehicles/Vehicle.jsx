@@ -4,13 +4,20 @@ import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar'
 import { MDBCol, MDBContainer } from 'mdb-react-ui-kit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-import Table from 'react-bootstrap/Table';
+// import Table from 'react-bootstrap/Table';
 
-
-
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import {  Button,  } from '@mui/material';
+import Figure from 'react-bootstrap/Figure';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Alert, Button } from 'react-bootstrap';
+// import { Alert, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBikesAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/getAllBikesAction';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -67,49 +74,83 @@ function Vehicle() {
         {/* <Button className='pl-auto' >Add Bike</Button> */}
         <div className="card container md-12">
            
-    <Table striped bordered hover centered>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Bike Name</th>
-          <th>Bike Model</th>
-          <th>Color</th>
-          <th>Price /hr</th>
-          <th>Detailed View</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          loading ? <Loading/> :
-          bikesData ? bikesData.map((x,i) => {
-             return (
-              <tr>
-              <td>{i+ 1}</td>
-              <td>{x.vehicleName}</td>
-              <td>{x.vehicleModel}</td>
-              <td>{x.Color}</td>
-              <td>{x.Price}</td>
-              <td><VisibilityIcon onClick={(e) => {
-                 handleClick(x._id)
-              }}/></td>
-            </tr>
-             )
-          }) : ""
-        }
+        <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell><h4>Sl.No</h4></TableCell>
+            <TableCell align="center"><h4>Vehicle Name</h4></TableCell>
+            <TableCell align="center"><h4>Image</h4></TableCell>
+            <TableCell align="center"><h4>Brand</h4></TableCell>
+            <TableCell align="center"><h4>Vehicle Model</h4></TableCell>
+            <TableCell align="center"><h4>Color</h4></TableCell>
+            <TableCell align="center"><h4>Price</h4></TableCell>
+           
+            <TableCell align="center"><h4>Action</h4></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
         
-        {/* <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
-        </tr> */}
-      </tbody>
-    </Table>
+          
+          {
+            bikesData ? bikesData.map((data,i) => {
+              
+              return(
+                
+                <TableRow
+              key={data._id}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              
+            >
+
+            {/* {
+              alertDialog ? <AlertDialog closeDialog = {setAlertDialog} details={data._id}/> : ""
+            } */}
+            
+              <TableCell component="th" scope="row">
+                <h5>{i +1}</h5>
+                
+              </TableCell>
+              <TableCell align="center"><h5>{data.vehicleName}</h5></TableCell>
+              <TableCell align="center">
+                <Figure>
+                  <Figure.Image
+                    width={171}
+                    height={180}
+                    alt="171x180"
+                    src={data.Photo[0]}
+                  />
+                <Figure.Caption>
+        {/* Nulla vitae elit libero, a pharetra augue mollis interdum. */}
+      </Figure.Caption>
+    </Figure>
+              </TableCell>
+              <TableCell align="center"><h5>{data.Brand}</h5></TableCell>
+              <TableCell align="center"><h5>{data.vehicleModel}</h5></TableCell>
+              <TableCell align="center"><h5>{data.Color}</h5></TableCell>
+              <TableCell align="center"><h5>{data.Price} /hr</h5></TableCell>
+              <TableCell align="center">
+              <Button variant="contained" color="info" key={data._id}
+              onClick={(e) => {
+                navigate('/admin/edit-bike',{state : {data}})
+              }
+
+              }
+              >
+              Edit
+              </Button>    
+              <Button variant="contained" key={data._id} color="error" className='ms-3'>
+               Reject
+              </Button>     
+              </TableCell>
+            </TableRow>
+              )
+            }) : ""
+          }
+
+        </TableBody>
+      </Table>
+    </TableContainer>
 
 {/* <DataTable value={products} header={bikesData} footer={bikesData} tableStyle={{ minWidth: '60rem' }}>
     <Column field="Photo" header="Image" body = {(rowData) => <img src = {rowData.Photo}/>} height = '50'></Column>
