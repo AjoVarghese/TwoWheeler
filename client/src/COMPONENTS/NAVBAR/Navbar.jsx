@@ -238,7 +238,7 @@ function Navbar() {
             </a>
             <a className={classes.link}>
               
-              <Link to = '/rent-bikes' style={{color :'black',textDecoration :'none'}}>Rent A Bike</Link>
+              <Link to = '/rent-bikes' style={{color :'black',textDecoration :'none'}}>Rent Your Bike</Link>
             </a>
           </Group>
            {

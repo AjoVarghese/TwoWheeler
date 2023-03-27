@@ -1,5 +1,5 @@
 import { Box, ButtonBase, styled } from '@mui/material';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar'
 import { MDBCol, MDBContainer } from 'mdb-react-ui-kit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -19,17 +19,16 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 // import { Alert, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllBikesAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/getAllBikesAction';
+import { deleteBikeAction, getAllBikesAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/getAllBikesAction';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loading from '../../../COMPONENTS/Loading/Loading'
 import { bikeSingleViewApi } from '../../../API/Admin/ApiCalls';
 import { bikeSingleViewAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/bikeSingleViewAction';
+import AlertDialog from '../../../COMPONENTS/AlertDialog/AlertDialog';
 
 
 function Vehicle() {
   
-
-
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -42,16 +41,26 @@ function Vehicle() {
    const dispatch = useDispatch()
    const navigate = useNavigate()
 
+
+   const [deleteDialog,setDeleteDialog] = useState(false)
+   const [selectedBike,setSelectedBike] = useState()
+   console.log("store bike seleced",selectedBike);
+
    const bikes = useSelector((state) => state.admingetAllBikesReducer)
    const {loading,bikesData,bikesDataError} = bikes
    console.log("bikes",bikesData);
 
-   const handleClick = (id) => {
-      bikeSingleViewApi(id).then((data) => {
-        console.log("SINGLE BIKE VIEW",data.data);
-        dispatch(bikeSingleViewAction(data.data))
-        navigate('/admin/bike-detailed-view')
-      })
+  //  const handleClick = (id) => {
+  //     bikeSingleViewApi(id).then((data) => {
+  //       console.log("SINGLE BIKE VIEW",data.data);
+  //       dispatch(bikeSingleViewAction(data.data))
+  //       navigate('/admin/bike-detailed-view')
+  //     })
+  //  }
+
+   const deleteBike = () =>{
+      console.log('dekete bike');
+      dispatch(deleteBikeAction(selectedBike))
    }
 
   useEffect(() => {
@@ -61,7 +70,13 @@ function Vehicle() {
 
   return (
 
-    
+    <>
+    {
+          deleteDialog ? <AlertDialog message='Do you want to delete the bike from the store'
+           bikeId={selectedBike} 
+           functionToBeDone={deleteBike} 
+           closeDialog={setDeleteDialog}/> : ""
+        }
     <div>
             {/* <ToastContainer></ToastContainer> */}
 {/* <ToastContainer /> */}
@@ -98,14 +113,12 @@ function Vehicle() {
               return(
                 
                 <TableRow
-              key={data._id}
+              // key={data._id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               
             >
 
-            {/* {
-              alertDialog ? <AlertDialog closeDialog = {setAlertDialog} details={data._id}/> : ""
-            } */}
+           
             
               <TableCell component="th" scope="row">
                 <h5>{i +1}</h5>
@@ -130,7 +143,7 @@ function Vehicle() {
               <TableCell align="center"><h5>{data.Color}</h5></TableCell>
               <TableCell align="center"><h5>{data.Price} /hr</h5></TableCell>
               <TableCell align="center">
-              <Button variant="contained" color="info" key={data._id}
+              <Button variant="contained" color="info" 
               onClick={(e) => {
                 navigate('/admin/edit-bike',{state : {data}})
               }
@@ -139,7 +152,12 @@ function Vehicle() {
               >
               Edit
               </Button>    
-              <Button variant="contained" key={data._id} color="error" className='ms-3'>
+              <Button variant="contained"  color="error" className='ms-3'
+              onClick={(e) => {
+                setDeleteDialog(true)
+                setSelectedBike(data._id)
+              }}
+              >
                Reject
               </Button>     
               </TableCell>
@@ -176,7 +194,8 @@ function Vehicle() {
        
       </Box>
       </Box>
-    // </div>
+     </div>
+    </>
   )
 }
 

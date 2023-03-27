@@ -50,6 +50,7 @@ function Bikes() {
                   <MDBIcon fab icon="apple" size="lg" className="px-3 pt-3 pb-2" />
                   <MDBCardImage
                     src={x.Photo[0]}
+                    style={{objectFit:"cover"}}
                     position="top"
                     alt="Apple Computer"
                     onClick={(e) => navigate('/bike-detailed-view')}

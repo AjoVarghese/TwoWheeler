@@ -10,8 +10,9 @@ const userController = require('../../Controller/Admin/userController')
 const blockUnblockController = require('../../Controller/Admin/adminUserBlockUnblock')
 const addVehicleController = require('../../Controller/Admin/VehiclesController/adminAddVehicleController')
 const viewVehiclesController = require('../../Controller/Admin/VehiclesController/adminViewVehiclesController')
+const deleteBikeController = require('../../Controller/Admin/VehiclesController/deleteBikeController')
 const bikeDetailsCOntroller = require('../../Controller/Admin/VehiclesController/bikeDetailedView')
-// const rentRequetsController = require('../../Controller/Admin/rentRequetsController')
+const rentRequetsController = require('../../Controller/Admin/rentRequetsController')
 const rentRequests = require('../../Controller/Admin/RentRequests/RentRequets')
 
 const {protect} = require('../../middleware/jwtAuth')
@@ -33,11 +34,15 @@ router.route('/add-bikes').post(protect,upload.array('images'),addVehicleControl
 
 router.route('/bikes').get(protect,viewVehiclesController.viewVehicles)
 
+router.route('/delete-bike').get(protect,deleteBikeController.deleteBike)
+
 router.route('/bike-detailed-view').get(protect,bikeDetailsCOntroller.bikeDetailsController)
 
 router.route('/rent-requests').get(protect,rentRequests.getRentRequests)
 
-// router.route('/accept-request').post(protect,rentRequetsController.acceptRequetsController)
+router.route('/accept-request').get(protect,rentRequetsController.acceptRequetsController)
+
+router.route('/reject-requests').get(protect,rentRequetsController.rejectRequestsController)
 
 
 

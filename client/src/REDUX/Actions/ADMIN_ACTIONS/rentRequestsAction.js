@@ -1,4 +1,4 @@
-import { getRentRequetsApi } from "../../../API/Admin/ApiCalls"
+import { acceptRentRequestsApi, getRentRequetsApi, rejectRentRequetsApi } from "../../../API/Admin/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 
 export const getRentRequests = () => async(dispatch) => {
@@ -19,4 +19,50 @@ export const getRentRequests = () => async(dispatch) => {
             payload : err.response.message
         })
     })
+}
+
+export const acceptRentRequests = (id) => async(dispatch) => {
+    console.log("action id",id);
+    dispatch({
+        type : AdminActionTypes.ACCEPT_RENT_REQUESTS
+    })
+
+    acceptRentRequestsApi(id).then((data) => {
+        console.log("acceptRentRequests",data.data);
+        dispatch({
+            type : AdminActionTypes.ACCEPT_RENT_REQUESTS_SUCCESS,
+            payload : data.data
+        })
+    })
+    .catch((err) => {
+        dispatch({
+            type : AdminActionTypes.ACCEPT_RENT_REQUESTS_FAILED,
+            payload : err.response.message
+        })
+    })
+}
+
+
+export const rejectRentRequets = (id) => async(dispatch) => {
+    console.log("reject id",id);
+    dispatch({
+        type : AdminActionTypes.REJECT_RENT_REQUESTS
+    })
+
+    rejectRentRequetsApi(id).then((data) => {
+        console.log("Rejected api",data.data);
+        dispatch({
+            type : AdminActionTypes.REJECT_RENT_REQUESTS_SUCCESS,
+            payload : data.data
+        })
+    })
+    .catch((err) => {
+        console.log("reject error:",err);
+        dispatch({
+            type : AdminActionTypes.REJECT_RENT_REQUESTS_FAILED,
+            payload : err.response.message
+        })
+    })
+
+
 }

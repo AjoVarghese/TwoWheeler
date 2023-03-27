@@ -3,7 +3,7 @@ import axios from "axios"
 const API = axios.create({baseURL : "http://localhost:3001/api/admin"})
 
 const admin = JSON.parse(localStorage.getItem('adminInfo'))
-console.log("Admin Config",admin);
+console.log("Admin Config",admin?admin:"");
 
 const config = {
     headers : {
@@ -32,3 +32,6 @@ export const adminAddBikeApi = (formData) => API.post('/add-bikes',formData,conf
 export const getAllBikesApi = () => API.get('/bikes',configToken)
 export const bikeSingleViewApi = (id) => API.get('/bike-detailed-view?id='+id , configToken)
 export const getRentRequetsApi = () => API.get('/rent-requests',configToken)
+export const acceptRentRequestsApi = (id) => API.get('/accept-request?id='+id,configToken)
+export const rejectRentRequetsApi = (id) => API.get('/reject-requests?id='+id,configToken)
+export const deleteBikeAPi =(id) => API.get('/delete-bike?id='+id,configToken)

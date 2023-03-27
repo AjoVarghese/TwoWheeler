@@ -116,7 +116,7 @@ function RentBikes() {
                   <span className="p-inputgroup-addon">
                       <i className="pi pi-user"></i>
                   </span> */}
-                  <h1 className='ms-4 mt-2'>Add Bike</h1>
+                  <h1 className='ms-4 mt-2'>Rent Your Bike</h1>
                   
                   <MDBRow className='pt-2 ms-3 me-3 mb-4'>
           <MDBCol>

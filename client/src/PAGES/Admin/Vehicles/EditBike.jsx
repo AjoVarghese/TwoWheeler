@@ -42,7 +42,7 @@ function EditBike() {
             fullWidth
             name = 'vehicleName'
             id="vehicleName"
-            value={location.state.data.vehicleName}
+            defaultValue={location.state.data.vehicleName}
              label="Vehicle Name"
             autoFocus
           />
@@ -55,7 +55,7 @@ function EditBike() {
             autoFocus
             name = 'vehicleModel'
             id="vehicleModel"
-            value={location.state.data.vehicleModel}
+            defaultValue={location.state.data.vehicleModel}
             label="Vehicle Model"
             default={location.state.data._id}
           />
@@ -71,7 +71,7 @@ function EditBike() {
             fullWidth
             name = 'engineNo'
             id="engineNo"
-            value={location.state.data.EngineNo}
+            defaultValue={location.state.data.EngineNo}
             autoFocus
             label="Engine No"
           />
@@ -84,7 +84,7 @@ function EditBike() {
             fullWidth
             name = 'brand'
             id="brand"
-            value={location.state.data.Brand}
+            defaultValue={location.state.data.Brand}
             autoFocus
             label="Brand"
           />
@@ -99,7 +99,7 @@ function EditBike() {
             fullWidth
             name = 'color'
             id="color"
-            value={location.state.data.Color}
+            defaultValue={location.state.data.Color}
             autoFocus
             label="Color"
           />
@@ -112,7 +112,7 @@ function EditBike() {
             fullWidth
             name = 'fuel'
             id="fuel"
-            value={location.state.data.Fuel}
+            defaultValue={location.state.data.Fuel}
             autoFocus
             label="Fuel Used"
           />
@@ -127,7 +127,7 @@ function EditBike() {
             fullWidth
             name = 'price'
             id="price"
-            value={location.state.data.Price}
+            defaultValue={location.state.data.Price}
             autoFocus
             label="Price/hr"
           />
@@ -140,7 +140,7 @@ function EditBike() {
             fullWidth
             name = 'desc'
             id="desc"
-            value={location.state.data.Description}
+            defaultValue={location.state.data.Description}
             autoFocus
             label="Description"
           />
