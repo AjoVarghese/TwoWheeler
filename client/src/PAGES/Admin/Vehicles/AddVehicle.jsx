@@ -70,7 +70,7 @@ const onSubmit = (data) => {
     formdata.append("desc", desc);
     formdata.append("price", price);
     formdata.append("color", color);
-
+    
  adminAddBikeApi(formdata).then((data) => {
   console.log("ADMIN BIKE API DATA",data.data);
   // <Alerts/>

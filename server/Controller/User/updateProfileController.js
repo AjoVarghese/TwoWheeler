@@ -12,7 +12,7 @@ exports.updateProfile = async(req,res) => {
             }
         }).then(() => {
             User.findOne({_id : req.query.id}).then((data) => {
-                console.log("Updated data",data);
+                // console.log("Updated data",data);
                 let {id,Name,Email,Mobile,Status,ProfileImage} = data
                 let result = {
                     id,
@@ -24,7 +24,7 @@ exports.updateProfile = async(req,res) => {
                     token : generateToken(id)
                   }
 
-                  console.log("RESULTT",result);
+                //   console.log("RESULTT",result);
                    res.status(200).json(result)
             })
         })

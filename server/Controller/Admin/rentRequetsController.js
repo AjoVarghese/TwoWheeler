@@ -11,7 +11,7 @@ exports.acceptRequetsController = async(req,res) => {
     }
     ).then(() => {
         vehicleSchema.find({Status : "Pending"}).then((data) => {
-            console.log("Pending requets",data);
+            // console.log("Pending requets",data);
             res.status(200).json(data)
         })
     })
@@ -27,7 +27,7 @@ exports.rejectRequestsController = async(req,res) => {
     }
     ).then(() => {
         vehicleSchema.find({Status : "Pending"}).then((data) => {
-           console.log("Rejectea action",data);
+        //    console.log("Rejectea action",data);
            res.status(200).json(data)
         })
     })

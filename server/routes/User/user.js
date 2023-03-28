@@ -10,6 +10,7 @@ const viewVehiclesController = require('../../Controller/User/Vehicles/VehicleSt
 const singleViewController = require('../../Controller/User/Vehicles/singleViewController')
 const userProfileController = require('../../Controller/User/getUserProfileController')
 const addVehicleController = require('../../Controller/User/Vehicles/addVehicle')
+const getRentedBikesController = require('../../Controller/User/RentedBikes/RentedBikes')
 const {protect} = require('../../middleware/jwtAuth')
 
 // router.use(function(req, res, next) {
@@ -38,5 +39,7 @@ router.route('/bikes').get(viewVehiclesController.viewVehicles)
 // router.route('/view-bike').get(singleViewController.singleViewController)
 
 router.route('/rent-bikes').post(protect,upload.array('images'),addVehicleController.addVehicle)
+
+router.route('/rented-bikes').get(protect,getRentedBikesController.rentedBikes)
 
 module.exports = router;

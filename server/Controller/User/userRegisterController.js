@@ -81,7 +81,7 @@ exports.signUpPost = async(req,res) => {
                console.log("bcrypr",details.Password);
     
                 userSchema.create(details).then((result) => {
-                    console.log("RESUKT",result);
+                    // console.log("RESUKT",result);
                     let data = {
                         Name : result.Name,
                         Email : result.Email,
@@ -90,7 +90,7 @@ exports.signUpPost = async(req,res) => {
                         token :generateToken.generateToken(result._id),
                         Status : result.Status
                     }
-                    console.log("DDAAA",data);
+                    // console.log("DDAAA",data);
                     res.status(200).json(data)
                 })
             }

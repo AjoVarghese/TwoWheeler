@@ -26,7 +26,7 @@ exports.profileImageUploadPost = async(req,res) => {
                         token : generateToken(id)
                       }
 
-                      console.log("RESULTTE",result);
+                    //   console.log("RESULTTE",result);
                     res.status(200).json(result)
                 })
                 

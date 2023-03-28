@@ -4,7 +4,7 @@ exports.getRentRequests = async(req,res) => {
     console.log('rent requets');
     try {
         vehicle.find({Status : 'Pending'}).then((data) => {
-            console.log("rent",data);
+            // console.log("rent",data);
             res.status(200).json(data)
         })
     } catch (error) {

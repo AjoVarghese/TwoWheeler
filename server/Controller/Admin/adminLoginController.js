@@ -14,7 +14,7 @@ exports.adminLoginPost = async(req,res) => {
             if(data){
               bcrypt.compare(details.Password,data.Password,(err,response) => {
                 if(response){
-                    console.log("ADMIN LOGIN SUCCESS",response);
+                    // console.log("ADMIN LOGIN SUCCESS",response);
                     let result = {
                         Email : data.Email,
                         token : generateToken.generateToken(data._id)
