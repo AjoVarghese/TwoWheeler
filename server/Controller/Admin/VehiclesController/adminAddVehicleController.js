@@ -47,6 +47,7 @@ exports.addVehicle = async(req,res) => {
       Brand : req.body.brand,
       Fuel : req.body.fuel,
       EngineNo : req.body.engineNo,
+      Location : req.body.location,
       Color : req.body.color,
       Description : req.body.desc,
       Price : req.body.price,

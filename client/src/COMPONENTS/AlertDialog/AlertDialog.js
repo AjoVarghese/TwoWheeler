@@ -12,6 +12,7 @@ import { acceptRentRequests } from '../../REDUX/Actions/ADMIN_ACTIONS/rentReques
 
 export default function AlertDialog({closeDialog,Id,functionToBeDone,message,action}) {
     console.log("RENT DETAILS",Id);
+    console.log("Action",action);
     // console.log("funtion to done",functionToBeDone);
   const [open, setOpen] = React.useState(true);
   const theme = useTheme();
@@ -48,17 +49,16 @@ const handleClick = () => {
 
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        Open responsive dialog
-      </Button> */}
+      
       {
-        // loading ? "Loading....."  :
+        
+        
         <Dialog
         // fullScreen={fullScreen}
         open={open}
         onClose={handleClose}
         aria-labelledby="responsive-dialog-title"
-      >
+        >
         <DialogTitle id="responsive-dialog-title">
           {"Are you Sure?"}
           

@@ -41,7 +41,7 @@ exports.editLocation = async(req,res) => {
 exports.getLocation = async(req,res) => {
     try {
         Location.find().then((data) => {
-            console.log("locations",data);
+            // console.log("locations",data);
             res.status(200).json(data)
         })
     } catch (error) {
@@ -50,8 +50,10 @@ exports.getLocation = async(req,res) => {
 }
 
 exports.deleteLocation = async(req,res) => {
+    console.log("location id",req.query.id);
     try {
-        Location.deleteOne({_id : req.query.id}).then(() => {
+        Location.deleteOne({_id : req.query.id}).then((data) => {
+            console.log("deleed",data);
             Location.find().then((data) => {
                 console.log("after deletinf",data);
                 res.status(200).json(data)

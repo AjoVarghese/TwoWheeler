@@ -1,26 +1,47 @@
 
 
 import { Alert, Box, CircularProgress, styled, TextField } from '@mui/material';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card } from 'primereact/card';
-
+import MenuItem from '@mui/material/MenuItem';
 import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar';
 import {  MDBCol, MDBInput, MDBRow } from 'mdb-react-ui-kit';
 
 // import { yupResolver } from "@hookform/resolvers/yup";
 // import * as yup from "yup";
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { adminAddBikeApi } from '../../../API/Admin/ApiCalls';
 import { adminAddBikeAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/adminAddBike';
 import { useNavigate } from 'react-router-dom';
 
 import { Form, Button } from 'semantic-ui-react';
 import { useForm } from "react-hook-form";
+import { getLocation } from '../../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
 
 // const schema = yup.object().shape({
-//   bikeName : yup.string().required()
-// })
+//   mySelec: yup.string().notOneOf([""], "You must select an option!")
+// });
+
+
+const currencies = [
+  {
+    value: 'USD',
+    label: '$',
+  },
+  {
+    value: 'EUR',
+    label: '€',
+  },
+  {
+    value: 'BTC',
+    label: '฿',
+  },
+  {
+    value: 'JPY',
+    label: '¥',
+  },
+];
 
 function AddVehicle() {
   const DrawerHeader = styled('div')(({ theme }) => ({
@@ -39,6 +60,7 @@ const [brand,setBrand] = useState('')
 const [fuel,setFuel] = useState('')
 const [desc,setDesc] = useState('')
 const [price,setPrice] = useState('')
+const [loc,setLocation] = useState('')
 const [color,setColor] = useState('')
 const [images,setImages] = useState([])
 const [loading,setLoading]=useState(false);
@@ -46,6 +68,16 @@ const [sucess,setSuccess]=useState(false);
 
 const dispatch = useDispatch()
 const navigate = useNavigate();
+
+const location = useSelector((state) => state.getLocationReducer.location)
+console.log('LOCATION',location);
+ 
+// console.log('SDSDDSSD');
+
+
+useEffect(() => {
+  dispatch(getLocation())
+},[])
 
 const { register,
    handleSubmit,
@@ -61,12 +93,14 @@ const onSubmit = (data) => {
     images.forEach((m)=>{
       formdata.append("images",m)
     })
+    console.log('loc',loc);
 
     formdata.append("bikeName", bikeName);
     formdata.append("bikeModel", bikeModel);
     formdata.append("engineNo", engineNo);
     formdata.append("fuel", fuel);
     formdata.append("brand", brand);
+    formdata.append("location",loc)
     formdata.append("desc", desc);
     formdata.append("price", price);
     formdata.append("color", color);
@@ -182,6 +216,52 @@ const onSubmit = (data) => {
           {errors.brand && <p style={{color : 'red'}}>Please enter the brand</p>}
         </MDBCol>
       </MDBRow>
+      
+      {/* <TextField
+          id="outlined-select-currency"
+          select
+          label="Select"
+          defaultValue="EUR"
+          helperText="Please select your currency"
+        >
+          {
+          location ? location.map((option) => {
+            return(
+              <MenuItem key={option._id} >
+              {option.Location}
+            </MenuItem>
+            )
+           
+            }) : ""
+        }
+        </TextField> */}
+        <MDBRow className='pt-2 ms-3 me-3 mb-4'>
+        <MDBCol>
+        <Form.Field>
+          <label htmlFor="">Choose Location</label>
+        <select name="location" id=""
+         {...register("location",
+         {
+           required : "select one option"
+         }
+         )}
+         onChange ={(e) => setLocation(e.target.value)}
+        >
+          <option>Choose</option>
+         
+         {
+          location ? location.map((x) => {
+            return(
+             <option value={x.Location}>{x.Location}</option>
+            )
+          }) : ""
+         }
+        </select>
+        </Form.Field>
+        {errors.location && <p style={{color : 'red'}}>{errors.location.message}</p>}
+        </MDBCol>
+        </MDBRow>
+        
 
       <MDBRow className='pt-2 ms-3 me-3 mb-4'>
         <MDBCol>

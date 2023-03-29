@@ -158,7 +158,7 @@ function Vehicle() {
                 setSelectedBike(data._id)
               }}
               >
-               Reject
+               Delete
               </Button>     
               </TableCell>
             </TableRow>

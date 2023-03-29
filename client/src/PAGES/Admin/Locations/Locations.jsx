@@ -49,21 +49,23 @@ const [modal,setModal] = useState(false)
 const [editModal,setEditModal] = useState(false)
 const [deleteDialog,setDeletedialog] = useState(false)
 const [selectedLoc,setSelectedLocation] = useState(false)
-let add
-let edit
+
+
 let close
 
 const location = useSelector((state) => state.getLocationReducer.location)
 console.log("Location",location);
 
 const doDelete = () => {
+  console.log("delete Location");
   dispatch(deleteLocation(selectedLoc))
+  setDeletedialog(false)
 }
 
 
 useEffect(() => {
   dispatch(getLocation())
-},[modal])
+},[modal,deleteDialog])
 
 
 
@@ -91,11 +93,12 @@ useEffect(() => {
        {
         modal ? <LocationModal closeModal = {setModal}
          message='Add a new location' 
-         action={add} Close={close}/> : ""
+         action="add" Close={close}/> : ""
        }
 
        {
-        editModal ? <LocationModal closeModal = {setModal} message='Edit' action={edit}/> : ""
+        editModal ? <LocationModal closeModal = {setModal} 
+        message='Edit' action="Edit" /> : ""
        }
 
 
@@ -139,7 +142,9 @@ useEffect(() => {
               <Button variant="contained" color="info" 
               onClick={(e) => {
                 setModal(false)
+                setDeletedialog(false)
                 setEditModal(true)
+                setSelectedLocation(data._id)
                 
               }}
               >
@@ -150,8 +155,11 @@ useEffect(() => {
               <TableCell align="center">
               <Button variant="contained" color="error"
               onClick={(e) => {
+                setEditModal(false)
+                setModal(false)
                 setDeletedialog(true)
                 setSelectedLocation(data._id)
+                
               }}
               >
              Delete

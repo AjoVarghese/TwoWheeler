@@ -24,7 +24,10 @@ const schema = yup.object().shape({
             .required("Location is required"),         
   })
 
-const LocationModal = ({closeModal,message,action,Close}) => {
+const LocationModal = ({closeModal,message,action,Close,location}) => {
+  console.log("LOCATION",location);
+  console.log("action",action);
+  
     const [basicModal, setBasicModal] = useState(true);
 
     const dispatch = useDispatch()
@@ -40,11 +43,16 @@ const LocationModal = ({closeModal,message,action,Close}) => {
       });
 
       const submitHandler = (data) => {
-       console.log(data);
-       let location = data.location
-       dispatch(addLocation(location))
-       closeModal(false)
-       
+        
+          if(action === 'add'){
+            console.log("add location");
+            console.log(data);
+            let location = data.location
+            dispatch(addLocation(location))
+            closeModal(false)
+          } else {
+            console.log("editing");
+          }
       }
   return (
     <div>
@@ -87,7 +95,7 @@ const LocationModal = ({closeModal,message,action,Close}) => {
               </Button>
 
               <Button type='submit' variant="contained" color="info" className='ms-3'>
-            Add
+            {action ?. add ? "ADD" : "Edit"}
               </Button>
             </MDBModalFooter> 
             </>

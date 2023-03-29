@@ -1,4 +1,4 @@
-import { addLocationApi, deleteBikeAPi, getLocationApi } from "../../../API/Admin/ApiCalls"
+import { addLocationApi, deleteBikeAPi, deleteLocationApi, getLocationApi } from "../../../API/Admin/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 
 
@@ -47,11 +47,13 @@ export const getLocation = () => async(dispatch) => {
 }
 
 export const deleteLocation = (id) => async(dispatch) => {
+    console.log("delete loca ID",id);
     dispatch({
         type : AdminActionTypes.DELETE_LOC_REQ
     })
 
-    deleteBikeAPi(id).then((data) => {
+    deleteLocationApi(id).then((data) => {
+        
         dispatch({
             type : AdminActionTypes.DELETE_LOC_SUCCESS,
             payload : data.data
