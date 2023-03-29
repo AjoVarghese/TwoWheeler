@@ -23,6 +23,20 @@ import { getBikesAction } from '../../../REDUX/Actions/USER_ACTIONS/getBikesActi
 import { width } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 
+// import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
 function Bikes() {
    const dispatch = useDispatch()
    const navigate = useNavigate()
@@ -39,7 +53,25 @@ function Bikes() {
          <Navbar/>
          <section className='bikes'>
            <div className='cards'>
-    <MDBContainer  className="my-5">
+           
+    <MDBContainer  className="my-2">
+    <div class="input-group " style={{float : 'right'}}>
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <button type="button" class="btn btn-outline-primary">search</button>
+</div>
+<Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={3}>
+        <Grid item xs>
+          <Item>xs</Item>
+        </Grid>
+        <Grid item xs={6}>
+          <Item></Item>
+        </Grid>
+        <Grid item xs>
+          <Item>xs</Item>
+        </Grid>
+      </Grid>
+    </Box>
       <MDBRow className="col-xs-6">
         {
           loading ? <Loading/> : 
@@ -47,10 +79,11 @@ function Bikes() {
               return (
                 <MDBCol md="3 mt-3">
                 <MDBCard className="text-black">
-                  <MDBIcon fab icon="apple" size="lg" className="px-3 pt-3 pb-2" />
+                  <MDBIcon fab icon="apple" size="md" className="px-3 pt-3 pb-2" />
                   <MDBCardImage
+                  className='d-flex justify-content-center'
                     src={x.Photo[0]}
-                    style={{objectFit:"cover"}}
+                    style={{width:'18rem',height:'10rem '}}
                     position="top"
                     alt="Apple Computer"
                     onClick={(e) => navigate('/bike-detailed-view',{state:{bikesData}})}

@@ -16,6 +16,7 @@ import * as yup from "yup";
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { addLocation } from '../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
+import { useLocation } from 'react-router-dom';
 
 
 const schema = yup.object().shape({    
@@ -24,8 +25,9 @@ const schema = yup.object().shape({
             .required("Location is required"),         
   })
 
-const LocationModal = ({closeModal,message,action,Close,location}) => {
-  console.log("LOCATION",location);
+const LocationModal = ({closeModal,message,action,Close,loc}) => {
+ ;
+  console.log("LOCATION",loc);
   console.log("action",action);
   
     const [basicModal, setBasicModal] = useState(true);

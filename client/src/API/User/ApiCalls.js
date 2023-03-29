@@ -54,5 +54,8 @@ export const editProfileApi = (name,email,mobile,id) => {
   
 }
 
+export const userGetLocationApi = () => API.get('/get-location',config)
 export const userAddBikeApi = (formData)=> API.post('/rent-bikes?id='+ID,formData,configFormData)
 export const userGetBikesApi = () => API.get('/bikes',config)
+
+

@@ -1,17 +1,18 @@
 import {Alert, Box, styled , CircularProgress } from '@mui/material';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber';
 import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar';
 import { MDBCard, MDBCardBody, MDBCol, MDBInput, MDBRow } from 'mdb-react-ui-kit';
 // import { Button } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../../../COMPONENTS/NAVBAR/Navbar';
 import { userAddBikeApi, userAdminApi } from '../../../API/User/ApiCalls';
 import { Form, Button } from 'semantic-ui-react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
+import { userGetLocation } from '../../../REDUX/Actions/USER_ACTIONS/locationActions';
 
 
 
@@ -27,12 +28,20 @@ function RentBikes() {
   const [desc,setDesc] = useState('')
   const [price,setPrice] = useState('')
   const [color,setColor] = useState('')
+  const [loc,setLoc] = useState('')
   const [images,setImages] = useState([])
   const [loading,setLoading]=useState(false);
   const [sucess,setSuccess]=useState(false);
   
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    dispatch(userGetLocation())
+  },[])
+
+  const location = useSelector((state) => state.userLocationReducer.locationData)
+  console.log("LocatioNNNN",location);
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -51,6 +60,7 @@ function RentBikes() {
       formdata.append("engineNo", engineNo);
       formdata.append("fuel", fuel);
       formdata.append("brand", brand);
+      formdata.append("location",loc)
       formdata.append("desc", desc);
       formdata.append("price", price);
       formdata.append("color", color);
@@ -176,6 +186,33 @@ function RentBikes() {
             </Form.Field>
             {errors.brand && <p style={{color : 'red'}}>Please enter the brand</p>}
           </MDBCol>
+        </MDBRow>
+
+        <MDBRow className='pt-2 ms-3 me-3 mb-4'>
+        <MDBCol>
+        <Form.Field>
+          <label htmlFor="">Choose Location</label>
+        <select name="location" id=""
+         {...register("location",
+         {
+           required : "select one option"
+         }
+         )}
+         onChange ={(e) => setLoc(e.target.value)}
+        >
+          <option>Choose</option>
+         
+         {
+          location ? location.map((x) => {
+            return(
+             <option value={x.Location}>{x.Location}</option>
+            )
+          }) : ""
+         }
+        </select>
+        </Form.Field>
+        {errors.location && <p style={{color : 'red'}}>{errors.location.message}</p>}
+        </MDBCol>
         </MDBRow>
   
         <MDBRow className='pt-2 ms-3 me-3 mb-4'>

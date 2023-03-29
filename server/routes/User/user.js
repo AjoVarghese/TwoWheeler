@@ -11,6 +11,7 @@ const singleViewController = require('../../Controller/User/Vehicles/singleViewC
 const userProfileController = require('../../Controller/User/getUserProfileController')
 const addVehicleController = require('../../Controller/User/Vehicles/addVehicle')
 const getRentedBikesController = require('../../Controller/User/RentedBikes/RentedBikes')
+const locationController = require('../../Controller/User/Location/locationController')
 const {protect} = require('../../middleware/jwtAuth')
 
 // router.use(function(req, res, next) {
@@ -37,6 +38,8 @@ router.route('/edit-profile').post(protect,updateProfileController.updateProfile
 router.route('/bikes').get(viewVehiclesController.viewVehicles)
 
 // router.route('/view-bike').get(singleViewController.singleViewController)
+
+router.route('/get-location').get(locationController.getLocations)
 
 router.route('/rent-bikes').post(protect,upload.array('images'),addVehicleController.addVehicle)
 

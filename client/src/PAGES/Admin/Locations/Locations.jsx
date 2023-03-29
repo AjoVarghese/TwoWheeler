@@ -98,7 +98,9 @@ useEffect(() => {
 
        {
         editModal ? <LocationModal closeModal = {setModal} 
-        message='Edit' action="Edit" /> : ""
+        message='Edit' action="Edit" 
+          loc={setSelectedLocation}
+        /> : ""
        }
 
 

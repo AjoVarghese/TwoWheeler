@@ -6,15 +6,22 @@ exports.addLocation = async(req,res) => {
         let location={
             Location : req.body.location
         }
-        Location.create(location).then(() => {
+        let locExists = await Location.find({Location :req.body.location})
+
+        if(!locExists){
+            Location.create(location).then(() => {
             
-            Location.find().then((data) => {
-              res.status(200).json(data)
+                Location.find().then((data) => {
+                  res.status(200).json(data)
+                })
             })
-        })
+        } else {
+            res.status(400).json("Location is already present")
+        }
+        
     } catch (error) {
         console.log("Locatin Error",error);
-        res.status(200).json(error)
+        res.status(400).json(error)
     }
 }
 
