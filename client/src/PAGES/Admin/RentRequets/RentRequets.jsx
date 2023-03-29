@@ -80,7 +80,7 @@ function RentRequets() {
 
             {
               rejectDialog ? <AlertDialog action="reject" closeDialog={setRejectDialog} 
-               bikeId = {selectedBike} functionToBeDone = {rejectRequest}
+               Id = {selectedBike} functionToBeDone = {rejectRequest}
                message = 'Do you want to reject the request'/> : ''
             }
    

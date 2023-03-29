@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
+import { useLocation } from 'react-router-dom';
 
 
   
@@ -17,6 +18,9 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 function SingleView() {
+
+  const location = useLocation()
+  console.log("Single view Data",location.state.bikesData[0]);
   return (
     <div>
         <Navbar/>

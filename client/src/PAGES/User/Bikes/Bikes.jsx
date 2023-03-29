@@ -53,7 +53,7 @@ function Bikes() {
                     style={{objectFit:"cover"}}
                     position="top"
                     alt="Apple Computer"
-                    onClick={(e) => navigate('/bike-detailed-view')}
+                    onClick={(e) => navigate('/bike-detailed-view',{state:{bikesData}})}
                   />
                   <MDBCardBody style={{backgroundColor : "#DCDCDC"}}>
                     <div className="text-center">

@@ -1,19 +1,43 @@
 import { Box, styled, TextField } from '@mui/material';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row'
 import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar';
 import { Figure } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
 
 function EditBike() {
     const location = useLocation()
     console.log("Vlue",location.state.data.vehicleName);
 
+    const { register,
+      handleSubmit,
+       formState: { errors }
+      } = useForm();
+
     const dispatch = useDispatch()
+    const navigate = useNavigate();
+
+    const [bikeName,setBikeName] = useState('')
+    const [bikeModel , setBikeModel] = useState('')
+    const [engineNo , setEngineNo] = useState('')
+    const [brand,setBrand] = useState('')
+    const [fuel,setFuel] = useState('')
+    const [desc,setDesc] = useState('')
+    const [price,setPrice] = useState('')
+    const [color,setColor] = useState('')
+    const [images,setImages] = useState([])
+    const [loading,setLoading]=useState(false);
+    const [sucess,setSuccess]=useState(false);
+
+    const onSubmit = (data,e) => {
+      e.preventDefault()
+      console.log("DATA",data);
+    }
 
     const DrawerHeader = styled('div')(({ theme }) => ({
         display: 'flex',
@@ -35,16 +59,21 @@ function EditBike() {
         <div style={{border : '0.2px solid black',boxShadow :'1px 1px 2px 2px grey',borderRadius:'5px'}}>
         <Form className='container mt-4 mb-5'>
       <Row className="mb-3 ">
-        <Form.Group as={Col} controlId="formGridEmail">
+        <Form.Group as={Col} controlId="formGridEmail" onSubmit={handleSubmit(onSubmit)}> 
          {/* <label htmlFor="">Vecle Name</label> */}
           <TextField
             margin="normal"
             fullWidth
-            name = 'vehicleName'
-            id="vehicleName"
+            name = 'bikeName'
+            id="bikeName"
             defaultValue={location.state.data.vehicleName}
-             label="Vehicle Name"
+            label="Bike Name"
             autoFocus
+            {...register('bikeName',{
+              required : true,
+              minLength : 2
+            })}
+            onChange={(e) => setBikeName(e.target.value)}
           />
         </Form.Group>
 
@@ -53,11 +82,17 @@ function EditBike() {
             margin="normal"
             fullWidth
             autoFocus
-            name = 'vehicleModel'
-            id="vehicleModel"
+            name = 'bikeModel'
+            id="bikeModel"
             defaultValue={location.state.data.vehicleModel}
-            label="Vehicle Model"
-            default={location.state.data._id}
+            label="Bike Model"
+            // default={location.state.data._id}
+            {...register("bikeModel",
+            {
+              required : true , minLength : 4
+            }
+            )}
+            onChange={(e) => setBikeModel(e.target.value)}
           />
         </Form.Group>
       </Row>
@@ -74,6 +109,12 @@ function EditBike() {
             defaultValue={location.state.data.EngineNo}
             autoFocus
             label="Engine No"
+            {...register("engineNo",
+          {
+            required : true , minLength : 5
+          }
+          )}
+            onChange={(e) => setEngineNo(e.target.value)}
           />
         </Form.Group>
 
@@ -87,6 +128,12 @@ function EditBike() {
             defaultValue={location.state.data.Brand}
             autoFocus
             label="Brand"
+            {...register("brand",
+            {
+              required : true , minLength : 4
+            }
+            )}
+            onChange={(e) => setBrand(e.target.brand)}
           />
         </Form.Group>
       </Row>
@@ -102,6 +149,12 @@ function EditBike() {
             defaultValue={location.state.data.Color}
             autoFocus
             label="Color"
+            {...register("color",
+          {
+            required : true , minLength : 3
+          }
+          )}
+            onChange={(e) =>setColor(e.target.value)}
           />
         </Form.Group>
 
@@ -115,6 +168,12 @@ function EditBike() {
             defaultValue={location.state.data.Fuel}
             autoFocus
             label="Fuel Used"
+            {...register("fuel",
+            {
+              required : true , minLength : 3
+            }
+            )}
+            onChange={(e) => setFuel(e.target.value)}
           />
         </Form.Group>
       </Row>
@@ -130,6 +189,13 @@ function EditBike() {
             defaultValue={location.state.data.Price}
             autoFocus
             label="Price/hr"
+            {...register("price",
+          {
+            required : true , minLength : 2 ,maxLength : 3
+          }
+          )} 
+            onChange={(e) => setPrice(e.target.value)}
+            
           />
         </Form.Group>
 
@@ -143,8 +209,16 @@ function EditBike() {
             defaultValue={location.state.data.Description}
             autoFocus
             label="Description"
+            {...register("desc",
+            {
+              required : true , minLength : 3
+            }
+            )}
+            onChange={(e) => setDesc(e.target.value)}
+           
           />
         </Form.Group>
+        {errors.desc && <p style={{color : "red"}}>Requried</p>}
       </Row>
 
       <Row className="mb-3 ">
@@ -155,6 +229,8 @@ function EditBike() {
         height={180}
         alt="171x180"
         src={location.state.data.Photo[0]}
+        onChange={(e) => setImages([...images,e.target.files[0]])}
+        
       />
      
     </Figure>
@@ -166,6 +242,7 @@ function EditBike() {
             id="image1"
             autoFocus
             label='Image1'
+            
           />
         </Form.Group>
 
@@ -176,6 +253,7 @@ function EditBike() {
         height={180}
         alt="171x180"
         src={location.state.data.Photo[1]}
+        onChange={(e) => setImages([...images,e.target.files[0]])}
       />
      
     </Figure>
@@ -200,6 +278,7 @@ function EditBike() {
         height={180}
         alt="171x180"
         src={location.state.data.Photo[2]}
+        onChange={(e) => setImages([...images,e.target.files[0]])}
       />
      
     </Figure>
@@ -221,6 +300,7 @@ function EditBike() {
         height={180}
         alt="171x180"
         src={location.state.data.Photo[3]}
+        onChange={(e) => setImages([...images,e.target.files[0]])}
       />
      
     </Figure>

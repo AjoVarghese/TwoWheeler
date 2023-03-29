@@ -115,16 +115,22 @@ const onSubmit = (data) => {
         autoFocus
         label="Bike Name" 
         variant="outlined" 
-        error = {!!errors.bikeName}
-        helperText = {errors.bikeName ? errors.bikeName.message : ""}
-        {...register('bikeName')}
+        {...register('bikeName',
+        {
+          required : "This is required",
+          minLength : 2
+        }
+        )}
+        onChange={(e) => setBikeName(e.target.value)}
+        // error = {!!errors.bikeName}
+        helperText = {errors.bikeName  && <div style={{color : 'red'}}>Please enter the bike name</div>}
         /> */}
           <Form.Field>
           <label htmlFor="">Bike Name</label>
           <MDBInput id='form3Example1' 
           {...register("bikeName",
           {
-            required : "This is required" , minLength : 3
+            required : "This is required" , minLength : 2
           }
           )}
           onChange={(e) => setBikeName(e.target.value)} />

@@ -28,8 +28,8 @@ function SingleBikeView() {
     const dispatch = useDispatch()
 
 
-    const bike = useSelector((state) => state.singleBikeReducer.singleBikeData)
-    console.log("BIKE",bike);
+    // const bike = useSelector((state) => state.singleBikeReducer.singleBikeData)
+    // console.log("BIKE",bike);
 
     // useEffect(() => {
     //   dispatch(bikeViewAction(bike._id))
@@ -87,15 +87,15 @@ function SingleBikeView() {
         <DrawerHeader/>
     <div class="container py-4 my-4 mx-auto d-flex flex-column" style={{border:'2px solid black',boxShadow : '8px 8x 8px 8px'}}>
     <div class="header">
-        <div class="row r1">
+        {/* <div class="row r1">
             <div class="col-md-9 abc">
                 <h1>{bike.vehicleName}</h1>
             </div>
             <div class="col-md-3 text-right pqr"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div>
             <p class="text-right para">Based on 250 Review</p>
-        </div>
+        </div> */}
     </div>
-    <div class="container-body mt-4">
+    {/* <div class="container-body mt-4">
         <div class="row r3">
             <div class="col-md-5 p-0 klo">
                 <ul>
@@ -105,13 +105,13 @@ function SingleBikeView() {
                     <li>Fuel Used : {bike.Fuel}</li>
                     <li>Assured : {bike.Assured ? "Assured" : "Not Assured"}</li>
                     <li><h2>Price : Rs.{bike.Price}</h2></li>
-                    {/* <li>Express Delivery : 2-3 Days</li>
-                    <li>COD Available (All Over India)</li> */}
+                    <li>Express Delivery : 2-3 Days</li>
+                    <li>COD Available (All Over India)</li>
                 </ul>
             </div>
             <div class="col-md-7"> <img src={bike.Photo[0]} width="95%" height="95%"/> </div>
         </div>
-    </div>
+    </div> */}
     <div class="footer d-flex flex-column mt-5">
     {/* <Grid container spacing={2} columns={16}>
   <Grid item xs={8}>

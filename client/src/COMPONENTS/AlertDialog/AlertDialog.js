@@ -10,8 +10,8 @@ import { useTheme } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
 import { acceptRentRequests } from '../../REDUX/Actions/ADMIN_ACTIONS/rentRequestsAction';
 
-export default function AlertDialog({closeDialog,bikeId,functionToBeDone,message,action}) {
-    console.log("RENT DETAILS",bikeId);
+export default function AlertDialog({closeDialog,Id,functionToBeDone,message,action}) {
+    console.log("RENT DETAILS",Id);
     // console.log("funtion to done",functionToBeDone);
   const [open, setOpen] = React.useState(true);
   const theme = useTheme();
@@ -78,7 +78,7 @@ const handleClick = () => {
             Close
           </Button>
           <Button autoFocus color='success' onClick={(e) => {
-            handleClick(bikeId)
+            handleClick(Id)
             // functionToBeDone(bikeId)
           }} >
             Proceed

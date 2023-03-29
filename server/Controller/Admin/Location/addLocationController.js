@@ -1,11 +1,16 @@
-const location = require('../../../Models/locationSchema')
+const Location = require('../../../Models/locationSchema')
 
 exports.addLocation = async(req,res) => {
     try {
         console.log("Location",req.body);
-        location.create(req.body).then((data) => {
-            console.log("Locatin set",data);
-            res.status(200).json(data)
+        let location={
+            Location : req.body.location
+        }
+        Location.create(location).then(() => {
+            
+            Location.find().then((data) => {
+              res.status(200).json(data)
+            })
         })
     } catch (error) {
         console.log("Locatin Error",error);
@@ -16,18 +21,42 @@ exports.addLocation = async(req,res) => {
 
 exports.editLocation = async(req,res) => {
     try {
-        location.updateOne({_id : req.query.id},
+        Location.updateOne({_id : req.query.id},
             {
                 $set : {Location : req.body.Location}
             }
         ).then(()=> {
-            location.findOne({_id : req.query.id}).then((data) => {
+            Location.findOne({_id : req.query.id}).then((data) => {
               console.log("updated location",data);
               res.status(200).json(data)
             })
         })
             
 
+    } catch (error) {
+        
+    }
+}
+
+exports.getLocation = async(req,res) => {
+    try {
+        Location.find().then((data) => {
+            console.log("locations",data);
+            res.status(200).json(data)
+        })
+    } catch (error) {
+        
+    }
+}
+
+exports.deleteLocation = async(req,res) => {
+    try {
+        Location.deleteOne({_id : req.query.id}).then(() => {
+            Location.find().then((data) => {
+                console.log("after deletinf",data);
+                res.status(200).json(data)
+            })
+        })
     } catch (error) {
         
     }

@@ -6,6 +6,8 @@ import {BrowserRouter as Router,Navigate,Route,Routes} from 'react-router-dom'
 import Bookings from './PAGES/Admin/Bookings/Bookings';
 // import SideBar from './Pages/Admin/Components/Navbar/SideBar';
 import Dashboard from './PAGES/Admin/DashBoard/Dashboard';
+import AddLocation from './PAGES/Admin/Locations/AddLocation';
+import Locations from './PAGES/Admin/Locations/Locations';
 import AdminLogin from './PAGES/Admin/Login/AdminLogin';
 import RentRequets from './PAGES/Admin/RentRequets/RentRequets';
 import Users from './PAGES/Admin/Users/Users';
@@ -52,6 +54,8 @@ function App() {
           <Route exact path = '/admin/add-bikes' element = {adminData ? <AddVehicle/> : <Navigate to = '/admin/login'/>}></Route>
           <Route exact path='/admin/rent-requests' element = {adminData ? <RentRequets/> : <Navigate to = '/admin/login'/>}></Route>
           <Route exact path = '/admin/edit-bike' element={adminData ? <EditBike/> : <Navigate to='/admin/login'/>}></Route>
+          <Route exact path = '/admin/locations' element={adminData ? <Locations/> : <Navigate to='/admin/login'/>}></Route>
+          <Route exact path='/admin/add-location' element={adminData ? <AddLocation/> : <Navigate to='/admin/login'/>}></Route>
           <Route exact path='/admin/bookings' element = {adminData ? <Bookings/> : <Navigate to={'/admin/login'}/>}></Route>
           
         </Routes>

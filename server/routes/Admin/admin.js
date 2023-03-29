@@ -39,7 +39,7 @@ router.route('/bikes').get(protect,viewVehiclesController.viewVehicles)
 
 router.route('/delete-bike').get(protect,deleteBikeController.deleteBike)
 
-// router.route('/edit-bike').post(editVehicleController.EditVehicle)
+router.route('/edit-bike').post(protect,upload.array('images'),editVehicleController.EditVehicle)
 
 router.route('/bike-detailed-view').get(protect,bikeDetailsCOntroller.bikeDetailsController)
 
@@ -52,6 +52,10 @@ router.route('/reject-requests').get(protect,rentRequetsController.rejectRequest
 router.route('/add-location').post(protect,LocationController.addLocation)
 
 router.route('/edit-location').post(protect,LocationController.editLocation)
+
+router.route('/locations').get(protect,LocationController.getLocation)
+
+router.route('/delete-location').get(protect,LocationController.deleteLocation)
 
 
 
