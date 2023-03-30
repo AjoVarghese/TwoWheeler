@@ -7,6 +7,7 @@ const loginController = require('../../Controller/User/userLoginController')
 const profilerImageUpdateController = require('../../Controller/User/profileImageUpdateController')
 const updateProfileController = require('../../Controller/User/updateProfileController')
 const viewVehiclesController = require('../../Controller/User/Vehicles/VehicleStoreController')
+const searchVehiclesController = require('../../Controller/User/Vehicles/searchVehicle')
 const singleViewController = require('../../Controller/User/Vehicles/singleViewController')
 const userProfileController = require('../../Controller/User/getUserProfileController')
 const addVehicleController = require('../../Controller/User/Vehicles/addVehicle')
@@ -37,6 +38,8 @@ router.route('/edit-profile').post(protect,updateProfileController.updateProfile
 
 router.route('/bikes').get(viewVehiclesController.viewVehicles)
 
+router.route('/search-bikes').post(searchVehiclesController.searchBikes)
+
 // router.route('/view-bike').get(singleViewController.singleViewController)
 
 router.route('/get-location').get(locationController.getLocations)
@@ -44,5 +47,7 @@ router.route('/get-location').get(locationController.getLocations)
 router.route('/rent-bikes').post(protect,upload.array('images'),addVehicleController.addVehicle)
 
 router.route('/rented-bikes').get(protect,getRentedBikesController.rentedBikes)
+
+
 
 module.exports = router;

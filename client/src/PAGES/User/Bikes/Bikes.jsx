@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../../../COMPONENTS/NAVBAR/Navbar'
 import {
   MDBCard,
@@ -28,6 +28,14 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+// import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import DirectionsIcon from '@mui/icons-material/Directions';
+import { bikeSearchAction } from '../../../REDUX/Actions/USER_ACTIONS/bikeSearchAction';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -41,6 +49,8 @@ function Bikes() {
    const dispatch = useDispatch()
    const navigate = useNavigate()
 
+   const [searchTerm,setSearchTerm] = useState('')
+
   const bikes = useSelector((state) => state.bikesReducer)
   const {loading , bikesData , bikesDataError} = bikes
   console.log("BIKES",bikesData);
@@ -48,19 +58,54 @@ function Bikes() {
   useEffect(() => {
      dispatch(getBikesAction())
   },[])
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    console.log("searchTerm",searchTerm);
+    dispatch(bikeSearchAction(searchTerm))
+    setSearchTerm('')
+    console.log("BIKES",bikesData);
+  }
   return (
        <>
          <Navbar/>
-         <section className='bikes'>
-           <div className='cards'>
+         {/* <section className='bikes'> */}
            
-    <MDBContainer  className="my-2">
-    <div class="input-group " style={{float : 'right'}}>
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-  <button type="button" class="btn btn-outline-primary">search</button>
-</div>
+         {/* <div class="input-group">
+  <div class="form-outline">
+    <input id="search-input" type="search"  class="form-control" />
+    <label class="form-label" for="form1">Search</label>
+  </div>
+  <button id="search-button" type="button" class="btn btn-primary">
+    <i class="fas fa-search"></i>
+  </button>
+</div> */}
+           <form action="" className='container'
+            onSubmit={submitHandler}>
+           <div className ="input-group container fluid" 
+           style={{float : 'right'}}
+          
+            >
+           
+             <input type="search" class="form-control rounded" 
+             placeholder="Search bikes... " 
+             value={searchTerm}
+             aria-label="Search" 
+             aria-describedby="search-addon" 
+             onChange={(e) => setSearchTerm(e.target.value)}
+             />
+              <button type="submit" class="btn btn-outline-primary"
+              
+              >search</button>
+              
+           </div>
+           </form>
+           <div className='cards mt-5'>
+       <div>
+    <MDBContainer  className="my-1">
+   
 <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={3}>
+      {/* <Grid container spacing={3}>
         <Grid item xs>
           <Item>xs</Item>
         </Grid>
@@ -70,7 +115,7 @@ function Bikes() {
         <Grid item xs>
           <Item>xs</Item>
         </Grid>
-      </Grid>
+      </Grid> */}
     </Box>
       <MDBRow className="col-xs-6">
         {
@@ -83,7 +128,7 @@ function Bikes() {
                   <MDBCardImage
                   className='d-flex justify-content-center'
                     src={x.Photo[0]}
-                    style={{width:'18rem',height:'10rem '}}
+                    style={{width:'20rem',height:'10rem',}}
                     position="top"
                     alt="Apple Computer"
                     onClick={(e) => navigate('/bike-detailed-view',{state:{bikesData}})}
@@ -122,10 +167,11 @@ function Bikes() {
         }
       </MDBRow>
     </MDBContainer>
+    </div>    
                 
            </div>
 
-         </section>
+         {/* </section> */}
        </>   
   
   )

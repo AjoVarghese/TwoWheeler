@@ -7,7 +7,7 @@ import { adminUserGetReducer } from "./ADMIN/adminUserReducer";
 import { addLocationReducer, deleteLocationReducer, getLocationReducer } from "./ADMIN/locationReducer";
 import { rentRequestsReducer } from "./ADMIN/rentRequetsReducer";
 import { singleBikeReducer } from "./ADMIN/singleBikeReducer";
-import { bikesReducer } from "./USER/bikesReducer";
+import { bikeSearchReducer, bikesReducer } from "./USER/bikesReducer";
 import { imageUploadReducer } from "./USER/imageUploadReducer";
 import { locationReducer, userLocationReducer } from "./USER/locationReducer";
 import { userGetProfileReduer } from "./USER/userGetProfileReducer";
@@ -23,6 +23,7 @@ const reducers = combineReducers({
     imageUploadReducer : imageUploadReducer,
     bikesReducer : bikesReducer,
     userLocationReducer : userLocationReducer,
+    // bikeSearchReducer  : bikeSearchReducer,
 
 
     adminLoginReducer : adminLoginReducer,
