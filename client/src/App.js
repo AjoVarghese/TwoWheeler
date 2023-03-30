@@ -22,6 +22,7 @@ import Login from "./PAGES/User/Login/Login";
 import Otplogin from './PAGES/User/OTPLogin/Otplogin';
 import Profile from './PAGES/User/Profile/Profile';
 import RentBikes from './PAGES/User/Rent Bikes/RentBikes';
+import ViewRentedBikes from './PAGES/User/Rent Bikes/ViewRentedBikes';
 
 import Signup from "./PAGES/User/Signup/Signup";
 import SingleView from './PAGES/User/SingleView/SingleView';
@@ -43,6 +44,7 @@ function App() {
           <Route exact path='/otp-login' element = {<Otplogin/>}></Route>
           <Route exact path = '/profile' element = {userdata?<Profile/>:<Navigate to='/login' />}></Route>
           <Route path='/rent-bikes' element={<RentBikes/>} />
+          <Route exact path='/rented-bikes' element={userdata ? <ViewRentedBikes/> : <Navigate to ='/rented-bikes'/>}></Route>
 
 
           {/* admin */}

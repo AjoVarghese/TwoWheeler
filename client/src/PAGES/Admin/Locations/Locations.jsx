@@ -65,7 +65,7 @@ const doDelete = () => {
 
 useEffect(() => {
   dispatch(getLocation())
-},[modal,deleteDialog])
+},[modal,deleteDialog,editModal])
 
 
 
@@ -99,14 +99,14 @@ useEffect(() => {
        {
         editModal ? <LocationModal closeModal = {setModal} 
         message='Edit' action="Edit" 
-          loc={setSelectedLocation}
+        locationId = {selectedLoc}
         /> : ""
        }
 
 
        {
         deleteDialog ? <AlertDialog closeDialog={setModal}
-         locationId = {setSelectedLocation}
+         locationId = {selectedLoc}
          functionToBeDone={doDelete}
          message='Are You sure? Do U want to delete this location?'
          /> : ""

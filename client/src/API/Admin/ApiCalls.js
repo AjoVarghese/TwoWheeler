@@ -35,6 +35,8 @@ export const getRentRequetsApi = () => API.get('/rent-requests',configToken)
 export const acceptRentRequestsApi = (id) => API.get('/accept-request?id='+id,configToken)
 export const rejectRentRequetsApi = (id) => API.get('/reject-requests?id='+id,configToken)
 export const deleteBikeAPi =(id) => API.get('/delete-bike?id='+id,configToken)
+
 export const getLocationApi = () => API.get('/locations',configToken)
 export const addLocationApi = (location) => API.post('/add-location',{location},configToken)
 export const deleteLocationApi = (id) => API.get('/delete-location?id='+id,configToken)
+export const editLocationApi = (id,location) => API.post('/edit-location?id='+id,{location})

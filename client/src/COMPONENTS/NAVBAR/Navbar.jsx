@@ -248,8 +248,8 @@ function Navbar() {
           <DropdownButton id="dropdown-basic-button" title={userLoginDetails.Name} className = ' bg-warning profile-dropdown'style={{backgroundColor : ''}}>
             <Avatar image={userLoginDetails? userLoginDetails.ProfileImage : ""} size="xlarge" shape="circle" />
       <Dropdown.Item><Link to = '/profile' style={{color :'black',textDecoration :'none'}}>My Profile</Link></Dropdown.Item>
-      <Dropdown.Item href="#/action-2">My Rides</Dropdown.Item>
-      <Dropdown.Item href="#/action-2">My Rents</Dropdown.Item>
+      <Dropdown.Item >My Rides</Dropdown.Item>
+      <Dropdown.Item ><Link to = '/rented-bikes' style={{color :'black',textDecoration :'none'}}>My Rents</Link></Dropdown.Item>
       <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
     </DropdownButton>
     </>

@@ -51,7 +51,7 @@ router.route('/reject-requests').get(protect,rentRequetsController.rejectRequest
 
 router.route('/add-location').post(protect,LocationController.addLocation)
 
-router.route('/edit-location').post(protect,LocationController.editLocation)
+router.route('/edit-location').post(LocationController.editLocation)
 
 router.route('/locations').get(protect,LocationController.getLocation)
 

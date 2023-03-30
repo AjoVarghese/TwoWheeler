@@ -62,6 +62,27 @@ import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes";
         default : return state    
     }
  }
+
+ export const editLocationReducer = (state = {} , {type,payload}) => {
+    switch(type){
+        case AdminActionTypes.EDIT_LOC_REQ:
+            return{
+                loading : true
+            }
+        case AdminActionTypes.EDIT_LOC_SUCCESS:
+            return{
+                loading : false,
+                location : payload
+            }    
+        case AdminActionTypes.EDIT_LOC_FAILED:
+            return{
+                loading : false,
+                location:payload
+            }    
+        
+        default : return state    
+    }
+ }
        
 
     

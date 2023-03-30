@@ -15,7 +15,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { addLocation } from '../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
+import { addLocation, editLocation } from '../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
 import { useLocation } from 'react-router-dom';
 
 
@@ -25,9 +25,9 @@ const schema = yup.object().shape({
             .required("Location is required"),         
   })
 
-const LocationModal = ({closeModal,message,action,Close,loc}) => {
+const LocationModal = ({closeModal,message,action,locationId}) => {
  ;
-  console.log("LOCATION",loc);
+  console.log("LOCATION",locationId);
   console.log("action",action);
   
     const [basicModal, setBasicModal] = useState(true);
@@ -45,15 +45,17 @@ const LocationModal = ({closeModal,message,action,Close,loc}) => {
       });
 
       const submitHandler = (data) => {
-        
+        let location = data.location
           if(action === 'add'){
             console.log("add location");
             console.log(data);
-            let location = data.location
+           
             dispatch(addLocation(location))
             closeModal(false)
           } else {
             console.log("editing");
+            dispatch(editLocation(locationId,location))
+            closeModal(false)
           }
       }
   return (

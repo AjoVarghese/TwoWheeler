@@ -46,7 +46,7 @@ router.route('/get-location').get(locationController.getLocations)
 
 router.route('/rent-bikes').post(protect,upload.array('images'),addVehicleController.addVehicle)
 
-router.route('/rented-bikes').get(protect,getRentedBikesController.rentedBikes)
+router.route('/rented-bikes').get(getRentedBikesController.rentedBikes)
 
 
 

@@ -1,4 +1,4 @@
-import { addLocationApi, deleteBikeAPi, deleteLocationApi, getLocationApi } from "../../../API/Admin/ApiCalls"
+import { addLocationApi, deleteBikeAPi, deleteLocationApi, editLocationApi, getLocationApi } from "../../../API/Admin/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 
 
@@ -62,6 +62,28 @@ export const deleteLocation = (id) => async(dispatch) => {
     .catch((err) => {
         dispatch({
             type : AdminActionTypes.DELETE_LOC_FAILED,
+            payload : err.response.message
+        })
+    })
+}
+
+export const editLocation = (id,location) => async(dispatch) => {
+    dispatch({
+        type : AdminActionTypes.EDIT_LOC_REQ
+    })
+
+    editLocationApi(id,location).then((data) => {
+        console.log("editLocationApi",data.data);
+        dispatch({
+            type : AdminActionTypes.EDIT_LOC_SUCCESS,
+            payload : data.data
+        })
+    })
+
+    .catch((err) => {
+        console.log("editLocationApiError",err.response);
+        dispatch({
+            type : AdminActionTypes.EDIT_LOC_FAILED,
             payload : err.response.message
         })
     })
