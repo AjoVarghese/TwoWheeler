@@ -6,6 +6,7 @@ import {Form,Button} from 'semantic-ui-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { userHomeReducer } from '../../../REDUX/Reducers/USER/userHomeReducer'
+import { Toaster } from 'react-hot-toast'
 
 
 
@@ -34,6 +35,11 @@ function Home() {
     <div>
       <Navbar/>
       <section>
+      <Toaster
+       position="top-right"
+       reverseOrder={false}
+       toastOptions={{duration:4000}}
+      />
        <div className='landing-page'>
         Landing Page
         {/* <img src={require('../../../Assets/Images/ll.png')} alt="" /> */}

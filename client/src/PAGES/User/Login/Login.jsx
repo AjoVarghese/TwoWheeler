@@ -14,6 +14,18 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { auth } from '../../../FIREBASE/firebase.config';
 import { Box, TextField, Typography } from '@mui/material';
 import {  MDBCheckbox, MDBCol, MDBContainer, MDBRow } from 'mdb-react-ui-kit';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import { styled } from '@mui/material/styles';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
 
 
 const schema = yup.object().shape({
@@ -208,29 +220,42 @@ function Login() {
       <MDBIcon fab icon="facebook-f" className="mx-2"/>
       Continue with facebook
     </MDBBtn> */}
-    <Button
+    <Box sx={{ width: '100%' }}>
+      <Stack spacing={2}>
+        <Item>
+        <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            
+          >
+            <Link to='/signup' style={{textDecoration:'none',color:"black"}}> Sign Up</Link>
+           
+          </Button>
+        </Item>
+        <Item>
+        <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            <Link to='/signup'> Sign Up</Link>
-           
+            <Link to='/otp-login' style={{textDecoration:'none',color:"black"}}> Login with OTP</Link>
           </Button>
+        </Item>
+        {/* <Item>Item 3</Item> */}
+      </Stack>
+    </Box>
+
+    
 
     {/* <MDBBtn className="mb-4 w-100" size="lg" style={{backgroundColor: '#55acee'}}>
       <MDBIcon fab icon="twitter" className="mx-2"/>
       SignIn With Google
     </MDBBtn> */}
 
-<Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In with Ggogle
-          </Button>
+        
 
   </MDBCol>
 

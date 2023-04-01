@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../../../COMPONENTS/NAVBAR/Navbar'
-import { getAccepted, getRentedBikesAction } from '../../../REDUX/Actions/USER_ACTIONS/getRentedBikes'
+import { getAccepted, getAcceptedDataAction, getPending, getPendingDataAction, getRejected, getRejectedDataAction, getRentedBikesAction } from '../../../REDUX/Actions/USER_ACTIONS/getRentedBikes'
 import Figure from 'react-bootstrap/Figure';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -87,23 +87,45 @@ function ViewRentedBikes() {
       getRentedBikesAction()
     }
 
+    // const getRejectedData = () => {
+    //   console.log("getAccepted");
+    //    dispatch(getRejected())
+    // }
+
+    // const getPendingData = () => {
+    //   console.log("getRejected Data");
+    //   dispatch(getPending())
+    // }
+
+    const getAcceptedData = () =>{
+      dispatch(getAcceptedDataAction())
+    }
+
     const getRejectedData = () => {
-      console.log("getAccepted");
-       dispatch(getAccepted())
+      dispatch(getRejectedDataAction())
+    }
+
+    const getPendingData = () => {
+      dispatch(getPendingDataAction())
     }
 
 
     useEffect(() => {
         dispatch(getRentedBikesAction())
         
-    },[])
+    },[dispatch])
 
     const rentedBikes = useSelector((state) => state.getRentedBikesReducer.rentedBikesData)
     console.log("Rented Bikes",rentedBikes);
 
-    const rejected = useSelector((state) => state.getRentedBikesReducer.rejectedData)
+    const rejected = useSelector((state) => state.getRejectedDataReducer.rejectedData)
     console.log("REJECTED",rejected);
 
+    const pending = useSelector((state) => state.getPendingDataReducer.pendingData)
+    console.log("PENDING",pending);
+
+    const accepted = useSelector((state) => state.getAcceptedDataReducer.acceptedData)
+    console.log("ACCEPTEDDD",accepted);
     // const accepted = useSelector((state) => state.getRentedBikesReducer.acceptedData)
     // console.log("Accepted",accepted);
   return (
@@ -120,10 +142,10 @@ function ViewRentedBikes() {
     <Box sx={{ width: '100%' }} className='mt-3 container'>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
-          <Tab label="All "  />
+          <Tab label="All "  onClick={getAll}/>
           
-          <Tab label="Accepted Requests" onClick={getAll} ></Tab>
-          <Tab label="Pending Requests"  />
+          <Tab label="Accepted Requests" onClick={getAcceptedData} ></Tab>
+          <Tab label="Pending Requests"  onClick={getPendingData}/>
           <Tab label="Rejected Requests" onClick={getRejectedData } />
         </Tabs>
       </Box>
@@ -131,10 +153,11 @@ function ViewRentedBikes() {
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
-          <TableRow>
-            <TableCell>Sl No</TableCell>
-            <TableCell align="center">Image</TableCell>
+        <TableRow>
+            <TableCell align="center">Sl No</TableCell>
             <TableCell align="center">Bike Name</TableCell>
+            <TableCell align="center">Image</TableCell>
+            <TableCell align="center">Brand</TableCell>
             <TableCell align="center">Status</TableCell>
             {/* <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
           </TableRow>
@@ -148,7 +171,10 @@ function ViewRentedBikes() {
               key={i+1}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-              <TableCell component="th" scope="row">
+                <TableCell component="th" scope="row" align="center">
+                {i+1}
+              </TableCell>
+              <TableCell component="th" scope="row" align="center">
                 {x.vehicleName}
               </TableCell>
               <TableCell align="center">
@@ -180,12 +206,114 @@ function ViewRentedBikes() {
 
 
       <TabPanel value={value} index={1}>
-      
+      <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+        <TableRow>
+            <TableCell>Sl No</TableCell>
+            <TableCell align="center">Bike Name</TableCell>
+            <TableCell align="center">Image</TableCell>
+            <TableCell align="center">Brand</TableCell>
+            <TableCell align="center">Status</TableCell>
+            {/* <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {/* {rows.map((row) => ( */}
+          {
+            accepted? accepted.map((x,i) => {
+              return(
+                <TableRow
+              key={i+1}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+               <TableCell component="th" scope="row" align="center">
+                {i+1}
+              </TableCell>
+              <TableCell component="th" scope="row" align="center">
+                {x.vehicleName}
+              </TableCell>
+              <TableCell align="center">
+              <Figure>
+                  <Figure.Image
+                    width={171}
+                    height={180}
+                    alt="171x180"
+                    src={x.Photo[0]}
+                  />
+                <Figure.Caption>
+        {/* Nulla vitae elit libero, a pharetra augue mollis interdum. */}
+        </Figure.Caption>
+        </Figure>
+              </TableCell>
+              <TableCell align="center">{x.Brand}</TableCell>
+              <TableCell align="center">{x.Status}</TableCell>
+              {/* <TableCell align="right">{row.protein}</TableCell> */}
+            </TableRow>
+              )
+            }) : "No Data Available..."
+          }
+            
+          {/* ))} */}
+        </TableBody>
+      </Table>
+    </TableContainer>
       </TabPanel>
 
 
       <TabPanel value={value} index={2}>
-        Item Three
+      <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+        <TableRow>
+            <TableCell>Sl No</TableCell>
+            <TableCell align="center">Bike Name</TableCell>
+            <TableCell align="center">Image</TableCell>
+            <TableCell align="center">Brand</TableCell>
+            <TableCell align="center">Status</TableCell>
+            {/* <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {/* {rows.map((row) => ( */}
+          {
+            pending ? pending.map((x,i) => {
+              return(
+                <TableRow
+              key={i+1}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+               <TableCell component="th" scope="row" align="center">
+                {i+1}
+              </TableCell>
+              <TableCell component="th" scope="row" align="center">
+                {x.vehicleName}
+              </TableCell>
+              <TableCell align="center">
+              <Figure>
+                  <Figure.Image
+                    width={171}
+                    height={180}
+                    alt="171x180"
+                    src={x.Photo[0]}
+                  />
+                <Figure.Caption>
+        {/* Nulla vitae elit libero, a pharetra augue mollis interdum. */}
+        </Figure.Caption>
+        </Figure>
+              </TableCell>
+              <TableCell align="center">{x.Brand}</TableCell>
+              <TableCell align="center">{x.Status}</TableCell>
+              {/* <TableCell align="right">{row.protein}</TableCell> */}
+            </TableRow>
+              )
+            }) : "No Data Available..."
+          }
+            
+          {/* ))} */}
+        </TableBody>
+      </Table>
+    </TableContainer>
       </TabPanel>
       <TabPanel value={value} index={3}>
       <TableContainer component={Paper}>
@@ -193,8 +321,9 @@ function ViewRentedBikes() {
         <TableHead>
           <TableRow>
             <TableCell>Sl No</TableCell>
-            <TableCell align="center">Image</TableCell>
             <TableCell align="center">Bike Name</TableCell>
+            <TableCell align="center">Image</TableCell>
+            <TableCell align="center">Brand</TableCell>
             <TableCell align="center">Status</TableCell>
             {/* <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
           </TableRow>
@@ -208,7 +337,10 @@ function ViewRentedBikes() {
               key={i+1}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+             <TableCell component="th" scope="row" align="center">
+                {i+1}
+              </TableCell>
+              <TableCell component="th" scope="row" align="center">
                 {x.vehicleName}
               </TableCell>
               <TableCell align="center">

@@ -68,7 +68,9 @@ app.use(cors(corsOptions))
 //   //some other code
 // });  
 
-
+// let mobile="+918129197512"
+// let res = mobile.substring(3)
+// console.log("res",res);
 app.use('/api/user', userRouter);
 app.use('/api/admin', adminRouter);
 

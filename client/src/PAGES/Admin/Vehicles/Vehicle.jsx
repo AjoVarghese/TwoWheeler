@@ -32,19 +32,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import DirectionsIcon from '@mui/icons-material/Directions';
-
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+import { Toaster } from 'react-hot-toast';
 
 
 function Vehicle() {
@@ -70,13 +58,7 @@ function Vehicle() {
    const {loading,bikesData,bikesDataError} = bikes
    console.log("bikes",bikesData);
 
-  //  const handleClick = (id) => {
-  //     bikeSingleViewApi(id).then((data) => {
-  //       console.log("SINGLE BIKE VIEW",data.data);
-  //       dispatch(bikeSingleViewAction(data.data))
-  //       navigate('/admin/bike-detailed-view')
-  //     })
-  //  }
+ 
 
    const deleteBike = () =>{
       console.log('dekete bike');
@@ -100,7 +82,11 @@ function Vehicle() {
     <div>
             {/* <ToastContainer></ToastContainer> */}
 {/* <ToastContainer /> */}
-
+<Toaster
+       position="top-right"
+       reverseOrder={false}
+       toastOptions={{duration:4000}}
+      />
       <Box sx={{ display : 'flex' }}>
       <AdminSideBar/>
       <Box component = 'main' sx={{flexGrow : 1,p:3}}>

@@ -80,3 +80,39 @@ exports.LoginPost = async(req,res) => {
     
   
 }
+
+exports.otpLoginPost = (req,res) => {
+  console.log("mobile",req.body);
+  try {
+    userSchema.findOne({Mobile : req.body.mobile}).then((data) => {
+      if(data){
+        if(data.Status){
+          let {id,Name,Email,Mobile,Status,ProfileImage} = data
+
+          let result = {
+            id,
+            Name,
+            Email,
+            Mobile,
+            Status,
+            ProfileImage,
+            token : generateToken.generateToken(id)
+          }
+          console.log("LOGIN DETAILS",result);
+          res.status(200).json(result)
+        } else {
+          console.log("BLOCK");
+          res.status(400).json("Your account has been suspended temporarily")
+        }
+      } else {
+        console.log("Mobile Error");
+        res.status(400).json("Mobile No doesn't exists")
+      }
+    })
+    .catch((err) => {
+      res.json(error)
+    })
+  } catch (error) {
+    
+  }
+}

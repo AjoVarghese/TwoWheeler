@@ -24,7 +24,9 @@ const {protect} = require('../../middleware/jwtAuth')
 /* GET home page. */
 router.post('/signup',signupController.signUpPost)
 
-router.post('/login',loginController.LoginPost)
+router.route('/login').post(loginController.LoginPost)
+
+router.route('/otp-login').post(loginController.otpLoginPost)
 
 router.get('/')
 
@@ -48,6 +50,10 @@ router.route('/rent-bikes').post(protect,upload.array('images'),addVehicleContro
 
 router.route('/rented-bikes').get(getRentedBikesController.rentedBikes)
 
+router.route('/accepted-requests').get(getRentedBikesController.acceptedRequests)
 
+router.route('/rejected-requests').get(getRentedBikesController.rejectedRequests)
+
+router.route('/pending-requests').get(getRentedBikesController.pendingRequests)
 
 module.exports = router;

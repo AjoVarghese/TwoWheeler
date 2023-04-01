@@ -9,6 +9,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
 import { acceptRentRequests } from '../../REDUX/Actions/ADMIN_ACTIONS/rentRequestsAction';
+import { toast } from 'react-hot-toast';
 
 export default function AlertDialog({closeDialog,Id,functionToBeDone,message,action}) {
     console.log("RENT DETAILS",Id);
@@ -37,6 +38,7 @@ const dispatch = useDispatch()
 const handleClick = () => {
   functionToBeDone()
   closeDialog(false)
+  toast.success('Bike successfully deleted from garage!')
 }
 
 // const functionToBeDone = (bikeId) => {

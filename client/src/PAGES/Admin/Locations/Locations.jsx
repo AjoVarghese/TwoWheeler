@@ -15,6 +15,8 @@ import { getLocation } from '../../../REDUX/Actions/ADMIN_ACTIONS/locationAction
 import LocationModal from '../../../COMPONENTS/LocationModal/LocationModal';
 import AlertDialog from '../../../COMPONENTS/AlertDialog/AlertDialog';
 import { deleteLocation } from '../../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
+import BasicModal from '../../../COMPONENTS/BasicModal/BasicModal';
+import EditLocationModal from '../../../COMPONENTS/Modal/EditLocationModal';
 
 
 function createData(name, calories, fat, carbs, protein) {
@@ -50,6 +52,8 @@ const [editModal,setEditModal] = useState(false)
 const [deleteDialog,setDeletedialog] = useState(false)
 const [selectedLoc,setSelectedLocation] = useState(false)
 
+const [open,setOpen] = useState(false)
+
 
 let close
 
@@ -60,6 +64,17 @@ const doDelete = () => {
   console.log("delete Location");
   dispatch(deleteLocation(selectedLoc))
   setDeletedialog(false)
+}
+
+// const doEdit = () => {
+//   setOpen(true)
+//   console.log("edit clicked");
+// }
+
+const handleEdit = (id,location) => {
+  console.log("edit",id,location);
+  setEditModal(true)
+  setSelectedLocation(id)
 }
 
 
@@ -96,12 +111,12 @@ useEffect(() => {
          action="add" Close={close}/> : ""
        }
 
-       {
+       {/* {
         editModal ? <LocationModal closeModal = {setModal} 
         message='Edit' action="Edit" 
         locationId = {selectedLoc}
         /> : ""
-       }
+       } */}
 
 
        {
@@ -142,13 +157,7 @@ useEffect(() => {
               </TableCell>
               <TableCell align="center">
               <Button variant="contained" color="info" 
-              onClick={(e) => {
-                setModal(false)
-                setDeletedialog(false)
-                setEditModal(true)
-                setSelectedLocation(data._id)
-                
-              }}
+              onClick={() => handleEdit(data._id,data.Location)}
               >
              Edit
               </Button>
@@ -182,6 +191,8 @@ useEffect(() => {
     </div>
     {/* </div> */}
       </Box>
+      {/* <BasicModal open={open} onClose={() => setOpen(false)}/> */}
+      <EditLocationModal locationId={selectedLoc} open={editModal} onClose={()=>setEditModal(false)}/>
       </Box>
     </div>
   )

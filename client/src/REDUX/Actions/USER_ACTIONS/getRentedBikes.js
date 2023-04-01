@@ -1,4 +1,4 @@
-import { userGetRentedBikesAPi } from "../../../API/User/ApiCalls"
+import { getAcceptedBikesApi, getPendingBikesApi, getRejectedBikesApi, userGetRentedBikesAPi } from "../../../API/User/ApiCalls"
 import { ActionTypes } from "../../Constants/User/ActionTypes"
 
 export const getRentedBikesAction = () => async(dispatch) =>{
@@ -23,9 +23,79 @@ export const getRentedBikesAction = () => async(dispatch) =>{
     })
 }
 
-export const getAccepted = () => async(dispatch) => {
-    console.log("ACCEPTED");
+export const getAcceptedDataAction = () => async(dispatch) => {
     dispatch({
-        type : ActionTypes.GET_ACCEPTED_REQ
+        type : ActionTypes.GET_ACCEPTED_BIKES_REQ
+    })
+
+    getAcceptedBikesApi().then((data) => {
+        console.log("Accepted",data.data);
+        dispatch({
+            type : ActionTypes.GET_ACCEPTED_BIKES_SUCCESS,
+            payload : data.data
+        })
+    })
+    .catch((err) => {
+        console.log("acc err",err);
+        dispatch({
+            type : ActionTypes.GET_ACCEPTED_BIKES_FAILED,
+            payload : err.response
+        })
     })
 }
+
+export const getRejectedDataAction = () => async(dispatch) => {
+    dispatch({
+        type : ActionTypes.GET_REJECTED_BIKES_REQ
+    })
+
+    getRejectedBikesApi().then((data) => {
+        console.log("rej data",data.data);
+        dispatch({
+            type : ActionTypes.GET_REJECTED_BIKES_SUCCESS,
+            payload : data.data
+        })
+    })
+    .catch((err) => {
+        console.log('rej err',err);
+        dispatch({
+            type : ActionTypes.GET_REJECTED_BIKES_FAILED,
+            payload : err.response
+        })
+    })
+}
+
+export const getPendingDataAction = () => async(dispatch) => {
+    dispatch({
+        type : ActionTypes.GET_PENDING_BIKES_REQ
+    })
+
+    getPendingBikesApi().then((data) => {
+        console.log("pen data",data.data);
+        dispatch({
+            type : ActionTypes.GET_PENDING_BIKES_SUCCESS,
+            payload : data.data
+        })
+    })
+    .catch((err) => {
+        console.log('pen err',err);
+        dispatch({
+            type : ActionTypes.GET_PENDING_BIKES_FAILED,
+            payload : err.response
+        })
+    })
+}
+
+// export const getRejected = () => async(dispatch) => {
+//     console.log("REJECTED");
+//     dispatch({
+//         type : ActionTypes.GET_REJECTED_REQ
+//     })
+// }
+
+// export const getPending= () => async(dispatch) => {
+//     console.log("PENDING");
+//     dispatch({
+//         type : ActionTypes.GET_PENDING_REQ
+//     })
+// }

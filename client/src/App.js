@@ -41,7 +41,7 @@ function App() {
           <Route exact path='/login' element = {userdata?<Navigate to='../'/> :<Login/>}></Route>
           <Route exact path='/bikes' element = {<Bikes/>}></Route>
           <Route exact path = '/bike-detailed-view' element={<SingleView/>}></Route>
-          <Route exact path='/otp-login' element = {<Otplogin/>}></Route>
+          <Route exact path='/otp-login' element = {userdata?<Navigate to='../'/> :<Otplogin/>}></Route>
           <Route exact path = '/profile' element = {userdata?<Profile/>:<Navigate to='/login' />}></Route>
           <Route path='/rent-bikes' element={<RentBikes/>} />
           <Route exact path='/rented-bikes' element={userdata ? <ViewRentedBikes/> : <Navigate to ='/rented-bikes'/>}></Route>

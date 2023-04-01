@@ -13,6 +13,7 @@ import { Form, Button } from 'semantic-ui-react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { userGetLocation } from '../../../REDUX/Actions/USER_ACTIONS/locationActions';
+import { Toaster, toast } from 'react-hot-toast';
 
 
 
@@ -70,9 +71,10 @@ function RentBikes() {
     userAddBikeApi(formdata).then((data) => {
       setLoading(false)
       // toast.success("added")
-      setSuccess(true)
+      // setSuccess(true)
+      toast.success('Request has been send successfully!')
       setTimeout(() => {
-        navigate("/profile",{state:{bikeAdded:true}})
+        navigate("/rented-bikes",{state:{bikeAdded:true}})
         setSuccess(false)
       }, 3000);
      
@@ -117,9 +119,15 @@ function RentBikes() {
           {/* <DrawerHeader/> */}
           
           <Card className='container col-md-6' style={{ boxShadow : "2px 2px 2px 1px"}}>
-          {
+          {/* {
       sucess?   <Alert severity="warning">Your Request has been submitted.Wait for some time until we verifies the details!</Alert>:''
-     }
+     } */}
+     {/* <Toaster toastOptions={{duration:4000}}></Toaster> */}
+     <Toaster
+       position="top-right"
+       reverseOrder={false}
+       toastOptions={{duration:4000}}
+      />
           <Form onSubmit={handleSubmit(onSubmit)}>
           <div className="card flex flex-column md:flex-row gap-3">
               {/* <div className="p-inputgroup flex-1">

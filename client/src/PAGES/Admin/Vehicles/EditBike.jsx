@@ -34,9 +34,9 @@ function EditBike() {
     const [loading,setLoading]=useState(false);
     const [sucess,setSuccess]=useState(false);
 
-    const onSubmit = (data,e) => {
+    const submitHandler = (e) => {
       e.preventDefault()
-      console.log("DATA",data);
+      // console.log("DATA",data);
     }
 
     const DrawerHeader = styled('div')(({ theme }) => ({
@@ -59,7 +59,7 @@ function EditBike() {
         <div style={{border : '0.2px solid black',boxShadow :'1px 1px 2px 2px grey',borderRadius:'5px'}}>
         <Form className='container mt-4 mb-5'>
       <Row className="mb-3 ">
-        <Form.Group as={Col} controlId="formGridEmail" onSubmit={handleSubmit(onSubmit)}> 
+        <Form.Group as={Col} controlId="formGridEmail" onSubmit={handleSubmit(submitHandler)}> 
          {/* <label htmlFor="">Vecle Name</label> */}
           <TextField
             margin="normal"
@@ -218,7 +218,7 @@ function EditBike() {
            
           />
         </Form.Group>
-        {errors.desc && <p style={{color : "red"}}>Requried</p>}
+        {errors.desc && <p style={{color : "red"}}>Required</p>}
       </Row>
 
       <Row className="mb-3 ">

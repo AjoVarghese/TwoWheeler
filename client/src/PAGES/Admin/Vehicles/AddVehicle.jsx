@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { Form, Button } from 'semantic-ui-react';
 import { useForm } from "react-hook-form";
 import { getLocation } from '../../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
+import { toast, Toaster } from 'react-hot-toast';
 
 // const schema = yup.object().shape({
 //   mySelec: yup.string().notOneOf([""], "You must select an option!")
@@ -109,7 +110,8 @@ const onSubmit = (data) => {
   dispatch(adminAddBikeAction(data.data))
   setLoading(false)
   // toast.success("added")
-  setSuccess(true)
+  // setSuccess(true)
+  toast.success('Bike successfully added to the garage!')
   setTimeout(() => {
     navigate("/admin/bikes",{state:{bikeAdded:true}})
     setSuccess(false)
@@ -129,9 +131,14 @@ const onSubmit = (data) => {
         <DrawerHeader/>
         
         <Card className='container col-md-6' style={{ boxShadow : "2px 2px 2px 1px"}}>
-     {
+     {/* {
       sucess?   <Alert severity="success">Bike Added Successfully!</Alert>:''
-     }
+     } */}
+      <Toaster
+       position="top-right"
+       reverseOrder={false}
+       toastOptions={{duration:4000}}
+      />
         <Form onSubmit={handleSubmit(onSubmit)}>
         <div className="card flex flex-column md:flex-row gap-3">
             {/* <div className="p-inputgroup flex-1">
