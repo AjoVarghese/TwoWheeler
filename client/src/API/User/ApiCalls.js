@@ -58,9 +58,9 @@ export const userGetLocationApi = () => API.get('/get-location',config)
 
 export const userAddBikeApi = (formData)=> API.post('/rent-bikes?id='+ID,formData,configFormData)
 export const userGetRentedBikesAPi = () => API.get('/rented-bikes?id='+ID,configTOken)
-export const getAcceptedBikesApi = () => API.get('/accepted-requests?id='+ID)
-export const getRejectedBikesApi = () => API.get('/rejected-requests?id='+ID,configTOken)
-export const getPendingBikesApi = () => API.get('pending-requests?id='+ID,configTOken)
+// export const getAcceptedBikesApi = () => API.get('/accepted-requests?id='+ID)
+// export const getRejectedBikesApi = () => API.get('/rejected-requests?id='+ID,configTOken)
+// export const getPendingBikesApi = () => API.get('pending-requests?id='+ID,configTOken)
 
 export const userGetBikesApi = () => API.get('/bikes',config)
 export const searchBikesApi = (searchTerm) => {

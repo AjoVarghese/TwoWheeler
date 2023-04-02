@@ -3,6 +3,7 @@ import React, { useEffect, useState ,useRef  } from 'react'
 import Navbar from '../../../COMPONENTS/NAVBAR/Navbar'
 import './Profile.css'
 import Button from 'react-bootstrap/Button';
+import AddIcon from '@mui/icons-material/Add';
 
 import {
   MDBCol,
@@ -31,6 +32,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getUserProfileAction, getUserProfileReducer, imageUploadAction } from '../../../REDUX/Actions/USER_ACTIONS/userProfileAction';
 import ModalBox from '../../../COMPONENTS/Modal/ModalBox';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 
 
 
@@ -40,6 +43,10 @@ function Profile() {
 
   const [image,setImage] = useState("")
   const [modal,setModal] = useState(false)
+
+  const click = () => {
+    console.log('click');
+  }
 
   // const toast = useRef(null);
 
@@ -198,54 +205,7 @@ function Profile() {
                   >Edit Details</Button>{' '}
                 </MDBRow>
                
-                {/* <hr /> */}
-                {/* <MDBRow>
-                  <MDBCol lg="8">
-                  <MDBInput
-      label='Email'
-      placeholder='email@gmail.com'
-      id='formControlReadOnly'
-      type='text'
-      readonly
-    />
-                  </MDBCol>
-                  <MDBCol lg="8">
-                  <MDBInput
-      label='Mobile No'
-      placeholder='1234567890'
-      id='formControlReadOnly'
-      type='Number'
-      readonly
-    />
-                  </MDBCol>
-                </MDBRow> */}
-                {/* <hr />
-                <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Phone</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(097) 234-5678</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Mobile</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(098) 765-4321</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr /> */}
-                {/* <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Address</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
-                  </MDBCol>
-                </MDBRow> */}
+                
               </MDBCardBody>
             </MDBCard>
 
@@ -255,9 +215,46 @@ function Profile() {
                   <MDBCardBody>
                     <MDBCardText className="mb-4"><span className="text-primary font-italic me-1"></span> <h1 style={{fontSize : '25px'}}>Upload Documents</h1></MDBCardText>
                      
-                    <div className="card">
-            <FileUpload name="demo[]" url={'/api/upload'} multiple accept="image/*" maxFileSize={1000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
-        </div>
+                    {/* <div className="card"> */}
+                      <input type='file'></input>
+                      <hr />
+                      <input type='file' className='mt-3'></input>
+                      <Button style={{backgroundColor:"black"}} className='mt-3'>Upload</Button>
+                    {/* <Box
+      sx={{
+        display: 'flex',
+        '& > :not(style)': {
+          m: 1,
+          width: 128,
+          height: 128,
+        },
+      }}
+    >
+      <Paper variant="outlined">
+      
+      </Paper>
+      <Paper variant="outlined" />
+    </Box>
+
+    <Box
+      sx={{
+        display: 'flex',
+        '& > :not(style)': {
+          m: 1,
+          width: 128,
+          height: 128,
+        },
+      }}
+    >
+      
+      <Paper variant="outlined" />
+      <Paper variant="outlined" />
+    </Box> */}
+    {/* <Button size="medium" color='warning'>
+      Upload
+    </Button> */}
+            {/* <FileUpload name="demo[]" url={'/api/upload'} multiple accept="image/*" maxFileSize={1000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} /> */}
+        {/* </div> */}
                     {/* <div className="card">
             <FileUpload name="demo[]" url={'/api/upload'} multiple accept="image/*" maxFileSize={1000000} emptyTemplate={<p className="m-0">Drag and drop files to here to upload.</p>} />
         </div> */}

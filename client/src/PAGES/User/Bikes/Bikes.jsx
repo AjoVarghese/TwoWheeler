@@ -36,6 +36,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import DirectionsIcon from '@mui/icons-material/Directions';
 import { bikeSearchAction } from '../../../REDUX/Actions/USER_ACTIONS/bikeSearchAction';
+import BasicPagination from '../../../COMPONENTS/Pagination/BasicPagination';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -167,6 +168,9 @@ function Bikes() {
         }
       </MDBRow>
     </MDBContainer>
+    {/* <Paper  elevation={6}>
+      <BasicPagination/>
+    </Paper> */}
     </div>    
                 
            </div>

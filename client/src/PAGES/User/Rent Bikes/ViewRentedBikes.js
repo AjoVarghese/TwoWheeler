@@ -97,17 +97,17 @@ function ViewRentedBikes() {
     //   dispatch(getPending())
     // }
 
-    const getAcceptedData = () =>{
-      dispatch(getAcceptedDataAction())
-    }
+    // const getAcceptedData = () =>{
+    //   dispatch(getAcceptedDataAction())
+    // }
 
-    const getRejectedData = () => {
-      dispatch(getRejectedDataAction())
-    }
+    // const getRejectedData = () => {
+    //   dispatch(getRejectedDataAction())
+    // }
 
-    const getPendingData = () => {
-      dispatch(getPendingDataAction())
-    }
+    // const getPendingData = () => {
+    //   dispatch(getPendingDataAction())
+    // }
 
 
     useEffect(() => {
@@ -142,11 +142,11 @@ function ViewRentedBikes() {
     <Box sx={{ width: '100%' }} className='mt-3 container'>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
-          <Tab label="All "  onClick={getAll}/>
+          <Tab label="All "  />
           
-          <Tab label="Accepted Requests" onClick={getAcceptedData} ></Tab>
-          <Tab label="Pending Requests"  onClick={getPendingData}/>
-          <Tab label="Rejected Requests" onClick={getRejectedData } />
+          <Tab label="Accepted Requests"  ></Tab>
+          <Tab label="Pending Requests"  />
+          <Tab label="Rejected Requests"  />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -166,8 +166,13 @@ function ViewRentedBikes() {
           {/* {rows.map((row) => ( */}
           {
             rentedBikes ? rentedBikes.map((x,i) => {
+              let status ;
+              if(x.Status){
+                status=true
+              }
               return(
-                <TableRow
+               <>
+               {status? <TableRow
               key={i+1}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
@@ -193,7 +198,8 @@ function ViewRentedBikes() {
               <TableCell align="center">{x.Brand}</TableCell>
               <TableCell align="center">{x.Status}</TableCell>
               {/* <TableCell align="right">{row.protein}</TableCell> */}
-            </TableRow>
+            </TableRow>:''}
+               </>
               )
             }) : "No Data Available..."
           }
@@ -221,35 +227,41 @@ function ViewRentedBikes() {
         <TableBody>
           {/* {rows.map((row) => ( */}
           {
-            accepted? accepted.map((x,i) => {
+            rentedBikes? rentedBikes.map((x,i) => {
+              let status ;
+              if(x.Status === 'Accepted'){
+                status=true
+              }
               return(
-                <TableRow
-              key={i+1}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
+                <>
+                {status? <TableRow
+               key={i+1}
+               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+               >
+                 <TableCell component="th" scope="row" align="center">
+                 {i+1}
+               </TableCell>
                <TableCell component="th" scope="row" align="center">
-                {i+1}
-              </TableCell>
-              <TableCell component="th" scope="row" align="center">
-                {x.vehicleName}
-              </TableCell>
-              <TableCell align="center">
-              <Figure>
-                  <Figure.Image
-                    width={171}
-                    height={180}
-                    alt="171x180"
-                    src={x.Photo[0]}
-                  />
-                <Figure.Caption>
-        {/* Nulla vitae elit libero, a pharetra augue mollis interdum. */}
-        </Figure.Caption>
-        </Figure>
-              </TableCell>
-              <TableCell align="center">{x.Brand}</TableCell>
-              <TableCell align="center">{x.Status}</TableCell>
-              {/* <TableCell align="right">{row.protein}</TableCell> */}
-            </TableRow>
+                 {x.vehicleName}
+               </TableCell>
+               <TableCell align="center">
+               <Figure>
+                   <Figure.Image
+                     width={171}
+                     height={180}
+                     alt="171x180"
+                     src={x.Photo[0]}
+                   />
+                 <Figure.Caption>
+         {/* Nulla vitae elit libero, a pharetra augue mollis interdum. */}
+         </Figure.Caption>
+         </Figure>
+               </TableCell>
+               <TableCell align="center">{x.Brand}</TableCell>
+               <TableCell align="center">{x.Status}</TableCell>
+               {/* <TableCell align="right">{row.protein}</TableCell> */}
+             </TableRow>:''}
+                </>
               )
             }) : "No Data Available..."
           }
@@ -277,35 +289,41 @@ function ViewRentedBikes() {
         <TableBody>
           {/* {rows.map((row) => ( */}
           {
-            pending ? pending.map((x,i) => {
+            rentedBikes ? rentedBikes.map((x,i) => {
+              let status ;
+              if(x.Status === 'Pending'){
+                status=true
+              }
               return(
-                <TableRow
-              key={i+1}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
+                <>
+                {status? <TableRow
+               key={i+1}
+               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+               >
+                 <TableCell component="th" scope="row" align="center">
+                 {i+1}
+               </TableCell>
                <TableCell component="th" scope="row" align="center">
-                {i+1}
-              </TableCell>
-              <TableCell component="th" scope="row" align="center">
-                {x.vehicleName}
-              </TableCell>
-              <TableCell align="center">
-              <Figure>
-                  <Figure.Image
-                    width={171}
-                    height={180}
-                    alt="171x180"
-                    src={x.Photo[0]}
-                  />
-                <Figure.Caption>
-        {/* Nulla vitae elit libero, a pharetra augue mollis interdum. */}
-        </Figure.Caption>
-        </Figure>
-              </TableCell>
-              <TableCell align="center">{x.Brand}</TableCell>
-              <TableCell align="center">{x.Status}</TableCell>
-              {/* <TableCell align="right">{row.protein}</TableCell> */}
-            </TableRow>
+                 {x.vehicleName}
+               </TableCell>
+               <TableCell align="center">
+               <Figure>
+                   <Figure.Image
+                     width={171}
+                     height={180}
+                     alt="171x180"
+                     src={x.Photo[0]}
+                   />
+                 <Figure.Caption>
+         {/* Nulla vitae elit libero, a pharetra augue mollis interdum. */}
+         </Figure.Caption>
+         </Figure>
+               </TableCell>
+               <TableCell align="center">{x.Brand}</TableCell>
+               <TableCell align="center">{x.Status}</TableCell>
+               {/* <TableCell align="right">{row.protein}</TableCell> */}
+             </TableRow>:''}
+                </>
               )
             }) : "No Data Available..."
           }
@@ -331,35 +349,41 @@ function ViewRentedBikes() {
         <TableBody>
           {/* {rows.map((row) => ( */}
           {
-            rejected ? rejected.map((x,i) => {
+            rentedBikes ? rentedBikes.map((x,i) => {let status ;
+              if(x.Status === 'Rejected'){
+                status=true
+              }
+
               return(
-                <TableRow
-              key={i+1}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-             <TableCell component="th" scope="row" align="center">
-                {i+1}
-              </TableCell>
-              <TableCell component="th" scope="row" align="center">
-                {x.vehicleName}
-              </TableCell>
-              <TableCell align="center">
-              <Figure>
-                  <Figure.Image
-                    width={171}
-                    height={180}
-                    alt="171x180"
-                    src={x.Photo[0]}
-                  />
-                <Figure.Caption>
-        {/* Nulla vitae elit libero, a pharetra augue mollis interdum. */}
-      </Figure.Caption>
-    </Figure>
-              </TableCell>
-              <TableCell align="center">{x.Brand}</TableCell>
-              <TableCell align="center">{x.Status}</TableCell>
-              {/* <TableCell align="right">{row.protein}</TableCell> */}
-            </TableRow>
+                <>
+                {status? <TableRow
+               key={i+1}
+               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+               >
+                 <TableCell component="th" scope="row" align="center">
+                 {i+1}
+               </TableCell>
+               <TableCell component="th" scope="row" align="center">
+                 {x.vehicleName}
+               </TableCell>
+               <TableCell align="center">
+               <Figure>
+                   <Figure.Image
+                     width={171}
+                     height={180}
+                     alt="171x180"
+                     src={x.Photo[0]}
+                   />
+                 <Figure.Caption>
+         {/* Nulla vitae elit libero, a pharetra augue mollis interdum. */}
+         </Figure.Caption>
+         </Figure>
+               </TableCell>
+               <TableCell align="center">{x.Brand}</TableCell>
+               <TableCell align="center">{x.Status}</TableCell>
+               {/* <TableCell align="right">{row.protein}</TableCell> */}
+             </TableRow>:''}
+                </>
               )
             }) : "No Data Available..."
           }

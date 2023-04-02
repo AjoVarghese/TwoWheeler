@@ -22,26 +22,6 @@ import { toast, Toaster } from 'react-hot-toast';
 //   mySelec: yup.string().notOneOf([""], "You must select an option!")
 // });
 
-
-const currencies = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
-
 function AddVehicle() {
   const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',

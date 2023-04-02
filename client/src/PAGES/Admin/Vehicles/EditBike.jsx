@@ -1,6 +1,6 @@
-import { Box, styled, TextField } from '@mui/material';
+import { Box, InputLabel, NativeSelect, styled, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -9,11 +9,47 @@ import Row from 'react-bootstrap/Row'
 import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar';
 import { Figure } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { getLocation } from '../../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
+import { editBikeAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/getAllBikesAction';
+import { editBikeApi } from '../../../API/Admin/ApiCalls';
 
 function EditBike() {
-    const location = useLocation()
-    console.log("Vlue",location.state.data.vehicleName);
+  const [images1,setImages1] = useState([])
+  const [images,setImages] = useState([])
+  const [bikeName,setBikeName] = useState('')
+    const [bikeModel , setBikeModel] = useState('')
+    const [engineNo , setEngineNo] = useState('')
+    const [brand,setBrand] = useState('')
+    const [fuel,setFuel] = useState('')
+    const [desc,setDesc] = useState('')
+    const [price,setPrice] = useState('')
+    const [color,setColor] = useState('')
+    const [selectedLocation,setSelectedLocation] = useState('')
+    const [loading,setLoading]=useState(false);
+    const [sucess,setSuccess]=useState(false);
 
+    const location = useLocation()
+    console.log("Vlue",location.state.data);
+    
+    
+    useEffect(() => {
+      console.log("imagesss",location.state.data.Photo);
+      dispatch(getLocation())
+      setImages1([location.state.data.Photo])
+      setBikeName(location.state.data.vehicleName)
+      setBikeModel(location.state.data.vehicleModel)
+      setEngineNo(location.state.data.EngineNo)
+      setBrand(location.state.data.Brand)
+      setFuel(location.state.data.Fuel)
+      setDesc(location.state.data.Description)
+      setPrice(location.state.data.Price)
+      setColor(location.state.data.Color)
+      setSelectedLocation(location.state.data.Location)
+    },[])
+
+    const loc = useSelector((state) => state.getLocationReducer.location)
+    console.log("LOC",loc);
+   
     const { register,
       handleSubmit,
        formState: { errors }
@@ -22,21 +58,32 @@ function EditBike() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
-    const [bikeName,setBikeName] = useState('')
-    const [bikeModel , setBikeModel] = useState('')
-    const [engineNo , setEngineNo] = useState('')
-    const [brand,setBrand] = useState('')
-    const [fuel,setFuel] = useState('')
-    const [desc,setDesc] = useState('')
-    const [price,setPrice] = useState('')
-    const [color,setColor] = useState('')
-    const [images,setImages] = useState([])
-    const [loading,setLoading]=useState(false);
-    const [sucess,setSuccess]=useState(false);
+    
 
-    const submitHandler = (e) => {
-      e.preventDefault()
-      // console.log("DATA",data);
+
+    console.log("dsdsd",bikeModel);
+    console.log('aaa',bikeName);
+
+    const onSubmit = (data) => {
+       console.log("DATA",data);
+       console.log("IMAGESS",images);
+       const formData = new FormData()
+
+       formData.append('bikeName',bikeName)
+       formData.append('bikeModel',bikeModel)
+       formData.append('engineNo',engineNo)
+       formData.append("fuel", fuel);
+       formData.append("imageUrl",images1)
+       formData.append("brand", brand);
+       formData.append("desc", desc);
+       formData.append("price", price);
+       formData.append("color", color);
+       formData.append('location',selectedLocation)
+       formData.append('images',images)
+
+       editBikeApi(location.state.data._id,formData).then((data)=> {
+        console.log("edited bike data",data.data);
+       })
     }
 
     const DrawerHeader = styled('div')(({ theme }) => ({
@@ -56,10 +103,12 @@ function EditBike() {
       <Box component = 'main' sx={{flexGrow : 1,p:3}}>
         <DrawerHeader/>
         <h1>Edit Details</h1>
-        <div style={{border : '0.2px solid black',boxShadow :'1px 1px 2px 2px grey',borderRadius:'5px'}}>
-        <Form className='container mt-4 mb-5'>
-      <Row className="mb-3 ">
-        <Form.Group as={Col} controlId="formGridEmail" onSubmit={handleSubmit(submitHandler)}> 
+        <div className='container mt-4 mb-5' style={{border : '0.2px solid black',
+        boxShadow :'1px 1px 2px 2px grey',borderRadius:'5px'
+        }}>
+        <Form className='container mt-4 mb-5' onSubmit={handleSubmit(onSubmit)}>
+      <Row className="mb-3 " >
+        <Form.Group as={Col} controlId="formGridEmail" > 
          {/* <label htmlFor="">Vecle Name</label> */}
           <TextField
             margin="normal"
@@ -178,6 +227,35 @@ function EditBike() {
         </Form.Group>
       </Row>
 
+      <Row className='mb-3'>
+      <InputLabel variant="standard" htmlFor="uncontrolled-native">
+    Location
+  </InputLabel>
+  <NativeSelect
+    defaultValue={location.state.data.Location}
+    inputProps={{
+      name: 'age',
+      id: 'uncontrolled-native',
+    }}
+    {...register('location')}
+  >
+    {/* <option>{location.state.data.Location}</option> */}
+    {
+      loc ? loc.map((x) => {
+        if(x !== location.state.data.Location){
+          return(
+            <>
+             <option>{x.Location}</option>
+            </>
+            
+          )
+        }
+      }) : ""
+    }
+    
+  </NativeSelect>
+      </Row>
+
       <Row className="mb-3 ">
         <Form.Group as={Col} controlId="formGridEmail">
         
@@ -223,14 +301,13 @@ function EditBike() {
 
       <Row className="mb-3 ">
         <Form.Group as={Col} controlId="formGridEmail">
-        <Figure>
+     <Figure>
       <Figure.Image
-        width={171}
-        height={180}
+        width={150}
+        height={160}
         alt="171x180"
         src={location.state.data.Photo[0]}
-        onChange={(e) => setImages([...images,e.target.files[0]])}
-        
+        onChange={(e) => setImages([...images,e.target.files[0]])} 
       />
      
     </Figure>
@@ -249,8 +326,8 @@ function EditBike() {
         <Form.Group as={Col} controlId="formGridPassword">
         <Figure>
       <Figure.Image
-        width={171}
-        height={180}
+        width={150}
+        height={160}
         alt="171x180"
         src={location.state.data.Photo[1]}
         onChange={(e) => setImages([...images,e.target.files[0]])}
@@ -274,8 +351,8 @@ function EditBike() {
         <Form.Group as={Col} controlId="formGridEmail">
         <Figure>
       <Figure.Image
-        width={171}
-        height={180}
+        width={150}
+        height={160}
         alt="171x180"
         src={location.state.data.Photo[2]}
         onChange={(e) => setImages([...images,e.target.files[0]])}
@@ -290,14 +367,15 @@ function EditBike() {
             id="image3"
             autoFocus
             label='Image3'
+            // defaultValue={location.state.data.Photo[2]}
           />
         </Form.Group>
 
         <Form.Group as={Col} controlId="formGridPassword">
         <Figure>
       <Figure.Image
-        width={171}
-        height={180}
+        width={150}
+        height={160}
         alt="171x180"
         src={location.state.data.Photo[3]}
         onChange={(e) => setImages([...images,e.target.files[0]])}
@@ -316,60 +394,9 @@ function EditBike() {
         </Form.Group>
       </Row>
 
-      {/* <Form.Group as={Col} controlId="formGridEmail">
-          
-          <TextField
-            margin="normal"
-            fullWidth
-            name = 'color'
-            id="color"
-            autoFocus
-            label="Color"
-          />
-        </Form.Group> */}
+      
 
-        {/* <Form.Group as={Col} controlId="formGridEmail">
-         
-          <TextField
-            margin="normal"
-            fullWidth
-            name = 'vehicleName'
-            id="vehicleName"
-            autoFocus
-            label="Vehicle Name"
-          />
-        </Form.Group> */}
-
-      {/* <Form.Group className="mb-3" controlId="formGridAddress2">
-        <Form.Label>Address 2</Form.Label>
-        <Form.Control placeholder="Apartment, studio, or floor" />
-      </Form.Group> */}
-
-      {/* <Row className="mb-3">
-        <Form.Group as={Col} controlId="formGridCity">
-          <Form.Label>City</Form.Label>
-          <Form.Control />
-        </Form.Group>
-
-        <Form.Group as={Col} controlId="formGridState">
-          <Form.Label>State</Form.Label>
-          <Form.Select defaultValue="Choose...">
-            <option>Choose...</option>
-            <option>...</option>
-          </Form.Select>
-        </Form.Group>
-
-        <Form.Group as={Col} controlId="formGridZip">
-          <Form.Label>Zip</Form.Label>
-          <Form.Control />
-        </Form.Group>
-      </Row> */}
-
-      {/* <Form.Group className="mb-3" id="formGridCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group> */}
-
-      <Button variant="primary" type="submit" style={{width : "100%"}}>
+      <Button  variant="warning" type="submit" style={{width : "100%"}}>
         Save Changes
       </Button>
     </Form>
