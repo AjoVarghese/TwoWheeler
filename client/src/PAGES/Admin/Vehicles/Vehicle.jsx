@@ -1,4 +1,4 @@
-import { Box, ButtonBase, styled } from '@mui/material';
+import { Box, ButtonBase, Pagination, Stack, TableFooter, TablePagination, styled } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar'
 import { MDBCol, MDBContainer } from 'mdb-react-ui-kit';
@@ -46,6 +46,8 @@ function Vehicle() {
     ...theme.mixins.toolbar,
 }));
 
+
+
    const dispatch = useDispatch()
    const navigate = useNavigate()
 
@@ -69,6 +71,22 @@ function Vehicle() {
     
     dispatch(getAllBikesAction())
   },[])
+
+//   const [page, setPage] = React.useState(0);
+// const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+// Avoid a layout jump when reaching the last page with empty rows.
+// const emptyRows =
+//   page > 0 ? Math.max(0, (1 + page) * rowsPerPage -bikesData.length) : 0;
+
+// const handleChangePage = (event, newPage) => {
+//   setPage(newPage);
+// };
+
+// const handleChangeRowsPerPage = (event) => {
+//   setRowsPerPage(parseInt(event.target.value, 10));
+//   setPage(0);
+// };
 
   return (
 
@@ -192,7 +210,28 @@ function Vehicle() {
           }
 
         </TableBody>
+        {/* <TableFooter>
+          <TableRow>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+              colSpan={3}
+              count={bikesData.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              SelectProps={{
+                inputProps: {
+                  'aria-label': 'rows per page',
+                },
+                native: true,
+              }}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              // ActionsComponent={TablePaginationActions}
+            />
+          </TableRow>
+        </TableFooter> */}
       </Table>
+      
     </TableContainer>
 
 {/* <DataTable value={products} header={bikesData} footer={bikesData} tableStyle={{ minWidth: '60rem' }}>
@@ -216,8 +255,9 @@ function Vehicle() {
             </DataTable>
         </div> */}
         </div>
-       
+      
       </Box>
+      
       </Box>
      </div>
     </>

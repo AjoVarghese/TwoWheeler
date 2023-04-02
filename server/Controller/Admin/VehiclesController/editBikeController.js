@@ -15,9 +15,9 @@ const vehicleSchema = require('../../../Models/vehicleSchema')
 
 
 exports.EditVehicle = async(req,res) => {
-
+  console.log('req.files',req.files);
         const uploader = async (path) => await cloudinary.uploads(path, 'Images');
-        console.log('req.files',req.files);
+        
         if (req.method === 'POST') {
           const urls = []
           const files = req.files;
@@ -27,13 +27,77 @@ exports.EditVehicle = async(req,res) => {
             urls.push(newPath)
             fs.unlinkSync(path)
           }
+          if(urls.length>0){
+
+           console.log('00000000');
+          //  console.log(req.body);
+           console.log(urls);
+           let Photo = [];
+           for(let i = 0 ; i < urls.length; i++){
+            Photo.push(urls[i].url)
+          }
+          console.log("PHOTOOOO",Photo);
+          vehicleSchema.updateOne({_id : req.query.id},
+            {
+              $set : {
+                vehicleName : req.body.bikeName,
+            vehicleModel : req.body.bikeModel,
+            Brand : req.body.brand,
+            Fuel : req.body.fuel,
+            EngineNo : req.body.engineNo,
+            Color : req.body.color,
+            Description : req.body.desc,
+            Price : req.body.price,
+            Location : req.body.location,
+            Photo
+              }
+            }).then((data) => {
+              console.log("edit",data);
+              vehicleSchema.findOne({_id : req.query.id}).then((data) => {
+                console.log("edited res",data);
+              })
+            })
+          }else{
+            console.log('aaaaaaaa');
+            console.log(req.body);
+                let newURLS =    req.body.imageUrl.split(",")
+                console.log(newURLS);
+                // details={
+                //   vehicleName : req.body.bikeName,
+                //   vehicleModel : req.body.bikeModel,
+                //   Brand : req.body.brand,
+                //   Fuel : req.body.fuel,
+                //   EngineNo : req.body.engineNo,
+                //   Color : req.body.color,
+                //   Description : req.body.desc,
+                //   Price : req.body.price,
+                //   Photo:newURLS
+                // }
+          
+                vehicleSchema.updateOne({_id : req.query.id},
+                  {
+                    $set : {
+                      vehicleName : req.body.bikeName,
+                  vehicleModel : req.body.bikeModel,
+                  Brand : req.body.brand,
+                  Fuel : req.body.fuel,
+                  EngineNo : req.body.engineNo,
+                  Color : req.body.color,
+                  Description : req.body.desc,
+                  Price : req.body.price,
+                  Location : req.body.location,
+                  Photo:newURLS
+                    }
+                  }).then((data) => {
+                    console.log("edit",data);
+                    vehicleSchema.findOne({_id : req.query.id}).then((data) => {
+                      console.log("edited res",data);
+                    })
+                  })
+          }
         }
 
-          // if(urls.length){
-
-          // }else{
-
-          // }
+          
 
   //   console.log("IDDD",req.query.id);
   //    console.log("VEHICLE",req.body);

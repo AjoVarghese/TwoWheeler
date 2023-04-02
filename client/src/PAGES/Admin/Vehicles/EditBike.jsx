@@ -66,8 +66,14 @@ function EditBike() {
 
     const onSubmit = (data) => {
        console.log("DATA",data);
-       console.log("IMAGESS",images);
+      //  console.log("IMAGESS",images);
+
        const formData = new FormData()
+
+       
+      images.forEach((m)=>{
+        formData.append("images",m)
+      })
 
        formData.append('bikeName',bikeName)
        formData.append('bikeModel',bikeModel)
@@ -79,8 +85,9 @@ function EditBike() {
        formData.append("price", price);
        formData.append("color", color);
        formData.append('location',selectedLocation)
-       formData.append('images',images)
-
+      //  formData.append('images',images)
+       
+       console.log("IMAGESS",images);
        editBikeApi(location.state.data._id,formData).then((data)=> {
         console.log("edited bike data",data.data);
        })
@@ -307,7 +314,7 @@ function EditBike() {
         height={160}
         alt="171x180"
         src={location.state.data.Photo[0]}
-        onChange={(e) => setImages([...images,e.target.files[0]])} 
+        
       />
      
     </Figure>
@@ -319,7 +326,9 @@ function EditBike() {
             id="image1"
             autoFocus
             label='Image1'
-            
+            onChange={(e) => {
+              console.log(e.target.files);
+              setImages([...images,e.target.files[0]])}} 
           />
         </Form.Group>
 
@@ -330,7 +339,7 @@ function EditBike() {
         height={160}
         alt="171x180"
         src={location.state.data.Photo[1]}
-        onChange={(e) => setImages([...images,e.target.files[0]])}
+        
       />
      
     </Figure>
@@ -342,7 +351,7 @@ function EditBike() {
             id="image2"
             autoFocus
             label='Image2'
-            
+            onChange={(e) => setImages([...images,e.target.files[0]])}
           />
         </Form.Group>
       </Row>
@@ -355,7 +364,7 @@ function EditBike() {
         height={160}
         alt="171x180"
         src={location.state.data.Photo[2]}
-        onChange={(e) => setImages([...images,e.target.files[0]])}
+        
       />
      
     </Figure>
@@ -367,7 +376,7 @@ function EditBike() {
             id="image3"
             autoFocus
             label='Image3'
-            // defaultValue={location.state.data.Photo[2]}
+            onChange={(e) => setImages([...images,e.target.files[0]])}
           />
         </Form.Group>
 
@@ -378,7 +387,7 @@ function EditBike() {
         height={160}
         alt="171x180"
         src={location.state.data.Photo[3]}
-        onChange={(e) => setImages([...images,e.target.files[0]])}
+        
       />
      
     </Figure>
@@ -390,6 +399,7 @@ function EditBike() {
             id="image4"
             autoFocus
             label='Image4'
+            onChange={(e) => setImages([...images,e.target.files[0]])}
           />
         </Form.Group>
       </Row>
