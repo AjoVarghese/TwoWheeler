@@ -31,12 +31,12 @@ exports.EditVehicle = async(req,res) => {
 
            console.log('00000000');
           //  console.log(req.body);
-           console.log(urls);
+          //  console.log(urls);
            let Photo = [];
            for(let i = 0 ; i < urls.length; i++){
             Photo.push(urls[i].url)
           }
-          console.log("PHOTOOOO",Photo);
+          // console.log("PHOTOOOO",Photo);
           vehicleSchema.updateOne({_id : req.query.id},
             {
               $set : {

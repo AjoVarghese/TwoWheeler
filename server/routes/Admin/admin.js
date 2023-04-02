@@ -11,6 +11,7 @@ const blockUnblockController = require('../../Controller/Admin/adminUserBlockUnb
 const addVehicleController = require('../../Controller/Admin/VehiclesController/adminAddVehicleController')
 const editVehicleController = require('../../Controller/Admin/VehiclesController/editBikeController')
 const viewVehiclesController = require('../../Controller/Admin/VehiclesController/adminViewVehiclesController')
+const searchBikeController = require('../../Controller/Admin/VehiclesController/searchVehiclesController')
 const deleteBikeController = require('../../Controller/Admin/VehiclesController/deleteBikeController')
 const bikeDetailsCOntroller = require('../../Controller/Admin/VehiclesController/bikeDetailedView')
 const rentRequetsController = require('../../Controller/Admin/rentRequetsController')
@@ -40,6 +41,8 @@ router.route('/bikes').get(protect,viewVehiclesController.viewVehicles)
 router.route('/delete-bike').get(protect,deleteBikeController.deleteBike)
 
 router.route('/edit-bike').post(protect,upload.array('images'),editVehicleController.EditVehicle)
+
+router.route('/search-bikes').post(searchBikeController.searchVehicle)
 
 router.route('/bike-detailed-view').get(protect,bikeDetailsCOntroller.bikeDetailsController)
 

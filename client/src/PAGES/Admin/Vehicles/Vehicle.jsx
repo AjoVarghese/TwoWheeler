@@ -19,7 +19,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 // import { Alert, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteBikeAction, getAllBikesAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/getAllBikesAction';
+import { adminSearchBikeAction, deleteBikeAction, getAllBikesAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/getAllBikesAction';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loading from '../../../COMPONENTS/Loading/Loading'
 import { bikeSingleViewApi } from '../../../API/Admin/ApiCalls';
@@ -54,6 +54,7 @@ function Vehicle() {
 
    const [deleteDialog,setDeleteDialog] = useState(false)
    const [selectedBike,setSelectedBike] = useState()
+   const [searchTerm,setSearchTerm] = useState('')
    console.log("store bike seleced",selectedBike);
 
    const bikes = useSelector((state) => state.admingetAllBikesReducer)
@@ -68,25 +69,17 @@ function Vehicle() {
    }
 
   useEffect(() => {
-    
     dispatch(getAllBikesAction())
   },[])
 
-//   const [page, setPage] = React.useState(0);
-// const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const onSubmit = (e) => {
+    e.preventDefault()
+    console.log("searcj");
+    dispatch(adminSearchBikeAction(searchTerm))
+    setSearchTerm('')
+    console.log('bikedData',bikesData);
+  }
 
-// Avoid a layout jump when reaching the last page with empty rows.
-// const emptyRows =
-//   page > 0 ? Math.max(0, (1 + page) * rowsPerPage -bikesData.length) : 0;
-
-// const handleChangePage = (event, newPage) => {
-//   setPage(newPage);
-// };
-
-// const handleChangeRowsPerPage = (event) => {
-//   setRowsPerPage(parseInt(event.target.value, 10));
-//   setPage(0);
-// };
 
   return (
 
@@ -123,14 +116,18 @@ function Vehicle() {
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search Google Maps"
         inputProps={{ 'aria-label': 'search google maps' }}
+        onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+      <IconButton type="button" sx={{ p: '10px' }}
+       aria-label="search"
+       onClick={onSubmit}
+       >
         <SearchIcon />
       </IconButton>
-      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+      {/* <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
       <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
         <DirectionsIcon />
-      </IconButton>
+      </IconButton> */}
     </Paper>
         <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">

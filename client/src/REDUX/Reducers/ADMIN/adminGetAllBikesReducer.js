@@ -42,6 +42,23 @@ export const getAllBikesReducer = (state = {} , {type,payload}) => {
               bikeDeleteError : payload
              }   
 
+          case AdminActionTypes.BIKE_SEARCH_REQ:
+            return{
+              loading : true
+            }  
+            
+          case AdminActionTypes.BIKE_SEARCH_SUCCESS:
+            return{
+              bikesData:payload,
+              loading : false
+            }  
+
+          case AdminActionTypes.BIKE_SEARCH_FAILED : 
+          return {
+            bikesDataError : payload,
+            loading : false
+          }   
+
           // case AdminActionTypes.REMOVE_BIKE:
           //   let bikes = state.bikeData.filter((bikes)=>bikes.id!==payload)
 

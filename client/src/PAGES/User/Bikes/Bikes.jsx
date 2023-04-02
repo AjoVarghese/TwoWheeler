@@ -51,6 +51,8 @@ function Bikes() {
    const navigate = useNavigate()
 
    const [searchTerm,setSearchTerm] = useState('')
+   const [page,setPage] = useState(1)
+   const [pageCount,setPageCount] = useState(0)
 
   const bikes = useSelector((state) => state.bikesReducer)
   const {loading , bikesData , bikesDataError} = bikes
@@ -66,6 +68,20 @@ function Bikes() {
     dispatch(bikeSearchAction(searchTerm))
     setSearchTerm('')
     console.log("BIKES",bikesData);
+  }
+
+  const handlePrevious = () => {
+     setPage((p) => {
+      if(p === 1) return p
+      return p-1
+     })
+  }
+
+  const handleNext = () => {
+    setPage((p) => {
+      if(p === pageCount) return p
+      return p+ 1
+    })
   }
   return (
        <>
@@ -168,6 +184,8 @@ function Bikes() {
         }
       </MDBRow>
     </MDBContainer>
+    <button disabled = {page === 1} onClick={handlePrevious}>Prev</button>
+    <button disabled = {page === pageCount} onClick={handleNext}>Next</button>
     {/* <Paper  elevation={6}>
       <BasicPagination/>
     </Paper> */}

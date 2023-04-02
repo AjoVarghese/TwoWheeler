@@ -1,4 +1,4 @@
-import { deleteBikeAPi, getAllBikesApi } from "../../../API/Admin/ApiCalls"
+import { adminAddBikeApi, adminSearchBikeApi, deleteBikeAPi, getAllBikesApi } from "../../../API/Admin/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 
 export const getAllBikesAction = () => async(dispatch) => {
@@ -40,6 +40,31 @@ export const deleteBikeAction = (id) => async(dispatch) => {
         dispatch({
             type : AdminActionTypes.DELETE_BIKE_FAILED,
             payload : err.response.message
+        })
+    })
+}
+
+
+export const adminSearchBikeAction = (searchTerm) => async(dispatch) => {
+    console.log("searchTerm",searchTerm);
+    dispatch({
+        type : AdminActionTypes.BIKE_SEARCH_REQ
+    })
+
+    adminSearchBikeApi(searchTerm).then((data) => {
+        console.log("adminAddBikeApi",data.data);
+
+        dispatch({
+            type : AdminActionTypes.BIKE_SEARCH_SUCCESS,
+            payload : data.data
+        })
+    })
+
+    .catch((err) => {
+        console.log("adminAddBikeApi error",err.response);
+        dispatch({
+            type : AdminActionTypes.BIKE_SEARCH_FAILED,
+            payload : err.response
         })
     })
 }
