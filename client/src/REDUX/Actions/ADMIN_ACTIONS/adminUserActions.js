@@ -12,6 +12,8 @@ export const adminUserAction = () => async(dispatch) => {
            type : AdminActionTypes.GET_USERS_SUCCESS,
            payload : data.data
           })
+         
+
         })
         .catch((error) => {
             console.log("USERS API EROR" , error);

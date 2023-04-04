@@ -4,15 +4,15 @@ exports.userBlockUnBlockPost = async(req,res) => {
     console.log("USR ID",req.query.id);
     try {
         userSchema.findOne({_id:req.query.id}).then((result)=>{
-            // userSchema.updateOne({_id:req.query.id},{$set:{Status:!result.Status}}).then((data)=>{
-            //     userSchema.findOne({_id:req.query.id}).then((data)=>{
-            //         res.status(200).json(data)
-            //     })
-            // })
-            userSchema.findOneAndUpdate({_id:req.query.id},{$set:{Status:!result.Status}}).then((data)=>{
-                console.log(data);
-                res.status(200).json(data)
+            userSchema.updateOne({_id:req.query.id},{$set:{Status:!result.Status}}).then((data)=>{
+                userSchema.findOne({_id:req.query.id}).then((data)=>{
+                    res.status(200).json(data)
+                })
             })
+            // userSchema.findOneAndUpdate({_id:req.query.id},{$set:{Status:!result.Status}}).then((data)=>{
+            //     console.log(data);
+            //     res.status(200).json(data)
+            // })
         })
        
         

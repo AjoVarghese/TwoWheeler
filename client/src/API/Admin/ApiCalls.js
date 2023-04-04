@@ -36,6 +36,7 @@ export const acceptRentRequestsApi = (id) => API.get('/accept-request?id='+id,co
 export const rejectRentRequetsApi = (id) => API.get('/reject-requests?id='+id,configToken)
 export const deleteBikeAPi =(id) => API.get('/delete-bike?id='+id,configToken)
 export const editBikeApi = (id,formData) => API.post('/edit-bike?id='+id,formData,configFormData)
+
 export const adminSearchBikeApi = (searchTerm)=> {
   return(
    console.log("search api",searchTerm),

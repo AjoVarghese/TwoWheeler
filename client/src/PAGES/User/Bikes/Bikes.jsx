@@ -184,8 +184,8 @@ function Bikes() {
         }
       </MDBRow>
     </MDBContainer>
-    <button disabled = {page === 1} onClick={handlePrevious}>Prev</button>
-    <button disabled = {page === pageCount} onClick={handleNext}>Next</button>
+    {/* <button disabled = {page === 1} onClick={handlePrevious}>Prev</button>
+    <button disabled = {page === pageCount} onClick={handleNext}>Next</button> */}
     {/* <Paper  elevation={6}>
       <BasicPagination/>
     </Paper> */}

@@ -80,63 +80,7 @@ function Login() {
     }
   }
 
- 
-
-  // function onCaptchaVerify(){
-  //   if(!window.recaptchaVerifier){
-  //     window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-  //       'size': 'invisible',
-  //       'callback': (response) => {
-  //         console.log("callback response",response);
-  //         onOTPLogin()
-  //       },
-  //       'expired-callback': () => {
-         
-  //       }
-  //     }, auth);
-  //   }
-  // }
-  // const onOTPLogin = () => {
-  //  setLoad(true)
-  //  onCaptchaVerify()
-
-  //  const appVerifier = window.recaptchaVerifier
-  //  console.log("Mobile",mobile);
-  //  const format = '+' + mobile
-
-  //  signInWithPhoneNumber(auth,format,appVerifier).then((confirmationResult) => {
-  //   console.log("confirmation result",confirmationResult);
-        
-  //   window.confirmationResult = confirmationResult;
-
-  //   setLoad(false)
-  //   navigate('/otp-login')
-  //  })
-  //  .catch((error) => {
-  //   console.log(error,"OTP");
-  //   window.prompt("Invalid Mobile No")
-  //  })
-  // }
-  
-  
-   
-  // useEffect(() => {
-
-  // })
-
-  // const onLoginSuccess = (res) => {
-  //   console.log('Login Success',res.profileObj);
-  //   setShowLoginButton(false)
-  //   setShowLogoutButton(true)
-  // }
-
-  // const onLoginFailure = (res) => {
-  //   console.log("Login Failed",res);
-  // }
-
-  // const onLogoutSuccess = () => {
-  //   alert("Logged out suuceesfully")
-  // }
+  const handleGoogleSignIn = () => {}
 
   
 
@@ -205,10 +149,10 @@ function Login() {
           </Button>
              </Box>
 
-    <div className="d-flex justify-content-between mx-4 mb-4">
+    {/* <div className="d-flex justify-content-between mx-4 mb-4">
       <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
       <a href="!#">Forgot password?</a>
-    </div>
+    </div> */}
 
     {/* <MDBBtn className="mb-4 w-100" size="lg">Sign in</MDBBtn> */}
 
@@ -244,6 +188,19 @@ function Login() {
             <Link to='/otp-login' style={{textDecoration:'none',color:"black"}}> Login with OTP</Link>
           </Button>
         </Item>
+
+        {/* <Item>
+        <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={handleGoogleSignIn}
+          >
+            Sign In with Google
+           
+          </Button>
+        </Item> */}
         {/* <Item>Item 3</Item> */}
       </Stack>
     </Box>

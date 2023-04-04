@@ -1,4 +1,4 @@
-import { Box, InputLabel, NativeSelect, styled, TextField } from '@mui/material';
+import { Box, CircularProgress, InputLabel, NativeSelect, styled, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { getLocation } from '../../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
 import { editBikeAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/getAllBikesAction';
 import { editBikeApi } from '../../../API/Admin/ApiCalls';
+import { toast, Toaster } from 'react-hot-toast';
 
 function EditBike() {
   const [images1,setImages1] = useState([])
@@ -65,6 +66,7 @@ function EditBike() {
     console.log('aaa',bikeName);
 
     const onSubmit = (data) => {
+      // setLoading(true)
        console.log("DATA",data);
       //  console.log("IMAGESS",images);
 
@@ -90,6 +92,12 @@ function EditBike() {
        console.log("IMAGESS",images);
        editBikeApi(location.state.data._id,formData).then((data)=> {
         console.log("edited bike data",data.data);
+        // setLoading(false)
+        // toast.success('Bike edited successfully!')
+        // setTimeout(() => {
+        //   navigate('/admin/bikes')
+        // },2000)
+       
        })
     }
 
@@ -105,6 +113,11 @@ function EditBike() {
     
   return (
     <div>
+      <Toaster
+       position="top-right"
+       reverseOrder={false}
+       toastOptions={{duration:2000}}
+      />
       <Box sx={{ display : 'flex' }}>
       <AdminSideBar/>
       <Box component = 'main' sx={{flexGrow : 1,p:3}}>
@@ -404,7 +417,12 @@ function EditBike() {
         </Form.Group>
       </Row>
 
-      
+      {/* {
+        loading ? <Button  variant="warning" type="submit" style={{width : "100%"}}><CircularProgress /></Button> : 
+        <Button  variant="warning" type="submit" style={{width : "100%"}}>
+        Save Changes
+      </Button>
+      } */}
 
       <Button  variant="warning" type="submit" style={{width : "100%"}}>
         Save Changes

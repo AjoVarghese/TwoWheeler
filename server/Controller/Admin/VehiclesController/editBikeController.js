@@ -92,6 +92,7 @@ exports.EditVehicle = async(req,res) => {
                     console.log("edit",data);
                     vehicleSchema.findOne({_id : req.query.id}).then((data) => {
                       console.log("edited res",data);
+                      res.status(200).json(data)
                     })
                   })
           }

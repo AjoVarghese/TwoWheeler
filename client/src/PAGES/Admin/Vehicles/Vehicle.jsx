@@ -114,8 +114,7 @@ function Vehicle() {
       </IconButton> */}
       <InputBase
         sx={{ ml: 1, flex: 1 }}
-        placeholder="Search Google Maps"
-        inputProps={{ 'aria-label': 'search google maps' }}
+        placeholder="Search Bikes"
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <IconButton type="button" sx={{ p: '10px' }}

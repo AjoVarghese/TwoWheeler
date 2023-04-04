@@ -211,45 +211,16 @@ function Profile() {
 
             <MDBRow>
               <MDBCol md="12">
-                <MDBCard className="mb-4 mb-md-0">
+                {/* <MDBCard className="mb-4 mb-md-0">
                   <MDBCardBody>
-                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1"></span> <h1 style={{fontSize : '25px'}}>Upload Documents</h1></MDBCardText>
+                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1"></span> <h1 style={{fontSize : '25px'}}>Upload Documents</h1></MDBCardText> */}
                      
                     {/* <div className="card"> */}
-                      <input type='file'></input>
+                      {/* <input type='file'></input>
                       <hr />
                       <input type='file' className='mt-3'></input>
-                      <Button style={{backgroundColor:"black"}} className='mt-3'>Upload</Button>
-                    {/* <Box
-      sx={{
-        display: 'flex',
-        '& > :not(style)': {
-          m: 1,
-          width: 128,
-          height: 128,
-        },
-      }}
-    >
-      <Paper variant="outlined">
-      
-      </Paper>
-      <Paper variant="outlined" />
-    </Box>
-
-    <Box
-      sx={{
-        display: 'flex',
-        '& > :not(style)': {
-          m: 1,
-          width: 128,
-          height: 128,
-        },
-      }}
-    >
-      
-      <Paper variant="outlined" />
-      <Paper variant="outlined" />
-    </Box> */}
+                      <Button style={{backgroundColor:"black"}} className='mt-3'>Upload</Button> */}
+                 
     {/* <Button size="medium" color='warning'>
       Upload
     </Button> */}
@@ -282,8 +253,8 @@ function Profile() {
                     <MDBProgress className="rounded">
                       <MDBProgressBar width={66} valuemin={0} valuemax={100} />
                     </MDBProgress> */}
-                  </MDBCardBody>
-                </MDBCard>
+                  {/* </MDBCardBody>
+                </MDBCard> */}
               </MDBCol>
 
               {/* <MDBCol md="6">

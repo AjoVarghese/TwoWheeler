@@ -31,6 +31,7 @@ function App() {
   const userdata = useSelector((state)=>state.userLoginReducer.userLoginDetails);
   const adminData = useSelector((state) => state.adminLoginReducer.adminLoginData)
   console.log("ADMINdata",adminData);
+  console.log("USRDATA",userdata);
   return (
     <div className="App">
       

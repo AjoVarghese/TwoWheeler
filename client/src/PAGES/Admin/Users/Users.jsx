@@ -28,6 +28,10 @@ const [sucess,setSuccess]=useState(false);
 
  const handleAction = (id) => {
     blockUnblockApi(id).then((data) => {
+      console.log(data.data);
+      localStorage.setItem("userInfo",JSON.stringify(data.data))
+      const item = JSON.parse( localStorage.getItem('userInfo') )
+      console.log(item.Status);
       if(data){
         dispatch(adminUserAction())
         setLoading(false)
@@ -76,7 +80,7 @@ const [sucess,setSuccess]=useState(false);
         
           {
             loading? <Loading/> :adminUserData? adminUserData.map((m,index )=>{
-              console.log(m);
+              // console.log(m);
               return(
                 <>
                 <tr>

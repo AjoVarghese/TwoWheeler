@@ -1,6 +1,7 @@
 import { ActionTypes } from "../../Constants/User/ActionTypes"
 import { signUpGoogleApi, userSignupApi } from "../../../API/User/ApiCalls"
 import { useNavigate } from "react-router-dom"
+import { auth } from "../../../FIREBASE/firebase.config"
 
 // var navigate = useNavigate()
 export const userRegister = (Name,Email,Mobile,Password) => async(dispatch) => {
@@ -36,16 +37,9 @@ export const userRegister = (Name,Email,Mobile,Password) => async(dispatch) => {
   }
 }
 
-export const signUpGoogle = (accessToken,navigate) => async(dispatch) => {
-  try {
-      const {data} = await signUpGoogleApi(accessToken)
-
-      dispatch({
-        type : ActionTypes.REGISTER_REQUEST_SUCCESS,
-        payload : data,
-        // navigate('/')
-      })
-  } catch (error) {
-    
-  }
-}
+// export const registerInitiate = (email,password,displayName) => async(dispatch) => {
+//   dispatch({
+//     type : ActionTypes.GOOGLE_SIGNUP_REQ
+//   })
+//   auth.createUserWithEmailAndPassword(email,password).then(({user}))
+// }
