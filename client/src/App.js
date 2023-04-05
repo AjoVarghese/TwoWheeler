@@ -26,6 +26,7 @@ import ViewRentedBikes from './PAGES/User/Rent Bikes/ViewRentedBikes';
 
 import Signup from "./PAGES/User/Signup/Signup";
 import SingleView from './PAGES/User/SingleView/SingleView';
+import Booking from './PAGES/User/Booking/Booking';
 
 function App() {
   const userdata = useSelector((state)=>state.userLoginReducer.userLoginDetails);
@@ -45,7 +46,8 @@ function App() {
           <Route exact path='/otp-login' element = {userdata?<Navigate to='../'/> :<Otplogin/>}></Route>
           <Route exact path = '/profile' element = {userdata?<Profile/>:<Navigate to='/login' />}></Route>
           <Route path='/rent-bikes' element={<RentBikes/>} />
-          <Route exact path='/rented-bikes' element={userdata ? <ViewRentedBikes/> : <Navigate to ='/rented-bikes'/>}></Route>
+          <Route exact path='/rented-bikes' element={userdata ? <ViewRentedBikes/> : <Navigate to ='/login'/>}></Route>
+          <Route exact path = '/booking-summary' element={userdata ? <Booking/> : <Navigate to = '/login'/>}></Route>
 
 
           {/* admin */}

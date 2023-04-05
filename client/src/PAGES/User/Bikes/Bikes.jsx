@@ -28,7 +28,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-// import Paper from '@mui/material/Paper';
+
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -37,13 +37,56 @@ import SearchIcon from '@mui/icons-material/Search';
 import DirectionsIcon from '@mui/icons-material/Directions';
 import { bikeSearchAction } from '../../../REDUX/Actions/USER_ACTIONS/bikeSearchAction';
 import BasicPagination from '../../../COMPONENTS/Pagination/BasicPagination';
+import FilterSideBar from '../../../COMPONENTS/FilterSidebar/FilterSideBar';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import AllAcceptedBIkes from '../../../COMPONENTS/UserBikes/AllAcceptedBIkes';
+import PriceAscSortedBikes from '../../../COMPONENTS/UserBikes/PriceAscSortedBikes';
+import PriceDescSortedBikes from '../../../COMPONENTS/UserBikes/PriceDescSortedBikes';
+import { userGetLocation } from '../../../REDUX/Actions/USER_ACTIONS/locationActions';
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'center',
-  color: theme.palette.text.secondary,
+  color: theme.palette.text.primary,
 }));
 
 function Bikes() {
@@ -54,146 +97,93 @@ function Bikes() {
    const [page,setPage] = useState(1)
    const [pageCount,setPageCount] = useState(0)
 
+   const [value, setValue] = React.useState(0);
+
+   const handleChange = (event, newValue) => {
+     setValue(newValue);
+   };
+
   const bikes = useSelector((state) => state.bikesReducer)
   const {loading , bikesData , bikesDataError} = bikes
-  console.log("BIKES",bikesData);
+
+  const location = useSelector((state) => state.userLocationReducer.locationData)
+  console.log("LocatioNNNN",location);
 
   useEffect(() => {
      dispatch(getBikesAction())
+     dispatch(userGetLocation())
   },[])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    console.log("searchTerm",searchTerm);
     dispatch(bikeSearchAction(searchTerm))
     setSearchTerm('')
-    console.log("BIKES",bikesData);
   }
 
-  const handlePrevious = () => {
-     setPage((p) => {
-      if(p === 1) return p
-      return p-1
-     })
-  }
-
-  const handleNext = () => {
-    setPage((p) => {
-      if(p === pageCount) return p
-      return p+ 1
-    })
-  }
   return (
        <>
          <Navbar/>
-         {/* <section className='bikes'> */}
-           
-         {/* <div class="input-group">
-  <div class="form-outline">
-    <input id="search-input" type="search"  class="form-control" />
-    <label class="form-label" for="form1">Search</label>
-  </div>
-  <button id="search-button" type="button" class="btn btn-primary">
-    <i class="fas fa-search"></i>
-  </button>
-</div> */}
-           <form action="" className='container'
-            onSubmit={submitHandler}>
-           <div className ="input-group container fluid" 
-           style={{float : 'right'}}
-          
-            >
-           
-             <input type="search" class="form-control rounded" 
-             placeholder="Search bikes... " 
-             value={searchTerm}
-             aria-label="Search" 
-             aria-describedby="search-addon" 
-             onChange={(e) => setSearchTerm(e.target.value)}
-             />
-              <button type="submit" class="btn btn-outline-primary"
-              
-              >search</button>
-              
-           </div>
-           </form>
            <div className='cards mt-5'>
        <div>
     <MDBContainer  className="my-1">
-   
-<Box sx={{ flexGrow: 1 }}>
-      {/* <Grid container spacing={3}>
-        <Grid item xs>
-          <Item>xs</Item>
+  
+    <h2 style={{textAlign:"center"}}>Rent Bikes</h2>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+      <Grid item md={3}>
+          <Item>
+            <h4>FILTER</h4>
+            
+            <FilterSideBar loc={location}/>
+          </Item>
         </Grid>
-        <Grid item xs={6}>
-          <Item></Item>
-        </Grid>
-        <Grid item xs>
-          <Item>xs</Item>
-        </Grid>
-      </Grid> */}
+        <Grid item xs={9}>
+          <Item>
+          <Paper
+      component="form"
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'end', width: '20rem' }}
+    >
+      <InputBase
+        sx={{ ml: 1, flex: 1 }}
+        placeholder="Search Bikes"
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <IconButton type="button" sx={{ p: '10px' }}
+       aria-label="search"
+       onClick={submitHandler}
+      >
+        <SearchIcon />
+      </IconButton>
+    </Paper>
+    <Box sx={{ width: '100%' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+          <Tab label="All Bikes"  />
+          <Tab label="Price Low to High"  />
+          <Tab label="Price High to Low"  />
+        </Tabs>
+      </Box>
+      <TabPanel value={value} index={0}>
+
+      <AllAcceptedBIkes acceptedBikes={bikesData}/>
+
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+       <PriceAscSortedBikes priceAsc = {bikesData}/>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <PriceDescSortedBikes priceDesc={bikesData}/>
+      </TabPanel>
     </Box>
-      <MDBRow className="col-xs-6">
-        {
-          loading ? <Loading/> : 
-            bikesData ? bikesData.map((x,i) => {
-              return (
-                <MDBCol md="3 mt-3">
-                <MDBCard className="text-black">
-                  <MDBIcon fab icon="apple" size="md" className="px-3 pt-3 pb-2" />
-                  <MDBCardImage
-                  className='d-flex justify-content-center'
-                    src={x.Photo[0]}
-                    style={{width:'20rem',height:'10rem',}}
-                    position="top"
-                    alt="Apple Computer"
-                    onClick={(e) => navigate('/bike-detailed-view',{state:{bikesData}})}
-                  />
-                  <MDBCardBody style={{backgroundColor : "#DCDCDC"}}>
-                    <div className="text-center">
-                      <MDBCardTitle>{x.vehicleName}</MDBCardTitle>
-                      <p className="text-muted mb-4">{x.Description}</p>
-                    </div>
-                    <div>
-                      <div className="d-flex justify-content-between">
-                        <span>Model</span>
-                        <span>{x.vehicleModel}</span>
-                      </div>
-                      <div className="d-flex justify-content-between">
-                        <span>Brand</span>
-                        <span>{x.Brand}</span>
-                      </div>
-                      <div className="d-flex justify-content-between">
-                        <span>Color</span>
-                        <span>{x.Color}</span>
-                      </div>
-                    </div>
-                    <div className="d-flex justify-content-between total font-weight-bold mt-4">
-                      <span>Rent Amount(per hr)</span>
-                      <span>Rs.{x.Price}</span>
-                    </div>
-                    <div className='mt-3'>
-                    <button type="button" style={{width : "100%",backgroundColor: '#fed250',borderRadius : '6px',height : '3rem',border : 'none'}}>Book Now</button>
-                    </div>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>       
-              )
-            }) : ''
-        }
-      </MDBRow>
+          </Item>
+        </Grid>
+      </Grid>
+    </Box>
+      
     </MDBContainer>
-    {/* <button disabled = {page === 1} onClick={handlePrevious}>Prev</button>
-    <button disabled = {page === pageCount} onClick={handleNext}>Next</button> */}
-    {/* <Paper  elevation={6}>
-      <BasicPagination/>
-    </Paper> */}
     </div>    
                 
            </div>
-
-         {/* </section> */}
        </>   
   
   )

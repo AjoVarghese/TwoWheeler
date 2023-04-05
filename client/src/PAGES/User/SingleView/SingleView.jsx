@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -24,6 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
 function SingleView() {
 
   const location = useLocation()
+  const navigate = useNavigate()
   console.log("Single view Data",location.state.bikesData[0].Photo[0]);
   return (
     <div>
@@ -97,7 +98,12 @@ function SingleView() {
         <ListGroup.Item>Price : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs.{location.state.bikesData[0].Price}(per hr)</ListGroup.Item>
       </ListGroup>
     </Card>
-    <Button variant="warning" className='mt-3 ms-2 me-2' style={{width:"100%",backgroundColor:'#fed250'}}>Book Now</Button>{' '}
+    <Button variant="warning" className='mt-3 ms-2 me-2' 
+    style={{width:"100%",backgroundColor:'#fed250'}}
+    onClick={() => {
+      navigate('/booking-summary')
+    }}
+    >Book Now</Button>{' '}
   </div>
  
 </div>
