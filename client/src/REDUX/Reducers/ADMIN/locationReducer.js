@@ -77,7 +77,7 @@ import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes";
         case AdminActionTypes.EDIT_LOC_FAILED:
             return{
                 loading : false,
-                location:payload
+                locationError:payload
             }    
         
         default : return state    

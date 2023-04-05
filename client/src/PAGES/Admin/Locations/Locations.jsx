@@ -19,21 +19,6 @@ import BasicModal from '../../../COMPONENTS/BasicModal/BasicModal';
 import EditLocationModal from '../../../COMPONENTS/Modal/EditLocationModal';
 
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-
-
 function Locations() {
 
   const DrawerHeader = styled('div')(({ theme }) => ({
@@ -41,7 +26,6 @@ function Locations() {
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
 }));
 
@@ -66,10 +50,6 @@ const doDelete = () => {
   setDeletedialog(false)
 }
 
-// const doEdit = () => {
-//   setOpen(true)
-//   console.log("edit clicked");
-// }
 
 const handleEdit = (id,location) => {
   console.log("edit",id,location);
@@ -92,8 +72,6 @@ useEffect(() => {
       <Box component = 'main' sx={{flexGrow : 1,p:3}}>
         <DrawerHeader/>
         <h1>Locations</h1>
-       
-        {/* <div style={{border:'1px solid red'}}> */}
        <div className='d-flex justify-content-start ms-5 mt-3'>
        <Button variant="outlined" color="info"
         onClick={(e) => {
@@ -110,14 +88,6 @@ useEffect(() => {
          message='Add a new location' 
          action="add" Close={close}/> : ""
        }
-
-       {/* {
-        editModal ? <LocationModal closeModal = {setModal} 
-        message='Edit' action="Edit" 
-        locationId = {selectedLoc}
-        /> : ""
-       } */}
-
 
        {
         deleteDialog ? <AlertDialog closeDialog={setModal}
@@ -136,9 +106,6 @@ useEffect(() => {
             <TableCell align="right"><h4>Location</h4></TableCell>
             <TableCell align="right"><h4>Edit</h4></TableCell>
             <TableCell align="right"><h4>Delete</h4></TableCell>
-            {/* <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -178,9 +145,6 @@ useEffect(() => {
              
               </TableCell>
              
-              {/* <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell> */}
             </TableRow>
             )
          }) : ""
@@ -189,9 +153,7 @@ useEffect(() => {
       </Table>
     </TableContainer>
     </div>
-    {/* </div> */}
       </Box>
-      {/* <BasicModal open={open} onClose={() => setOpen(false)}/> */}
       <EditLocationModal locationId={selectedLoc} open={editModal} onClose={()=>setEditModal(false)}/>
       </Box>
     </div>

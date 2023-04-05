@@ -1,36 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import { Button, FormControl, IconButton } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
-import { Form } from 'react-router-dom';
+import { Button, FormControl } from '@mui/material';
+import { useState } from 'react';
 
-// const currencies = [
-//   {
-//     value: 'USD',
-//     label: '$',
-//   },
-//   {
-//     value: 'EUR',
-//     label: '€',
-//   },
-//   {
-//     value: 'BTC',
-//     label: '฿',
-//   },
-//   {
-//     value: 'JPY',
-//     label: '¥',
-//   }
-// ];
 
 export default function FilterSideBar({loc}) {
  
-  const [location,setLocation] = React.useState('')
-  const [searchTerm,setSearchTerm] = React.useState('')
+  const [location,setLocation] = useState('')
+  const [searchTerm,setSearchTerm] = useState('')
 
   const submitHandler = () => {
     console.log('submit');
@@ -38,13 +16,12 @@ export default function FilterSideBar({loc}) {
     console.log(searchTerm);
     if(location !== null || searchTerm !== null){
       console.log('dispatch');
-    } else if(location === null && searchTerm === null) {
+    } else if(location === '' && searchTerm === '') {
       window.alert("error")
     }
   }
   return (
     <div>
-      <FormControl>
        <Box
       component="form"
       sx={{
@@ -70,41 +47,15 @@ export default function FilterSideBar({loc}) {
           onChange={(e) => setLocation(e.target.value)}
         >
           <option value="">Choose</option>
-          {loc ? loc.map((option) => (
-            <option key={option._id} value={option.Location}>
+          {loc ? loc.map((option) => {
+            return (
+              <option key={option._id} value={option.Location}>
               {option.Location}
             </option>
-          )) : "no data"
+            )
+          }) : "no data"
         }
         </TextField>
-        {/* <label htmlFor="">Chose</label>
-        <select name="" id=""
-         onChange ={(e) => setLocation(e.target.value)}
-        >
-          <option>Chhose</option>
-          {
-            loc ? loc.map((x) => {
-              <option value={x.Location}>{x.Location}</option>
-            }) : ""
-          }
-        </select> */}
-         {/* <Form.Field>
-          <label htmlFor="">Choose Location</label>
-        <select name="location" id=""
-        
-         onChange ={(e) => setLocation(e.target.value)}
-        >
-          <option>Choose</option>
-         
-         {
-          loc ? loc.map((x) => {
-            return(
-             <option value={x.Location}>{x.Location}</option>
-            )
-          }) : ""
-         }
-        </select>
-        </Form.Field> */}
       </div>
       </FormControl>
     </Box>
@@ -134,7 +85,6 @@ export default function FilterSideBar({loc}) {
       onClick={submitHandler}
       >Apply Filter</Button>
     </Box>
-    </FormControl>
     </div>
   );
 }

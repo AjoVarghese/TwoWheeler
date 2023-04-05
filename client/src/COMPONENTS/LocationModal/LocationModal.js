@@ -60,8 +60,6 @@ const LocationModal = ({closeModal,message,action,locationId}) => {
       }
   return (
     <div>
-
-{/* <MDBBtn onClick={toggleShow}>LAUNCH DEMO MODAL</MDBBtn> */}
       <MDBModal show={basicModal} setShow={setBasicModal} tabIndex='-1'>
         <MDBModalDialog>
           <MDBModalContent>
@@ -69,7 +67,6 @@ const LocationModal = ({closeModal,message,action,locationId}) => {
               <MDBModalTitle>Modal title</MDBModalTitle>
               <MDBBtn className='btn-close' color='none' onClick={(e) => closeModal(false)}></MDBBtn>
             </MDBModalHeader>
-              
             <Box
           component="form"
           onSubmit={handleSubmit(submitHandler)}
@@ -103,12 +100,6 @@ const LocationModal = ({closeModal,message,action,locationId}) => {
               </Button>
             </MDBModalFooter> 
             </>
-           
-          
-
-
-          
-            
             </Box>
           </MDBModalContent>
         </MDBModalDialog>

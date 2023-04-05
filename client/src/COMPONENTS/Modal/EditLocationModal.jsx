@@ -52,7 +52,6 @@ function EditLocationModal({open,onClose,locationId,loc}) {
     content={
              <Box
                  component="form" onSubmit={handleSubmit(submitHandler)}>
-
                  <TextField
                      id="outlined-basic"
                      label="location"
@@ -67,7 +66,6 @@ function EditLocationModal({open,onClose,locationId,loc}) {
                   <Box sx={{ flexGrow: 1 }} className='mt-3'>
       <Grid container spacing={2} columns={16}>
         <Grid item xs={8}>
-          {/* <Item> */}
             <Button
               variant="contained"
               color="error"
@@ -75,10 +73,8 @@ function EditLocationModal({open,onClose,locationId,loc}) {
             >
               Cancel
             </Button>
-          {/* </Item> */}
         </Grid>
         <Grid item xs={8}>
-          {/* <Item> */}
           <Button
               variant="contained"
               color="info"
@@ -86,32 +82,12 @@ function EditLocationModal({open,onClose,locationId,loc}) {
               >
                  Edit
           </Button>
-          {/* </Item> */}
         </Grid>
       </Grid>
     </Box>
-                 {/* <Box>
-                     <Button
-                         variant="outlined"
-                         type='submit'
-                     >
-                         Add
-                     </Button>
-                 </Box>
-                 <Box>
-
-                 <Button
-                     variant="outlined"
-                     onClick={onClose}
-                 >
-                     Cancel
-                 </Button>
-                 </Box> */}
              </Box>
          }
     >
-       
-
     </BasicModal>
   )
 }

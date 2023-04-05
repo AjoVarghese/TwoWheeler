@@ -18,6 +18,7 @@ const rentRequetsController = require('../../Controller/Admin/rentRequetsControl
 const rentRequests = require('../../Controller/Admin/RentRequests/RentRequets')
 
 const LocationController = require('../../Controller/Admin/Location/addLocationController')
+const CouponController = require('../../Controller/Admin/Coupons/CouponsController')
 
 const {protect} = require('../../middleware/jwtAuth')
 
@@ -59,6 +60,14 @@ router.route('/edit-location').post(LocationController.editLocation)
 router.route('/locations').get(protect,LocationController.getLocation)
 
 router.route('/delete-location').get(protect,LocationController.deleteLocation)
+
+router.route('/add-coupon').post(protect,CouponController.addCoupon)
+
+router.route('/coupons').get(protect,CouponController.getCoupons)
+
+router.route('/edit-coupon').post(protect,CouponController.editCoupon)
+
+router.route('/delete-coupon').get(protect,CouponController.deleteCoupon)
 
 
 

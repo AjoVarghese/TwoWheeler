@@ -17,20 +17,6 @@ import { Box, Button, styled } from '@mui/material';
 import AlertDialog from '../../../COMPONENTS/AlertDialog/AlertDialog';
 import { useRef } from 'react';
 
-// function createData(name, calories, fat, carbs, protein) {
-//   return { name, calories, fat, carbs, protein };
-// }
-
-// const rows = [
-//   createData('1', 159, 6.0, 24, 4.0),
-//   createData('1', 237, 9.0, 37, 4.3),
-//   createData('2', 262, 16.0, 24, 6.0),
-//   createData('4', 305, 3.7, 67, 4.3),
-//   createData('5', 356, 16.0, 49, 3.9),
-//   createData('4', 305, 3.7, 67, 4.3),
-// ];
-
-
 function RentRequets() {
   // const buttonRef = useRef()
     const DrawerHeader = styled('div')(({ theme }) => ({
@@ -54,13 +40,8 @@ function RentRequets() {
     console.log("selected",selectedBike);
 
     const acceptRequest =() =>{
-        console.log('jiii');
-        // setLoading(true)
-           dispatch(acceptRentRequests(selectedBike))
-          //  setLoading(false)    
+           dispatch(acceptRentRequests(selectedBike))  
     }
-
-
 
     const rejectRequest = () => {
       console.log("reject function");
@@ -108,10 +89,6 @@ function RentRequets() {
          </TableRow>
        </TableHead>
        <TableBody>
-         {/* <button onClick={()=>{
-           buttonRef.current.click()
-         }}>CLOSE ALERT</button>
-            */}
          
          {
            rentData ? rentData.map((data,i) => {
@@ -140,7 +117,6 @@ function RentRequets() {
                    src={data.Photo[0]}
                  />
                <Figure.Caption>
-       {/* Nulla vitae elit libero, a pharetra augue mollis interdum. */}
      </Figure.Caption>
    </Figure>
              </TableCell>
@@ -176,7 +152,6 @@ function RentRequets() {
              )
            }) : ""
          }
-
        </TableBody>
      </Table>
    </TableContainer>

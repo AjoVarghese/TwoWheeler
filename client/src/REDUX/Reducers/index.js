@@ -15,6 +15,7 @@ import { userGetProfileReduer } from "./USER/userGetProfileReducer";
 import { userHomeReducer } from "./USER/userHomeReducer";
 import { userLoginReducer } from "./USER/userLoginReducer";
 import { userRegisterReducer } from "./USER/userReducer";
+import { getCouponReducer } from "./ADMIN/couponsReducer";
 
 const reducers = combineReducers({
     userRegisterReducer : userRegisterReducer,
@@ -33,7 +34,6 @@ const reducers = combineReducers({
 
     adminLoginReducer : adminLoginReducer,
     adminUserGetReducer : adminUserGetReducer,
-    // adminBikesReducer : adminBikesReducer,
     admingetAllBikesReducer :getAllBikesReducer,
     // singleBikeReducer : singleBikeReducer,
     singleViewBikeReducer : singleViewBikeReducer,
@@ -41,6 +41,7 @@ const reducers = combineReducers({
     // addLocationReducer : addLocationReducer,
     getLocationReducer : getLocationReducer,
     deleteLocationReducer : deleteLocationReducer,
+    getCouponReducer : getCouponReducer
 
 })
 

@@ -1,24 +1,16 @@
-import {Alert, Box, styled , CircularProgress } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { Card } from 'primereact/card';
-import { InputText } from 'primereact/inputtext';
-import { InputNumber } from 'primereact/inputnumber';
-import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar';
-import { MDBCard, MDBCardBody, MDBCol, MDBInput, MDBRow } from 'mdb-react-ui-kit';
-// import { Button } from 'react-bootstrap';
+import { MDBCol, MDBInput, MDBRow } from 'mdb-react-ui-kit';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../../../COMPONENTS/NAVBAR/Navbar';
-import { userAddBikeApi, userAdminApi } from '../../../API/User/ApiCalls';
+import { userAddBikeApi} from '../../../API/User/ApiCalls';
 import { Form, Button } from 'semantic-ui-react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { userGetLocation } from '../../../REDUX/Actions/USER_ACTIONS/locationActions';
 import { Toaster, toast } from 'react-hot-toast';
 
-
-
-
-// import React from 'react'
 
 function RentBikes() {
   const [bikeName , setBikeName] = useState('')
@@ -70,8 +62,6 @@ function RentBikes() {
   
     userAddBikeApi(formdata).then((data) => {
       setLoading(false)
-      // toast.success("added")
-      // setSuccess(true)
       toast.success('Request has been send successfully!')
       setTimeout(() => {
         navigate("/rented-bikes",{state:{bikeAdded:true}})
@@ -85,44 +75,13 @@ function RentBikes() {
      })
   }
 
-  
-  // const submit = async() => {
-  //   const formdata = new FormData();
-      
-  
-  //     images.forEach((m)=>{
-  //       formdata.append("images",m)
-  //     })
-  
-  //     formdata.append("bikeName", bikeName);
-  //     formdata.append("bikeModel", bikeModel);
-  //     formdata.append("engineNo", engineNo);
-  //     formdata.append("fuel", fuel);
-  //     formdata.append("brand", brand);
-  //     formdata.append("desc", desc);
-  //     formdata.append("price", price);
-  //     formdata.append("color", color);
-
-  //     console.log("bikes",bikeModel,bikeName);
-  
-  //   userAddBikeApi(formdata).then((data) => {
-        
-  //   })
-  // }
-  
     return (
       <div>
         <Navbar/>
           <Box sx={{ display : 'flex' }}>
-        {/* <AdminSideBar/> */}
         <Box component = 'main' sx={{flexGrow : 1,p:3}}>
-          {/* <DrawerHeader/> */}
           
           <Card className='container col-md-6' style={{ boxShadow : "2px 2px 2px 1px"}}>
-          {/* {
-      sucess?   <Alert severity="warning">Your Request has been submitted.Wait for some time until we verifies the details!</Alert>:''
-     } */}
-     {/* <Toaster toastOptions={{duration:4000}}></Toaster> */}
      <Toaster
        position="top-right"
        reverseOrder={false}
@@ -130,10 +89,6 @@ function RentBikes() {
       />
           <Form onSubmit={handleSubmit(onSubmit)}>
           <div className="card flex flex-column md:flex-row gap-3">
-              {/* <div className="p-inputgroup flex-1">
-                  <span className="p-inputgroup-addon">
-                      <i className="pi pi-user"></i>
-                  </span> */}
                   <h1 className='ms-4 mt-2'>Rent Your Bike</h1>
                   
                   <MDBRow className='pt-2 ms-3 me-3 mb-4'>
@@ -345,7 +300,7 @@ function RentBikes() {
    }
               </div>
               </Form>
-              {/* </div> */}
+              
   </Card>
         </Box>
         </Box>

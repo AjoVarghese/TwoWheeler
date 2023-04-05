@@ -1,42 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../../COMPONENTS/NAVBAR/Navbar'
-import {
-  MDBCard,
-  MDBCardImage,
-  MDBCardBody,
-  MDBCardTitle,
-  MDBCardText,
-  MDBRow,
-  MDBCol,
-  MDBListGroup,
-  MDBListGroupItem,
-  MDBCardLink,
-  MDBContainer,
-  MDBIcon
-} from 'mdb-react-ui-kit';
-import Stack from 'react-bootstrap/Stack'
-import Button from 'react-bootstrap/Button';
-// import './Bikes.css'
 import { useDispatch, useSelector } from 'react-redux';
-import Loading from '../../../COMPONENTS/Loading/Loading'
 import { getBikesAction } from '../../../REDUX/Actions/USER_ACTIONS/getBikesAction';
-import { width } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
-
-// import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-
 import InputBase from '@mui/material/InputBase';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import DirectionsIcon from '@mui/icons-material/Directions';
 import { bikeSearchAction } from '../../../REDUX/Actions/USER_ACTIONS/bikeSearchAction';
-import BasicPagination from '../../../COMPONENTS/Pagination/BasicPagination';
 import FilterSideBar from '../../../COMPONENTS/FilterSidebar/FilterSideBar';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -46,6 +20,7 @@ import AllAcceptedBIkes from '../../../COMPONENTS/UserBikes/AllAcceptedBIkes';
 import PriceAscSortedBikes from '../../../COMPONENTS/UserBikes/PriceAscSortedBikes';
 import PriceDescSortedBikes from '../../../COMPONENTS/UserBikes/PriceDescSortedBikes';
 import { userGetLocation } from '../../../REDUX/Actions/USER_ACTIONS/locationActions';
+import { MDBContainer } from 'mdb-react-ui-kit';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -73,12 +48,6 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -91,11 +60,10 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Bikes() {
    const dispatch = useDispatch()
-   const navigate = useNavigate()
 
    const [searchTerm,setSearchTerm] = useState('')
-   const [page,setPage] = useState(1)
-   const [pageCount,setPageCount] = useState(0)
+  //  const [page,setPage] = useState(1)
+  //  const [pageCount,setPageCount] = useState(0)
 
    const [value, setValue] = React.useState(0);
 
@@ -169,8 +137,10 @@ function Bikes() {
 
       </TabPanel>
       <TabPanel value={value} index={1}>
+
        <PriceAscSortedBikes priceAsc = {bikesData}/>
       </TabPanel>
+      
       <TabPanel value={value} index={2}>
         <PriceDescSortedBikes priceDesc={bikesData}/>
       </TabPanel>

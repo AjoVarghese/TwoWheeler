@@ -157,8 +157,7 @@ export default function AdminSideBar() {
             {name : "Add Bikes" , icon : <AddIcon/>},
             {name : "Rent Requests" , icon : <RequestPageIcon/>},
             {name : "Locations" , icon : <LocationOnIcon/>},
-            {name : "Add Location" , icon : <AddLocationAltIcon/>},
-            {name : "Offers" , icon : <LocalOfferIcon/>},
+            {name : "Coupons" , icon : <LocalOfferIcon/>},
             {name : "Logout" , icon : <LogoutIcon/>}
 
           ].map((text, index) => (
@@ -192,7 +191,7 @@ export default function AdminSideBar() {
                   text2 === 'rent requests' && navigate('/admin/rent-requests')
                   text2 === 'locations' && navigate('/admin/locations')
                   text2 === 'add location' && navigate('/admin/add-location')
-                  text2 === 'offers' && navigate('/admin/offers')
+                  text2 === 'coupons' && navigate('/admin/coupons')
                  text2 === 'logout' && handleLogout()
                  }}
                 />
