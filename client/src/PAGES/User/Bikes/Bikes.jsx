@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../../../COMPONENTS/NAVBAR/Navbar'
 import { useDispatch, useSelector } from 'react-redux';
 import { getBikesAction } from '../../../REDUX/Actions/USER_ACTIONS/getBikesAction';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -66,6 +66,7 @@ function Bikes() {
   //  const [pageCount,setPageCount] = useState(0)
 
    const [value, setValue] = React.useState(0);
+   const [state,setState] = useState()
 
    const handleChange = (event, newValue) => {
      setValue(newValue);
@@ -80,15 +81,17 @@ function Bikes() {
   useEffect(() => {
      dispatch(getBikesAction())
      dispatch(userGetLocation())
-  },[])
+  },[state])
 
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(bikeSearchAction(searchTerm))
     setSearchTerm('')
   }
+  console.log("ddddd",state);
 
   return (
+    
        <>
          <Navbar/>
            <div className='cards mt-5'>
@@ -102,7 +105,7 @@ function Bikes() {
           <Item>
             <h4>FILTER</h4>
             
-            <FilterSideBar loc={location} />
+            <FilterSideBar loc={location} propState={setState} />
           </Item>
         </Grid>
         <Grid item xs={9}>
@@ -133,7 +136,7 @@ function Bikes() {
       </Box>
       <TabPanel value={value} index={0}>
 
-      <AllAcceptedBIkes acceptedBikes={bikesData}/>
+      <AllAcceptedBIkes acceptedBikes={bikesData} selectedLoc = {state}/>
 
       </TabPanel>
       <TabPanel value={value} index={1}>

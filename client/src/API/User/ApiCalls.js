@@ -27,7 +27,7 @@ const configFormData = {
 }
 
 export const googleSignupApi = (Name,Email,Phone,Photo) => API.post('/google-signup',{Name,Email,Phone,Photo},config)
-export const userSignupApi = (Name,Email,Mobile,Password) => API.post('/signup',{Name,Email,Mobile,Password},config)
+export const userSignupApi = (Name,Email,Mobile,Password,Referral) => API.post('/signup',{Name,Email,Mobile,Password,Referral},config)
 export const userLoginAPi = (Mobile,Password) => API.post('/login',{Mobile,Password},config)
 
 export const OTPLoginApi = (mobile) => API.post('/otp-login',{mobile},config)

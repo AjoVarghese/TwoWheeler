@@ -11,6 +11,19 @@ exports.viewVehicles = async(req,res) => {
    }
 }
 
+exports.blabla = async(req,res) => {
+  console.log(req.body.Location);
+  try {
+     vehicleSchema.find(
+      {Location : req.body.Location}
+     ).sort({Price : 1}).then((data) => {
+      res.status(200).json(data)
+     })
+  } catch (error) {
+    
+  }
+}
+
 //for Pagination
 exports.getAllBikes = async(req,res) => {
   vehicleSchema.find({Status : "Acccepted"}).then(async(data) => {

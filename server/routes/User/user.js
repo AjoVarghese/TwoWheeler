@@ -44,6 +44,8 @@ router.route('/edit-profile').post(protect,updateProfileController.updateProfile
 
 router.route('/bikes').get(viewVehiclesController.viewVehicles)
 
+router.route('/hii').post(viewVehiclesController.blabla)
+
 router.route('/search-bikes').post(searchVehiclesController.searchBikes)
 
 router.route('/filter-location').get(filterbikeController.filterByLocation)

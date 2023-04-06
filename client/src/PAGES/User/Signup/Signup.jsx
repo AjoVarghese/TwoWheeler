@@ -36,6 +36,7 @@ const schema = yup.object().shape({
                .min(5, "password should have a minimum length of 5")
                .max(12, "password should have a maximum length of 12")
                .required("password is required"),
+    referalCode : yup.string().optional()           
   })
 
 function Signup() {
@@ -55,12 +56,14 @@ function Signup() {
       });
 
     const submitHandler = async(data) => {
+      console.log("sdsd",data);
         const Name = data.name
         const Email = data.email
         const Password = data.password
         const Mobile = data.mobile
+        const Referral = data.referalCode
         try {
-             dispatch(userRegister(Name,Email,Mobile,Password))
+             dispatch(userRegister(Name,Email,Mobile,Password,Referral))
              navigate('/login')
         } catch (error) {
             

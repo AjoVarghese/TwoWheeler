@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { auth } from "../../../FIREBASE/firebase.config"
 
 // var navigate = useNavigate()
-export const userRegister = (Name,Email,Mobile,Password) => async(dispatch) => {
+export const userRegister = (Name,Email,Mobile,Password,Referral) => async(dispatch) => {
   try {
 
     dispatch(
@@ -13,7 +13,7 @@ export const userRegister = (Name,Email,Mobile,Password) => async(dispatch) => {
         }
     )
 
-     userSignupApi(Name,Email,Mobile,Password)
+     userSignupApi(Name,Email,Mobile,Password,Referral)
    
     .then((data) => {
       console.log("API DATA",data.data);

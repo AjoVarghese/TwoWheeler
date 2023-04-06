@@ -5,15 +5,17 @@ import { Button, FormControl } from '@mui/material';
 import { useState } from 'react';
 
 
-export default function FilterSideBar(props) {
- console.log(props.loc);
+export default function FilterSideBar({loc,propState}) {
+ console.log(loc,propState);
   const [location,setLocation] = useState('')
   const [searchTerm,setSearchTerm] = useState('')
 
   const submitHandler = () => {
+    
     console.log('submit');
     console.log(location);
     console.log(searchTerm);
+    propState(location)
     if(location !== null || searchTerm !== null){
       console.log('dispatch');
     } else if(location === '' && searchTerm === '') {
@@ -47,7 +49,7 @@ export default function FilterSideBar(props) {
           onChange={(e) => setLocation(e.target.value)}
         >
           <option value="">Choose</option>
-          {props.loc ? props.loc.map((option) => {
+          {loc ? loc.map((option) => {
             return (
               <option key={option._id} value={option.Location}>
               {option.Location}
