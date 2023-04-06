@@ -116,3 +116,58 @@ exports.otpLoginPost = (req,res) => {
     
   }
 }
+
+exports.googleSignup = (req,res) => {
+  console.log(req.body);
+  try {
+    userSchema.findOne(
+      {
+        Email : req.body.Email
+      }
+    ).then((userExists) => {
+      if(userExists) {
+        if(userExists.Status) {
+          const userDetails = {
+            id : userExists._id,
+            Name : userExists.Name,
+            Email : userExists.Email,
+            Mobile : userExists.Mobile ,
+            token : generateToken.generateToken(userExists._id)
+          }
+          console.log('already existing user login');
+          res.status(200).json(userDetails)
+        } else {
+          res.status(401).json("Account is Suspended")
+        }
+      } else {
+        console.log('req.body in the crea user side',req.body);
+
+        const userDetails = {
+          Name : req.body.Name,
+          Email : req.body.Email,
+          Mobile : req.body.Phone,
+          ProfileImage : req.body.Photo,
+          isGoogle : true
+        }
+        userSchema.create(userDetails).then((data) => {
+          console.log("created data",data);
+          const details = {
+            Name : data.Name,
+            Email : data.Email,
+            Mobile : data.Mobile,
+            ProfileImage : data.ProfileImage,
+            token : generateToken.generateToken(data._id),
+            isGoogle : true
+          }
+          res.status(200).json(details)
+        })
+        .catch((err) => {
+          console.log('error in google with signup create',err);
+          res.status(400).json("error while creating user with google !!!")
+        })
+      }
+    })
+  } catch (error) {
+    
+  }
+}

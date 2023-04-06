@@ -31,6 +31,20 @@ export const userLoginReducer =  (state = {} , {type,payload}) => {
                 return{
                     userLoginDetails : payload
                 }
+        case ActionTypes.GOOGLE_SIGNUP_REQ : 
+          return {
+            loading : true
+          }   
+        case ActionTypes.GOOGLE_SIGNUP_SUCCESS:
+            return{
+                loading : false,
+                userLoginDetails : payload
+            }     
+        case ActionTypes.GOOGLE_SIGNUP_FAILED:
+            return{
+                loading : false,
+                userLoginError : payload
+            }       
 
         default : return state    
     }

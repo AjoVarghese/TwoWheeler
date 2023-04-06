@@ -67,7 +67,7 @@ router.route('/coupons').get(protect,CouponController.getCoupons)
 
 router.route('/edit-coupon').post(protect,CouponController.editCoupon)
 
-router.route('/delete-coupon').get(protect,CouponController.deleteCoupon)
+router.route('/delete-coupon').delete(protect,CouponController.deleteCoupon)
 
 
 

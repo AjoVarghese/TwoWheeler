@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 import { useState } from 'react';
 import EditCouponModal from '../Modal/EditCouponModal';
+import DeleteCouponModal from '../Modal/DeleteCouponModal';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,6 +34,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function CouponTable({data}) {
   const [editModal,setEditModal] = React.useState(false)
+  const [deleteModal,setDeleteModal] = useState(false)
   const [selected,setSelected]  = useState('')
   return (
     <TableContainer component={Paper}>
@@ -46,9 +48,15 @@ export default function CouponTable({data}) {
             <StyledTableCell align="center">Delete</StyledTableCell>
           </TableRow>
         </TableHead>
+
         {
           editModal ? <EditCouponModal couponId={selected} open={editModal} onClose={() =>setEditModal(false)}/> : ""
         }
+
+        {
+          deleteModal ? <DeleteCouponModal couponId={selected} open={deleteModal} onClose={() =>setDeleteModal(false)}/> : ""
+        }
+
         <TableBody>
          {
           data ? data.map((row,i) => {
@@ -71,7 +79,12 @@ export default function CouponTable({data}) {
                 </Button>
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                <Button variant="contained" color="error">
+                <Button variant="contained" color="error"
+                onClick={(e) => {
+                  setDeleteModal(true)
+                  setSelected(row._id)
+                }}
+                >
                   Delete
                 </Button>
                 </StyledTableCell>

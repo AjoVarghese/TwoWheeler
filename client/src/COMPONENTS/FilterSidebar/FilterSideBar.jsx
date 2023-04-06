@@ -5,8 +5,8 @@ import { Button, FormControl } from '@mui/material';
 import { useState } from 'react';
 
 
-export default function FilterSideBar({loc}) {
- 
+export default function FilterSideBar(props) {
+ console.log(props.loc);
   const [location,setLocation] = useState('')
   const [searchTerm,setSearchTerm] = useState('')
 
@@ -47,7 +47,7 @@ export default function FilterSideBar({loc}) {
           onChange={(e) => setLocation(e.target.value)}
         >
           <option value="">Choose</option>
-          {loc ? loc.map((option) => {
+          {props.loc ? props.loc.map((option) => {
             return (
               <option key={option._id} value={option.Location}>
               {option.Location}

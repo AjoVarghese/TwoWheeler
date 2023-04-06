@@ -103,6 +103,24 @@ app.use(function(req, res, next) {
 //   res.render('error');
 // });
 
+function plusOne(nums){
+  let len = nums.length-1
+
+  for(let i = len ; i >= 0 ; i--){
+    
+    if(nums[i]+1 <= 9){
+        nums[i] = nums[i]+1
+        return nums
+    } else {
+  
+        nums[i] = 0
+    }
+  }
+}
+
+const nums = [1,2,9]
+console.log(plusOne(nums));
+
 const PORT = process.env.PORT || 3001
 
 app.listen(PORT,console.log(`server running on port ${PORT}`))

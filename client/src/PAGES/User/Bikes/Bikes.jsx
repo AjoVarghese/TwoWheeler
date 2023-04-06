@@ -102,7 +102,7 @@ function Bikes() {
           <Item>
             <h4>FILTER</h4>
             
-            <FilterSideBar loc={location}/>
+            <FilterSideBar loc={location} />
           </Item>
         </Grid>
         <Grid item xs={9}>

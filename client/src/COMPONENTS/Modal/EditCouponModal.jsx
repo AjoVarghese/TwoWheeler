@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { editLocation } from '../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
+import { editCoupon } from '../../REDUX/Actions/ADMIN_ACTIONS/couponActions';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -45,7 +46,7 @@ function EditCouponModal({open,onClose,couponId}) {
         console.log(data);
         let couponName = data.couponName
         let couponCode = data.couponCode
-        // dispatch(addCoupon(couponName,couponCode))
+        dispatch(editCoupon(couponId,couponName,couponCode))
         onClose()
     }
 
@@ -71,7 +72,7 @@ function EditCouponModal({open,onClose,couponId}) {
                  <TextField
                  className='mt-3'
                  id="outlined-basic"
-                 label="loupon Code"
+                 label="Coupon Code"
                  variant="outlined"
                  name='couponCode'
                  error={!!errors.couponCode}
@@ -97,7 +98,7 @@ function EditCouponModal({open,onClose,couponId}) {
               color="info"
               type='submit'
               >
-               Add
+               Edit
           </Button>
         </Grid>
       </Grid>

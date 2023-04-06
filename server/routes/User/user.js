@@ -14,7 +14,7 @@ const addVehicleController = require('../../Controller/User/Vehicles/addVehicle'
 const getRentedBikesController = require('../../Controller/User/RentedBikes/RentedBikes')
 const locationController = require('../../Controller/User/Location/locationController')
 
-const sortbikeController = require('../../Controller/User/Vehicles/filterSortController')
+const filterbikeController = require('../../Controller/User/Vehicles/filterSortController')
 const {protect} = require('../../middleware/jwtAuth')
 
 // router.use(function(req, res, next) {
@@ -30,6 +30,8 @@ router.route('/login').post(loginController.LoginPost)
 
 router.route('/otp-login').post(loginController.otpLoginPost)
 
+router.route('/google-signup').post(loginController.googleSignup)
+
 router.get('/')
 
 router.route('/profile').get(protect,userProfileController.getUserProfile)
@@ -44,11 +46,7 @@ router.route('/bikes').get(viewVehiclesController.viewVehicles)
 
 router.route('/search-bikes').post(searchVehiclesController.searchBikes)
 
-router.route('/sort-bikes-asc').get(sortbikeController.sortByNameAsc)
-
-router.route('/sort-bikes-desc').get(sortbikeController.sortByNameDesc)
-
-router.route('/filter-bikes-price').get(sortbikeController.filterByPrice)
+router.route('/filter-location').get(filterbikeController.filterByLocation)
 
 // router.route('/view-bike').get(singleViewController.singleViewController)
 

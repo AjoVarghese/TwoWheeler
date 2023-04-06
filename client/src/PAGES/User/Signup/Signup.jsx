@@ -12,6 +12,9 @@ import { signUpGoogle, userRegister } from '../../../REDUX/Actions/USER_ACTIONS/
 import { signUpGoogleApi } from '../../../API/User/ApiCalls'
 import { MDBCheckbox, MDBCol, MDBContainer, MDBRow } from 'mdb-react-ui-kit'
 import { Box, TextField, Typography } from '@mui/material'
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../../../FIREBASE/firebase.config';
+import { googleSignupAction } from '../../../REDUX/Actions/USER_ACTIONS/googleSignupAction';
 
 
 const schema = yup.object().shape({
@@ -36,21 +39,12 @@ const schema = yup.object().shape({
   })
 
 function Signup() {
-    // const [Name,setName] = useState('')
-    // const [Email,setEmail] = useState('')
-    // const [Mobile,setMobile] = useState()
-    // const [Password,setPassword] = useState('')
-    // const [ConfirmPassword,setConfirmPassword] = useState('')
+    
 
    const dispatch = useDispatch()
    const navigate = useNavigate()
 
-    // const {register,handleSubmit,formState : {errors}} = useForm()
-    // const onSubmit = (e,data) => {
-        
-    //     dispatch(userRegister(Name,Email,Mobile,Password))
-    //     navigate('/login')
-    // }
+    
 
     const {
         register,
@@ -66,7 +60,6 @@ function Signup() {
         const Password = data.password
         const Mobile = data.mobile
         try {
-            console.log("form",data);
              dispatch(userRegister(Name,Email,Mobile,Password))
              navigate('/login')
         } catch (error) {
@@ -84,96 +77,15 @@ function Signup() {
         }
     },[])
 
-//     function handleGoogleLoginSuccess(tokenResponse){
-//         const accessToken = tokenResponse.access_token;
-//         dispatch(signUpGoogleApi(accessToken))
-//     }
-
-//    const handleClick = GoogleLogin({onSuccess : handleGoogleLoginSuccess})
+   const googleSignup = () => {
+    console.log('xxxxxx');
+    signInWithPopup(auth,provider).then((data) => {
+      console.log('google',data);
+      dispatch(googleSignupAction(data.user.displayName,data.user.email,data.user.phoneNumber,data.user.photoURL))
+    })
+   }
 
   return (
-    // <div className='signup'>
-    //     <div className='image-div'>
-    //     <img src={require('../../../ASSETS/Images/Bike_signup.jpg')} ></img>
-    //     </div>
-    //     <div className='signup-box'>
-    //       <div className='signup-body'>
-    //         <h2 className='signup-header'>Create Account</h2>
-           
-    //         <div className='form-div'>
-    //           <Form onSubmit={handleSubmit(onSubmit)}>
-    //             <Form.Field>
-    //                 <label>Name*</label>
-    //                 <input type="text" placeholder='Your Name'
-    //                 {...register("Name",
-    //                 {
-    //                     required:true,
-    //                     maxLength:10
-    //                 }
-    //                 )}
-    //                 onChange = {(e) => setName(e.target.value)}
-    //                 />
-    //             </Form.Field>
-    //             {errors.Name && <p style={{color : 'red'}}>Please check the name</p>}
-    //             <Form.Field>
-    //                 <label>Email*</label>
-    //                 <input type="email" placeholder='Your Email'
-    //                 {...register('Email',
-    //                 {
-    //                     required:true,
-    //                     pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ,
-    //                 })}
-    //                 onChange = {(e) => setEmail(e.target.value)}
-    //                 />
-    //             </Form.Field>
-    //             {errors.Email && <p style={{color : 'red'}}>Please check teh email</p>}
-    //             <Form.Field>
-    //                 <label>Mobile No*</label>
-    //                 <input type="text" placeholder='Your Mobile No'
-    //                 {...register('Mobile',
-    //                 {
-    //                     required:true,
-    //                     minLength : 10,
-    //                     maxLength : 10
-                      
-    //                 })}
-    //                 onChange = {(e) => setMobile(e.target.value)}
-    //                 />
-    //             </Form.Field>
-    //             {errors.Mobile && <p style={{color : 'red'}}>Please check the Mobile No</p>}
-    //             <Form.Field>
-    //                 <label>Password*</label>
-    //                 <input type="password" placeholder='Password'
-    //                 {...register('Password',{
-    //                     required:true,
-                        
-    //                     minLength:8,
-    //                     maxLength:16
-    //                 })}
-    //                 onChange = {(e) => setPassword(e.target.value)}
-    //                 />
-    //             </Form.Field>
-    //             {errors.Password && <p style={{color : 'red'}}>Please check the password</p>} 
-    //             <Form.Field>
-    //                 <label>Confirm Password*</label>
-    //                 <input type="password" placeholder='Confirm Password'
-    //                 {...register("ConfirmPassword",{
-    //                     required:true,
-    //                     minLength:8,
-    //                     maxLength:16
-    //                 })}
-    //                 onChange = {(e) => setConfirmPassword(e.target.value)}
-    //                 />
-    //             </Form.Field>
-    //             {errors.ConfirmPassword && <p style={{color : "red"}}>Please check the confirm password</p>}
-    //             <Button type='submit' style={{color:"white",backgroundColor : "blue"}} className = 'signup-button'>Register</Button>
-               
-    //           </Form>
-    //         </div>
-    //       </div>
-    //     </div>
-        
-    // </div>
     <div className='login'>
 
 <MDBContainer className="p-3 my-5 mt-5">
@@ -189,13 +101,6 @@ function Signup() {
         Sign In To Your Account!!
         </Typography>
 
-     {/* {
-          userLoginError ? <p className='p-error' style={{color : 'red'}}>{userLoginError}</p> : ""
-         }
-          
-          {
-            loading ? <p>{userLoginError}</p> : ''
-          } */}
 
          <Box
           component="form"
@@ -252,6 +157,15 @@ function Signup() {
             helperText={errors.password ? errors.password.message : ""}
             {...register("password")}
           />
+
+          <TextField
+            margin="normal"
+            fullWidth
+            name = 'referalCode'
+            id="referalCode"
+            label="Referal Code(optional)"
+            {...register("referalCode")}
+          />
            
             <Button
             type="submit"
@@ -264,21 +178,10 @@ function Signup() {
           </Button>
              </Box>
 
-    {/* <div className="d-flex justify-content-between mx-4 mb-4">
-      <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
-      <a href="!#">Forgot password?</a>
-    </div> */}
-
-    {/* <MDBBtn className="mb-4 w-100" size="lg">Sign in</MDBBtn> */}
-
     <div className="divider d-flex align-items-center my-4">
       <p className="text-center fw-bold mx-3 mb-0">OR</p>
     </div>
 
-    {/* <MDBBtn className="mb-4 w-100" size="lg" style={{backgroundColor: '#3b5998'}}>
-      <MDBIcon fab icon="facebook-f" className="mx-2"/>
-      Continue with facebook
-    </MDBBtn> */}
     <Button
             type="submit"
             fullWidth
@@ -289,16 +192,12 @@ function Signup() {
            
           </Button>
 
-    {/* <MDBBtn className="mb-4 w-100" size="lg" style={{backgroundColor: '#55acee'}}>
-      <MDBIcon fab icon="twitter" className="mx-2"/>
-      SignIn With Google
-    </MDBBtn> */}
-
 <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={googleSignup}
           >
             Sign Up with Ggogle
           </Button>

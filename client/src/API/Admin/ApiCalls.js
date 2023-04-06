@@ -51,5 +51,5 @@ export const editLocationApi = (id,location) => API.post('/edit-location?id='+id
 
 export const addCouponApi = (couponName,couponCode) => API.post('/add-coupon',{couponName,couponCode},configToken)
 export const getCouponsApi = () => API.get('/coupons',configToken)
-export const editCouponApi = (id) => API.post('/edit-coupon?id='+id,configToken)
+export const editCouponApi = (id,couponName,couponCode) => API.post('/edit-coupon?id='+id,{couponName,couponCode},configToken)
 export const deleteCouponApi = (id) => API.delete('/delete-coupon?id='+id,configToken)

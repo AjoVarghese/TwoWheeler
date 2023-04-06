@@ -2,6 +2,7 @@ const userSchema = require('../../Models/userSchema')
 const bcrypt = require('bcrypt')
 const generateToken = require('../../Utils/generateToken')
 const axios = require('axios')
+const shortid = require('shortid');
 
 // require('dotenv').config()
 // console.log(process.env.TOKEN_CODE);
@@ -61,7 +62,8 @@ exports.signUpPost = async(req,res) => {
                 Name,
                 Email,
                 Mobile,
-                Password
+                Password,
+                ReferalCode : shortid.generate()
             }
     
             if(email && mobile){
