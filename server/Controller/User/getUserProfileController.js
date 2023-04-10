@@ -5,7 +5,6 @@ exports.getUserProfile = (req,res) => {
     try {
         console.log('ddd');
         userSchema.findOne({_id : req.query.id}).then((data) => {
-            // console.log("USER PROFILE",data);
             res.status(200).json(data)
         })
 

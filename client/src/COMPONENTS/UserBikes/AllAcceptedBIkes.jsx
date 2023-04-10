@@ -82,7 +82,7 @@ function AllAcceptedBIkes({acceptedBikes,selectedLoc}) {
                       </div>
                     </MDBCardBody>
                   </MDBCard>
-                </MDBCol>   : 
+                </MDBCol>   :
 
 <MDBCol md="4 mt-3">
 <MDBCard className="text-black">

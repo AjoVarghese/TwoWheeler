@@ -202,7 +202,7 @@ function Vehicle() {
               </TableCell>
             </TableRow>
               )
-            }) : ""
+            }) : "No data available"
           }
 
         </TableBody>

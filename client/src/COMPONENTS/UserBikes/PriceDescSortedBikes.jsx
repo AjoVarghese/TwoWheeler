@@ -63,7 +63,7 @@ function PriceDescSortedBikes({priceDesc}) {
                 </MDBCard>
               </MDBCol>       
               )
-            }) : ''
+            }) : 'No data available'
         }
       </MDBRow>
     </div>

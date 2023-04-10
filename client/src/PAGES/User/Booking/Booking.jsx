@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../../../components/NAVBAR/Navbar'
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import { Button, Grid, TextField } from '@mui/material';
+import { Button, Checkbox, Grid, TextField } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { MDBCard, MDBCardHeader, MDBListGroup, MDBListGroupItem } from 'mdb-react-ui-kit';
+import { DatePicker } from "antd"
+import moment from "moment"
+import { useDispatch } from 'react-redux';
+import { bookingAction } from '../../../redux/Actions/USER_ACTIONS/bookingAction';
+
+
+const { RangePicker } = DatePicker
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -15,12 +22,48 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
 function Booking() {
+  const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [totalHours, setTotalHours] = useState(0)
+    const [needHelmet, setNeedHelmet] = useState(false)
+
+  const dispatch = useDispatch()
   const location = useLocation()
   console.log("location",location.state);
   const {bikesData,bikeId} = location.state
   const selectedBike = bikesData.find((bike) => bike._id === bikeId)
   console.log('selected',selectedBike);
+
+  const selectTimeSlots = (values) => {
+    console.log(moment(values));
+    setStartDate(moment(values[0]).format('DD MM yyyy HH:mm'));
+    setEndDate(moment(values[1]).format('DD MM yyyy HH:mm'));
+    setTotalHours(values[1].diff(values[0], 'hours'))
+}
+
+let totalAmount =  needHelmet === true ? totalHours * selectedBike.Price +50 : totalHours * selectedBike.Price
+
+const bookingData = {
+  userId : JSON.parse(localStorage.getItem("userInfo")).id,
+  userName : JSON.parse(localStorage.getItem("userInfo")).Name,
+  bikeId : selectedBike._id,
+  bikeDetails :selectedBike,
+  totalHours,
+  totalAmount,
+  needHelmet : needHelmet,
+  bookedTimeSlots : {
+    startDate,
+    endDate
+  },
+  location : selectedBike.Location
+}
+ 
+const handleCheckout = () => {
+  dispatch(bookingAction(bookingData))
+}
   return (
     <div>
          <Navbar/>
@@ -29,6 +72,7 @@ function Booking() {
         <Box gridColumn="span 8">
           <Item>
             <h3 style={{textAlign : "start"}}>SUMMARY</h3>
+           
             <Grid container spacing={3} className='mt-3'>
               <Grid item md={5} xs={6} lg={5}>
                  <Item>
@@ -45,31 +89,62 @@ function Booking() {
               
                <Grid item md={7} xs={6} className='col-md-6'>
                   <Item>
-                 <h3>Details</h3>
+                
                   <MDBCard>
+                    
       <MDBListGroup flush>
+     
         <MDBListGroupItem>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
-  <Grid item xs={12} md={6} lg={6}>
+          <Box>
+          <h3 style={{textAlign:"start"}}>Select Time Slot</h3>
+          <RangePicker showTime={{format: "HH:mm"}} 
+          format='MM DD YYYY HH:mm'
+          onChange={selectTimeSlots}
+          />
+          </Box>
+          <Box style={{textAlign: "start"}}>
+           
+            <Checkbox
+            
+            {...label}
+            sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
+            onChange={(e) => {
+              if(e.target.checked){
+                setNeedHelmet(true)
+              } else {
+                setNeedHelmet(false)
+              }
+            }}
+             />Need Extra helmet for ride?
+          </Box>
+        {/* <Box>
+          <RangePicker showTime={{ format: "HH:mm" }} 
+          format="MMM DD yyyy HH:mm"
+            onChange={selectTimeSlots} />
+        </Box> */}
+        {/* <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
+  <Grid item xs={12} md={6} lg={6}> */}
     
-     <h5> Pickup Date</h5>
+     {/* <h5> Pickup Date</h5>
       <p>erer</p>
-      <p>time</p>
-  </Grid>
-  <Grid item xs={12} md={6} lg={6}>
+      <p>time</p> */}
+      
+  {/* </Grid> */}
+  {/* <Grid item xs={12} md={6} lg={6}>
  
      <h5> Drop Date</h5>
       <p>erer</p>
       <p>time</p>
    
-  </Grid>
-</Grid>
+  </Grid> */}
+{/* </Grid> */}
         </MDBListGroupItem>
+        {/* <h3>Details</h3>
         <MDBListGroupItem >
         <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
   <Grid item xs={12} md={6} lg={6}>
     
-     <h5>Location</h5>
+     <h5>Location :</h5>
   </Grid>
   <Grid item xs={12} md={6} lg={6}>
 
@@ -82,7 +157,7 @@ function Booking() {
         <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
   <Grid item xs={12} md={6} lg={6}>
     
-     <h5> Price</h5>
+     <h5> Price/hr : </h5>
      
   </Grid>
   <Grid item xs={12} md={6} lg={6}>
@@ -91,6 +166,20 @@ function Booking() {
   </Grid>
 </Grid>
         </MDBListGroupItem>
+
+        <MDBListGroupItem>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
+  <Grid item xs={12} md={6} lg={6}>
+    
+     <h5>Total Hrs : </h5>
+     
+  </Grid>
+  <Grid item xs={12} md={6} lg={6}>
+     <h5>{totalHours}hr</h5>
+     
+  </Grid>
+</Grid>
+        </MDBListGroupItem> */}
       </MDBListGroup>
     </MDBCard>
                   </Item>
@@ -101,21 +190,97 @@ function Booking() {
 
             </Item>
         </Box>
-        
-        <Box gridColumn="span 4">
+        {
+          startDate && endDate ? <Box gridColumn="span 4">
           <Item>
             
             <MDBCard>
-      <MDBCardHeader><h3>CHECKOUT</h3></MDBCardHeader>
-      <MDBListGroup flush>
+            <MDBCardHeader><h3>CHECKOUT</h3></MDBCardHeader>
+        <MDBListGroupItem >
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
+  <Grid item xs={12} md={6} lg={6}>
+    
+     <h5>Location :</h5>
+  </Grid>
+  <Grid item xs={12} md={6} lg={6}>
+
+     <h5> {selectedBike.Location}</h5>
+      
+  </Grid>
+</Grid>
+ {
+  needHelmet === true ? <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
+  <Grid item xs={12} md={6} lg={6}>
+    
+     <h5>Extra Helmet :</h5>
+  </Grid>
+  <Grid item xs={12} md={6} lg={6}>
+
+     <h5> Rs.50</h5>
+      
+  </Grid>
+</Grid> : ""
+ }
+
+        </MDBListGroupItem>
+        <MDBListGroupItem>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
+  <Grid item xs={12} md={6} lg={6}>
+    
+     <h5> Price/hr : </h5>
+     
+  </Grid>
+  <Grid item xs={12} md={6} lg={6}>
+     <h5> Rs.{selectedBike.Price}</h5>
+     
+  </Grid>
+</Grid>
+        </MDBListGroupItem>
+
+        <MDBListGroupItem>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
+  <Grid item xs={12} md={6} lg={6}>
+    
+     <h5>Total Hrs : </h5>
+     
+  </Grid>
+  <Grid item xs={12} md={6} lg={6}>
+     <h5>{totalHours}hr</h5>
+     
+  </Grid>
+
+  <Grid item xs={12} md={6} lg={6}>
+    
+     <h5>Rs.Total Amount : </h5>
+     
+  </Grid>
+  <Grid item xs={12} md={6} lg={6}>
+    <h5>
+    {
+      needHelmet === true ? totalHours * selectedBike.Price +50 : totalHours * selectedBike.Price
+    }
+    </h5>
+    
+     
+  </Grid>
+  
+</Grid>
+        </MDBListGroupItem>
+      
+      {/* <MDBListGroup flush>
         <MDBListGroupItem>Cras justo odio</MDBListGroupItem>
         <MDBListGroupItem>Dapibus ac facilisis in</MDBListGroupItem>
         <MDBListGroupItem>Vestibulum at eros</MDBListGroupItem>
-      </MDBListGroup>
+      </MDBListGroup> */}
     </MDBCard>
-    <Button  style={{backgroundColor :"#fed250",color : "black",width : '100%'}} className='mt-4'>Checkout</Button>
+    <Button  style={{backgroundColor :"#fed250",color : "black",width : '100%'}} 
+    className='mt-4'
+    onClick={handleCheckout}
+    >Checkout</Button>
           </Item>
-        </Box>
+        </Box> : ""
+        }
+        
         
       </Box>
     </Box>

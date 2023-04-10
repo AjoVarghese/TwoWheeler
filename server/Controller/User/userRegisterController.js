@@ -46,9 +46,9 @@ exports.signUpPost = async(req,res) => {
                         Status : result.Status
                     }
                     if(req.body.Referral === ''){
-                        console.log("sad");
+                       
                     } else {
-                        console.log("happy");
+                       
                         userSchema.findOne({ReferalCode : req.body.Referral}).then(async(data) => {
                             console.log(data);
                             let walletExists = await wallet.findOne({userId : data._id})

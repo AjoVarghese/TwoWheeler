@@ -63,10 +63,11 @@ export const ActionTypes = {
 
 
 
-    // GET_REJECTED_REQ : "GET_REJECTED_REQ",
-    // GET_PENDING_REQ : "GET_PENDING_REQ",
+    BOOKING_REQ : "BOOKING_REQ",
+    BOOKING_SUCCESS : "BOOKING_SUCCESS",
+    BOOKING_FAILED : "BOOKING_FAILED",
 
-    // GET_ALL_REQ : "GET_ALL_REQ"
+    
 
     
 

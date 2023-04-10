@@ -1,8 +1,7 @@
 const User = require('../../Models/userSchema')
 const { generateToken } = require('../../Utils/generateToken')
 exports.updateProfile = async(req,res) => {
-    console.log(req.body)
-    console.log(req.query.id)
+    
     User.updateMany({_id : req.query.id},
         {
             $set:{
@@ -12,7 +11,7 @@ exports.updateProfile = async(req,res) => {
             }
         }).then(() => {
             User.findOne({_id : req.query.id}).then((data) => {
-                // console.log("Updated data",data);
+               
                 let {id,Name,Email,Mobile,Status,ProfileImage} = data
                 let result = {
                     id,
@@ -23,8 +22,6 @@ exports.updateProfile = async(req,res) => {
                     ProfileImage,
                     token : generateToken(id)
                   }
-
-                //   console.log("RESULTT",result);
                    res.status(200).json(result)
             })
         })

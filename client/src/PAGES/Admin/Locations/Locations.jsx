@@ -147,7 +147,7 @@ useEffect(() => {
              
             </TableRow>
             )
-         }) : ""
+         }) : "No data available"
          } 
         </TableBody>
       </Table>

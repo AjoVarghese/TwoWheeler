@@ -101,11 +101,8 @@ const [sucess,setSuccess]=useState(false);
                 </tr>
                 </>
               )
-            }) :''
+            }) :'No data available'
           }
-          
-       
-          
         
       </tbody>
     </Table>

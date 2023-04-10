@@ -135,11 +135,11 @@ function Bikes() {
     </Paper>
     {/* </Item> */}
   </Grid>
-  <Grid item md={5}>
+  {/* <Grid item md={5}>
    
     <BasicPagination pageLimit = {setLimit} pageNo = {setPage}/>
     
-  </Grid>
+  </Grid> */}
 </Grid>
           
     {/* <div>

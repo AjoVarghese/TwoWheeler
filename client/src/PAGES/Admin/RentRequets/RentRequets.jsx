@@ -150,7 +150,7 @@ function RentRequets() {
              </TableCell>
            </TableRow>
              )
-           }) : ""
+           }) : "no data available"
          }
        </TableBody>
      </Table>

@@ -15,6 +15,7 @@ const getRentedBikesController = require('../../Controller/User/RentedBikes/Rent
 const locationController = require('../../Controller/User/Location/locationController')
 
 const filterbikeController = require('../../Controller/User/Vehicles/filterSortController')
+const bookingController = require('../../Controller/User/Booking/BookingController')
 const {protect} = require('../../middleware/jwtAuth')
 
 // router.use(function(req, res, next) {
@@ -63,5 +64,7 @@ router.route('/accepted-requests').get(getRentedBikesController.acceptedRequests
 router.route('/rejected-requests').get(getRentedBikesController.rejectedRequests)
 
 router.route('/pending-requests').get(getRentedBikesController.pendingRequests)
+
+router.route('/bike-booking').post(bookingController.bikeBookingController)
 
 module.exports = router;

@@ -7,8 +7,6 @@ const upload = require('../../../Utils/multer')
 
 
 exports.addVehicle = async (req,res) => {
-    console.log("ID",req.query.id);
-    console.log("VEHICLE",req.body);
     try {
       const uploader = async (path) => await cloudinary.uploads(path, 'Images');
   
@@ -21,10 +19,6 @@ exports.addVehicle = async (req,res) => {
           urls.push(newPath)
           fs.unlinkSync(path)
         }
-    
-        console.log("URLS",urls);
-        
-      //  let {BikeName,BikeModel,Brand,Fuel,EngineNo,Color,Description,Price} = req.body
   
       let Photo = [];
   
@@ -48,7 +42,7 @@ exports.addVehicle = async (req,res) => {
        }
   
        vehicleSchema.create(details).then((data) => {
-           console.log("VEHICLE DATA : ",data);
+          
            res.status(200).json(data)
         } )
     

@@ -4,7 +4,7 @@ const generateToken = require('../../Utils/generateToken')
 const axios = require('axios')
 
 exports.LoginPost = async(req,res) => {
-    console.log("LOGIN",req.body);
+    
     if(req.body.googleAccessToken){
       axios.get("https://www.googleapis.com/oauth2/v3/userinfo",{
                 headers : {
@@ -35,11 +35,10 @@ exports.LoginPost = async(req,res) => {
     }
 
      userSchema.findOne({Mobile : details.Mobile}).then((data) => {
-      console.log("DASAS",data);
 
       if(data){
         if(data.Status) {
-          // let password = await bcrypt.compare(details.Password,data.Password)
+          
           bcrypt.compare(details.Password,data.Password,(err,response) => {
             if(response){
               let {id,Name,Email,Mobile,Status,ProfileImage} = data
@@ -53,7 +52,6 @@ exports.LoginPost = async(req,res) => {
               ProfileImage,
               token : generateToken.generateToken(id)
             }
-            console.log("LOGIN DETAILS",result);
             res.status(200).json(result)
             } else {
               console.log("INC PASS");
@@ -62,11 +60,9 @@ exports.LoginPost = async(req,res) => {
           })
           
         } else {
-          console.log("BLOCK");
           res.status(400).json("Your account has been suspended temporarily")
         }
       } else {
-          console.log("Mobile Error");
           res.status(400).json("Mobile No doesn't exists")
       }
      })
@@ -98,14 +94,12 @@ exports.otpLoginPost = (req,res) => {
             ProfileImage,
             token : generateToken.generateToken(id)
           }
-          console.log("LOGIN DETAILS",result);
           res.status(200).json(result)
         } else {
-          console.log("BLOCK");
           res.status(400).json("Your account has been suspended temporarily")
         }
       } else {
-        console.log("Mobile Error");
+       
         res.status(400).json("Mobile No doesn't exists")
       }
     })
@@ -118,7 +112,6 @@ exports.otpLoginPost = (req,res) => {
 }
 
 exports.googleSignup = (req,res) => {
-  console.log(req.body);
   try {
     userSchema.findOne(
       {
@@ -134,13 +127,11 @@ exports.googleSignup = (req,res) => {
             Mobile : userExists.Mobile ,
             token : generateToken.generateToken(userExists._id)
           }
-          console.log('already existing user login');
           res.status(200).json(userDetails)
         } else {
           res.status(401).json("Account is Suspended")
         }
       } else {
-        console.log('req.body in the crea user side',req.body);
 
         const userDetails = {
           Name : req.body.Name,
@@ -150,7 +141,7 @@ exports.googleSignup = (req,res) => {
           isGoogle : true
         }
         userSchema.create(userDetails).then((data) => {
-          console.log("created data",data);
+        
           const details = {
             Name : data.Name,
             Email : data.Email,
@@ -162,7 +153,7 @@ exports.googleSignup = (req,res) => {
           res.status(200).json(details)
         })
         .catch((err) => {
-          console.log('error in google with signup create',err);
+        
           res.status(400).json("error while creating user with google !!!")
         })
       }
