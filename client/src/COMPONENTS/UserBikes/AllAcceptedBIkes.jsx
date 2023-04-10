@@ -24,12 +24,14 @@ function AllAcceptedBIkes({acceptedBikes,selectedLoc}) {
           loading ? <Loading/> : 
           //  selectedLoc ? 
             acceptedBikes ? acceptedBikes.map((x,i) => {
-              let Status
-              if(x.Location === selectedLoc){
-                Status = true
-                console.log(x.Location);
-                console.log(acceptedBikes);
-              }
+              console.log(x._id);
+              let Status 
+              // if(x.Location === selectedLoc){
+              //   Status = true
+              //   console.log(x.Location);
+              //   console.log(acceptedBikes);
+                
+              // }
 
               return (
                 <>
@@ -46,7 +48,7 @@ function AllAcceptedBIkes({acceptedBikes,selectedLoc}) {
                       style={{width:'20rem',height:'10rem',}}
                       position="top"
                       alt="Apple Computer"
-                      onClick={(e) => navigate('/bike-detailed-view',{state:{bikesData}})}
+                      onClick={(e) => navigate('/bike-detailed-view',{state:{bikesData,bikeId: x._id}})}
                     />
                     <MDBCardBody style={{backgroundColor : "#DCDCDC"}}>
                       <div className="text-center">
@@ -91,7 +93,7 @@ function AllAcceptedBIkes({acceptedBikes,selectedLoc}) {
     style={{width:'20rem',height:'10rem',}}
     position="top"
     alt="Apple Computer"
-    onClick={(e) => navigate('/bike-detailed-view',{state:{bikesData}})}
+    onClick={(e) => navigate('/bike-detailed-view',{state:{bikesData,bikeId: x._id}})}
   />
   <MDBCardBody style={{backgroundColor : "#DCDCDC"}}>
     <div className="text-center">
@@ -121,7 +123,12 @@ function AllAcceptedBIkes({acceptedBikes,selectedLoc}) {
       <span>Rs.{x.Price}</span>
     </div>
     <div className='mt-3'>
-    <button type="button" style={{width : "100%",backgroundColor: '#fed250',borderRadius : '6px',height : '3rem',border : 'none'}}>Book Now</button>
+    <button type="button"
+     style={{width : "100%",backgroundColor: '#fed250',borderRadius : '6px',height : '3rem',border : 'none'}}
+     onClick={(e) => {
+      
+     }}
+     >Book Now</button>
     </div>
   </MDBCardBody>
 </MDBCard>
