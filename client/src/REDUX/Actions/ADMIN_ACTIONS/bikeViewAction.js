@@ -1,4 +1,4 @@
-import { bikeSingleViewApi } from "../../../API/Admin/ApiCalls"
+import { bikeSingleViewApi } from "../../../api/Admin/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 
 export const bikeViewAction = (id) => async(dispatch) => {

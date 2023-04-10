@@ -8,13 +8,13 @@ import {useForm} from "react-hook-form"
 import {useDispatch} from 'react-redux'
 import {Link, useNavigate} from 'react-router-dom'
 import {GoogleLogin} from '@react-oauth/google';
-import { signUpGoogle, userRegister } from '../../../REDUX/Actions/USER_ACTIONS/RegisterAction'
-import { signUpGoogleApi } from '../../../API/User/ApiCalls'
+import { signUpGoogle, userRegister } from '../../../redux/Actions/USER_ACTIONS/RegisterAction'
+import { signUpGoogleApi } from '../../../api/User/ApiCalls'
 import { MDBCheckbox, MDBCol, MDBContainer, MDBRow } from 'mdb-react-ui-kit'
 import { Box, TextField, Typography } from '@mui/material'
 import { signInWithPopup } from 'firebase/auth';
-import { auth, provider } from '../../../FIREBASE/firebase.config';
-import { googleSignupAction } from '../../../REDUX/Actions/USER_ACTIONS/googleSignupAction';
+import { auth, provider } from '../../../firebase/firebase.config';
+import { googleSignupAction } from '../../../redux/Actions/USER_ACTIONS/googleSignupAction';
 
 
 const schema = yup.object().shape({
@@ -96,7 +96,7 @@ function Signup() {
 <MDBRow>
 
   <MDBCol col='10' md='6' className='mt-5'>
-    <img src={require('../../../ASSETS/Images/userLogin.png')} class="img-fluid" alt="Phone image" />
+    <img src={require('../../../assets/Images/userLogin.png')} class="img-fluid" alt="Phone image" />
   </MDBCol>
 
   <MDBCol col='4' md='6'  className='mt-5'>

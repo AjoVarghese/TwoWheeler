@@ -2,7 +2,7 @@ import React from 'react'
 import BasicModal from '../BasicModal/BasicModal'
 import { Box, Button, Grid } from '@mui/material'
 import { useDispatch } from 'react-redux'
-import { deleteCoupon } from '../../REDUX/Actions/ADMIN_ACTIONS/couponActions'
+import { deleteCoupon } from '../../redux/Actions/ADMIN_ACTIONS/couponActions'
 
 function DeleteCouponModal({open,onClose,couponId}) {
 

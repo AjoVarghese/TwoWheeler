@@ -1,4 +1,4 @@
-import { userGetBikesApi } from "../../../API/User/ApiCalls"
+import { userGetBikesApi } from "../../../api/User/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 import { ActionTypes } from "../../Constants/User/ActionTypes"
 

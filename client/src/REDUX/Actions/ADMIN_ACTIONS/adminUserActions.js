@@ -1,4 +1,4 @@
-import { getUsersApi } from "../../../API/Admin/ApiCalls"
+import { getUsersApi } from "../../../api/Admin/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 
 export const adminUserAction = () => async(dispatch) => {

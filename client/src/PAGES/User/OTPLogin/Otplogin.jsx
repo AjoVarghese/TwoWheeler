@@ -5,16 +5,14 @@ import { Button, Form } from 'semantic-ui-react'
 import './Otplogin.css'
 import { useNavigate } from 'react-router-dom'
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth'
-import { auth } from '../../../FIREBASE/firebase.config'
+import { auth } from '../../../firebase/firebase.config'
 // import OtpInput from 'otp-input-react'
 // import {BsTelephoneFill} from 'react-icons/cg'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import {Toaster, toast} from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
-import { otpLoginAction } from '../../../REDUX/Actions/USER_ACTIONS/LoginAction'
-// import { RecaptchaVerifier } from 'firebase/auth'
-// import {auth} from '../../../FIREBASE/firebase.config'
+import { otpLoginAction } from '../../../redux/Actions/USER_ACTIONS/LoginAction'
 
 
 function Otplogin() {

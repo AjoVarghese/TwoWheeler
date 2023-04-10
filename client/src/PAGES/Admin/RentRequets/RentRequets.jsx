@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 // import { Table } from 'react-bootstrap';
 import Figure from 'react-bootstrap/Figure';
 import { useDispatch, useSelector } from 'react-redux';
-import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar'
-import { acceptRentRequests, getRentRequests, rejectRentRequets } from '../../../REDUX/Actions/ADMIN_ACTIONS/rentRequestsAction';
+import AdminSideBar from '../../../components/NAVBAR/AdminSideBar'
+import { acceptRentRequests, getRentRequests, rejectRentRequets } from '../../../redux/Actions/ADMIN_ACTIONS/rentRequestsAction';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,7 +14,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button, styled } from '@mui/material';
-import AlertDialog from '../../../COMPONENTS/AlertDialog/AlertDialog';
+import AlertDialog from '../../../components/AlertDialog/AlertDialog';
 import { useRef } from 'react';
 
 function RentRequets() {

@@ -2,7 +2,7 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import React, { useEffect } from 'react'
 import Figure from 'react-bootstrap/Figure';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRentedBikesAction } from '../../REDUX/Actions/USER_ACTIONS/getRentedBikes';
+import { getRentedBikesAction } from '../../redux/Actions/USER_ACTIONS/getRentedBikes';
 
 function AcceptedRents() {
     const dispatch = useDispatch()

@@ -2,7 +2,7 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Figure from 'react-bootstrap/Figure';
-import { getRentedBikesAction } from '../../REDUX/Actions/USER_ACTIONS/getRentedBikes';
+import { getRentedBikesAction } from '../../redux/Actions/USER_ACTIONS/getRentedBikes';
 
 function Pending() {
     const dispatch = useDispatch()

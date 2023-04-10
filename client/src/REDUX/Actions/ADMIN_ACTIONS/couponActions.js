@@ -1,4 +1,4 @@
-import { addCouponApi, deleteCouponApi, editCouponApi, getCouponsApi } from "../../../API/Admin/ApiCalls"
+import { addCouponApi, deleteCouponApi, editCouponApi, getCouponsApi } from "../../../api/Admin/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 
 export const getCoupons = () => async(dispatch) => {

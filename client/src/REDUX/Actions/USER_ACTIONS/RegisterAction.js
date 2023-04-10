@@ -1,7 +1,7 @@
 import { ActionTypes } from "../../Constants/User/ActionTypes"
-import { signUpGoogleApi, userSignupApi } from "../../../API/User/ApiCalls"
+import { signUpGoogleApi, userSignupApi } from "../../../api/User/ApiCalls"
 import { useNavigate } from "react-router-dom"
-import { auth } from "../../../FIREBASE/firebase.config"
+import { auth } from "../../../firebase/firebase.config"
 
 // var navigate = useNavigate()
 export const userRegister = (Name,Email,Mobile,Password,Referral) => async(dispatch) => {

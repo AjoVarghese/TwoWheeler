@@ -1,4 +1,4 @@
-import { adminAddBikeApi, adminSearchBikeApi, deleteBikeAPi, getAllBikesApi } from "../../../API/Admin/ApiCalls"
+import { adminAddBikeApi, adminSearchBikeApi, deleteBikeAPi, getAllBikesApi } from "../../../api/Admin/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 
 export const getAllBikesAction = () => async(dispatch) => {

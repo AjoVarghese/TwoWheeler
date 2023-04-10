@@ -1,4 +1,4 @@
-import { imageUploadApi, userProfileApi } from "../../../API/User/ApiCalls";
+import { imageUploadApi, userProfileApi } from "../../../api/User/ApiCalls";
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes";
 import { ActionTypes } from "../../Constants/User/ActionTypes"
 

@@ -1,4 +1,4 @@
-import { adminLoginApi } from "../../../API/Admin/ApiCalls"
+import { adminLoginApi } from "../../../api/Admin/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 
 export const LoginAction = (Email,Password) => async(dispatch) => {

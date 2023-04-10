@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { LoginAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/LoginAction';
+import { LoginAction } from '../../../redux/Actions/ADMIN_ACTIONS/LoginAction';
 import { Box, Button, Typography } from '@mui/material';
 
 const schema = yup.object().shape({
@@ -63,7 +63,7 @@ function AdminLogin() {
         
 
         <MDBCol col='10' md='6'>
-          <img src={require('../../../ASSETS/Images/adminloign.png')} class="img-fluid" alt="Sample image" />
+          <img src={require('../../../assets/Images/adminloign.png')} class="img-fluid" alt="Sample image" />
         </MDBCol>
 
         

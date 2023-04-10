@@ -2,7 +2,7 @@ import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCol, MDBIcon, MDBR
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { getBikesAction } from '../../REDUX/Actions/USER_ACTIONS/getBikesAction'
+import { getBikesAction } from '../../redux/Actions/USER_ACTIONS/getBikesAction'
 import Loading from '../Loading/Loading'
 
 function AllAcceptedBIkes({acceptedBikes,selectedLoc}) {

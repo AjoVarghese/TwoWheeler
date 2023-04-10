@@ -1,6 +1,6 @@
 import React, { useEffect, useState ,useRef  } from 'react'
 // import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
-import Navbar from '../../../COMPONENTS/NAVBAR/Navbar'
+import Navbar from '../../../components/NAVBAR/Navbar'
 import './Profile.css'
 import Button from 'react-bootstrap/Button';
 import AddIcon from '@mui/icons-material/Add';
@@ -30,8 +30,8 @@ import { FileUpload } from 'primereact/fileupload';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getUserProfileAction, getUserProfileReducer, imageUploadAction } from '../../../REDUX/Actions/USER_ACTIONS/userProfileAction';
-import ModalBox from '../../../COMPONENTS/Modal/ModalBox';
+import { getUserProfileAction, getUserProfileReducer, imageUploadAction } from '../../../redux/Actions/USER_ACTIONS/userProfileAction';
+import ModalBox from '../../../components/Modal/ModalBox';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
@@ -43,27 +43,17 @@ function Profile() {
 
   const [image,setImage] = useState("")
   const [modal,setModal] = useState(false)
+  const [error, setError] = useState(null);
 
   const click = () => {
     console.log('click');
   }
 
-  // const toast = useRef(null);
-
-  //   const onUpload = () => {
-  //       toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
-  //   };
-    
+ 
     const profileData = useSelector((state)=>state.userLoginReducer.userLoginDetails)
      console.log("profileData",profileData);
             
-    // const profileImage = useSelector((state) =>state.imageUploadReducer.profileImage )
-    //  console.log("PROFILEIMAGE",profileImage);
-
-  // useEffect(() => {
-  //   dispatch(getUserProfileAction())
-  // },[])
-
+ 
 
   const handleClick = (e) => {
      e.preventDefault()
@@ -79,6 +69,12 @@ function Profile() {
     })
     .then((res) => res.json())
     .then((data) => {
+      console.log("image format",data);
+      if (data.format !== 'jpg' && data.format !== 'jpeg' && data.format !== 'png') {
+        console.log('format error');
+        setError('Please upload a JPEG or PNG file');
+        return;
+      }
       console.log("DDDATAAATA",data.url);
       dispatch(imageUploadAction(data.url))
     })
@@ -94,15 +90,6 @@ function Profile() {
       
         <MDBRow>
           <MDBCol>
-            {/* <MDBBreadcrumb className="bg-light rounded-3">
-              <MDBBreadcrumbItem>
-                <a href='#'>Home</a>
-              </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem>
-                <a href="#">User</a>
-              </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
-            </MDBBreadcrumb> */}
           </MDBCol>
          
         </MDBRow>
@@ -126,9 +113,15 @@ function Profile() {
                   {/* <MDBBtn><input type="file" /></MDBBtn> */}
                   {/* <input type="file" /> */}
                   {/* <MDBBtn outline className="ms-1">Message</MDBBtn> */}
-                  <Button variant="secondary"><input type="file" onChange={(e) => setImage(e.target.files[0])}/></Button>{' '}
+                  <Button variant="secondary"><input type="file"
+                   accept=".jpg,.jpeg,.png,.webp"
+                  onChange={(e) => setImage(e.target.files[0])}/></Button>{' '}
+                  
                   <Button variant="warning ms-4" onClick={handleClick} style={{backgroundColor : "#fed250"}}>Upload</Button>{' '}
                 </div>
+                {/* <div> */}
+                  {error && <p style={{color : "red"}}>{error}</p>}
+                  {/* </div> */}
               </MDBCardBody>
             </MDBCard>
 

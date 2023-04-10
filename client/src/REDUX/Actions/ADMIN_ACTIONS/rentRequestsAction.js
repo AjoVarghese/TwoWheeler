@@ -1,4 +1,4 @@
-import { acceptRentRequestsApi, getRentRequetsApi, rejectRentRequetsApi } from "../../../API/Admin/ApiCalls"
+import { acceptRentRequestsApi, getRentRequetsApi, rejectRentRequetsApi } from "../../../api/Admin/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 
 export const getRentRequests = () => async(dispatch) => {

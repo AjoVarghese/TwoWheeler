@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import Navbar from '../../../COMPONENTS/NAVBAR/Navbar'
+import Navbar from '../../../components/NAVBAR/Navbar'
 import './Home.css'
 import 'semantic-ui-css/semantic.min.css'
 import {Form,Button} from 'semantic-ui-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { userHomeReducer } from '../../../REDUX/Reducers/USER/userHomeReducer'
+import { userHomeReducer } from '../../../redux/Reducers/USER/userHomeReducer'
 import { Toaster } from 'react-hot-toast'
 
 

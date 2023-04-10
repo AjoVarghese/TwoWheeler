@@ -1,4 +1,4 @@
-import { userGetRentedBikesAPi } from "../../../API/User/ApiCalls"
+import { userGetRentedBikesAPi } from "../../../api/User/ApiCalls"
 import { ActionTypes } from "../../Constants/User/ActionTypes"
 
 export const getRentedBikesAction = () => async(dispatch) =>{

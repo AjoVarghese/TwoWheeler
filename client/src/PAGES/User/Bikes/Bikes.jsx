@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from '../../../COMPONENTS/NAVBAR/Navbar'
+import Navbar from '../../../components/NAVBAR/Navbar'
 import { useDispatch, useSelector } from 'react-redux';
-import { getBikesAction } from '../../../REDUX/Actions/USER_ACTIONS/getBikesAction';
+import { getBikesAction } from '../../../redux/Actions/USER_ACTIONS/getBikesAction';
 // import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -10,17 +10,18 @@ import Grid from '@mui/material/Grid';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { bikeSearchAction } from '../../../REDUX/Actions/USER_ACTIONS/bikeSearchAction';
-import FilterSideBar from '../../../COMPONENTS/FilterSidebar/FilterSideBar';
+import { bikeSearchAction } from '../../../redux/Actions/USER_ACTIONS/bikeSearchAction';
+import FilterSideBar from '../../../components/FilterSidebar/FilterSideBar';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import AllAcceptedBIkes from '../../../COMPONENTS/UserBikes/AllAcceptedBIkes';
-import PriceAscSortedBikes from '../../../COMPONENTS/UserBikes/PriceAscSortedBikes';
-import PriceDescSortedBikes from '../../../COMPONENTS/UserBikes/PriceDescSortedBikes';
-import { userGetLocation } from '../../../REDUX/Actions/USER_ACTIONS/locationActions';
+import AllAcceptedBIkes from '../../../components/UserBikes/AllAcceptedBIkes';
+import PriceAscSortedBikes from '../../../components/UserBikes/PriceAscSortedBikes';
+import PriceDescSortedBikes from '../../../components/UserBikes/PriceDescSortedBikes';
+import { userGetLocation } from '../../../redux/Actions/USER_ACTIONS/locationActions';
 import { MDBContainer } from 'mdb-react-ui-kit';
+import BasicPagination from '../../../components/Pagination/BasicPagination';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -62,11 +63,13 @@ function Bikes() {
    const dispatch = useDispatch()
 
    const [searchTerm,setSearchTerm] = useState('')
-  //  const [page,setPage] = useState(1)
-  //  const [pageCount,setPageCount] = useState(0)
+ 
 
    const [value, setValue] = React.useState(0);
    const [state,setState] = useState()
+   const [page,setPage] = useState(1)
+   const [limit,setLimit] = useState(6)
+
 
    const handleChange = (event, newValue) => {
      setValue(newValue);
@@ -88,7 +91,7 @@ function Bikes() {
     dispatch(bikeSearchAction(searchTerm))
     setSearchTerm('')
   }
-  console.log("ddddd",state);
+  console.log("ddddd",page);
 
   return (
     
@@ -110,7 +113,10 @@ function Bikes() {
         </Grid>
         <Grid item xs={9}>
           <Item>
-          <Paper
+          <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+  <Grid item md={7}>
+    {/* <Item> */}
+    <Paper
       component="form"
       sx={{ p: '2px 4px', display: 'flex', alignItems: 'end', width: '20rem' }}
     >
@@ -125,7 +131,20 @@ function Bikes() {
       >
         <SearchIcon />
       </IconButton>
+      
     </Paper>
+    {/* </Item> */}
+  </Grid>
+  <Grid item md={5}>
+   
+    <BasicPagination pageLimit = {setLimit} pageNo = {setPage}/>
+    
+  </Grid>
+</Grid>
+          
+    {/* <div>
+   
+    </div> */}
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
@@ -152,7 +171,7 @@ function Bikes() {
         </Grid>
       </Grid>
     </Box>
-      
+     
     </MDBContainer>
     </div>    
                 

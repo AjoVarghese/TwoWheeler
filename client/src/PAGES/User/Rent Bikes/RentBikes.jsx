@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { Card } from 'primereact/card';
 import { MDBCol, MDBInput, MDBRow } from 'mdb-react-ui-kit';
 import { useDispatch, useSelector } from 'react-redux';
-import Navbar from '../../../COMPONENTS/NAVBAR/Navbar';
-import { userAddBikeApi} from '../../../API/User/ApiCalls';
+import Navbar from '../../../components/NAVBAR/Navbar';
+import { userAddBikeApi} from '../../../api/User/ApiCalls';
 import { Form, Button } from 'semantic-ui-react';
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
-import { userGetLocation } from '../../../REDUX/Actions/USER_ACTIONS/locationActions';
+import { userGetLocation } from '../../../redux/Actions/USER_ACTIONS/locationActions';
 import { Toaster, toast } from 'react-hot-toast';
 
 

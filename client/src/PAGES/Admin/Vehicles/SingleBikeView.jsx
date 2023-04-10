@@ -2,15 +2,15 @@ import React, { useEffect } from 'react'
 import { Box, Grid, styled } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
-import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar';
+import AdminSideBar from '../../../components/NAVBAR/AdminSideBar';
 import { Card} from 'react-bootstrap';
 import Stack from 'react-bootstrap/Stack'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col'
-import { bikeSingleViewAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/bikeSingleViewAction';
+import { bikeSingleViewAction } from '../../../redux/Actions/ADMIN_ACTIONS/bikeSingleViewAction';
 import './SingleBikeView.css'
-import { bikeViewAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/bikeViewAction';
+import { bikeViewAction } from '../../../redux/Actions/ADMIN_ACTIONS/bikeViewAction';
 
 
 

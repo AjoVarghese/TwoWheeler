@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../../../COMPONENTS/NAVBAR/Navbar'
+import Navbar from '../../../components/NAVBAR/Navbar'
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';

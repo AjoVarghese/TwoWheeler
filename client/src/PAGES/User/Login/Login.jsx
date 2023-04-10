@@ -9,9 +9,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { userLoginAction} from '../../../REDUX/Actions/USER_ACTIONS/LoginAction'
+import { userLoginAction} from '../../../redux/Actions/USER_ACTIONS/LoginAction'
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { auth } from '../../../FIREBASE/firebase.config';
+import { auth } from '../../../firebase/firebase.config';
 import { Box, TextField, Typography } from '@mui/material';
 import {  MDBCheckbox, MDBCol, MDBContainer, MDBRow } from 'mdb-react-ui-kit';
 import Paper from '@mui/material/Paper';
@@ -92,7 +92,7 @@ function Login() {
 <MDBRow>
 
   <MDBCol col='10' md='6' className='mt-5'>
-    <img src={require('../../../ASSETS/Images/userLogin.png')} class="img-fluid" alt="Phone image" />
+    <img src={require('../../../assets/Images/userLogin.png')} class="img-fluid" alt="Phone image" />
   </MDBCol>
 
   <MDBCol col='4' md='6'  className='mt-5'>

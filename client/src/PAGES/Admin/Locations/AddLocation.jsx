@@ -1,7 +1,7 @@
 
 import { Box, styled } from '@mui/material';
 import React from 'react'
-import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar';
+import AdminSideBar from '../../../components/NAVBAR/AdminSideBar';
 
 function AddLocation() {
   const DrawerHeader = styled('div')(({ theme }) => ({

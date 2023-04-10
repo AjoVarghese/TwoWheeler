@@ -3,31 +3,31 @@ import React  from 'react';
 // import { ChakraProvider } from '@chakra-ui/react'
 import { useSelector } from 'react-redux';
 import {BrowserRouter as Router,Navigate,Route,Routes} from 'react-router-dom'
-import Bookings from './PAGES/Admin/Bookings/Bookings';
+import Bookings from './pages/Admin/Bookings/Bookings';
 // import SideBar from './Pages/Admin/Components/Navbar/SideBar';
-import Dashboard from './PAGES/Admin/DashBoard/Dashboard';
-import AddLocation from './PAGES/Admin/Locations/AddLocation';
-import Locations from './PAGES/Admin/Locations/Locations';
-import AdminLogin from './PAGES/Admin/Login/AdminLogin';
-import RentRequets from './PAGES/Admin/RentRequets/RentRequets';
-import Users from './PAGES/Admin/Users/Users';
-import AddVehicle from './PAGES/Admin/Vehicles/AddVehicle';
-import EditBike from './PAGES/Admin/Vehicles/EditBike';
-import SingleBikeView from './PAGES/Admin/Vehicles/SingleBikeView';
-import Vehicle from './PAGES/Admin/Vehicles/Vehicle';
-import Bikes from './PAGES/User/Bikes/Bikes';
-import Home from './PAGES/User/Home/Home';
+import Dashboard from './pages/Admin/DashBoard/Dashboard';
+import AddLocation from './pages/Admin/Locations/AddLocation';
+import Locations from './pages/Admin/Locations/Locations';
+import AdminLogin from './pages/Admin/Login/AdminLogin';
+import RentRequets from './pages/Admin/RentRequets/RentRequets';
+import Users from './pages/Admin/Users/Users';
+import AddVehicle from './pages/Admin/Vehicles/AddVehicle';
+import EditBike from './pages/Admin/Vehicles/EditBike';
+import SingleBikeView from './pages/Admin/Vehicles/SingleBikeView';
+import Vehicle from './pages/Admin/Vehicles/Vehicle';
+import Bikes from './pages/User/Bikes/Bikes';
+import Home from './pages/User/Home/Home';
 
-import Login from "./PAGES/User/Login/Login";
-import Otplogin from './PAGES/User/OTPLogin/Otplogin';
-import Profile from './PAGES/User/Profile/Profile';
-import RentBikes from './PAGES/User/Rent Bikes/RentBikes';
-import ViewRentedBikes from './PAGES/User/Rent Bikes/ViewRentedBikes';
+import Login from "./pages/User/Login/Login";
+import Otplogin from './pages/User/OTPLogin/Otplogin';
+import Profile from './pages/User/Profile/Profile';
+import RentBikes from './pages/User/Rent Bikes/RentBikes';
+import ViewRentedBikes from './pages/User/Rent Bikes/ViewRentedBikes';
 
-import Signup from "./PAGES/User/Signup/Signup";
-import SingleView from './PAGES/User/SingleView/SingleView';
-import Booking from './PAGES/User/Booking/Booking';
-import Coupons from './PAGES/Admin/Coupons/Coupons';
+import Signup from "./pages/User/Signup/Signup";
+import SingleView from './pages/User/SingleView/SingleView';
+import Booking from './pages/User/Booking/Booking';
+import Coupons from './pages/Admin/Coupons/Coupons';
 
 function App() {
   const userdata = useSelector((state)=>state.userLoginReducer.userLoginDetails);

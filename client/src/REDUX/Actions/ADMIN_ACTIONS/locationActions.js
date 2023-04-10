@@ -1,4 +1,4 @@
-import { addLocationApi, deleteBikeAPi, deleteLocationApi, editLocationApi, getLocationApi } from "../../../API/Admin/ApiCalls"
+import { addLocationApi, deleteBikeAPi, deleteLocationApi, editLocationApi, getLocationApi } from "../../../api/Admin/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 
 

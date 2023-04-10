@@ -1,4 +1,5 @@
 const userSchema = require('../../Models/userSchema')
+const wallet = require('../../Models/walletSchema')
 const bcrypt = require('bcrypt')
 const generateToken = require('../../Utils/generateToken')
 const shortid = require('shortid');
@@ -47,13 +48,46 @@ exports.signUpPost = async(req,res) => {
                     if(req.body.Referral === ''){
                         console.log("sad");
                     } else {
-                        userSchema.find({ReferalCode : req.body.Referral}).then((data) => {
-                            console.log("got it",data);
+                        console.log("happy");
+                        userSchema.findOne({ReferalCode : req.body.Referral}).then(async(data) => {
+                            console.log(data);
+                            let walletExists = await wallet.findOne({userId : data._id})
+                            console.log("walletExists",walletExists);
+                            if(walletExists){
+                              wallet.updateOne({userId : walletExists.userId},
+                                {
+                                    $inc : {
+                                        walletAmount : 100
+                                    },
+                                    $push : {
+                                        walletHistory : {
+                                            Type : "Referral Bonus",
+                                            Amount : 100
+                                        }
+                                    }
+                                })
+                            } else {
+                                const newWallet = {
+                                    userId : data._id,
+                                    walletAmount : 100,
+                                    walletHistory : [
+                                        {
+                                            Type : "Referral Bonus",
+                                            Amount : 100,
+    
+                                        }
+                                    ]
+                                }
+                                wallet.create(newWallet).then((data)=> {
+                                    console.log("wallet",data);
+                                })
+                            }
+                            
                         })
                         .catch((err) => {
                             console.log("sorry",err);
                         })
-                        console.log("happy");
+                       
                     }
                     res.status(200).json(data)
                 })

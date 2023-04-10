@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Navbar from '../../../COMPONENTS/NAVBAR/Navbar'
-import { getAccepted, getAcceptedDataAction, getPending, getPendingDataAction, getRejected, getRejectedDataAction, getRentedBikesAction } from '../../../REDUX/Actions/USER_ACTIONS/getRentedBikes'
+import Navbar from '../../../components/NAVBAR/Navbar'
+import { getAccepted, getAcceptedDataAction, getPending, getPendingDataAction, getRejected, getRejectedDataAction, getRentedBikesAction } from '../../../redux/Actions/USER_ACTIONS/getRentedBikes'
 import Figure from 'react-bootstrap/Figure';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -18,10 +18,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Button } from '@mui/material';
-import AllBikes from '../../../COMPONENTS/RentedBikes/AllBikes';
-import AcceptedRents from '../../../COMPONENTS/RentedBikes/AcceptedRents';
-import Pending from '../../../COMPONENTS/RentedBikes/Pending';
-import RejectedRequests from '../../../COMPONENTS/RentedBikes/RejectedRequests';
+import AllBikes from '../../../components/RentedBikes/AllBikes';
+import AcceptedRents from '../../../components/RentedBikes/AcceptedRents';
+import Pending from '../../../components/RentedBikes/Pending';
+import RejectedRequests from '../../../components/RentedBikes/RejectedRequests';
 
 
 function TabPanel(props) {

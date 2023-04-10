@@ -2,20 +2,20 @@ import { Alert, Box, CircularProgress, styled, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { Card } from 'primereact/card';
 import MenuItem from '@mui/material/MenuItem';
-import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar';
+import AdminSideBar from '../../../components/NAVBAR/AdminSideBar';
 import {  MDBCol, MDBInput, MDBRow } from 'mdb-react-ui-kit';
 
 // import { yupResolver } from "@hookform/resolvers/yup";
 // import * as yup from "yup";
 
 import { useDispatch, useSelector } from 'react-redux';
-import { adminAddBikeApi } from '../../../API/Admin/ApiCalls';
-import { adminAddBikeAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/adminAddBike';
+import { adminAddBikeApi } from '../../../api/Admin/ApiCalls';
+import { adminAddBikeAction } from '../../../redux/Actions/ADMIN_ACTIONS/adminAddBike';
 import { useNavigate } from 'react-router-dom';
 
 import { Form, Button } from 'semantic-ui-react';
 import { useForm } from "react-hook-form";
-import { getLocation } from '../../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
+import { getLocation } from '../../../redux/Actions/ADMIN_ACTIONS/locationActions';
 import { toast, Toaster } from 'react-hot-toast';
 
 // const schema = yup.object().shape({

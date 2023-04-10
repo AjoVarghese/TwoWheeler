@@ -14,25 +14,31 @@ import { CircularProgress, TextField, Typography } from '@mui/material';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from 'react-hook-form'
-import { editProfileApi } from '../../API/User/ApiCalls';
+import { editProfileApi } from '../../api/User/ApiCalls';
 
 import { useDispatch } from 'react-redux';
-import { updateProfile } from '../../REDUX/Actions/USER_ACTIONS/userProfileAction';
+import { updateProfile } from '../../redux/Actions/USER_ACTIONS/userProfileAction';
 
 
 
 const schema = yup.object().shape({
   mobile : yup
-          .string("email should be a string")
+          .string("Mobile should be a number")
           .min(10, "Mobile No should have a minimum length of 10")
           .max(10, "Mobile No  should have a maximum length of 10")
           .required('Mobile No  is required'),
   email : yup 
           .string('email should be a string')  
+          .test('no spaces',"Email cannot be empty or contain only spaces",(value) => {
+            return value && value.trim().length > 0;
+          })
           .email('please provide a valid email')
           .required('email address is required'),     
   name : yup
           .string("password should be a string")
+          .test('no spaces',"name cannot be empty or contain only spaces",(value) => {
+            return value && value.trim().length > 0;
+          })
           .required("password is required"),         
 })
 

@@ -1,4 +1,4 @@
-import { OTPLoginApi, userLoginAPi } from "../../../API/User/ApiCalls"
+import { OTPLoginApi, userLoginAPi } from "../../../api/User/ApiCalls"
 import { ActionTypes } from "../../Constants/User/ActionTypes"
 
 export const userLoginAction = (Mobile,Password) => async(dispatch) => {

@@ -1,11 +1,11 @@
 import { Box, Button, styled } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar'
-import CouponTable from '../../../COMPONENTS/Tables/CouponTable';
+import AdminSideBar from '../../../components/NAVBAR/AdminSideBar'
+import CouponTable from '../../../components/Tables/CouponTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLocation } from '../../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
-import { getCoupons } from '../../../REDUX/Actions/ADMIN_ACTIONS/couponActions';
-import AddCouponModal from '../../../COMPONENTS/Modal/AddCouponModal';
+import { getLocation } from '../../../redux/Actions/ADMIN_ACTIONS/locationActions';
+import { getCoupons } from '../../../redux/Actions/ADMIN_ACTIONS/couponActions';
+import AddCouponModal from '../../../components/Modal/AddCouponModal';
 
 function Coupons() {
     const DrawerHeader = styled('div')(({ theme }) => ({

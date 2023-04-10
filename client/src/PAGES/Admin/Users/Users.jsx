@@ -2,10 +2,10 @@ import { Box, CircularProgress, styled } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { blockUnblockApi } from '../../../API/Admin/ApiCalls';
-import Loading from '../../../COMPONENTS/Loading/Loading';
-import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar'
-import { adminUserAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/adminUserActions';
+import { blockUnblockApi } from '../../../api/Admin/ApiCalls';
+import Loading from '../../../components/Loading/Loading';
+import AdminSideBar from '../../../components/NAVBAR/AdminSideBar'
+import { adminUserAction } from '../../../redux/Actions/ADMIN_ACTIONS/adminUserActions';
 
 
 function Users() {
@@ -29,9 +29,10 @@ const [sucess,setSuccess]=useState(false);
  const handleAction = (id) => {
     blockUnblockApi(id).then((data) => {
       console.log(data.data);
-      localStorage.setItem("userInfo",JSON.stringify(data.data))
-      const item = JSON.parse( localStorage.getItem('userInfo') )
-      console.log(item.Status);
+      localStorage.removeItem("userInfo")
+      // localStorage.setItem("userInfo",JSON.stringify(data.data))
+      // const item = JSON.parse( localStorage.getItem('userInfo') )
+      // console.log(item.Status);
       if(data){
         dispatch(adminUserAction())
         setLoading(false)

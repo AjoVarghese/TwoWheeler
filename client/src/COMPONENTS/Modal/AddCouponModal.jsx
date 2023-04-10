@@ -5,10 +5,10 @@ import * as yup from "yup";
 import { Box, Button, TextField, styled } from '@mui/material';
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux';
-import { editLocation } from '../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
+import { editLocation } from '../../redux/Actions/ADMIN_ACTIONS/locationActions';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { addCoupon } from '../../REDUX/Actions/ADMIN_ACTIONS/couponActions';
+import { addCoupon } from '../../redux/Actions/ADMIN_ACTIONS/couponActions';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',

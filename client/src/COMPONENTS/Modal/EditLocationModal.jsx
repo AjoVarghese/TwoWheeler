@@ -5,7 +5,7 @@ import * as yup from "yup";
 import { Box, Button, TextField, styled } from '@mui/material';
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux';
-import { editLocation } from '../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
+import { editLocation } from '../../redux/Actions/ADMIN_ACTIONS/locationActions';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 

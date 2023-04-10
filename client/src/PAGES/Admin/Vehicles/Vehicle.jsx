@@ -1,6 +1,6 @@
 import { Box, ButtonBase, Pagination, Stack, TableFooter, TablePagination, styled } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar'
+import AdminSideBar from '../../../components/NAVBAR/AdminSideBar'
 import { MDBCol, MDBContainer } from 'mdb-react-ui-kit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
@@ -19,12 +19,12 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 // import { Alert, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { adminSearchBikeAction, deleteBikeAction, getAllBikesAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/getAllBikesAction';
+import { adminSearchBikeAction, deleteBikeAction, getAllBikesAction } from '../../../redux/Actions/ADMIN_ACTIONS/getAllBikesAction';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Loading from '../../../COMPONENTS/Loading/Loading'
-import { bikeSingleViewApi } from '../../../API/Admin/ApiCalls';
-import { bikeSingleViewAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/bikeSingleViewAction';
-import AlertDialog from '../../../COMPONENTS/AlertDialog/AlertDialog';
+import Loading from '../../../components/Loading/Loading'
+// import { bikeSingleViewApi } from '../../../api/Admin/ApiCalls'
+import { bikeSingleViewAction } from '../../../redux/Actions/ADMIN_ACTIONS/bikeSingleViewAction';
+import AlertDialog from '../../../components/AlertDialog/AlertDialog';
 
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';

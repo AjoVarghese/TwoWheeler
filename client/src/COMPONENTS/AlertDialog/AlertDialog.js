@@ -8,7 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
-import { acceptRentRequests } from '../../REDUX/Actions/ADMIN_ACTIONS/rentRequestsAction';
+import { acceptRentRequests } from '../../redux/Actions/ADMIN_ACTIONS/rentRequestsAction';
 import { toast } from 'react-hot-toast';
 
 export default function AlertDialog({closeDialog,Id,functionToBeDone,message,action}) {

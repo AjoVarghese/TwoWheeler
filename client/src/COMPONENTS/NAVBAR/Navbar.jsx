@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLogoutAction } from '../../REDUX/Actions/USER_ACTIONS/LogoutAction';
+import { userLogoutAction } from '../../redux/Actions/USER_ACTIONS/LogoutAction';
 import {
   createStyles,
   Header,

@@ -1,4 +1,4 @@
-import { googleSignupApi } from "../../../API/User/ApiCalls";
+import { googleSignupApi } from "../../../api/User/ApiCalls";
 import { ActionTypes } from "../../Constants/User/ActionTypes"
 
 export const googleSignupAction = (Name,Email,Phone,Photo) => async(dispatch) => {

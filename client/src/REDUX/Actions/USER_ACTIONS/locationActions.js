@@ -1,4 +1,4 @@
-import { userGetLocationApi } from "../../../API/User/ApiCalls"
+import { userGetLocationApi } from "../../../api/User/ApiCalls"
 import { ActionTypes } from "../../Constants/User/ActionTypes"
 
 export const userGetLocation = () => async(dispatch) => {

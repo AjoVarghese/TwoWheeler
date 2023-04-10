@@ -6,12 +6,12 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row'
-import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar';
+import AdminSideBar from '../../../components/NAVBAR/AdminSideBar';
 import { Figure } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { getLocation } from '../../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
-import { editBikeAction } from '../../../REDUX/Actions/ADMIN_ACTIONS/getAllBikesAction';
-import { editBikeApi } from '../../../API/Admin/ApiCalls';
+import { getLocation } from '../../../redux/Actions/ADMIN_ACTIONS/locationActions';
+import { editBikeAction } from '../../../redux/Actions/ADMIN_ACTIONS/getAllBikesAction';
+import { editBikeApi } from '../../../api/Admin/ApiCalls';
 import { toast, Toaster } from 'react-hot-toast';
 
 function EditBike() {

@@ -1,4 +1,4 @@
-import { searchBikesApi } from "../../../API/User/ApiCalls"
+import { searchBikesApi } from "../../../api/User/ApiCalls"
 import { ActionTypes } from "../../Constants/User/ActionTypes"
 
 export const bikeSearchAction = (searchTerm) => async(dispatch) => {

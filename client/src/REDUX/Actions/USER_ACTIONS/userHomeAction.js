@@ -1,4 +1,4 @@
-import { userHomeApi } from "../../../API/User/ApiCalls"
+import { userHomeApi } from "../../../api/User/ApiCalls"
 import { ActionTypes } from "../../Constants/User/ActionTypes"
 
 export const userHomeAction = () => async(dispatch) => {

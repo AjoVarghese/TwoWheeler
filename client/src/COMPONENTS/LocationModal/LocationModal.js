@@ -15,7 +15,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { addLocation, editLocation } from '../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
+import { addLocation, editLocation } from '../../redux/Actions/ADMIN_ACTIONS/locationActions';
 import { useLocation } from 'react-router-dom';
 
 

@@ -9,14 +9,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import AdminSideBar from '../../../COMPONENTS/NAVBAR/AdminSideBar'
+import AdminSideBar from '../../../components/NAVBAR/AdminSideBar'
 import { useDispatch, useSelector } from 'react-redux';
-import { getLocation } from '../../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
-import LocationModal from '../../../COMPONENTS/LocationModal/LocationModal';
-import AlertDialog from '../../../COMPONENTS/AlertDialog/AlertDialog';
-import { deleteLocation } from '../../../REDUX/Actions/ADMIN_ACTIONS/locationActions';
-import BasicModal from '../../../COMPONENTS/BasicModal/BasicModal';
-import EditLocationModal from '../../../COMPONENTS/Modal/EditLocationModal';
+import { getLocation } from '../../../redux/Actions/ADMIN_ACTIONS/locationActions';
+import LocationModal from '../../../components/LocationModal/LocationModal';
+import AlertDialog from '../../../components/AlertDialog/AlertDialog';
+import { deleteLocation } from '../../../redux/Actions/ADMIN_ACTIONS/locationActions';
+import BasicModal from '../../../components/BasicModal/BasicModal';
+import EditLocationModal from '../../../components/Modal/EditLocationModal';
 
 
 function Locations() {

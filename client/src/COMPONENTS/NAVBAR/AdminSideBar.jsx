@@ -30,7 +30,7 @@ import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { adminLogoutAction } from '../../REDUX/Actions/ADMIN_ACTIONS/LogoutAction';
+import { adminLogoutAction } from '../../redux/Actions/ADMIN_ACTIONS/LogoutAction';
 
 const drawerWidth = 240;
 
