@@ -171,56 +171,6 @@ function Navbar() {
   
   return (
     <div>
-        {/* <nav className='main-nav'>
-          <div className='logo'>
-            <a href="">
-            <img src={require('../../ASSETS/Images/scooterLogo.png')} alt="" />
-            </a>
-            
-          </div>
-
-          <div className='menu-link'>
-            <ul>
-               <li><Link to='/'>Home</Link></li> 
-               <li><Link to='/bikes'>Bikes</Link></li>
-               <li><Link to='/offers'>Offers</Link></li>
-               <li><Link to='/partner'>Partner With Us</Link></li>
-            </ul>
-          </div>
-
-          <div className='end-nav'>
-            <ul className='end-ul'>
-            
-            {
-              userLoginDetails ? 
-                
-              <li className='dropdown'>
-            <Dropdown  className='dropdown' >
-      <Dropdown.Toggle  id="dropdown-basic" className='dropdown'>
-        {
-        userLoginDetails ? userLoginDetails.Name : "User"
-      }
-      </Dropdown.Toggle>
-     
-      <Dropdown.Menu>
-        
-        <Dropdown.Item><Link to='/profile'>My Profile</Link></Dropdown.Item>
-        <Dropdown.Item href="#/action-2">My Rides</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">My Wallet</Dropdown.Item>
-        <Dropdown.Item ><Link to='/login' onClick={(e) =>logout()}>Logout</Link></Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-            </li> :
-            <li><Link to = '/login'>Sign In</Link></li>
-              
-            }
-            
-                
-            </ul>
-
-           
-          </div>
-        </nav> */}
         <Box pb={120}>
       <Header height={60} px="md" style={{backgroundColor : "#fed250"}}>
         <Group position="apart" sx={{ height: '100%' }}>
@@ -249,7 +199,7 @@ function Navbar() {
             <Avatar image={userLoginDetails? userLoginDetails.ProfileImage : ""} src={userLoginDetails? userLoginDetails.ProfileImage : ""} size="xlarge" shape="circle" />
       <Dropdown.Item><Link to = '/profile' style={{color :'black',textDecoration :'none'}}>My Profile</Link></Dropdown.Item>
       <Dropdown.Item >My Rides</Dropdown.Item>
-      <Dropdown.Item ><Link to = '/rented-bikes' style={{color :'black',textDecoration :'none'}}>My Rents</Link></Dropdown.Item>
+      <Dropdown.Item ><Link to = '/my-rents' style={{color :'black',textDecoration :'none'}}>My Rents</Link></Dropdown.Item>
       <Dropdown.Item onClick={logout}>Logout</Dropdown.Item>
     </DropdownButton>
     </>
@@ -263,10 +213,7 @@ function Navbar() {
             
 
            }
-          {/* <Group className={classes.hiddenMobile}>
-            <Button variant="default"><Link to = '/login'>Login</Link></Button>
-            <Button><Link to = '/signup'>Sign up</Link></Button>
-          </Group> */}
+         
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop} />
         </Group>

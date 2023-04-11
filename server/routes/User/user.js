@@ -16,7 +16,9 @@ const locationController = require('../../Controller/User/Location/locationContr
 
 const filterbikeController = require('../../Controller/User/Vehicles/filterSortController')
 const bookingController = require('../../Controller/User/Booking/BookingController')
-const {protect} = require('../../middleware/jwtAuth')
+const rentedRidesController = require('../../Controller/User/RentedRides/rentedRidesController')
+const {protect} = require('../../middleware/jwtAuth');
+
 
 // router.use(function(req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "*");
@@ -67,7 +69,9 @@ router.route('/pending-requests').get(getRentedBikesController.pendingRequests)
 
 router.route('/bike-booking').post(bookingController.bikeBookingController)
 
-// router.route('/booking-success').get(bookingController.bikeBookingSuccessController)
+// router.route('/booking-success').get(bookingController.bikeBookingSuccessCorintroller)
+
+router.route('/my-rents').get(rentedRidesController.rentedRides)
 
 
 module.exports = router;

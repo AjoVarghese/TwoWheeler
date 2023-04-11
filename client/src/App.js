@@ -29,6 +29,7 @@ import SingleView from './pages/User/SingleView/SingleView';
 import Booking from './pages/User/Booking/Booking';
 import Coupons from './pages/Admin/Coupons/Coupons';
 import SuccessPage from './components/SuccessPage/SuccessPage';
+import RentedRides from './pages/User/RentedRides/RentedRides';
 
 function App() {
   const userdata = useSelector((state)=>state.userLoginReducer.userLoginDetails);
@@ -51,6 +52,7 @@ function App() {
           <Route exact path='/rented-bikes' element={userdata ? <ViewRentedBikes/> : <Navigate to ='/login'/>}></Route>
           <Route exact path = '/booking-summary' element={userdata ? <Booking/> : <Navigate to = '/login'/>}></Route>
           <Route exact path = '/booking-success' element={<SuccessPage/>}></Route>
+          <Route exact path = '/my-rents' element = {userdata ? <RentedRides/> : <Navigate to = '/login'/>}></Route>
 
 
           {/* admin */}
