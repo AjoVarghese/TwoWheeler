@@ -1,4 +1,7 @@
 const vehicle = require('../../../Models/vehicleSchema')
+// const module = await import('./path/to/module.js');
+// const vehicle =  import('../../../Models/vehicleSchema.js')
+// import vehicle from '../../../Models/vehicleSchema'
 
 exports.rentedBikes = async(req,res) => {
     try {

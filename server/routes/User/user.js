@@ -67,4 +67,7 @@ router.route('/pending-requests').get(getRentedBikesController.pendingRequests)
 
 router.route('/bike-booking').post(bookingController.bikeBookingController)
 
+// router.route('/booking-success').get(bookingController.bikeBookingSuccessController)
+
+
 module.exports = router;

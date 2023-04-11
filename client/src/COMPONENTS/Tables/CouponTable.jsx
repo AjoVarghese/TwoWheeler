@@ -37,6 +37,7 @@ export default function CouponTable({data}) {
   const [deleteModal,setDeleteModal] = useState(false)
   const [selected,setSelected]  = useState('')
   return (
+    <div>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
@@ -90,11 +91,12 @@ export default function CouponTable({data}) {
                 </StyledTableCell>
               </StyledTableRow>
               )
-          }) : "no data available"
+          }) : <h4>No data available</h4>
          }
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
     
   );
 }
