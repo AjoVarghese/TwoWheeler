@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { bookBikeApi } from "../../../api/User/ApiCalls"
 import { ActionTypes } from "../../Constants/User/ActionTypes"
 
@@ -7,11 +8,16 @@ export const bookingAction = (bookingData) => async(dispatch) => {
         type : ActionTypes.BOOKING_REQ
     })
 
+    //  const navigate = useNavigate()
     bookBikeApi(bookingData).then((data) => {
         console.log("bookBIkeAPI",data);
 
         if(data.data.url){
             window.location.href = data.data.url
+            setTimeout(() => {
+                console.log('done');
+                window.location.href = "/profile"
+            }, 2000);
         }
         // dispatch({
         //     type : ActionTypes.BOOKING_SUCCESS,
