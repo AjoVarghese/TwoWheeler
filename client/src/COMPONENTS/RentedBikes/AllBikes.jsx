@@ -30,7 +30,7 @@ function AllBikes() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* {rows.map((row) => ( */}
+        
           {
             rentedBikes ? rentedBikes.map((x,i) => {
               let status ;

@@ -9,24 +9,55 @@ exports.rentedRides = (req,res) => {
         let userId = req.query.id
        booking.aggregate(
         [
-            {$match:{userId}},
-
             {
-                '$lookup' : {
-                    'from' : 'vehicles',
-                    'localField' : 'bikeId',
-                    'foreignField' :'_id',
-                    'as' : 'bikeData'
+              '$match': {
+                'userId': userId
+              }
+            }, {
+              '$lookup': {
+                'from': 'vehicles', 
+                'localField': 'bikeId', 
+                'foreignField': '_id', 
+                'as': 'result'
+              }
+            }, {
+              '$project': {
+                'bikeData': {
+                  '$arrayElemAt': [
+                    '$result', 0
+                  ]
+                }, 
+                'totalHours': 1, 
+                'totalAmount': 1, 
+                'location': 1, 
+                'needHelmet': 1, 
+                'status' : 1,
+                'startingTime': '$bookedTimeSlots.startDate', 
+                'endingTime': '$bookedTimeSlots.endDate'
+              }
+            }, {
+              '$project': {
+                'bikeName': '$bikeData.vehicleName', 
+                'bikeModel': '$bikeData.vehicleModel', 
+                'color': '$bikeData.Color', 
+                'totalHours': 1, 
+                'totalAmount': 1, 
+                'location': 1, 
+                'needHelmet': 1, 
+                'startingTime': 1, 
+                'endingTime': 1, 
+                'status' : 1,
+                'photo': {
+                  '$arrayElemAt': [
+                    '$bikeData.Photo', 1
+                  ]
                 }
-            },
-            {
-                $project : {
-                    
-                }
+              }
             }
-        ]
+          ]
        ).then((data) => {
         console.log(data);
+        console.log(data.photo);
         res.status(200).json(data)
        })
     } catch (error) {

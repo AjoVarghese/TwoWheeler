@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 
 const bookingSchema = new mongoose.Schema({
     bikeId : {
-        type : Object
+        type :mongoose.Schema.Types.ObjectId
     },
     userId : {
-        type : String
+        type :mongoose.Schema.Types.ObjectId
     },
     bookedTimeSlots:{
         startDate : {
@@ -28,6 +28,9 @@ const bookingSchema = new mongoose.Schema({
         type :Number
     },
     stripeSessionId :{
+        type : String
+    },
+    status : {
         type : String
     },
 },{

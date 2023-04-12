@@ -37,11 +37,15 @@ function Booking() {
   const selectedBike = bikesData.find((bike) => bike._id === bikeId)
   console.log('selected',selectedBike);
 
-  const selectTimeSlots = (values) => {
-    console.log(moment(values));
-    setStartDate(moment(values[0]).format('DD MM yyyy HH:mm'));
-    setEndDate(moment(values[1]).format('DD MM yyyy HH:mm'));
-    setTotalHours(values[1].diff(values[0], 'hours'))
+  const selectTimeSlots = (value) => {
+    // console.log(moment(value));
+    // console.log(moment(value[0].$d));
+    // console.log(moment(value[1].$d));
+    console.log(moment(value[0].$d).format('DD MM YYYY hh:mm '));
+    console.log(moment(value[1].$d).format('DD MM YYYY hh:mm '));
+    setStartDate(moment(value[0].$d).format('DD MM YYYY hh:mm A'));
+    setEndDate(moment(value[1].$d).format('DD MM YYYY hh:mm A'));
+    setTotalHours(value[1].diff(value[0], 'hours'))
 }
 
 let totalAmount =  needHelmet === true ? totalHours * selectedBike.Price +50 : totalHours * selectedBike.Price

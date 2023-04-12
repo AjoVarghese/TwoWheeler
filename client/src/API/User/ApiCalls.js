@@ -63,6 +63,8 @@ export const searchBikesApi = (searchTerm) => {
 
 export const bookBikeApi = (bookingData) => API.post('/bike-booking',{bookingData},config)
 
+export const rentedRidesApi = () => API.get('/my-rents?id='+ID,configTOken)
+
 
 
 

@@ -7,7 +7,7 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 
 
 exports.bikeBookingController = async(req,res) => {
-   
+  //  console.log(req.body);
     const {userId,userName,bikeId,bikeDetails,totalHours,totalAmount,needHelmet,bookedTimeSlots,location} = req.body.bookingData
     let session
     try {
@@ -39,112 +39,48 @@ exports.bikeBookingController = async(req,res) => {
         cancel_url: 'http://localhost:4242/cancel',
       });
 
-      console.log("SESSIOn",session);
+      // console.log("SESSIOn",session);
       res.send({ url: session.url })
     } catch (error) {
       console.log('STRIPE error',error);
     }
-    console.log(req.body);
-    bookingSchema.create({
-      userId,
-      bikeId,
-      totalAmount,
-      totalHours,
-      needHelmet,
-      bookedTimeSlots,
-      location,
-      stripeSessionId: session.id
-    }).then((data) => {
-      console.log("done",data);
-    })
-
-    console.log('Booking saved successfully');
-        //   const booking = new bookingSchema({
-        //     userId: userId,
-        //     bikeId: bikeId,
-        //     totalAmount: totalAmount,
-        //     totalHours: totalHours,
-        //     needHelmet: needHelmet,
-        //     bookedTimeSlots: bookedTimeSlots,
-        //     location : location,
-        //     stripeSessionId: session.id // store the session id for future reference
-        // });
 
 
-        // save the booking object to the database
-     try {
-  //     await booking.save();
-  //     console.log('Booking saved successfully');
-          
-          let bike = await bikeSchema.findOne({
-            _id : bikeId
-          })
-          console.log(bike);
-          if(bike.bookedTimeSlots) {
-             //if the bookedSlots field exists, push a new value to the array
-          bike.bookedTimeSlots.push(bookedTimeSlots)
-        } else {
-           // if the bookedSlots field doesn't exist, create a new field with an array of values
-          bike.bookedTimeSlots = [bookedTimeSlots]
-          }
+      // create a new booking object with the booking data
+      const booking = new bookingSchema({
+        userId: userId,
+        bikeId: bikeId,
+        totalAmount: totalAmount,
+        totalHours: totalHours,
+        needHelmet: needHelmet,
+        bookedTimeSlots: bookedTimeSlots,
+        location : location,
+        status : "Booked",
+        stripeSessionId: session.id // store the session id for future reference
+    });
 
-            // save the updated bike document
-        // bike.save((err, updatedBike) => {
-        //   if (err) {
-        //     console.error(err);
-        //     return;
-        //   }
-      
-        //   console.log('Updated bike:', updatedBike);
-        // });
-      
+    try {
+      await booking.save();
+      console.log('Booking saved successfully');
 
       // find the bike in the database and update its booking slot field
-      //  bikeSchema.findById(bikeId,(err,bike) => {
-      //   if(err) {
-      //     console.log('ERRORRR',err);
-      //     return
-      //   }
-
-      //   if(bike.bookedTimeSlots) {
-      //     // if the bookedSlots field exists, push a new value to the array
-      //     bike.bookedTimeSlots.push(bookedTimeSlots)
-      //   } else {
-      //      // if the bookedSlots field doesn't exist, create a new field with an array of values
-      //     bike.bookedTimeSlots = [bookedTimeSlots]
-      //   }
-
-      //   // save the updated bike document
-      //   bike.save((err, updatedBike) => {
-      //     if (err) {
-      //       console.error(err);
-      //       return;
-      //     }
-      
-      //     console.log('Updated bike:', updatedBike);
-      //   });
-      // })
-
-
-      // const bike = await bikeSchema.findOneAndUpdate(
-      //     { _id: bikeId },
-      //     { $push: { bookedTimeSlots: bookedTimeSlots } },
-      //     { new: true }
-      // );
+      const bike = await bikeSchema.findOneAndUpdate(
+          { _id: bikeId },
+          { $push: { BookedTimeSlots: bookedTimeSlots } },
+          { new: true }
+      );
 
       // if the bike does not have any booking slots, create a new array and add the booking slot
-      // if (!bike.bookedTimeSlots) {
-      //     bike.bookedTimeSlots = [bookedTimeSlots];
-      //     await bike.save();
-      //     console.log('Booking slot created successfully');
-      // }
-
-      
-  //     res.status(200).json({url: session.url})
+      if (!bike.BookedTimeSlots) {
+          bike.BookedTimeSlots = [bookedTimeSlots];
+          await bike.save();
+          
+      }
 
   } catch (err) {
       console.error(err);
       res.status(500).send('Server error');
   }
+
 }
     

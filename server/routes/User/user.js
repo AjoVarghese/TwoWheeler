@@ -71,7 +71,7 @@ router.route('/bike-booking').post(bookingController.bikeBookingController)
 
 // router.route('/booking-success').get(bookingController.bikeBookingSuccessCorintroller)
 
-router.route('/my-rents').get(rentedRidesController.rentedRides)
+router.route('/my-rents').get(protect,rentedRidesController.rentedRides)
 
 
 module.exports = router;

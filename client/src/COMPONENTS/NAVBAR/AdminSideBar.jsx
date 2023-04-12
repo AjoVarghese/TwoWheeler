@@ -153,7 +153,7 @@ export default function AdminSideBar() {
             {name : "Dashboard" , icon : <DashboardIcon/>},
             {name : "Users" , icon : <UsersIcon/>},
             {name : "Bikes" , icon : <TwoWheelerIcon/>},
-            {name : "Rides" , icon : <SportsMotorsportsIcon/>},
+            {name : "Bookings" , icon : <SportsMotorsportsIcon/>},
             {name : "Add Bikes" , icon : <AddIcon/>},
             {name : "Rent Requests" , icon : <RequestPageIcon/>},
             {name : "Locations" , icon : <LocationOnIcon/>},
@@ -187,7 +187,7 @@ export default function AdminSideBar() {
                   text2 === 'users' && navigate('/admin/users')
                   text2 === 'bikes' && navigate('/admin/bikes')
                   text2 === 'add bikes' && navigate('/admin/add-bikes')
-                  text2 === 'rides' && navigate('/admin/rides')
+                  text2 === 'bookings' && navigate('/admin/bookings')
                   text2 === 'rent requests' && navigate('/admin/rent-requests')
                   text2 === 'locations' && navigate('/admin/locations')
                   text2 === 'add location' && navigate('/admin/add-location')
