@@ -48,7 +48,10 @@ function Profile() {
   const click = () => {
     console.log('click');
   }
+  
+  useEffect(() => {
 
+  },[])
  
     const profileData = useSelector((state)=>state.userLoginReducer.userLoginDetails)
      console.log("profileData",profileData);

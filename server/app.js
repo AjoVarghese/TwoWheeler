@@ -79,43 +79,15 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// const arr1 = [2,7]
-// const arr2 = [1,3,5,6]
-// let len1 = arr1.length
-// let len2 = arr2.length
-
-// let res = []
-// merge(arr1,arr2,len1,len2)
-
-
-// function merge(arr1,arr2,len1,len2){
-//   console.log('dddddddddd');
-//   let i=0
-// let j =0
-//   while(i < len1 && j < len2){
-//     if(arr1[i] < arr2[j]){
-//        res.push(arr1[i]);
-//        i++;
-//     }else{
-//        res.push(arr2[j]);
-//        j++;
-//     }
-    
-//  };
-//  while(i < len1){
-//   res.push(arr1[i]);
-//   i++;
-// };
-// while(j < len2){
-//   res.push(arr2[j]);
-//   j++;
-// };
-
- 
- 
-// console.log("result",res)
+// const number = 10
+// let num1 = number.toString()
+// num1 = num1.split("").reverse().join('')
+// console.log(num1);
+// if(num1 === number.toString()){
+//   console.log("yes");
+// } else {
+//   console.log("No");
 // }
-
 
 
 const PORT = process.env.PORT || 3001

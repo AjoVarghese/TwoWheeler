@@ -5,7 +5,7 @@ const generateToken = require('../../Utils/generateToken')
 const shortid = require('shortid');
 
 exports.signUpPost = async(req,res) => {
-    console.log(req.body);
+    // console.log(req.body);
     try {
             let email = await userSchema.findOne({Email : req.body.Email})
             let mobile = await userSchema.findOne({Mobile : req.body.Mobile})
@@ -32,11 +32,12 @@ exports.signUpPost = async(req,res) => {
             } else if(mobile && !email){
                 res.status(401).json("Mobile No already Exists")
             } else {
-                    console.log('referal',req.body);
-                    console.log('referal',req.body.Referral);
+                    // console.log('referal',req.body);
+                    // console.log('referal',req.body.Referral);
                details.Password = await bcrypt.hash(details.Password,10)
                  
                 userSchema.create(details).then((result) => {
+                    console.log('RESULT',result);
                     let data = {
                         Name : result.Name,
                         Email : result.Email,
@@ -46,29 +47,17 @@ exports.signUpPost = async(req,res) => {
                         Status : result.Status
                     }
                     if(req.body.Referral === ''){
-                       
+                       console.log('no referrals used');
                     } else {
                        
-                        userSchema.findOne({ReferalCode : req.body.Referral}).then(async(data) => {
-                            console.log(data);
-                            let walletExists = await wallet.findOne({userId : data._id})
+                        userSchema.findOne({ReferalCode : req.body.Referral}).then(async(user) => {
+                            console.log(user);
+                            let walletExists = await wallet.findOne({userId : user._id})
                             console.log("walletExists",walletExists);
-                            if(walletExists){
-                              wallet.updateOne({userId : walletExists.userId},
-                                {
-                                    $inc : {
-                                        walletAmount : 100
-                                    },
-                                    $push : {
-                                        walletHistory : {
-                                            Type : "Referral Bonus",
-                                            Amount : 100
-                                        }
-                                    }
-                                })
-                            } else {
+                            if(!walletExists){
+                                console.log('Wllet NUll');
                                 const newWallet = {
-                                    userId : data._id,
+                                    userId : user._id,
                                     walletAmount : 100,
                                     walletHistory : [
                                         {
@@ -78,16 +67,48 @@ exports.signUpPost = async(req,res) => {
                                         }
                                     ]
                                 }
+
                                 wallet.create(newWallet).then((data)=> {
-                                    console.log("wallet",data);
+                                    // console.log("wallet",data);
+                                    
                                 })
+
+                               
+                            } else {
+                                console.log('Wallet not null');
+                                wallet.updateOne({userId : walletExists.userId},
+                                    {
+                                        $inc : {
+                                            walletAmount : 100
+                                        },
+                                        $push : {
+                                            walletHistory : {
+                                                Type : "Referral Bonus",
+                                                Amount : 100
+                                            }
+                                        }
+                                    }).then((res) => {
+                                        console.log("uodates",res);
+                                    })
                             }
                             
                         })
                         .catch((err) => {
                             console.log("sorry",err);
                         })
-                       
+                        const newUserWallet = {
+                            userId : result._id,
+                            walletAmount : 50,
+                            walletHistory : [
+                                {
+                                    Type : "Refferal share",
+                                    Amount : 50
+                                }
+                            ]
+                        }
+                        wallet.create(newUserWallet).then((response) => {
+                            console.log("created");
+                        })
                     }
                     res.status(200).json(data)
                 })

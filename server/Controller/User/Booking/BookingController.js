@@ -1,5 +1,6 @@
 const bookingSchema = require('../../../Models/bookingSchema')
 const bikeSchema = require('../../../Models/vehicleSchema')
+const walletSchema = require('../../../Models/walletSchema')
 const moment = require('moment')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -59,58 +60,100 @@ exports.createOrderController = async(req,res) => {
   console.log('fff');
   console.log(req.body);
 
+  
+
   // bikeSchema.find({_id : req.body.bikeId}).then((data) => {
   //   console.log('kkkk');
   //   console.log(data);
   // })
 
 
-//   console.log("create order",req.body);
-//   console.log(req.query.id);
-//   try {
-//     const {userId,userName,bikeId,bikeName,bikeModel,image,totalAmount,totalHours,bookedTimeSlots,loc,needHelmet} = req.body.bookingDetails
-//     console.log("userId",userId);
-//     // create a new booking object with the booking data
-//     const booking = new bookingSchema({
-//       userId: req.query.id,
-//       bikeId: bikeId,
-//       totalAmount: totalAmount,
-//       totalHours: totalHours,
-//       needHelmet: needHelmet,
-//       bookedTimeSlots: bookedTimeSlots,
-//       location : loc,
-//       status : "Booked",
-//       bookedAt : moment().format('MMMM Do YYYY, h:mm:ss a'),
-//       // stripeSessionId: session.id // store the session id for future reference
-//   });
+  console.log("create order",req.body);
+  console.log(req.query.id);
+  try {
+    const {userId,userName,bikeId,bikeName,bikeModel,image,totalAmount,totalHours,bookedTimeSlots,loc,needHelmet} = req.body.bookingDetails
+    console.log("userId",userId);
+    // create a new booking object with the booking data
+    const booking = new bookingSchema({
+      userId: req.query.id,
+      bikeId: bikeId,
+      totalAmount: totalAmount,
+      totalHours: totalHours,
+      needHelmet: needHelmet,
+      bookedTimeSlots: bookedTimeSlots,
+      location : loc,
+      status : "Booked",
+      bookedAt : moment().format('MMMM Do YYYY, h:mm:ss a'),
+      // stripeSessionId: session.id // store the session id for future reference
+  });
 
-//   try {
-//     await booking.save();
-//     console.log('Booking saved successfully');
+  try {
+    await booking.save();
+    console.log('Booking saved successfully');
 
-//     // find the bike in the database and update its booking slot field
-//     const bike = await bikeSchema.findOneAndUpdate(
-//         { _id: bikeId },
-//         { $push: { BookedTimeSlots: bookedTimeSlots } },
-//         { new: true }
-//     );
+    // find the bike in the database and update its booking slot field
+    const bike = await bikeSchema.findOneAndUpdate(
+        { _id: bikeId },
+        { $push: { BookedTimeSlots: bookedTimeSlots } },
+        { new: true }
+    );
 
-//     // if the bike does not have any booking slots, create a new array and add the booking slot
-//     if (!bike.BookedTimeSlots) {
-//         bike.BookedTimeSlots = [bookedTimeSlots];
-//         await bike.save();
+    // if the bike does not have any booking slots, create a new array and add the booking slot
+    if (!bike.BookedTimeSlots) {
+        bike.BookedTimeSlots = [bookedTimeSlots];
+        await bike.save();
         
-//     }
+    }
 
-    
+    //wallet setting
+    bikeSchema.findOne({$and : [{_id : bikeId} , {OwnerId : {$exists : true}}]}).then(async(data) => {
+      console.log(data.OwnerId);
+     let walletExixts = await walletSchema.findOne({userId : data.OwnerId})
+     
+     if(!walletExixts){
+      console.log('null');
+      const newWallet = {
+        userId : data.OwnerId,
+        walletAmount : 30,
+        walletHistory : [
+          {
+            Type : "Bike Rent",
+            Amount : 30
+          }
+        ]
+      }
+      walletSchema.create(newWallet)
+     } else {
+      console.log('exists');
+      console.log(walletExixts);
+      walletSchema.updateOne({
+        userId : walletExixts.userId
+      },
+      {
+        $inc : {
+          walletAmount : 30
+        },
+        $push : {
+          walletHistory : {
+            Type : "Bike Rent",
+            Amount : 30
+          }
+        }
+      }
+      ).then((res) => {
+        console.log(res);
+      })
+     }
+  
+    })
 
-// } catch (err) {
-//     console.log('fffffffff',err);;
-//     res.status(500).send('Server error');
-// }
-//   } catch (error) {
+} catch (err) {
+    console.log('fffffffff',err);;
+    res.status(500).send('Server error');
+}
+  } catch (error) {
     
-//   }
+  }
   
 
 }

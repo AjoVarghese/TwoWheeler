@@ -18,8 +18,8 @@ const walletSchema = new mongoose.Schema({
                     type : Number
                 },
                 Date : {
-                    type : Date,
-                    default : Date.now()
+                    type :String,
+                    default : moment().format('MMMM Do YYYY, h:mm:ss a')
                    
                 }
             }
