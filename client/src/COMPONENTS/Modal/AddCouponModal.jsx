@@ -28,7 +28,12 @@ const schema = yup.object().shape({
       .string("Coupon code should be a string")
       .min(3, "Coupon code should hae min length of 5")
       .max(20, 'Coupon code should have max length of 20')
-      .required("Coupon code is required")    
+      .required("Coupon code is required"),
+  couponPrice : yup
+           .string("Coupon Price should be a string")
+           .min(2,'Coupon Price should have min length of 2')  
+           .max(3,'Coupon Price should only have a min length of 3')
+           .required('Coupon Price is required')
 })
 
 function AddCouponModal({open,onClose}) {
@@ -43,7 +48,8 @@ function AddCouponModal({open,onClose}) {
     const submitHandler = (data) => {
         let couponName = data.couponName
         let couponCode = data.couponCode
-        dispatch(addCoupon(couponName,couponCode))
+        let couponPrice = data.couponPrice
+        dispatch(addCoupon(couponName,couponCode,couponPrice))
         onClose()
     }
   return (
@@ -68,12 +74,23 @@ function AddCouponModal({open,onClose}) {
                  <TextField
                  className='mt-3'
                  id="outlined-basic"
-                 label="loupon Code"
+                 label="Coupon Code"
                  variant="outlined"
                  name='couponCode'
                  error={!!errors.couponCode}
                  helperText={errors.couponCode ? errors.couponCode.message : ""}
                  {...register("couponCode")}
+                 style={{width:"100%"}}
+             />
+             <TextField
+                 className='mt-3'
+                 id="outlined-basic"
+                 label="Coupon Price"
+                 variant="outlined"
+                 name='couponPrice'
+                 error={!!errors.couponPrice}
+                 helperText={errors.couponPrice ? errors.couponPrice.message : ""}
+                 {...register("couponPrice")}
                  style={{width:"100%"}}
              />
 

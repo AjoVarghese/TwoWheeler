@@ -69,7 +69,7 @@ router.route('/pending-requests').get(getRentedBikesController.pendingRequests)
 
 router.route('/bike-booking').post(bookingController.bikeBookingController)
 
-// router.route('/booking-success').get(bookingController.bikeBookingSuccessCorintroller)
+router.route('/booking-success').post(bookingController.createOrderController)
 
 router.route('/my-rents').get(protect,rentedRidesController.rentedRides)
 

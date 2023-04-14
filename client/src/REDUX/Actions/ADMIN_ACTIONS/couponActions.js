@@ -26,11 +26,11 @@ export const getCoupons = () => async(dispatch) => {
     }
 }
 
-export const addCoupon = (couponName,couponCode) => async(dispatch) => {
+export const addCoupon = (couponName,couponCode,couponPrice) => async(dispatch) => {
     dispatch({
         type : AdminActionTypes.ADD_COUPON_REQ
     })
-    addCouponApi(couponName,couponCode).then((data) => {
+    addCouponApi(couponName,couponCode,couponPrice).then((data) => {
         dispatch({
             type : AdminActionTypes.ADD_COUPON_SUCCESS,
             payload : data.data

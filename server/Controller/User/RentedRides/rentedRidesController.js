@@ -47,17 +47,13 @@ exports.rentedRides = (req,res) => {
                 'startingTime': 1, 
                 'endingTime': 1, 
                 'status' : 1,
-                'photo': {
-                  '$arrayElemAt': [
-                    '$bikeData.Photo', 1
-                  ]
-                }
+                'photo': '$bikeData.Photo', 
               }
             }
           ]
        ).then((data) => {
         console.log(data);
-        console.log(data.photo);
+        // console.log(data[0].photo);
         res.status(200).json(data)
        })
     } catch (error) {

@@ -53,7 +53,7 @@ export const userGetLocationApi = () => API.get('/get-location',config)
 export const userAddBikeApi = (formData)=> API.post('/rent-bikes?id='+ID,formData,configFormData)
 export const userGetRentedBikesAPi = () => API.get('/rented-bikes?id='+ID,configTOken)
 
-export const userGetBikesApi = () => API.get('/bikes',config)
+export const userGetBikesApi = () => API.get('/bikes?id='+ID,config)
 export const searchBikesApi = (searchTerm) => {
    return(
     console.log("search api",searchTerm),
@@ -62,6 +62,8 @@ export const searchBikesApi = (searchTerm) => {
 }
 
 export const bookBikeApi = (bookingData) => API.post('/bike-booking',{bookingData},config)
+
+export const createOrderApi = (bookingDetails) => API.post('/booking-success?id='+ID,{bookingDetails},config)
 
 export const rentedRidesApi = () => API.get('/my-rents?id='+ID,configTOken)
 

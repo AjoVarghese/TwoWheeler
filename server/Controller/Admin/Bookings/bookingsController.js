@@ -14,7 +14,7 @@ exports.getBookedDetails = (req,res) => {
                 }, {
                   '$lookup': {
                     'from': 'users', 
-                    'localField': 'userId', 
+                    'localField': 'userId',
                     'foreignField': '_id', 
                     'as': 'res'
                   }

@@ -45,6 +45,7 @@ export default function CouponTable({data}) {
             <StyledTableCell>Sl.No</StyledTableCell>
             <StyledTableCell align="center">Coupon Name</StyledTableCell>
             <StyledTableCell align="center">Coupon Code</StyledTableCell>
+            <StyledTableCell align="center">Coupon Price</StyledTableCell>
             <StyledTableCell align="center">Edit</StyledTableCell>
             <StyledTableCell align="center">Delete</StyledTableCell>
           </TableRow>
@@ -68,6 +69,7 @@ export default function CouponTable({data}) {
                 </StyledTableCell>
                 <StyledTableCell align="center">{row.couponName}</StyledTableCell>
                 <StyledTableCell align="center">{row.couponCode}</StyledTableCell>
+                <StyledTableCell align="center">Rs.{row.couponPrice}</StyledTableCell>
                 <StyledTableCell align="center">
                 <Button variant="contained" color="info"
                   onClick={(e) => {

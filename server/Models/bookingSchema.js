@@ -1,11 +1,12 @@
 const mongoose = require('mongoose')
+const moment = require('moment')
 
 const bookingSchema = new mongoose.Schema({
     bikeId : {
         type :mongoose.Schema.Types.ObjectId
     },
     userId : {
-        type :mongoose.Schema.Types.ObjectId
+        type:String
     },
     bookedTimeSlots:{
         startDate : {
@@ -32,6 +33,9 @@ const bookingSchema = new mongoose.Schema({
     },
     status : {
         type : String
+    },
+    bookedAt : {
+        type : String,
     },
 },{
     timestamps : true

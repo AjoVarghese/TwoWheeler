@@ -1,8 +1,18 @@
 const vehicleSchema = require('../../../Models/vehicleSchema')
 
 exports.viewVehicles = async(req,res) => {
+  console.log(req.query.id);
    try {
-      vehicleSchema.find({Status : "Acccepted"}).then((data) => {
+      vehicleSchema.find({
+        $and: [
+          { Status: 'Acccepted' },
+          { $or: [
+            { OwnerId: { $ne: req.query.id } },
+            { OwnerId: { $exists: false } }
+          ]}
+        ]
+      }).then((data) => {
+        console.log(data);
         res.status(200).json(data)
       })
    } catch (error) {

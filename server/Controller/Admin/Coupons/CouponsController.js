@@ -1,6 +1,7 @@
 const coupon = require('../../../Models/couponSchema')
 
 exports.addCoupon = async(req,res) => {
+    console.log(req.body);
     try {
         coupon.create(req.body).then(() => {
             coupon.find().then((data) => {

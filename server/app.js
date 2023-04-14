@@ -79,47 +79,42 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+// const arr1 = [2,7]
+// const arr2 = [1,3,5,6]
+// let len1 = arr1.length
+// let len2 = arr2.length
 
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.status(err.status).json(err)
-// });
+// let res = []
+// merge(arr1,arr2,len1,len2)
 
-// app.use((req, res, next) => {
-//   const err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
 
-// app.use((err, req, res, next) => {
-//   res.locals.error = err;
-//   const status = err.status || 500;
-//   res.status(status);
-//   res.render('error');
-// });
-
-function plusOne(nums){
-  let len = nums.length-1
-
-  for(let i = len ; i >= 0 ; i--){
+// function merge(arr1,arr2,len1,len2){
+//   console.log('dddddddddd');
+//   let i=0
+// let j =0
+//   while(i < len1 && j < len2){
+//     if(arr1[i] < arr2[j]){
+//        res.push(arr1[i]);
+//        i++;
+//     }else{
+//        res.push(arr2[j]);
+//        j++;
+//     }
     
-    if(nums[i]+1 <= 9){
-        nums[i] = nums[i]+1
-        return nums
-    } else {
-  
-        nums[i] = 0
-    }
-  }
-}
+//  };
+//  while(i < len1){
+//   res.push(arr1[i]);
+//   i++;
+// };
+// while(j < len2){
+//   res.push(arr2[j]);
+//   j++;
+// };
 
-const nums = [1,2,9]
-console.log(plusOne(nums));
+ 
+ 
+// console.log("result",res)
+// }
 
 
 

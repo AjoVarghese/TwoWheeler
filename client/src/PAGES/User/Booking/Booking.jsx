@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../../../components/NAVBAR/Navbar'
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -8,8 +8,10 @@ import { useLocation } from 'react-router-dom';
 import { MDBCard, MDBCardHeader, MDBListGroup, MDBListGroupItem } from 'mdb-react-ui-kit';
 import { DatePicker } from "antd"
 import moment from "moment"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bookingAction } from '../../../redux/Actions/USER_ACTIONS/bookingAction';
+import { getCouponsApi } from '../../../api/Admin/ApiCalls';
+import { getCoupons } from '../../../redux/Actions/ADMIN_ACTIONS/couponActions';
 
 
 const { RangePicker } = DatePicker
@@ -29,26 +31,57 @@ function Booking() {
     const [endDate, setEndDate] = useState("");
     const [totalHours, setTotalHours] = useState(0)
     const [needHelmet, setNeedHelmet] = useState(false)
+    const [coupon,setCoupon] = useState('')
+    const [couponVerified,setCouponVerified] = useState(false)
+    const [offer,setOffer] = useState()
 
   const dispatch = useDispatch()
   const location = useLocation()
-  console.log("location",location.state);
+
   const {bikesData,bikeId} = location.state
   const selectedBike = bikesData.find((bike) => bike._id === bikeId)
-  console.log('selected',selectedBike);
+
+  useEffect(() => {
+    dispatch(getCoupons())
+  },[])
+
+  const coupons = useSelector((state) => state.getCouponReducer.couponData)
+  console.log(coupons);
+
 
   const selectTimeSlots = (value) => {
     // console.log(moment(value));
     // console.log(moment(value[0].$d));
     // console.log(moment(value[1].$d));
-    console.log(moment(value[0].$d).format('DD MM YYYY hh:mm '));
-    console.log(moment(value[1].$d).format('DD MM YYYY hh:mm '));
-    setStartDate(moment(value[0].$d).format('DD MM YYYY hh:mm A'));
-    setEndDate(moment(value[1].$d).format('DD MM YYYY hh:mm A'));
+    // console.log(moment().format('MMMM Do YYYY, h:mm:ss a'));
+    // console.log(moment(value[0].$d).format('DD MM YYYY hh:mm '));
+    // console.log(moment(value[1].$d).format('MMMM Do YYYY, h:mm:ss a'));
+    setStartDate(moment(value[0].$d).format('MMMM Do YYYY, h:mm:ss a'));
+    setEndDate(moment(value[1].$d).format('MMMM Do YYYY, h:mm:ss a'));
     setTotalHours(value[1].diff(value[0], 'hours'))
 }
 
-let totalAmount =  needHelmet === true ? totalHours * selectedBike.Price +50 : totalHours * selectedBike.Price
+const verifyCoupon = (coupon) => {
+  let checkCoupon = coupons.find(check => check.couponCode === coupon)
+
+  if(checkCoupon){
+    console.log('yess');
+    setCouponVerified(true)
+    setOffer(coupons.find(x => x.couponCode === coupon)?.couponPrice || 0)
+    console.log('offer',offer);
+  } else {
+    console.log('noo');
+    setCouponVerified(false)
+  }
+} 
+
+let totalAmount =   needHelmet === true && couponVerified === true ? 
+                    (totalHours * selectedBike.Price + 50) - (coupons.find(x => x.couponCode === coupon)?.couponPrice || 0) : 
+                     needHelmet === true ? totalHours * selectedBike.Price +50 : 
+                    needHelmet === false && couponVerified === true ? (totalHours * selectedBike.Price) - (coupons.find(x => x.couponCode === coupon)?.couponPrice || 0) 
+                     :totalHours * selectedBike.Price
+
+console.log('coupon',coupon);
 
 const bookingData = {
   userId : JSON.parse(localStorage.getItem("userInfo")).id,
@@ -62,7 +95,9 @@ const bookingData = {
     startDate,
     endDate
   },
-  location : selectedBike.Location
+  location : selectedBike.Location,
+  couponCode : coupon
+  
 }
  
 const handleCheckout = () => {
@@ -109,7 +144,21 @@ const handleCheckout = () => {
             }}
              />Need Extra helmet for ride?
           </Box>
-          <Box>
+          <Box style={{textAlign: "start"}} className='mt-2'>
+          
+           <TextField id="standard-basic"
+            label="Apply Coupon" variant="standard"
+            onChange={(e) => setCoupon(e.target.value)}
+             />
+           <Button variant="contained" 
+           className='mt-3 ms-2'
+          onClick={(e) => {
+            verifyCoupon(coupon)
+          }}
+           >Apply Coupon</Button>
+          </Box>
+
+          <Box  className='mt-3 ms-2'>
           {
           startDate && endDate ? <Box gridColumn="span 4">
           <Item>
@@ -169,6 +218,27 @@ const handleCheckout = () => {
      
   </Grid>
 
+  {
+    couponVerified === true ?
+    <>
+    <Grid item xs={12} md={6} lg={6}>
+    
+     <h5>Coupon offer : </h5>
+     
+  </Grid>
+  <Grid item xs={12} md={6} lg={6}>
+    <h5>-Rs.
+    {
+            coupons.find(x => x.couponCode === coupon)?.couponPrice || 0
+            
+    }
+    </h5>
+    
+     
+  </Grid> 
+  </> : ""
+  }
+
   <Grid item xs={12} md={6} lg={6}>
     
      <h5>Rs.Total Amount : </h5>
@@ -177,7 +247,14 @@ const handleCheckout = () => {
   <Grid item xs={12} md={6} lg={6}>
     <h5>
     {
-      needHelmet === true ? totalHours * selectedBike.Price +50 : totalHours * selectedBike.Price
+      // needHelmet === true ? totalHours * selectedBike.Price +50 : totalHours * selectedBike.Price
+      needHelmet === true && couponVerified === true ? 
+      (totalHours * selectedBike.Price + 50) - (coupons.find(x => x.couponCode === coupon)?.couponPrice || 0) : 
+       needHelmet === true ? totalHours * selectedBike.Price +50 : 
+       needHelmet === false && couponVerified === true ? (totalHours * selectedBike.Price) - (coupons.find(x => x.couponCode === coupon)?.couponPrice || 0) 
+       :totalHours * selectedBike.Price
+       
+      //  totalHours * selectedBike.Price
     }
     </h5>
     
@@ -202,170 +279,7 @@ const handleCheckout = () => {
        
       </Grid>
     </Box>
-         {/* <Box sx={{ width: 1 }} className='container mt-5'>
-      <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2} >
-      <Box sx={{ width: '100%' }}>
-      <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2} columns={16}>
-        <Grid item xs={8}>
-          <Item>xs=8</Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item>xs=8</Item>
-        </Grid>
-      </Grid>
-    </Box>
-    </Box> */}
-        {/* <Box gridColumn="span 8">
-          <Item>
-            <h3 style={{textAlign : "start"}}>SUMMARY</h3>
-           
-            <Grid container spacing={3} className='mt-3'>
-              <Grid item md={5} xs={6} lg={5}>
-                 <Item>
-                 <figure className='figure'>
-      <img
-        src={selectedBike.Photo[0]}
-        className='figure-img img-fluid rounded shadow-3 mb-3'
-        alt='...'
-      />
-      <figcaption className='figure-caption'><h4>{selectedBike.vehicleName}</h4></figcaption>
-    </figure>
-                 </Item>
-               </Grid>
-              
-               <Grid item md={7} xs={6} className='col-md-6'>
-                  <Item>
-                
-                  <MDBCard>
-                    
-      <MDBListGroup flush>
-     
-        <MDBListGroupItem>
-          <Box>
-          <h3 style={{textAlign:"start"}}>Select Time Slot</h3>
-          <RangePicker showTime={{format: "HH:mm"}} 
-          format='MM DD YYYY HH:mm'
-          onChange={selectTimeSlots}
-          />
-          </Box>
-          <Box style={{textAlign: "start"}}>
-           
-            <Checkbox
-            
-            {...label}
-            sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
-            onChange={(e) => {
-              if(e.target.checked){
-                setNeedHelmet(true)
-              } else {
-                setNeedHelmet(false)
-              }
-            }}
-             />Need Extra helmet for ride?
-          </Box>
-        
-        </MDBListGroupItem>
-       
-      </MDBListGroup>
-    </MDBCard>
-                  </Item>
-                </Grid>
-                </Grid>
-              
-
-            </Item>
-        </Box>
-        {
-          startDate && endDate ? <Box gridColumn="span 4">
-          <Item>
-            
-            <MDBCard>
-            <MDBCardHeader><h3>CHECKOUT</h3></MDBCardHeader>
-        <MDBListGroupItem >
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
-  <Grid item xs={12} md={6} lg={6}>
-    
-     <h5>Location :</h5>
-  </Grid>
-  <Grid item xs={12} md={6} lg={6}>
-
-     <h5> {selectedBike.Location}</h5>
-      
-  </Grid>
-</Grid>
- {
-  needHelmet === true ? <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
-  <Grid item xs={12} md={6} lg={6}>
-    
-     <h5>Extra Helmet :</h5>
-  </Grid>
-  <Grid item xs={12} md={6} lg={6}>
-
-     <h5> Rs.50</h5>
-      
-  </Grid>
-</Grid> : ""
- }
-
-        </MDBListGroupItem>
-        <MDBListGroupItem>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
-  <Grid item xs={12} md={6} lg={6}>
-    
-     <h5> Price/hr : </h5>
-     
-  </Grid>
-  <Grid item xs={12} md={6} lg={6}>
-     <h5> Rs.{selectedBike.Price}</h5>
-     
-  </Grid>
-</Grid>
-        </MDBListGroupItem>
-
-        <MDBListGroupItem>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
-  <Grid item xs={12} md={6} lg={6}>
-    
-     <h5>Total Hrs : </h5>
-     
-  </Grid>
-  <Grid item xs={12} md={6} lg={6}>
-     <h5>{totalHours}hr</h5>
-     
-  </Grid>
-
-  <Grid item xs={12} md={6} lg={6}>
-    
-     <h5>Rs.Total Amount : </h5>
-     
-  </Grid>
-  <Grid item xs={12} md={6} lg={6}>
-    <h5>
-    {
-      needHelmet === true ? totalHours * selectedBike.Price +50 : totalHours * selectedBike.Price
-    }
-    </h5>
-    
-     
-  </Grid>
-  
-</Grid>
-        </MDBListGroupItem>
-      
-     
-    </MDBCard>
-    <Button  style={{backgroundColor :"#fed250",color : "black",width : '100%'}} 
-    className='mt-4'
-    onClick={handleCheckout}
-    >Checkout</Button>
-          </Item>
-        </Box> : ""
-        }
-         */}
-{/*         
-      </Box>
-    </Box> */}
+         
     </div>
   )
 }

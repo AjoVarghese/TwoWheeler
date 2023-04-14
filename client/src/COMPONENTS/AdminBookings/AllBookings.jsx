@@ -6,6 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Figure } from 'react-bootstrap';
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
@@ -30,7 +31,7 @@ export default function AllBookings({data}) {
             <TableCell align="center">Image</TableCell>
             <TableCell align="center">Bike Name</TableCell>
             <TableCell align="center">Bike Model</TableCell>
-            <TableCell align="center">Rented User</TableCell>
+            {/* <TableCell align="center">Rented User</TableCell> */}
             <TableCell align="center">Starting Time</TableCell>
             <TableCell align="center">Ending Time</TableCell>
             <TableCell align="center">Total Hours</TableCell>
@@ -47,10 +48,22 @@ export default function AllBookings({data}) {
               <TableCell component="th" scope="row">
                 {i + 1}
               </TableCell>
-              <TableCell align="center">{row.Photo}</TableCell>
+              <TableCell align="center">
+              <Figure>
+                  <Figure.Image
+                    width={171}
+                    height={180}
+                    alt="llll"
+                    src={row.photo[0]}
+                  />
+                <Figure.Caption>
+      
+        </Figure.Caption>
+        </Figure>
+              </TableCell>
               <TableCell align="center">{row.bikeName}</TableCell>
               <TableCell align="center">{row.bikeModel}</TableCell>
-              <TableCell align="center">{row.userName}</TableCell>
+              {/* <TableCell align="center">{row.userName}</TableCell> */}
               <TableCell align="center">{row.startingTime}</TableCell>
               <TableCell align="center">{row.endingTime}</TableCell>
               <TableCell align="center">{row.totalHours}</TableCell>
