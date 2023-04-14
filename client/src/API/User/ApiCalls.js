@@ -67,6 +67,6 @@ export const createOrderApi = (bookingDetails) => API.post('/booking-success?id=
 
 export const rentedRidesApi = () => API.get('/my-rents?id='+ID,configTOken)
 
-
+export const getWalletApi = () => API.get('/get-wallet?id='+ID,configTOken)
 
 
