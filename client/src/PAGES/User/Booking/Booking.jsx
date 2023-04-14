@@ -3,7 +3,7 @@ import Navbar from '../../../components/NAVBAR/Navbar'
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import { Button, Checkbox, Grid, TextField } from '@mui/material';
+import { Button, Checkbox, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { MDBCard, MDBCardHeader, MDBListGroup, MDBListGroupItem } from 'mdb-react-ui-kit';
 import { DatePicker } from "antd"
@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bookingAction } from '../../../redux/Actions/USER_ACTIONS/bookingAction';
 import { getCouponsApi } from '../../../api/Admin/ApiCalls';
 import { getCoupons } from '../../../redux/Actions/ADMIN_ACTIONS/couponActions';
+import { getWalletAction } from '../../../redux/Actions/USER_ACTIONS/getWalletAction';
 
 
 const { RangePicker } = DatePicker
@@ -34,6 +35,14 @@ function Booking() {
     const [coupon,setCoupon] = useState('')
     const [couponVerified,setCouponVerified] = useState(false)
     const [offer,setOffer] = useState()
+    const [wallet,setWallet] = useState(false)
+    const [stripe,setStripe] = useState(false)
+
+    const [value, setValue] = React.useState('female');
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
 
   const dispatch = useDispatch()
   const location = useLocation()
@@ -43,10 +52,15 @@ function Booking() {
 
   useEffect(() => {
     dispatch(getCoupons())
+    dispatch(getWalletAction())
   },[])
 
   const coupons = useSelector((state) => state.getCouponReducer.couponData)
-  console.log(coupons);
+
+
+  const walletAmount = useSelector((state) => state.getWalletReducer.walletData)
+  console.log(walletAmount);
+ 
 
 
   const selectTimeSlots = (value) => {
@@ -65,12 +79,12 @@ const verifyCoupon = (coupon) => {
   let checkCoupon = coupons.find(check => check.couponCode === coupon)
 
   if(checkCoupon){
-    console.log('yess');
+    
     setCouponVerified(true)
     setOffer(coupons.find(x => x.couponCode === coupon)?.couponPrice || 0)
     console.log('offer',offer);
   } else {
-    console.log('noo');
+    
     setCouponVerified(false)
   }
 } 
@@ -81,10 +95,11 @@ let totalAmount =   needHelmet === true && couponVerified === true ?
                     needHelmet === false && couponVerified === true ? (totalHours * selectedBike.Price) - (coupons.find(x => x.couponCode === coupon)?.couponPrice || 0) 
                      :totalHours * selectedBike.Price
 
-console.log('coupon',coupon);
+// console.log('coupon',coupon);
 
-const bookingData = {
-  userId : JSON.parse(localStorage.getItem("userInfo")).id,
+
+const stripeData = {
+  user : JSON.parse(localStorage.getItem("userInfo")).id,
   userName : JSON.parse(localStorage.getItem("userInfo")).Name,
   bikeId : selectedBike._id,
   bikeDetails :selectedBike,
@@ -96,12 +111,44 @@ const bookingData = {
     endDate
   },
   location : selectedBike.Location,
-  couponCode : coupon
-  
+  couponCode : coupon,
+  paymentType : "Stripe"
 }
- 
+
+const walletBookingData = {
+  user : JSON.parse(localStorage.getItem("userInfo")).id,
+  userName : JSON.parse(localStorage.getItem("userInfo")).Name,
+  bikeId : selectedBike._id,
+  bikeDetails :selectedBike,
+  totalHours,
+  totalAmount,
+  needHelmet : needHelmet,
+  bookedTimeSlots : {
+    startDate,
+    endDate
+  },
+  location : selectedBike.Location,
+  couponCode : coupon,
+  paymentType : "Wallet",
+  walletId : walletAmount?._id
+}
+ console.log(wallet);
+ console.log(stripe);
 const handleCheckout = () => {
-  dispatch(bookingAction(bookingData))
+  if(wallet === false && stripe === true){
+    dispatch(bookingAction(stripeData))
+  } else if(wallet === true && stripe === false) {
+    console.log(totalAmount);
+    console.log(walletAmount.walletAmount);
+    if(walletAmount.walletAmount >= totalAmount) {
+      console.log('sssss');
+      dispatch(bookingAction(walletBookingData))
+    }else {
+      
+    }
+    
+  }
+  
 }
   return (
     <div>
@@ -164,6 +211,7 @@ const handleCheckout = () => {
           <Item>
             
             <MDBCard>
+              
             <MDBCardHeader><h3>CHECKOUT</h3></MDBCardHeader>
         <MDBListGroupItem >
         <Grid container rowSpacing={1} columnSpacing={{ xs: 12, sm: 6, md: 6 }}>
@@ -241,11 +289,11 @@ const handleCheckout = () => {
 
   <Grid item xs={12} md={6} lg={6}>
     
-     <h5>Rs.Total Amount : </h5>
+     <h5>Total Amount : </h5>
      
   </Grid>
   <Grid item xs={12} md={6} lg={6}>
-    <h5>
+    <h5>Rs. 
     {
       // needHelmet === true ? totalHours * selectedBike.Price +50 : totalHours * selectedBike.Price
       needHelmet === true && couponVerified === true ? 
@@ -261,15 +309,51 @@ const handleCheckout = () => {
      
   </Grid>
   
+  
 </Grid>
         </MDBListGroupItem>
       
      
     </MDBCard>
-    <Button  style={{backgroundColor :"#fed250",color : "black",width : '100%'}} 
+    <Grid item xs={12} md={6} lg={6}>
+    <FormControl>
+      {/* <FormLabel id="demo-controlled-radio-buttons-group">Gender</FormLabel> */}
+      <RadioGroup
+        aria-labelledby="demo-controlled-radio-buttons-group"
+        name="controlled-radio-buttons-group"
+        value={value}
+        onChange={handleChange}
+      >
+        <FormControlLabel value="wallet" 
+        control={<Radio />}  
+        label="Wallet Payment" 
+        onChange={() => {
+           setWallet(true)
+           setStripe(false)
+        }}/>
+        <FormControlLabel value="stripe" 
+        control={<Radio />} 
+        label="Stripe Payment" 
+        onChange={() => {
+          setStripe(true)
+          setWallet(false)
+        }}/>
+      </RadioGroup>
+    </FormControl>
+  </Grid>
+  {
+    wallet || stripe ?  <Button  style={{backgroundColor :"#fed250",color : "black",width : '100%'}} 
     className='mt-4'
     onClick={handleCheckout}
+    >Checkout</Button> : <Button  style={{backgroundColor :"#fed250",color : "black",width : '100%'}} 
+    className='mt-4'
+    disabled
+    // onClick={handleCheckout}
     >Checkout</Button>
+   
+    
+  }
+   
           </Item>
         </Box> : ""
         }

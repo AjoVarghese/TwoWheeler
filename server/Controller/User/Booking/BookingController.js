@@ -10,48 +10,117 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 
 exports.bikeBookingController = async(req,res) => {
    console.log(req.body.bookingData);
-    const {userId,userName,bikeId,bikeDetails,totalHours,totalAmount,needHelmet,bookedTimeSlots,location} = req.body.bookingData
-    console.log(bookedTimeSlots);
+    const {user,userName,bikeId,bikeDetails,totalHours,totalAmount,needHelmet,bookedTimeSlots,location,paymentType,walletId} = req.body.bookingData
+    console.log(paymentType);
     let session
     try {
-       session = await stripe.checkout.sessions.create({
-        line_items: [
-          {
-            price_data: {
-              currency: 'inr',
-              product_data: {
-                name: bikeDetails.vehicleName,
-                images: [bikeDetails.Photo[0]],
-                description: bikeDetails.description,
-                metadata : {
-                  bike_id : bikeId,
-                  totalHours : totalHours,
-                  needHelmet : needHelmet,
-                  location : location,
-                  startDate : bookedTimeSlots.startDate,
-                  endDate : bookedTimeSlots.endDate
-                }
+      if(paymentType === 'Stripe') {
+        session = await stripe.checkout.sessions.create({
+          line_items: [
+            {
+              price_data: {
+                currency: 'inr',
+                product_data: {
+                  name: bikeDetails.vehicleName,
+                  images: [bikeDetails.Photo[0]],
+                  description: bikeDetails.description,
+                  metadata : {
+                    bike_id : bikeId,
+                    totalHours : totalHours,
+                    needHelmet : needHelmet,
+                    location : location,
+                    startDate : bookedTimeSlots.startDate,
+                    endDate : bookedTimeSlots.endDate
+                  }
+                },
+                unit_amount: totalAmount * 100,
               },
-              unit_amount: totalAmount * 100,
+              quantity: 1,
             },
-            quantity: 1,
-          },
-        ],
-        mode: 'payment',
-        success_url: `http://localhost:3000/booking-success?userId=${userId}
-                      &userName=${userName}&bikeId=${bikeId}&bikeName=${bikeDetails.vehicleName}
-                      &bikeModel=${bikeDetails.vehicleModel}&image=${bikeDetails.Photo[0]}
-                      &totalAmount=${totalAmount}&totalHours=${totalHours}
-                      &startDate=${bookedTimeSlots.startDate}&endDate=${bookedTimeSlots.endDate}
-                      &location=${location}&needHelmet=${needHelmet}`,
-        cancel_url: 'http://localhost:3000/booking-cancelled',
+          ],
+          mode: 'payment',
+          success_url: `http://localhost:3000/booking-success?userId=${user}
+                        &userName=${userName}&bikeId=${bikeId}&bikeName=${bikeDetails.vehicleName}
+                        &bikeModel=${bikeDetails.vehicleModel}&image=${bikeDetails.Photo[0]}
+                        &totalAmount=${totalAmount}&totalHours=${totalHours}
+                        &startDate=${bookedTimeSlots.startDate}&endDate=${bookedTimeSlots.endDate}
+                        &location=${location}&needHelmet=${needHelmet}
+                        &paymentType=${paymentType}`,
+          cancel_url: 'http://localhost:3000/booking-cancelled',
+        });
+  
+        res.status(200).json({url: session.url,bookingData : req.body })
+      } else {
+        console.log('wallet payment');
+        const booking = new bookingSchema({
+          userId: req.query.id,
+          bikeId: bikeId,
+          totalAmount: totalAmount,
+          totalHours: totalHours,
+          needHelmet: needHelmet,
+          bookedTimeSlots: bookedTimeSlots,
+          location : location,
+          status : "Booked",
+          paymentType : paymentType,
+          bookedAt : moment().format('MMMM Do YYYY, h:mm:ss a'),
+          // stripeSessionId: session.id // store the session id for future reference
       });
 
-      // console.log("SESSIOn",session);
-      // res.send({ url: session.url,bookingData : req.body })
-      res.status(200).json({url: session.url,bookingData : req.body })
+      try {
+        await booking.save();
+    console.log('Booking saved successfully');
+
+    // find the bike in the database and update its booking slot field
+    const bike = await bikeSchema.findOneAndUpdate(
+        { _id: bikeId },
+        { $push: { BookedTimeSlots: bookedTimeSlots } },
+        { new: true }
+    );
+
+    // if the bike does not have any booking slots, create a new array and add the booking slot
+    if (!bike.BookedTimeSlots) {
+        bike.BookedTimeSlots = [bookedTimeSlots];
+        await bike.save();  
+    }
+
+    //decrement Amount from wallet
+     console.log('user',user);
+
+     walletSchema.findOne({userId : user}).then((data) => {
+      console.log('pppppp',data);
+     })
+    
+    walletSchema.updateOne(
+      {
+        userId : user
+      },
+      {
+        // $set : {
+          $inc : {
+            walletAmount : -totalAmount
+          },
+          $push : {
+            walletHistory : {
+              Type : "Bike rented",
+              amountDeducted : totalAmount
+            }
+          }
+        // }
+      }
+      ).then((response) => {
+        console.log('wallet payment done',response);
+      })
+      .catch((err) => {
+        console.log('wallet booking error',err);
+      })
+      res.status(200).status({message : "Booking Confirmed"})
+      } catch (error) {
+        
+      }
+      }
+       
     } catch (error) {
-      console.log('STRIPE error',error);
+      console.log('Wallet error',error);
     }
 
 }
@@ -69,13 +138,13 @@ exports.createOrderController = async(req,res) => {
 
 
   console.log("create order",req.body);
-  console.log(req.query.id);
+  // console.log(req.body.bookinguserId);
   try {
-    const {userId,userName,bikeId,bikeName,bikeModel,image,totalAmount,totalHours,bookedTimeSlots,loc,needHelmet} = req.body.bookingDetails
-    console.log("userId",userId);
+    const {userId,userName,bikeId,bikeName,bikeModel,image,totalAmount,totalHours,bookedTimeSlots,loc,needHelmet,paymentType} = req.body.bookingDetails
+    console.log("userId",paymentType);
     // create a new booking object with the booking data
     const booking = new bookingSchema({
-      userId: req.query.id,
+      userId: userId,
       bikeId: bikeId,
       totalAmount: totalAmount,
       totalHours: totalHours,
@@ -83,6 +152,7 @@ exports.createOrderController = async(req,res) => {
       bookedTimeSlots: bookedTimeSlots,
       location : loc,
       status : "Booked",
+      paymentType : paymentType,
       bookedAt : moment().format('MMMM Do YYYY, h:mm:ss a'),
       // stripeSessionId: session.id // store the session id for future reference
   });
@@ -106,46 +176,58 @@ exports.createOrderController = async(req,res) => {
     }
 
     //wallet setting
-    bikeSchema.findOne({$and : [{_id : bikeId} , {OwnerId : {$exists : true}}]}).then(async(data) => {
-      console.log(data.OwnerId);
-     let walletExixts = await walletSchema.findOne({userId : data.OwnerId})
-     
-     if(!walletExixts){
-      console.log('null');
-      const newWallet = {
-        userId : data.OwnerId,
-        walletAmount : 30,
-        walletHistory : [
-          {
-            Type : "Bike Rent",
-            Amount : 30
-          }
-        ]
-      }
-      walletSchema.create(newWallet)
-     } else {
-      console.log('exists');
-      console.log(walletExixts);
-      walletSchema.updateOne({
-        userId : walletExixts.userId
-      },
-      {
-        $inc : {
-          walletAmount : 30
+    let bikeData = await bikeSchema.findOne({
+      $and : [
+        {
+          _id : bikeId
         },
-        $push : {
-          walletHistory : {
-            Type : "Bike Rent",
-            Amount : 30
-          }
+        {
+          OwnerId : {$exists : true}
         }
-      }
-      ).then((res) => {
-        console.log(res);
-      })
-     }
-  
+      ]
     })
+
+    if(bikeData){
+      let walletExists = await walletSchema.findOne({userId : bikeData.OwnerId})
+
+      if(!walletExists){
+        console.log('null');
+        const newWallet = {
+          userId : bikeData.OwnerId,
+          walletAmount : 100,
+          walletHistory : [
+            {
+              Type : "Bike rent",
+              Amount : 100
+            }
+          ]
+        }
+
+        walletSchema.create(newWallet)
+      } else {
+        console.log('exists');
+        walletSchema.updateOne({
+          userId : walletExists.userId
+        },
+          {
+            $inc : {
+              walletAmount : 300
+            },
+            $push : {
+              walletHistory : {
+                Type : "Bike Rent",
+                Amount : 300
+              }
+            }
+          }
+        ).then((response) => {
+          console.log("response",response);
+        })
+      }
+    }else {
+      console.log("NOTHING");
+    }
+    
 
 } catch (err) {
     console.log('fffffffff',err);;

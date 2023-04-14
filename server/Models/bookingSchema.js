@@ -37,6 +37,9 @@ const bookingSchema = new mongoose.Schema({
     bookedAt : {
         type : String,
     },
+    paymentType : {
+        type : String
+    }
 },{
     timestamps : true
 }

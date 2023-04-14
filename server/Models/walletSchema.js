@@ -14,7 +14,10 @@ const walletSchema = new mongoose.Schema({
                 Type : {
                     type : String
                 },
-                Amount : {
+                amountAdded: {
+                    type : Number
+                },
+                amountDeducted : {
                     type : Number
                 },
                 Date : {

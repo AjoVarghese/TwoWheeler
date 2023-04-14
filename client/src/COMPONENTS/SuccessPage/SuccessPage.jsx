@@ -21,19 +21,20 @@ function SuccessPage() {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
   console.log("searchPrams",searchParams);
-  const userId = searchParams.get('userId')
+  const userId = searchParams.get('userId').trim()
   console.log("userId",userId);
-  const userName = searchParams.get('userName')
-  const bikeId = searchParams.get('bikeId')
-  const bikeName = searchParams.get('bikeName')
+  const userName = searchParams.get('userName').trim()
+  const bikeId = searchParams.get('bikeId').trim()
+  const bikeName = searchParams.get('bikeName').trim()
   const bikeModel = searchParams.get('bikeModel')
-  const image = searchParams.get('image')
-  const totalAmount = searchParams.get('totalAmount')
-  const totalHours = searchParams.get('totalHours')
-  const startDate = searchParams.get('startDate')
-  const endDate = searchParams.get('endDate')
-  const loc = searchParams.get('location')
-  const needHelmet = searchParams.get('needHelmet')
+  const image = searchParams.get('image').trim()
+  const totalAmount = searchParams.get('totalAmount').trim()
+  const totalHours = searchParams.get('totalHours').trim()
+  const startDate = searchParams.get('startDate').trim()
+  const endDate = searchParams.get('endDate').trim()
+  const loc = searchParams.get('location').trim()
+  const needHelmet = searchParams.get('needHelmet').trim()
+  const paymentType = searchParams.get('paymentType').trim()
  
   console.log(image);
 
@@ -51,9 +52,11 @@ function SuccessPage() {
     },
     totalHours,
     loc,
-    needHelmet
+    needHelmet,
+    paymentType
   }
-
+ 
+  console.log("BOOKING DETSILS",bookingDetails);
   useEffect(() => {
     dispatch(createOrderAction(bookingDetails))
   },[])
