@@ -34,6 +34,7 @@ import { getUserProfileAction, getUserProfileReducer, imageUploadAction } from '
 import ModalBox from '../../../components/Modal/ModalBox';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+import { getWalletAction } from '../../../redux/Actions/USER_ACTIONS/getWalletAction';
 
 
 
@@ -50,8 +51,11 @@ function Profile() {
   }
   
   useEffect(() => {
-
+    dispatch(getWalletAction())
   },[])
+
+  const wallet = useSelector((state) => state.getWalletReducer.walletData)
+  console.log('wallet',wallet);
  
     const profileData = useSelector((state)=>state.userLoginReducer.userLoginDetails)
      console.log("profileData",profileData);
@@ -134,7 +138,7 @@ function Profile() {
                  
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                     <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
-                    <p>Wallet Amount <span>0.0</span></p>
+                    <p>Wallet Amount: <span><h4>Rs.{wallet ?.walletAmount}.00</h4></span></p>
                     <Button variant="warning ms-4" style={{backgroundColor : "#fed250"}}>My Wallet</Button>{' '}
                   </MDBListGroupItem>
                 </MDBListGroup>
