@@ -16,7 +16,13 @@ export const bookingReducer = (state = {} , {type,payload}) => {
            return {
             loading : false,
             bookingError : payload?.data
-           }       
+           }  
+           
+        case ActionTypes.WALLET_BOOKING_SUCCESS : 
+          return {
+            loading : false,
+             walletBookingSuccess : payload
+          }   
         default : return state    
     }
 }

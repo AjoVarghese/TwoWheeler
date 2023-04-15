@@ -36,6 +36,10 @@ export default function CouponTable({data}) {
   const [editModal,setEditModal] = React.useState(false)
   const [deleteModal,setDeleteModal] = useState(false)
   const [selected,setSelected]  = useState('')
+
+  if (!data || data.length === 0) {
+    return <h4>No coupon available</h4>;
+  }
   return (
     <div>
     <TableContainer component={Paper}>

@@ -12,12 +12,16 @@ export const bookingAction = (bookingData) => async(dispatch) => {
     bookBikeApi(bookingData).then((data) => {
         console.log("bookBIkeAPI",data);
         if(data.data.url){
+            console.log('stripe url');
            window.location.href=data.data.url
+        }else {
+            console.log('wallet success');
+            dispatch({
+                type : ActionTypes.WALLET_BOOKING_SUCCESS,
+                payload : data.data?.message,
+            })
         }
-        // dispatch({
-        //     type : ActionTypes.BOOKING_SUCCESS,
-        //     payload : data.data,
-        // })
+        
     })
 
     .catch((err) => {

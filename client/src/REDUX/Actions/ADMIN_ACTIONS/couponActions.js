@@ -27,6 +27,7 @@ export const getCoupons = () => async(dispatch) => {
 }
 
 export const addCoupon = (couponName,couponCode,couponPrice) => async(dispatch) => {
+    console.log('////////////');
     dispatch({
         type : AdminActionTypes.ADD_COUPON_REQ
     })

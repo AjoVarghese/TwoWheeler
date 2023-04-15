@@ -1,6 +1,7 @@
 const bookingSchema = require('../../../Models/bookingSchema')
 const bikeSchema = require('../../../Models/vehicleSchema')
 const walletSchema = require('../../../Models/walletSchema')
+const couponSchema = require('../../../Models/couponSchema')
 const moment = require('moment')
 const dotenv = require('dotenv')
 dotenv.config()
@@ -10,31 +11,36 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 
 exports.bikeBookingController = async(req,res) => {
    console.log(req.body.bookingData);
-    const {user,userName,bikeId,bikeDetails,totalHours,totalAmount,needHelmet,bookedTimeSlots,location,paymentType,walletId} = req.body.bookingData
+    const {user,userName,bikeId,bikeDetails,totalHours,totalAmount,needHelmet,bookedTimeSlots,location,paymentType,couponCode} = req.body.bookingData
     console.log(paymentType);
+    console.log(couponCode);
     let session
+
+    
     try {
       console.log('bookedTimeSlots',bookedTimeSlots.startDate);
       console.log('bookedTimeSlots',bookedTimeSlots.endDate);
       let startingTime = bookedTimeSlots.startDate
       let endingTime = bookedTimeSlots.endDate
       let status = true
-      console.log(bookedTimeSlots.startDate <= bookedTimeSlots.endDate);
+      
      let checkDate = await bikeSchema.findOne({_id :bikeId})
+     console.log("checkDate",checkDate);
      for(let i = 0 ; i < checkDate.BookedTimeSlots.length ; i++){
-      // console.log('startDate',checkDate.BookedTimeSlots[i].startDate);
-      // console.log('endDate',checkDate.BookedTimeSlots[i].endDate);
-      if(startingTime > checkDate.BookedTimeSlots[i].endDate){
+     
+      if( startingTime > checkDate.BookedTimeSlots[i].endDate){
         console.log(" allowed");
         status = true
 
-      } else if(startingTime <=checkDate.BookedTimeSlots[i].endDate) {
+      } else if(startingTime && startingTime <=checkDate.BookedTimeSlots[i].endDate) {
         console.log('booking not allowed');
         status = false
       }
       console.log('status',status);
       console.log('-------------------');
      }
+
+    //  let isCouponApplied  = 
 
      //date Status
      if(status === true){
@@ -70,7 +76,7 @@ exports.bikeBookingController = async(req,res) => {
                         &totalAmount=${totalAmount}&totalHours=${totalHours}
                         &startDate=${bookedTimeSlots.startDate}&endDate=${bookedTimeSlots.endDate}
                         &location=${location}&needHelmet=${needHelmet}
-                        &paymentType=${paymentType}`,
+                        &paymentType=${paymentType}&couponCode=${couponCode}`,
           cancel_url: 'http://localhost:3000/booking-cancelled',
         });
        
@@ -78,7 +84,7 @@ exports.bikeBookingController = async(req,res) => {
       } else {
         console.log('wallet payment');
         const booking = new bookingSchema({
-          userId: req.query.id,
+          userId: user,
           bikeId: bikeId,
           totalAmount: totalAmount,
           totalHours: totalHours,
@@ -134,6 +140,7 @@ exports.bikeBookingController = async(req,res) => {
       }
       ).then((response) => {
         console.log('wallet payment done',response);
+        res.status(200).json({message : 'Booking Successfull'})
       })
       .catch((err) => {
         console.log('wallet booking error',err);
@@ -162,7 +169,7 @@ exports.bikeBookingController = async(req,res) => {
 exports.createOrderController = async(req,res) => {
 
   try {
-    const {userId,userName,bikeId,bikeName,bikeModel,image,totalAmount,totalHours,bookedTimeSlots,loc,needHelmet,paymentType} = req.body.bookingDetails
+    const {userId,userName,bikeId,bikeName,bikeModel,image,totalAmount,totalHours,bookedTimeSlots,loc,needHelmet,paymentType,couponCode} = req.body.bookingDetails
     const booking = new bookingSchema({
       userId: userId,
       bikeId: bikeId,
@@ -193,6 +200,24 @@ exports.createOrderController = async(req,res) => {
         bike.BookedTimeSlots = [bookedTimeSlots];
         await bike.save();
         
+    }
+
+    //setting userId to coupon
+    //checking coupon 
+    if(couponCode !== null && couponCode !== ''){
+      // let findUser = couponSchema.findOne({users : userId})
+      couponSchema.updateOne(
+        {couponCode : couponCode},
+        {
+          $push : {
+            users : {
+              userId : userId
+            }
+          }
+        }
+        ).then((response) => {
+          console.log(response);
+        })
     }
 
     //wallet setting

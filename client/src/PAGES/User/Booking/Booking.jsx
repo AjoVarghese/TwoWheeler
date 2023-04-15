@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { Button, Checkbox, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { MDBCard, MDBCardHeader, MDBListGroup, MDBListGroupItem } from 'mdb-react-ui-kit';
 import { DatePicker } from "antd"
 import moment from "moment"
@@ -13,6 +13,7 @@ import { bookingAction } from '../../../redux/Actions/USER_ACTIONS/bookingAction
 import { getCouponsApi } from '../../../api/Admin/ApiCalls';
 import { getCoupons } from '../../../redux/Actions/ADMIN_ACTIONS/couponActions';
 import { getWalletAction } from '../../../redux/Actions/USER_ACTIONS/getWalletAction';
+import WalletBookingSuccess from '../../../components/Modal/WalletBookingSuccess';
 
 
 const { RangePicker } = DatePicker
@@ -28,16 +29,19 @@ const Item = styled(Paper)(({ theme }) => ({
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 function Booking() {
-  const [startDate, setStartDate] = useState("");
+    const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [totalHours, setTotalHours] = useState(0)
     const [needHelmet, setNeedHelmet] = useState(false)
-    const [coupon,setCoupon] = useState('')
+    const [coupon,setCoupon] = useState(null)
     const [couponVerified,setCouponVerified] = useState(false)
+    const [couponApplied,setCouponApplied] = useState(false)
     const [offer,setOffer] = useState()
     const [wallet,setWallet] = useState(false)
+    const [walletError,setWalletError] = useState(false)
     const [stripe,setStripe] = useState(false)
-
+    const [error,setError] = useState(false)
+    const [modal,setModal] = useState(false)
     const [value, setValue] = React.useState('female');
 
   const handleChange = (event) => {
@@ -45,6 +49,7 @@ function Booking() {
   };
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const location = useLocation()
 
   const {bikesData,bikeId} = location.state
@@ -56,13 +61,16 @@ function Booking() {
   },[])
 
   const coupons = useSelector((state) => state.getCouponReducer.couponData)
-
+  console.log('ALl COUPONS',coupons);
 
   const walletAmount = useSelector((state) => state.getWalletReducer.walletData)
-  console.log(walletAmount);
- 
+  
+  
   const bookingData = useSelector((state) => state.bookingReducer)
   const {loading,bookingSuccessData,bookingError} = bookingData
+
+  const walletBooking = useSelector((state) => state.bookingReducer.walletBookingSuccess)
+  console.log('walletBookinf',walletBooking)
 
   const selectTimeSlots = (value) => {
     // console.log(moment(value));
@@ -78,15 +86,35 @@ function Booking() {
 
 const verifyCoupon = (coupon) => {
   let checkCoupon = coupons.find(check => check.couponCode === coupon)
+  let userId = JSON.parse(localStorage.getItem("userInfo")).id
+  
 
   if(checkCoupon){
+    let filteredCoupons = coupons.filter(x => x.couponCode === coupon)
+    if(filteredCoupons.length > 0) {
+      filteredCoupons.forEach(coupon => {
+        if (coupon.users.some(user => user.userId === userId)) {
+          console.log(` has already applied coupon `);
+          setCouponApplied(true)
+          setError(false)
+        } else {
+          console.log(` has not applied coupon  yet`);
+          setCouponApplied(false)
+          setCouponVerified(true)
+          setError(false)
+          setOffer(coupons.find(x => x.couponCode === coupon)?.couponPrice || 0)
+          console.log('offer',offer);
+        }
+      });
+    } else {
+      console.log("Nothing found");
+    }
     
-    setCouponVerified(true)
-    setOffer(coupons.find(x => x.couponCode === coupon)?.couponPrice || 0)
-    console.log('offer',offer);
+    
   } else {
-    
     setCouponVerified(false)
+    setCouponApplied(false)
+    setError(true)
   }
 } 
 
@@ -95,9 +123,6 @@ let totalAmount =   needHelmet === true && couponVerified === true ?
                      needHelmet === true ? totalHours * selectedBike.Price +50 : 
                     needHelmet === false && couponVerified === true ? (totalHours * selectedBike.Price) - (coupons.find(x => x.couponCode === coupon)?.couponPrice || 0) 
                      :totalHours * selectedBike.Price
-
-// console.log('coupon',coupon);
-
 
 const stripeData = {
   user : JSON.parse(localStorage.getItem("userInfo")).id,
@@ -133,19 +158,20 @@ const walletBookingData = {
   paymentType : "Wallet",
   walletId : walletAmount?._id
 }
- console.log(wallet);
- console.log(stripe);
+
 const handleCheckout = () => {
   if(wallet === false && stripe === true){
+    setWalletError(false)
     dispatch(bookingAction(stripeData))
   } else if(wallet === true && stripe === false) {
     console.log(totalAmount);
     console.log(walletAmount.walletAmount);
     if(walletAmount.walletAmount >= totalAmount) {
-      console.log('sssss');
+      
+      setWalletError(false)
       dispatch(bookingAction(walletBookingData))
     }else {
-      
+      setWalletError(true)
     }
     
   }
@@ -207,8 +233,14 @@ const handleCheckout = () => {
             verifyCoupon(coupon)
           }}
            >Apply Coupon</Button>
+           {
+            error ? <p style={{color : 'red'}}>Coupon Code is not valid</p> : ""
+           }
+           {
+            couponApplied ? <p style={{color : 'red'}}>Coupon Has Already Applied</p> : ""
+           }
           </Box>
-
+           
           <Box  className='mt-3 ms-2'>
           {
           startDate && endDate ? <Box gridColumn="span 4">
@@ -313,6 +345,13 @@ const handleCheckout = () => {
      
   </Grid>
   
+  {/* {
+    walletBooking ? <WalletBookingSuccess open={modal} onClose={()=>setModal(false)} message={walletBooking}/> : ""
+  } */}
+
+  {/* {
+    walletBooking === 'Booking Successfull' ? navigate('/my-rents') : ""
+  } */}
   
 </Grid>
         </MDBListGroupItem>
@@ -335,12 +374,16 @@ const handleCheckout = () => {
            setWallet(true)
            setStripe(false)
         }}/>
+        {
+          walletError ? <p style={{color : "red"}}>Insufficient Amount</p> : ""
+        }
         <FormControlLabel value="stripe" 
         control={<Radio />} 
         label="Stripe Payment" 
         onChange={() => {
           setStripe(true)
           setWallet(false)
+          setWalletError(false)
         }}/>
       </RadioGroup>
     </FormControl>

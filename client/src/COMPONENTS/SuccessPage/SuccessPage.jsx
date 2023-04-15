@@ -35,6 +35,7 @@ function SuccessPage() {
   const loc = searchParams.get('location').trim()
   const needHelmet = searchParams.get('needHelmet').trim()
   const paymentType = searchParams.get('paymentType').trim()
+  const couponCode = searchParams.get('couponCode').trim()
  
   console.log(image);
 
@@ -53,7 +54,8 @@ function SuccessPage() {
     totalHours,
     loc,
     needHelmet,
-    paymentType
+    paymentType,
+    couponCode
   }
  
   console.log("BOOKING DETSILS",bookingDetails);
