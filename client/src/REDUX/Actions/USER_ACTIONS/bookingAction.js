@@ -11,13 +11,8 @@ export const bookingAction = (bookingData) => async(dispatch) => {
     //  const navigate = useNavigate()
     bookBikeApi(bookingData).then((data) => {
         console.log("bookBIkeAPI",data);
-
         if(data.data.url){
-            window.location.href = data.data.url
-            setTimeout(() => {
-                console.log('done');
-                window.location.href = "/profile"
-            }, 2000);
+           window.location.href=data.data.url
         }
         // dispatch({
         //     type : ActionTypes.BOOKING_SUCCESS,
@@ -28,9 +23,9 @@ export const bookingAction = (bookingData) => async(dispatch) => {
     .catch((err) => {
         console.log('eror in stripe ',err);
         // console.log("bookBikeApi ERRor",err.response);
-        // dispatch({
-        //     type : ActionTypes.BOOKING_FAILED,
-        //     payload : err.reponse
-        // })
+        dispatch({
+            type : ActionTypes.BOOKING_FAILED,
+            payload : err.response
+        })
     })
 }

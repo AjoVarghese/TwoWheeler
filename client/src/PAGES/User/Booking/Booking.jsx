@@ -61,7 +61,8 @@ function Booking() {
   const walletAmount = useSelector((state) => state.getWalletReducer.walletData)
   console.log(walletAmount);
  
-
+  const bookingData = useSelector((state) => state.bookingReducer)
+  const {loading,bookingSuccessData,bookingError} = bookingData
 
   const selectTimeSlots = (value) => {
     // console.log(moment(value));
@@ -171,6 +172,9 @@ const handleCheckout = () => {
           <Item>
           <Box style={{textAlign:"start"}}>
           <h3 >Select Time Slot</h3>
+          {
+            bookingError ? <p style={{color : "red"}}>{bookingError}</p> : ""
+          }
           <RangePicker showTime={{format: "HH:mm"}} 
           format='MM DD YYYY HH:mm'
           onChange={selectTimeSlots}

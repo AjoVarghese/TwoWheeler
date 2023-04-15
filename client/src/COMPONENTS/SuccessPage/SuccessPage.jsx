@@ -66,9 +66,11 @@ function SuccessPage() {
   }, 2000);
   return (
     <div>
-      <Box sx={{ width: '100%' }}>
-      <Stack spacing={2}>
-        <Item><h4>Booking Successfull</h4></Item>
+      <Box sx={{ width: '100%' }}
+       className = ' mb-auto mt-5'
+        align='center'>
+      <Stack spacing={2} >
+        <h4>Ddd</h4>
         {/* <Item>Item 2</Item>
         <Item>Item 3</Item> */}
       </Stack>

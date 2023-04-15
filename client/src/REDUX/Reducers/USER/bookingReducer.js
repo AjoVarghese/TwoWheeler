@@ -1,6 +1,7 @@
 import { ActionTypes } from "../../Constants/User/ActionTypes";
 
 export const bookingReducer = (state = {} , {type,payload}) => {
+    console.log("bookingReducer",payload);
     switch(type){
         case ActionTypes.BOOKING_REQ:
             return{
@@ -14,7 +15,7 @@ export const bookingReducer = (state = {} , {type,payload}) => {
         case ActionTypes.BOOKING_FAILED : 
            return {
             loading : false,
-            bookingError : payload
+            bookingError : payload?.data
            }       
         default : return state    
     }

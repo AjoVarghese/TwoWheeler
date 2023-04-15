@@ -14,6 +14,31 @@ exports.bikeBookingController = async(req,res) => {
     console.log(paymentType);
     let session
     try {
+      console.log('bookedTimeSlots',bookedTimeSlots.startDate);
+      console.log('bookedTimeSlots',bookedTimeSlots.endDate);
+      let startingTime = bookedTimeSlots.startDate
+      let endingTime = bookedTimeSlots.endDate
+      let status = true
+      console.log(bookedTimeSlots.startDate <= bookedTimeSlots.endDate);
+     let checkDate = await bikeSchema.findOne({_id :bikeId})
+     for(let i = 0 ; i < checkDate.BookedTimeSlots.length ; i++){
+      // console.log('startDate',checkDate.BookedTimeSlots[i].startDate);
+      // console.log('endDate',checkDate.BookedTimeSlots[i].endDate);
+      if(startingTime > checkDate.BookedTimeSlots[i].endDate){
+        console.log(" allowed");
+        status = true
+
+      } else if(startingTime <=checkDate.BookedTimeSlots[i].endDate) {
+        console.log('booking not allowed');
+        status = false
+      }
+      console.log('status',status);
+      console.log('-------------------');
+     }
+
+     //date Status
+     if(status === true){
+      console.log("book");
       if(paymentType === 'Stripe') {
         session = await stripe.checkout.sessions.create({
           line_items: [
@@ -48,7 +73,7 @@ exports.bikeBookingController = async(req,res) => {
                         &paymentType=${paymentType}`,
           cancel_url: 'http://localhost:3000/booking-cancelled',
         });
-  
+       
         res.status(200).json({url: session.url,bookingData : req.body })
       } else {
         console.log('wallet payment');
@@ -113,11 +138,17 @@ exports.bikeBookingController = async(req,res) => {
       .catch((err) => {
         console.log('wallet booking error',err);
       })
-      res.status(200).status({message : "Booking Confirmed"})
+      // res.status(200).status({message : "Booking Confirmed"})
       } catch (error) {
         
       }
       }
+     }
+     else {
+      console.log('booking not allowed');
+      res.status(400).json("Bike has been booked for the selected time..please change the time to book")
+     }
+      
        
     } catch (error) {
       console.log('Wallet error',error);
@@ -125,24 +156,13 @@ exports.bikeBookingController = async(req,res) => {
 
 }
 
+
+
+//success-page
 exports.createOrderController = async(req,res) => {
-  console.log('fff');
-  console.log(req.body);
 
-  
-
-  // bikeSchema.find({_id : req.body.bikeId}).then((data) => {
-  //   console.log('kkkk');
-  //   console.log(data);
-  // })
-
-
-  console.log("create order",req.body);
-  // console.log(req.body.bookinguserId);
   try {
     const {userId,userName,bikeId,bikeName,bikeModel,image,totalAmount,totalHours,bookedTimeSlots,loc,needHelmet,paymentType} = req.body.bookingDetails
-    console.log("userId",paymentType);
-    // create a new booking object with the booking data
     const booking = new bookingSchema({
       userId: userId,
       bikeId: bikeId,
