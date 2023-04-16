@@ -75,6 +75,8 @@ router.route('/booking-success').post(bookingController.createOrderController)
 
 router.route('/my-rents').get(protect,rentedRidesController.rentedRides)
 
+router.route('/cancel-ride').get(protect,rentedRidesController.cancelRide)
+
 router.route('/get-wallet').get(protect,walletController.walletController)
 
 

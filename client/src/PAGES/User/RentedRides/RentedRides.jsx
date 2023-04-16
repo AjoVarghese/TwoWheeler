@@ -1,12 +1,15 @@
 import Paper from '@mui/material/Paper';
 import { Box, Stack, Tab, Tabs, Typography, styled } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../../../components/NAVBAR/Navbar';
 import PropTypes from 'prop-types';
 import AllRides from '../../../components/RentedRides/AllRides';
 import CompletedRides from '../../../components/RentedRides/CompletedRides';
-import PendingRides from '../../../components/RentedRides/PendingRides';
 import CancelledRides from '../../../components/RentedRides/CancelledRides';
+import { useDispatch, useSelector } from 'react-redux';
+import { rentedRidesAction } from '../../../redux/Actions/USER_ACTIONS/getRentedRides';
+import OnRide from '../../../components/RentedRides/OnRide';
+import PendingRides from '../../../components/RentedRides/PendingRides';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,6 +54,16 @@ function RentedRides() {
       const handleChange = (event, newValue) => {
         setValue(newValue);
       };
+
+      const dispatch = useDispatch()
+      
+  useEffect(() => {
+    dispatch(rentedRidesAction())
+  },[])
+
+  const rentedRides = useSelector((state) => state.rentedBikesReducer.rentedRidesData)
+      console.log(rentedRides ? rentedRides : "");
+
   return (
     <div>
         <Navbar/>
@@ -65,25 +78,31 @@ function RentedRides() {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
           <Tab label="All "  />
           
-          <Tab label="Pending Rides"  ></Tab>
+          <Tab label="On Ride"  ></Tab>
           <Tab label="Completed Rides"  />
+          <Tab label="Pending Rides"  />
           <Tab label="Cancelled Rides"  />
         </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-           <AllRides/>
+           <AllRides data={rentedRides}/>
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-           <CompletedRides/>
+           
+           <OnRide data={rentedRides}/>
       </TabPanel>
 
       <TabPanel value={value} index={2}>
-           <PendingRides/>
+        <CompletedRides data={rentedRides}/>
       </TabPanel>
 
       <TabPanel value={value} index={3}>
-           <CancelledRides/>
+           <PendingRides data={rentedRides}/>
+      </TabPanel>
+
+      <TabPanel value={value} index={4}>
+           <CancelledRides data={rentedRides}/>
       </TabPanel>
         </Box>
     </div>

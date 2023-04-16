@@ -51,6 +51,8 @@ function RentRequets() {
     useEffect(() => {
       dispatch(getRentRequests())
     },[])
+
+    
   return (
    <>
             {
@@ -71,7 +73,7 @@ function RentRequets() {
       <Box component = 'main' sx={{flexGrow : 1,p:3}}>
         <DrawerHeader/>
         <h1>Rent Requets</h1>
-        { rentData ?
+        {  rentData && rentData.length > 0 ?
            <div className="card container md-12">
            {
              <TableContainer component={Paper}>
@@ -158,7 +160,7 @@ function RentRequets() {
            }
        
 
-     </div> : "No Pending"
+     </div> : <div className="text-center"><h4>No Pending Requests</h4></div>
         }
         
       </Box>

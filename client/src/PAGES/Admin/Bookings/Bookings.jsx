@@ -5,6 +5,11 @@ import PropTypes from 'prop-types';
 import AllBookings from '../../../components/AdminBookings/AllBookings';
 import { useDispatch, useSelector } from 'react-redux';
 import { bookingDetailsAction } from '../../../redux/Actions/ADMIN_ACTIONS/bookingDetailsAction';
+import OnRide from '../../../components/AdminBookings/OnRide';
+import CompletedBookings from '../../../components/AdminBookings/CompletedBookings';
+import PendingBookings from '../../../components/AdminBookings/PendingBookings';
+import CancelledRides from '../../../components/AdminBookings/CancelledRides';
+
 
 
 function TabPanel(props) {
@@ -69,9 +74,9 @@ const [value, setValue] = React.useState(0);
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
           <Tab label="All Rides"  />
-          
-          <Tab label="Completed Rides"  ></Tab>
           <Tab label="Ongoing Rides"  />
+          <Tab label="Completed Rides"  ></Tab>
+          <Tab label="Pending Rides"  ></Tab>
           <Tab label="Cancelled Rides"  />
         </Tabs>
       </Box>
@@ -81,23 +86,20 @@ const [value, setValue] = React.useState(0);
      
       </TabPanel>
 
-
       <TabPanel value={value} index={1}>
-
-        ui
-      
+        <OnRide data={bookingDetails}/>
       </TabPanel>
-
 
       <TabPanel value={value} index={2}>
-
-        poi
-
+         <CompletedBookings data={bookingDetails}/>
       </TabPanel>
+
       <TabPanel value={value} index={3}>
+        <PendingBookings data={bookingDetails}/>
+      </TabPanel>
 
-        ooomb
-
+      <TabPanel value={value} index={4}>
+         <CancelledRides data={bookingDetails}/>
       </TabPanel>
     </Box>
       </Box>

@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import { useState } from 'react';
 import EditCouponModal from '../Modal/EditCouponModal';
 import DeleteCouponModal from '../Modal/DeleteCouponModal';
@@ -75,6 +75,7 @@ export default function CouponTable({data}) {
                 <StyledTableCell align="center">{row.couponCode}</StyledTableCell>
                 <StyledTableCell align="center">Rs.{row.couponPrice}</StyledTableCell>
                 <StyledTableCell align="center">
+                <Tooltip title="Edit Details" variant="soft">
                 <Button variant="contained" color="info"
                   onClick={(e) => {
                     setEditModal(true)
@@ -84,6 +85,7 @@ export default function CouponTable({data}) {
                 >
                   Edit
                 </Button>
+                </Tooltip>
                 </StyledTableCell>
                 <StyledTableCell align="center">
                 <Button variant="contained" color="error"

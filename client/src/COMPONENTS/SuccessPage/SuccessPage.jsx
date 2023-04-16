@@ -1,11 +1,23 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { createOrderAction } from '../../redux/Actions/USER_ACTIONS/createOrderAction'
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
+import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import { Button, Grid } from '@mui/material';
+import Sheet from '@mui/joy/Sheet';
+// import Stack from '@mui/joy/Stack';
+// import { styled } from '@mui/joy/styles';
+
+const item = styled(Sheet)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.vars.palette.text.tertiary,
+}));
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -63,20 +75,74 @@ function SuccessPage() {
     dispatch(createOrderAction(bookingDetails))
   },[])
 
-  setTimeout(() => {
-    navigate('/my-rents')
-  }, 2000);
+  // setTimeout(() => {
+  //   navigate('/my-rents')
+  // }, 2000);
   return (
     <div>
-      <Box sx={{ width: '100%' }}
+       <Box sx={{ width: '100%' }}  className='mt-5 container' >
+       <Grid container spacing={2} sx={{ flexGrow: 1 }}>
+      <Grid xs={7}>
+        <Item>
+        <figure className='figure'>
+        <img
+        src={require('../../../src/assets/Images/successs.jpg')}
+        className='figure-img img-fluid rounded shadow-3 mb-3'
+        alt='...'
+        style={{width : '40rem'}}
+      />
+      {/* <figcaption className='figure-caption text-end'>A caption for the above image.</figcaption> */}
+    </figure>
+        </Item>
+      </Grid>
+      <Grid xs={4}>
+        <Item>
+        <Stack spacing={2} sx={{ width: '100%' }}>
+      {/* <Item> */}
+      <figure className='figure'>
+        <img
+        src={require('../../../src/assets/Images/check.png')}
+        className='figure-img img-fluid rounded shadow-3 mb-3'
+        alt='...'
+        style={{width : '7rem'}}
+      />
+      {/* <figcaption className='figure-caption text-end'>A caption for the above image.</figcaption> */}
+    </figure>
+      {/* </Item> */}
+      {/* <Item> */}
+        <h5>Booking Successfull</h5>
+        <p>Go to my rides to view more details</p>
+      {/* </Item> */}
+      {/* <Item> */}
+      <Button size="md" style={{backgroundColor : "#fed250"}}><Link to = '/my-rents' style={{color :'black',textDecoration :'none',}}>My Rides</Link></Button>
+      {/* </Item> */}
+    </Stack>
+        </Item>
+      </Grid>
+      {/* <Grid xs={4}>
+        <Item>xs=4</Item>
+      </Grid>
+      <Grid xs={8}>
+        <Item>xs=8</Item>
+      </Grid> */}
+    </Grid>
+       </Box>
+       
+      {/* <Box sx={{ width: '100%' }}
        className = ' mb-auto mt-5'
         align='center'>
       <Stack spacing={2} >
         <h4>Ddd</h4>
-        {/* <Item>Item 2</Item>
-        <Item>Item 3</Item> */}
       </Stack>
-    </Box>
+    </Box> */}
+    {/* <MDBRow>
+      <MDBCol md='8'>
+        md="8"
+      </MDBCol>
+      <MDBCol md='4'>
+        md="4"
+      </MDBCol>
+    </MDBRow> */}
     </div>
   )
 }
