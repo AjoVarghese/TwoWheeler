@@ -59,12 +59,15 @@ exports.getBookedDetails = async(req,res) => {
             console.log(data[0].status);
             let startTime 
             let endTime
-            let currentTime = moment().format('MMMM Do YYYY, h:mm:ss a')
+            // let currentTime = moment().unix()
+            let currentTime = moment().format('X');
 
             
             for(let i = 0 ; i < data.length ; i++){
-              startTime = data[i].startingTime
-              endTime = data[i].endingTime
+              // startTime = data[i].startingTime.unix()
+              // endTime = data[i].endingTime.unix()
+              let startTime = moment(data[i].startingTime, 'MMMM Do YYYY, h:mm:ss a').unix();
+              let endTime = moment(data[i].endingTime, 'MMMM Do YYYY, h:mm:ss a').unix();
               console.log('----------');
               console.log(startTime);
               console.log(endTime);
@@ -72,8 +75,9 @@ exports.getBookedDetails = async(req,res) => {
             
             console.log('------------');
               if(currentTime > endTime){
-                console.log();
+                console.log(currentTime);
                 console.log(startTime);
+                console.log(endTime);
                 console.log('time exceeded');
                 booking.findOneAndUpdate(
                   {
@@ -85,10 +89,22 @@ exports.getBookedDetails = async(req,res) => {
                     }
                   }
                   ).then((res) => {
-                    console.log("zzzzzz",res);
+                    console.log("EXCEEDED",res);
                   })
               } else if(currentTime < startTime) {
                 console.log('booked');
+                booking.findOneAndUpdate(
+                  {
+                    _id : data[i]._id
+                  },
+                  {
+                    $set : {
+                      status : "Booked"
+                    }
+                  }
+                  ).then((res) => {
+                    console.log("BOOKED",res);
+                  })
                 
               } else if(currentTime >= startTime && currentTime <= endTime) {
                 console.log("onRide");
@@ -102,7 +118,7 @@ exports.getBookedDetails = async(req,res) => {
                   }
                 }
                 ).then((res) => {
-                  console.log("nnnnnn",res);
+                  console.log("ONRIDE",res);
                 })
               }
             }
@@ -110,8 +126,6 @@ exports.getBookedDetails = async(req,res) => {
             res.status(200).json(data)
         // })
         
-        
-      
     } catch (error) {
         
     }

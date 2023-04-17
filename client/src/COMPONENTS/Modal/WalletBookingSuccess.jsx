@@ -12,11 +12,13 @@ import { addCoupon } from '../../redux/Actions/ADMIN_ACTIONS/couponActions';
 
 
 function WalletBookingSuccess({open,onClose,message}) {
+  console.log("MODAL MESSAGE",message);
   return (
     <div>
         <BasicModal
            open={open}
            onClose={onClose}
+           title = "Wallet Booking"
            content={
             <Box>
                 <h3>

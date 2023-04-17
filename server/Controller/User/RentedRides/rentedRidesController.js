@@ -71,11 +71,7 @@ exports.cancelRide = (req,res) => {
   console.log(startTime);
   console.log(endTime);
   try {
-    // bikes.findOne({
-    //   _id : bikeId
-    // }).then((data) => {
-    //   console.log(data.BookedTimeSlots[1].startDate);
-    // })
+   
     bikes.updateOne({
       _id : bikeId
     },
@@ -88,11 +84,7 @@ exports.cancelRide = (req,res) => {
       }
     }).then((resp) => {
       console.log('bookingSlot deleted',resp);
-      // booking.deleteOne({
-      //   _id : bookingId
-      // }).then((res) => {
-      //   console.log('deleted',res);
-      // })
+     
       booking.updateOne({
         _id : bookingId
       },

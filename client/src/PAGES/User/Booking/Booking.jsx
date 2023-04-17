@@ -14,6 +14,8 @@ import { getCouponsApi } from '../../../api/Admin/ApiCalls';
 import { getCoupons } from '../../../redux/Actions/ADMIN_ACTIONS/couponActions';
 import { getWalletAction } from '../../../redux/Actions/USER_ACTIONS/getWalletAction';
 import WalletBookingSuccess from '../../../components/Modal/WalletBookingSuccess';
+import { Toaster, toast } from 'react-hot-toast';
+import { bookBikeApi } from '../../../api/User/ApiCalls';
 
 
 const { RangePicker } = DatePicker
@@ -41,8 +43,8 @@ function Booking() {
     const [walletError,setWalletError] = useState(false)
     const [stripe,setStripe] = useState(false)
     const [error,setError] = useState(false)
-    const [modal,setModal] = useState(false)
     const [value, setValue] = React.useState('female');
+    const [modal,setModal] = useState(false)
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -73,12 +75,7 @@ function Booking() {
   console.log('walletBookinf',walletBooking)
 
   const selectTimeSlots = (value) => {
-    // console.log(moment(value));
-    // console.log(moment(value[0].$d));
-    // console.log(moment(value[1].$d));
-    // console.log(moment().format('MMMM Do YYYY, h:mm:ss a'));
-    // console.log(moment(value[0].$d).format('DD MM YYYY hh:mm '));
-    // console.log(moment(value[1].$d).format('MMMM Do YYYY, h:mm:ss a'));
+    
     setStartDate(moment(value[0].$d).format('MMMM Do YYYY, h:mm:ss a'));
     setEndDate(moment(value[1].$d).format('MMMM Do YYYY, h:mm:ss a'));
     setTotalHours(value[1].diff(value[0], 'hours'))
@@ -169,7 +166,14 @@ const handleCheckout = () => {
     if(walletAmount.walletAmount >= totalAmount) {
       
       setWalletError(false)
-      dispatch(bookingAction(walletBookingData))
+      // dispatch(bookingAction(walletBookingData))
+      bookBikeApi(walletBookingData).then((data) => {
+        toast.success('Booking Successfull😃!')
+        setTimeout(() => {
+          navigate("/my-rents")
+        }, 3000);
+      })
+      
     }else {
       setWalletError(true)
     }
@@ -180,7 +184,14 @@ const handleCheckout = () => {
   return (
     <div>
          <Navbar/>
+         
+        
          <Box sx={{ flexGrow: 1 }} className='container mt-5'>
+         <Toaster
+       position="top-right"
+       reverseOrder={false}
+       toastOptions={{duration:4000}}
+      />
       <Grid container spacing={2}>
         <Grid item xs={6} md={6}>
           <Item>
@@ -239,6 +250,7 @@ const handleCheckout = () => {
            {
             couponApplied ? <p style={{color : 'red'}}>Coupon Has Already Applied</p> : ""
            }
+
           </Box>
            
           <Box  className='mt-3 ms-2'>
@@ -345,13 +357,6 @@ const handleCheckout = () => {
      
   </Grid>
   
-  {/* {
-    walletBooking ? <WalletBookingSuccess open={modal} onClose={()=>setModal(false)} message={walletBooking}/> : ""
-  } */}
-
-  {/* {
-    walletBooking === 'Booking Successfull' ? navigate('/my-rents') : ""
-  } */}
   
 </Grid>
         </MDBListGroupItem>
