@@ -11,11 +11,13 @@ import { Figure } from 'react-bootstrap';
 import { Button } from '@mui/material';
 import { useState } from 'react';
 import CancelRide from '../Modal/CancelRide';
+import EndRideModal from '../Modal/EndRideModal';
 
 
 export default function CustomizedTables({data}) {
  
   const [modal,setModal] = React.useState(false)
+  const [endRide,setEndRide] = useState(false)
   const [selectedBike,setSelectedBike] = useState('')
   const [selectedBooking,setSelectedBooking] = useState('')
   const [startTime,setStartTime] = useState('')
@@ -91,7 +93,13 @@ export default function CustomizedTables({data}) {
                  
                  <Button variant="contained" 
                  color="error"
-                 
+                 onClick={(e) => {
+                  setEndRide(true)
+                  setSelectedBike(row.bikeId)
+                  setSelectedBooking(row._id)
+                  setStartTime(row.startingTime)
+                  setEndTime(row.endingTime)
+                 }}
                  >
                  End Ride
                </Button> : ""
@@ -112,6 +120,14 @@ export default function CustomizedTables({data}) {
        startTime = {startTime} endTime = {endTime}
        userId = {userId}
        onClose={() => setModal(false)}/> : ""
+    }
+
+    {
+      endRide ? <EndRideModal bikeId={selectedBike}
+      bookingId={selectedBooking} startTime={startTime}
+      endTime={endTime} open={endRide} userId={userId}
+      onClose={() => setEndRide(false)}
+      /> : ""
     }
     </>
   );

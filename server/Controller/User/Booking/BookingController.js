@@ -9,7 +9,7 @@ const Stripe = require("stripe")
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 
 
-exports.bikeBookingController = async(req,res) => {
+exports.  bikeBookingController = async(req,res) => {
    console.log(req.body.bookingData);
     const {user,userName,bikeId,bikeDetails,totalHours,totalAmount,needHelmet,bookedTimeSlots,location,paymentType,couponCode} = req.body.bookingData
     console.log(paymentType);
@@ -112,7 +112,7 @@ exports.bikeBookingController = async(req,res) => {
      console.log('user',user);
 
      walletSchema.findOne({userId : user}).then((data) => {
-      console.log('pppppp',data);
+     
      })
     
     walletSchema.updateOne(
@@ -133,7 +133,7 @@ exports.bikeBookingController = async(req,res) => {
         // }
       }
       ).then(async(response) => {
-        console.log('wallet payment done',response);
+        
 
         let bikeData = await bikeSchema.findOne({
           $and : [
@@ -148,43 +148,137 @@ exports.bikeBookingController = async(req,res) => {
 
         if(bikeData) {
           let walletExists = await walletSchema.findOne({userId : bikeData.OwnerId})
+          let withoutCouponAmount
           let bookingAmount 
+          let price
 
-          if(!walletExists){
-            bookingAmount = totalAmount * 0.25
-            console.log('null');
-            const newWallet = {
-              userId : bikeData.OwnerId,
-              walletAmount : bookingAmount,
-              walletHistory : [
-                {
-                  Type : "Bike rent Share",
-                  amountAdded : bookingAmount
-                }
-              ]
-            }
-    
-            walletSchema.create(newWallet)
-          } else {
-            console.log('exists');
-            walletSchema.updateOne({
-              userId : walletExists.userId
-            },
+           //checking if coupon applied
+     
+     if(couponCode !== "null"){
+      
+      couponSchema.findOne({
+        couponCode : couponCode
+      }).then((couponData) => {
+        console.log(couponData)
+        price = couponData.couponPrice
+        console.log("PRICE",couponData.couponPrice);
+        console.log(totalAmount);
+        withoutCouponAmount = parseInt(totalAmount) + parseInt(price)
+        console.log('withoutCoupon',withoutCouponAmount);
+        bookingAmount = withoutCouponAmount * 0.25
+        if(!walletExists){
+        
+          console.log('null');
+          const newWallet = {
+            userId : bikeData.OwnerId,
+            walletAmount : withoutCouponAmount * 0.25,
+            walletHistory : [
               {
-                $inc : {
-                  walletAmount : bookingAmount
-                },
-                $push : {
-                  walletHistory : {
-                    Type : "Bike Rent Share",
-                    amountAdded : bookingAmount
-                  }
+                Type : "Bike rent Share",
+                amountAdded : withoutCouponAmount * 0.25
+              }
+            ]
+          }
+  
+          walletSchema.create(newWallet)
+        } else {
+          console.log('exists');
+          walletSchema.updateOne({
+            userId : walletExists.userId
+          },
+            {
+              $inc : {
+                walletAmount : withoutCouponAmount * 0.25
+              },
+              $push : {
+                walletHistory : {
+                  Type : "Bike Rent Share",
+                  amountAdded : withoutCouponAmount * 0.25
                 }
               }
-            ).then((response) => {
-              console.log("response",response);
-            })
+            }
+          ).then((response) => {
+            console.log("response",response);
+          })
+        }
+      })
+     } else if(couponCode === "null") {
+      console.log('no coupon');
+      if(!walletExists){
+        bookingAmount = totalAmount * 0.25
+        console.log(bookingAmount);
+        console.log('null');
+        const newWallet = {
+          userId : bikeData.OwnerId,
+          walletAmount : bookingAmount,
+          walletHistory : [
+            {
+              Type : "Bike rent Share",
+              amountAdded : bookingAmount
+            }
+          ]
+        }
+
+        walletSchema.create(newWallet)
+      } else {
+        console.log('exists');
+        walletSchema.updateOne({
+          userId : walletExists.userId
+        },
+          {
+            $inc : {
+              walletAmount : totalAmount * 0.25
+            },
+            $push : {
+              walletHistory : {
+                Type : "Bike Rent Share",
+                amountAdded : totalAmount * 0.25
+              }
+            }
           }
+        ).then((response) => {
+          console.log("response",response);
+        })
+      }
+
+     }
+    // 
+
+          // if(!walletExists){
+          //   bookingAmount = totalAmount * 0.25
+          //   console.log('null');
+          //   const newWallet = {
+          //     userId : bikeData.OwnerId,
+          //     walletAmount : bookingAmount,
+          //     walletHistory : [
+          //       {
+          //         Type : "Bike rent Share",
+          //         amountAdded : bookingAmount
+          //       }
+          //     ]
+          //   }
+    
+          //   walletSchema.create(newWallet)
+          // } else {
+          //   console.log('exists');
+          //   walletSchema.updateOne({
+          //     userId : walletExists.userId
+          //   },
+          //     {
+          //       $inc : {
+          //         walletAmount : bookingAmount
+          //       },
+          //       $push : {
+          //         walletHistory : {
+          //           Type : "Bike Rent Share",
+          //           amountAdded : bookingAmount
+          //         }
+          //       }
+          //     }
+          //   ).then((response) => {
+          //     console.log("response",response);
+          //   })
+          // }
         }
         
         res.status(200).json({message : 'Booking Successfull'})
@@ -279,9 +373,9 @@ exports.createOrderController = async(req,res) => {
       let price
 
       //checking if coupon applied
-      console.log('COUPON CODE0',couponCode);
-     if(couponCode !== null){
-      console.log('isCOuponAPplied',couponCode);
+     
+     if(couponCode !== "null"){
+      
       couponSchema.findOne({
         couponCode : couponCode
       }).then((couponData) => {
@@ -297,11 +391,11 @@ exports.createOrderController = async(req,res) => {
           console.log('null');
           const newWallet = {
             userId : bikeData.OwnerId,
-            walletAmount : bookingAmount,
+            walletAmount : withoutCouponAmount * 0.25,
             walletHistory : [
               {
                 Type : "Bike rent Share",
-                amountAdded : bookingAmount
+                amountAdded : withoutCouponAmount * 0.25
               }
             ]
           }
@@ -314,12 +408,12 @@ exports.createOrderController = async(req,res) => {
           },
             {
               $inc : {
-                walletAmount : bookingAmount
+                walletAmount : withoutCouponAmount * 0.25
               },
               $push : {
                 walletHistory : {
                   Type : "Bike Rent Share",
-                  amountAdded : bookingAmount
+                  amountAdded : withoutCouponAmount * 0.25
                 }
               }
             }
@@ -328,10 +422,11 @@ exports.createOrderController = async(req,res) => {
           })
         }
       })
-     } else if(couponCode === null) {
+     } else if(couponCode === "null") {
       console.log('no coupon');
       if(!walletExists){
         bookingAmount = totalAmount * 0.25
+        console.log(bookingAmount);
         console.log('null');
         const newWallet = {
           userId : bikeData.OwnerId,
@@ -352,12 +447,12 @@ exports.createOrderController = async(req,res) => {
         },
           {
             $inc : {
-              walletAmount : bookingAmount
+              walletAmount : totalAmount * 0.25
             },
             $push : {
               walletHistory : {
                 Type : "Bike Rent Share",
-                amountAdded : bookingAmount
+                amountAdded : totalAmount * 0.25
               }
             }
           }
@@ -367,6 +462,8 @@ exports.createOrderController = async(req,res) => {
       }
 
      }
+    //  
+
     }else {
       console.log("NOTHING");
     }

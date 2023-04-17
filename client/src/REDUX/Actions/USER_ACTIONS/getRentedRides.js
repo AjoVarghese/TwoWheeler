@@ -39,3 +39,10 @@ export const cancelRideAction = (bikeId,bookingId,startTime,endTime,userId) => a
     })
     
 }
+
+export const endRideAction = (data) => async(dispatch) => {
+    dispatch({
+        type :ActionTypes.END_RIDE_SUCCESS,
+        payload : data
+    })
+}

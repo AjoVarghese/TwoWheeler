@@ -48,6 +48,7 @@ function SuccessPage() {
   const needHelmet = searchParams.get('needHelmet').trim()
   const paymentType = searchParams.get('paymentType').trim()
   const couponCode = searchParams.get('couponCode').trim()
+  console.log('COPOOONNN',couponCode);
  
   console.log(image);
 

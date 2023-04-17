@@ -1,5 +1,6 @@
 const bikes = require('../../../Models/vehicleSchema')
 const booking = require('../../../Models/bookingSchema')
+const walletSchema = require('../../../Models/walletSchema')
 
 exports.rentedRides = (req,res) => {
     console.log("rentedRides");
@@ -54,6 +55,7 @@ exports.rentedRides = (req,res) => {
           ]
        ).then((data) => {
         console.log(data);
+        
         // console.log(data[0].photo);
         res.status(200).json(data)
        })
@@ -94,6 +96,7 @@ exports.cancelRide = (req,res) => {
         }
       }).then((result) => {
         console.log('Cancelled',result);
+
         booking.aggregate(
           [
               {
@@ -140,9 +143,26 @@ exports.cancelRide = (req,res) => {
               }
             ]
          ).then((data) => {
-          console.log(data);
+          console.log("cancellation data",data);
+          walletSchema.updateOne({
+           userId : userId
+          },
+          {
+            $inc : {
+              walletAmount : data.totalAmount
+            },
+            $push : {
+              walletHistory : {
+                Type : "Cancellation Refund",
+                amountRefunded : data.totalAmount
+              }
+            }
+          }).then((resp) => {
+            console.log("RESP",resp);
+            res.status(200).json(data)
+          })
           // console.log(data[0].photo);
-          res.status(200).json(data)
+          
          })
       })
     })
