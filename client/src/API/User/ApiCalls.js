@@ -67,8 +67,8 @@ export const createOrderApi = (bookingDetails) => API.post('/booking-success',{b
 
 export const rentedRidesApi = () => API.get('/my-rents?id='+ID,configTOken)
 
-export const cancelRideApi = (bikeId,bookingId,startTime,endTime,userId) =>
- API.get(`/cancel-ride?bikeId=${bikeId}&bookingId=${bookingId}&startTime=${startTime}&endTime=${endTime}&userId=${userId}`,configTOken)
+export const cancelRideApi = (bikeId,bookingId,startTime,endTime,userId,price) =>
+ API.get(`/cancel-ride?bikeId=${bikeId}&bookingId=${bookingId}&startTime=${startTime}&endTime=${endTime}&userId=${userId}&price=${price}`,configTOken)
 
  export const endRideApi = (bikeId,bookingId,startTime,endTime,userId) =>
  API.get(`/end-ride?bikeId=${bikeId}

@@ -26,13 +26,6 @@ function AllAcceptedBIkes({acceptedBikes,selectedLoc}) {
             acceptedBikes ? acceptedBikes.map((x,i) => {
               console.log(x._id);
               let Status 
-              // if(x.Location === selectedLoc){
-              //   Status = true
-              //   console.log(x.Location);
-              //   console.log(acceptedBikes);
-                
-              // }
-
               return (
                 <>
                 {

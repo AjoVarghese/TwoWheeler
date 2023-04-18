@@ -110,7 +110,7 @@ useEffect(() => {
         </TableHead>
         <TableBody>
          {
-          location ? location.map((data,i) => {
+          location && location.length > 0 ? location.map((data,i) => {
             return(
               <TableRow
               key={data.Location}
@@ -147,11 +147,11 @@ useEffect(() => {
              
             </TableRow>
             )
-         }) : "No data available"
+         }) : <h6>No data</h6>
          } 
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer> 
     </div>
       </Box>
       <EditLocationModal locationId={selectedLoc} open={editModal} onClose={()=>setEditModal(false)}/>

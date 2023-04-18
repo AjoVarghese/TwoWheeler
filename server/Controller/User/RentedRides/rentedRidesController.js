@@ -3,8 +3,6 @@ const booking = require('../../../Models/bookingSchema')
 const walletSchema = require('../../../Models/walletSchema')
 
 exports.rentedRides = (req,res) => {
-    console.log("rentedRides");
-    console.log(req.query.id);
     
     try {
         let userId = req.query.id
@@ -54,25 +52,22 @@ exports.rentedRides = (req,res) => {
             }
           ]
        ).then((data) => {
-        console.log(data);
         
-        // console.log(data[0].photo);
         res.status(200).json(data)
        })
-    } catch (error) {
-        
+    } catch (error) {  
     }
 }
 
 exports.cancelRide = (req,res) => {
+  try{
   let bikeId = req.query.bikeId
   let bookingId = req.query.bookingId
   let startTime = req.query.startTime
   let endTime = req.query.endTime
   let userId = req.query.userId
-  console.log(startTime);
-  console.log(endTime);
-  try {
+  let price = req.query.price
+  
    
     bikes.updateOne({
       _id : bikeId
@@ -85,7 +80,7 @@ exports.cancelRide = (req,res) => {
         }
       }
     }).then((resp) => {
-      console.log('bookingSlot deleted',resp);
+      
      
       booking.updateOne({
         _id : bookingId
@@ -93,9 +88,11 @@ exports.cancelRide = (req,res) => {
       {
         $set : {
           status : "Cancelled"
-        }
+        },
+        
+        
       }).then((result) => {
-        console.log('Cancelled',result);
+       
 
         booking.aggregate(
           [
@@ -121,7 +118,7 @@ exports.cancelRide = (req,res) => {
                   'totalAmount': 1, 
                   'location': 1, 
                   'needHelmet': 1, 
-                  'status' : 1,
+                  'status' : result.status,
                   'startingTime': '$bookedTimeSlots.startDate', 
                   'endingTime': '$bookedTimeSlots.endDate'
                 }
@@ -142,26 +139,42 @@ exports.cancelRide = (req,res) => {
                 }
               }
             ]
-         ).then((data) => {
-          console.log("cancellation data",data);
-          walletSchema.updateOne({
-           userId : userId
-          },
-          {
-            $inc : {
-              walletAmount : data.totalAmount
-            },
-            $push : {
-              walletHistory : {
-                Type : "Cancellation Refund",
-                amountRefunded : data.totalAmount
-              }
+         ).then(async(data) => {
+          
+          let walletExists = await walletSchema.findOne({userId : userId})
+          if(!walletExists){
+            const newWallet = {
+              userId : userId,
+              walletAmount : price,
+              walletHistory : [
+                {
+                  Type : "Cancellation Refund",
+                  amountAdded : price
+                }
+              ]
             }
-          }).then((resp) => {
-            console.log("RESP",resp);
-            res.status(200).json(data)
-          })
-          // console.log(data[0].photo);
+    
+            walletSchema.create(newWallet)
+          } else {
+            walletSchema.updateOne({
+              userId : userId
+             },
+             {
+               $inc : {
+                 walletAmount : price
+               },
+               $push : {
+                 walletHistory : {
+                   Type : "Cancellation Refund",
+                   amountRefunded : price
+                 }
+               }
+             }).then((resp) => {
+              
+               res.status(200).json(data)
+             })
+          }
+      
           
          })
       })

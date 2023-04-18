@@ -12,8 +12,9 @@ function EndRideModal({bikeId,bookingId,startTime,endTime,userId,open,onClose}) 
 
     const handleEndRide = () => {
       endRideApi(bikeId,bookingId,startTime,endTime,userId).then((data) => {
-        dispatch(endRideAction(data.data))
         onClose()
+        dispatch(endRideAction(data.data))
+        
         console.log('END rIDE API',data.data);
         
       })

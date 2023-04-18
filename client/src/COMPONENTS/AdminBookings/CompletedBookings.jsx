@@ -22,85 +22,78 @@ const rows = [
 ];
 
 function CompletedBookings({data}) {
-    let Status = false
-    if(Status === false){
-        return(
-            <>
-            <h4>No Completed Rides</h4>
-            </>
-        )
-    } else {
+   
         return (
-            <div>
-              <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Sl.No</TableCell>
-                    <TableCell align="center">Image</TableCell>
-                    <TableCell align="center">Bike Name</TableCell>
-                    <TableCell align="center">Bike Model</TableCell>
-                    {/* <TableCell align="center">Rented User</TableCell> */}
-                    <TableCell align="center">Starting Time</TableCell>
-                    <TableCell align="center">Ending Time</TableCell>
-                    <TableCell align="center">Total Hours</TableCell>
-                    <TableCell align="center">Total Amount</TableCell>
-                    <TableCell align="center">Status</TableCell>
-                   
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {
-                    data ? data.map((row,i) => {
-                      
-                      if(row.status === 'Completed'){
-                        Status = true
-                      }
-                      return (
-                        <>
-                          {
-                            Status === true ? 
-                            <TableRow
-                      key={row.name}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {i + 1}
-                      </TableCell>
-                      <TableCell align="center">
-                      <Figure>
-                          <Figure.Image
-                            width={171}
-                            height={180}
-                            alt="llll"
-                            src={row.photo[0]}
-                          />
-                        <Figure.Caption>
-              
-                </Figure.Caption>
-                </Figure>
-                      </TableCell>
-                      <TableCell align="center">{row.bikeName}</TableCell>
-                      <TableCell align="center">{row.bikeModel}</TableCell>
-                      {/* <TableCell align="center">{row.userName}</TableCell> */}
-                      <TableCell align="center">{row.startingTime}</TableCell>
-                      <TableCell align="center">{row.endingTime}</TableCell>
-                      <TableCell align="center">{row.totalHours}</TableCell>
-                      <TableCell align="center">Rs.{row.totalAmount}</TableCell>
-                      <TableCell align="center">{row.status}</TableCell>
-                     
-                    </TableRow> : ''
-                          }
-                        </>
-                      )
-                    }) : Status = false
+          <div>
+          <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Sl.No</TableCell>
+                <TableCell align="center">Image</TableCell>
+                <TableCell align="center">Bike Name</TableCell>
+                <TableCell align="center">Bike Model</TableCell>
+                {/* <TableCell align="center">Rented User</TableCell> */}
+                <TableCell align="center">Starting Time</TableCell>
+                <TableCell align="center">Ending Time</TableCell>
+                <TableCell align="center">Total Hours</TableCell>
+                <TableCell align="center">Total Amount</TableCell>
+                <TableCell align="center">Status</TableCell>
+               
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {
+                data ? data.map((row,i) => {
+                  let Status
+                  if(row.status === 'Completed'){
+                    Status = true
                   }
-                </TableBody>
-              </Table>
-            </TableContainer>
-            </div>
+                  return (
+                    <>
+                      {
+                        Status ? 
+                        <TableRow
+                  key={row.name}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {i + 1}
+                  </TableCell>
+                  <TableCell align="center">
+                  <Figure>
+                      <Figure.Image
+                        width={171}
+                        height={180}
+                        alt="llll"
+                        src={row.photo[0]}
+                      />
+                    <Figure.Caption>
+          
+            </Figure.Caption>
+            </Figure>
+                  </TableCell>
+                  <TableCell align="center">{row.bikeName}</TableCell>
+                  <TableCell align="center">{row.bikeModel}</TableCell>
+                  {/* <TableCell align="center">{row.userName}</TableCell> */}
+                  <TableCell align="center">{row.startingTime}</TableCell>
+                  <TableCell align="center">{row.endingTime}</TableCell>
+                  <TableCell align="center">{row.totalHours}</TableCell>
+                  <TableCell align="center">Rs.{row.totalAmount}</TableCell>
+                  <TableCell align="center">{row.status}</TableCell>
+                 
+                </TableRow> : ""
+                      }
+                    </>
+                  )
+                }) : ""
+              }
+            </TableBody>
+          </Table>
+        </TableContainer>
+        </div>
           )
-    }
+    
 
   
 }

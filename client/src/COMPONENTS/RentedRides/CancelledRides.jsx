@@ -30,7 +30,7 @@ function CancelledRides({data}) {
       </TableHead>
       <TableBody>
         {
-          data ? data.map((row,i) => {
+          data && data.length > 0 ? data.map((row,i) => {
             let Status
             if(row.status === 'Cancelled'){
               Status = true
@@ -67,24 +67,18 @@ function CancelledRides({data}) {
             <TableCell align="center">{row.totalHours}</TableCell>
             <TableCell align="center">Rs.{row.totalAmount}</TableCell>
             <TableCell align="center">{row.status}</TableCell>
-            {/* <TableCell align="center">
-              {
-                row.status === 'Booked' ?
-                <Button variant="contained" color="error">
-                Cancel
-              </Button>  
-               :
-               <Button variant="contained" color="error">
-               End Ride
-             </Button>  
-              }
             
-            </TableCell> */}
           </TableRow> : ""
                 }
               </>
             )
-          }) : ""
+          }) : (
+            <TableRow>
+              <TableCell colSpan={10} align="center">
+                No data
+              </TableCell>
+            </TableRow>
+          )
         }
       </TableBody>
     </Table>

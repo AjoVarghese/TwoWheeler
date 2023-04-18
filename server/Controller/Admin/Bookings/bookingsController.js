@@ -55,7 +55,7 @@ exports.getBookedDetails = async(req,res) => {
               ]
         )
         // .then((data) => {
-            console.log(data);
+            console.log('full data',data);
             console.log(data[0].status);
             let startTime 
             let endTime
@@ -91,7 +91,7 @@ exports.getBookedDetails = async(req,res) => {
                   ).then((res) => {
                     console.log("EXCEEDED",res);
                   })
-              } else if(currentTime < startTime) {
+              } else if(currentTime < startTime && data[i].status !== 'Cancelled') {
                 console.log('booked');
                 booking.findOneAndUpdate(
                   {
@@ -106,7 +106,7 @@ exports.getBookedDetails = async(req,res) => {
                     console.log("BOOKED",res);
                   })
                 
-              } else if(currentTime >= startTime && currentTime <= endTime) {
+              } else if(currentTime >= startTime && currentTime <= endTime && data[i].status !== 'Completed') {
                 console.log("onRide");
                booking.findOneAndUpdate(
                 {

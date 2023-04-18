@@ -22,6 +22,7 @@ export default function CustomizedTables({data}) {
   const [selectedBooking,setSelectedBooking] = useState('')
   const [startTime,setStartTime] = useState('')
   const [endTime,setEndTime] = useState('')
+  const [price,setPrice] = useState('')
 
   let userId = JSON.parse(localStorage.getItem("userInfo")).id
   return (
@@ -44,7 +45,7 @@ export default function CustomizedTables({data}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data ? data.map((row,i) => (
+          {data && data.length > 0  ? data.map((row,i) => (
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -83,7 +84,7 @@ export default function CustomizedTables({data}) {
                     setSelectedBooking(row._id)
                     setStartTime(row.startingTime)
                     setEndTime(row.endingTime)
-
+                    setPrice(row.totalAmount)
                    }}
                   >
                   Cancel
@@ -109,7 +110,14 @@ export default function CustomizedTables({data}) {
               
               </TableCell>
             </TableRow>
-          )) : "no data"
+          )) : 
+          (
+            <TableRow>
+              <TableCell colSpan={10} align="center">
+                No data
+              </TableCell>
+            </TableRow>
+          )
         }
         </TableBody>
       </Table>
@@ -118,7 +126,7 @@ export default function CustomizedTables({data}) {
       modal ? <CancelRide bikeId={selectedBike} 
        bookingId={selectedBooking} open={modal} 
        startTime = {startTime} endTime = {endTime}
-       userId = {userId}
+       userId = {userId} price={price}
        onClose={() => setModal(false)}/> : ""
     }
 

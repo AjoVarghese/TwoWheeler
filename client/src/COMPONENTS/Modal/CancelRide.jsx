@@ -4,11 +4,11 @@ import { useDispatch } from 'react-redux'
 import BasicModal from '../BasicModal/BasicModal'
 import { cancelRideAction } from '../../redux/Actions/USER_ACTIONS/getRentedRides'
 
-function CancelRide({bikeId,bookingId,startTime,endTime,userId,open,onClose}) {
+function CancelRide({bikeId,bookingId,startTime,endTime,userId,price,open,onClose}) {
     const dispatch = useDispatch()
 
     const handleCancel = (bikeId,bookingId) => {
-       dispatch(cancelRideAction(bikeId,bookingId,startTime,endTime,userId))
+       dispatch(cancelRideAction(bikeId,bookingId,startTime,endTime,userId,price))
        onClose()
     }
 

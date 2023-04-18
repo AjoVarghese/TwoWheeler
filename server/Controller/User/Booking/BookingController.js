@@ -10,35 +10,32 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 
 
 exports.  bikeBookingController = async(req,res) => {
-   console.log(req.body.bookingData);
-    const {user,userName,bikeId,bikeDetails,totalHours,totalAmount,needHelmet,bookedTimeSlots,location,paymentType,couponCode} = req.body.bookingData
-    console.log(paymentType);
-    console.log(couponCode);
-    let session
 
+    const {user,userName,bikeId,bikeDetails,totalHours,totalAmount,needHelmet,bookedTimeSlots,location,paymentType,couponCode} = req.body.bookingData
+    let session
     try {
       
       let startingTime = bookedTimeSlots.startDate
       let endingTime = bookedTimeSlots.endDate
       let status = true
       
-     let checkDate = await bikeSchema.findOne({_id :bikeId})
+     let check = await bikeSchema.findOne({_id :bikeId})
+     let isBooked = await bookingSchema.findOne({bikeId : bikeId})
+     for(let i = 0 ; i < check.BookedTimeSlots.length ; i++){
      
-     for(let i = 0 ; i < checkDate.BookedTimeSlots.length ; i++){
-     
-      if( startingTime > checkDate.BookedTimeSlots[i].endDate){
-        console.log(" allowed");
+      if( startingTime > check.BookedTimeSlots[i].endDate){
+        
         status = true
-      } else if(startingTime && startingTime <=checkDate.BookedTimeSlots[i].endDate ) {
-        console.log('booking not allowed');
+      } else if(startingTime && startingTime <=check.BookedTimeSlots[i].endDate && isBooked?.status !== 'Completed' && isBooked?.status !== 'Cancelled') {
+        
         status = false
       }
       
      }
     
-     //date Status
+    //  date Status
      if(status === true){
-      console.log("book");
+     
       if(paymentType === 'Stripe') {
         session = await stripe.checkout.sessions.create({
           line_items: [
@@ -76,7 +73,7 @@ exports.  bikeBookingController = async(req,res) => {
        
         res.status(200).json({url: session.url,bookingData : req.body })
       } else {
-        console.log('wallet payment');
+       
         const booking = new bookingSchema({
           userId: user,
           bikeId: bikeId,
@@ -153,22 +150,17 @@ exports.  bikeBookingController = async(req,res) => {
           let price
 
            //checking if coupon applied
-     
-     if(couponCode !== "null"){
+     if(couponCode !== null){
       
       couponSchema.findOne({
         couponCode : couponCode
       }).then((couponData) => {
-        console.log(couponData)
-        price = couponData.couponPrice
-        console.log("PRICE",couponData.couponPrice);
-        console.log(totalAmount);
+       
+        price = couponData?.couponPrice
         withoutCouponAmount = parseInt(totalAmount) + parseInt(price)
-        console.log('withoutCoupon',withoutCouponAmount);
         bookingAmount = withoutCouponAmount * 0.25
-        if(!walletExists){
         
-          console.log('null');
+        if(!walletExists){
           const newWallet = {
             userId : bikeData.OwnerId,
             walletAmount : withoutCouponAmount * 0.25,
@@ -198,16 +190,15 @@ exports.  bikeBookingController = async(req,res) => {
               }
             }
           ).then((response) => {
-            console.log("response",response);
+            
           })
         }
       })
-     } else if(couponCode === "null") {
-      console.log('no coupon');
+     } else if(couponCode === null) {
+    
       if(!walletExists){
         bookingAmount = totalAmount * 0.25
-        console.log(bookingAmount);
-        console.log('null');
+       
         const newWallet = {
           userId : bikeData.OwnerId,
           walletAmount : bookingAmount,
@@ -237,54 +228,17 @@ exports.  bikeBookingController = async(req,res) => {
             }
           }
         ).then((response) => {
-          console.log("response",response);
+          
         })
       }
 
      }
-    // 
-
-          // if(!walletExists){
-          //   bookingAmount = totalAmount * 0.25
-          //   console.log('null');
-          //   const newWallet = {
-          //     userId : bikeData.OwnerId,
-          //     walletAmount : bookingAmount,
-          //     walletHistory : [
-          //       {
-          //         Type : "Bike rent Share",
-          //         amountAdded : bookingAmount
-          //       }
-          //     ]
-          //   }
-    
-          //   walletSchema.create(newWallet)
-          // } else {
-          //   console.log('exists');
-          //   walletSchema.updateOne({
-          //     userId : walletExists.userId
-          //   },
-          //     {
-          //       $inc : {
-          //         walletAmount : bookingAmount
-          //       },
-          //       $push : {
-          //         walletHistory : {
-          //           Type : "Bike Rent Share",
-          //           amountAdded : bookingAmount
-          //         }
-          //       }
-          //     }
-          //   ).then((response) => {
-          //     console.log("response",response);
-          //   })
-          // }
         }
         
         res.status(200).json({message : 'Booking Successfull'})
       })
       .catch((err) => {
-        console.log('wallet booking error',err);
+        
       })
       // res.status(200).status({message : "Booking Confirmed"})
       } catch (error) {
@@ -338,7 +292,8 @@ exports.createOrderController = async(req,res) => {
     }
     //setting userId to coupon
     //checking coupon 
-    if(couponCode !== null && couponCode !== ''){
+    
+    if(couponCode !== "null" && couponCode !== ''){
       // let findUser = couponSchema.findOne({users : userId})
       couponSchema.updateOne(
         {couponCode : couponCode},
@@ -379,16 +334,14 @@ exports.createOrderController = async(req,res) => {
       couponSchema.findOne({
         couponCode : couponCode
       }).then((couponData) => {
-        console.log(couponData)
+       
         price = couponData.couponPrice
-        console.log("PRICE",couponData.couponPrice);
-        console.log(totalAmount);
+       
         withoutCouponAmount = parseInt(totalAmount) + parseInt(price)
-        console.log('withoutCoupon',withoutCouponAmount);
+       
         bookingAmount = withoutCouponAmount * 0.25
         if(!walletExists){
         
-          console.log('null');
           const newWallet = {
             userId : bikeData.OwnerId,
             walletAmount : withoutCouponAmount * 0.25,
@@ -402,7 +355,7 @@ exports.createOrderController = async(req,res) => {
   
           walletSchema.create(newWallet)
         } else {
-          console.log('exists');
+          
           walletSchema.updateOne({
             userId : walletExists.userId
           },
@@ -418,16 +371,15 @@ exports.createOrderController = async(req,res) => {
               }
             }
           ).then((response) => {
-            console.log("response",response);
+           
           })
         }
       })
      } else if(couponCode === "null") {
-      console.log('no coupon');
+      
       if(!walletExists){
         bookingAmount = totalAmount * 0.25
-        console.log(bookingAmount);
-        console.log('null');
+        
         const newWallet = {
           userId : bikeData.OwnerId,
           walletAmount : bookingAmount,

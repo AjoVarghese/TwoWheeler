@@ -29,7 +29,7 @@ import { FileUpload } from 'primereact/fileupload';
 // import { Tooltip, Button } from '@mantine/core';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getUserProfileAction, getUserProfileReducer, imageUploadAction } from '../../../redux/Actions/USER_ACTIONS/userProfileAction';
 import ModalBox from '../../../components/Modal/ModalBox';
 import Box from '@mui/material/Box';
@@ -65,7 +65,6 @@ function Profile() {
   const handleClick = (e) => {
      e.preventDefault()
      const formData = new FormData()
-     console.log("Image",image);
     formData.append("file",image)
     formData.append("upload_preset","ml_default")
     formData.append("cloud_name","dxt9i7gl6")
@@ -139,7 +138,15 @@ function Profile() {
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                     <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
                     <p>Wallet Amount: <span><h4>Rs.{wallet ?.walletAmount}.00</h4></span></p>
-                    <Button variant="warning ms-4" style={{backgroundColor : "#fed250"}}>My Wallet</Button>{' '}
+                   
+                    <Button variant="warning ms-4" 
+                    style={{backgroundColor : "#fed250"}}
+                    onClick = {(e) => {
+                      navigate('/my-wallet',{state:{wallet}})
+                    }}
+                    >My Wallet</Button>{' '}
+                    
+                   
                   </MDBListGroupItem>
                 </MDBListGroup>
               </MDBCardBody>

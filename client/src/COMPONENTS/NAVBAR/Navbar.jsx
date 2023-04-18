@@ -179,16 +179,16 @@ function Navbar() {
 
           <Group sx={{ height: '100%' }} spacing={0} className={classes.hiddenMobile}>
             <a  className={classes.link}>
-            <Link to = '/' style={{color :'black',textDecoration :'none'}}>Home</Link>
+            <Link to = '/' style={{color :'black',textDecoration :'none'}}><h6>Home</h6></Link>
             </a>
             
             <a className={classes.link}>
               
-              <Link to = '/bikes' style={{color :'black',textDecoration :'none'}}>Bikes</Link>
+              <Link to = '/bikes' style={{color :'black',textDecoration :'none'}}><h6>Bikes</h6></Link>
             </a>
             <a className={classes.link}>
               
-              <Link to = '/rent-bikes' style={{color :'black',textDecoration :'none'}}>Rent Your Bike</Link>
+              <Link to = '/rent-bikes' style={{color :'black',textDecoration :'none'}}><h6>Rent Your Bike</h6></Link>
             </a>
           </Group>
            {

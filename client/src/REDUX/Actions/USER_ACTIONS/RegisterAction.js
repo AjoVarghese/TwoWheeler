@@ -36,10 +36,3 @@ export const userRegister = (Name,Email,Mobile,Password,Referral) => async(dispa
    
   }
 }
-
-// export const registerInitiate = (email,password,displayName) => async(dispatch) => {
-//   dispatch({
-//     type : ActionTypes.GOOGLE_SIGNUP_REQ
-//   })
-//   auth.createUserWithEmailAndPassword(email,password).then(({user}))
-// }

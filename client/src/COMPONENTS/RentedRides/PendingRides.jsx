@@ -31,7 +31,7 @@ function PendingRides({data}) {
       </TableHead>
       <TableBody>
         {
-          data ? data.map((row,i) => {
+          data && data.length > 0  ? data.map((row,i) => {
             let Status
             if(row.status === 'Booked'){
               Status = true
@@ -85,7 +85,13 @@ function PendingRides({data}) {
                 }
               </>
             )
-          }) : ""
+          }) :(
+            <TableRow>
+              <TableCell colSpan={10} align="center">
+                No data
+              </TableCell>
+            </TableRow>
+          )
         }
       </TableBody>
     </Table>

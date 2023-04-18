@@ -36,14 +36,7 @@ function SingleView() {
  
   return (
     <div>
-       {/* {
-      modal ? <TimePicker 
-      open={modal} 
-      onClose={()=>setModal(false)} 
-      pick={setpickTime}
-      dropoff = {setDropTime}
-       /> : ""
-    } */}
+      
         <Navbar/>    
         <Box sx={{ width: '100%' }}>
       <Stack spacing={2} style={{boxShadow:'0.5px 0.5px'}} className='mt-2'>

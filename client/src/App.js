@@ -3,32 +3,6 @@ import React ,{lazy,Suspense} from 'react';
 // import { ChakraProvider } from '@chakra-ui/react'
 import { useSelector } from 'react-redux';
 import {BrowserRouter as Router,Navigate,Route,Routes} from 'react-router-dom'
-// import Bookings from './pages/Admin/Bookings/Bookings';
-// import Dashboard from './pages/Admin/DashBoard/Dashboard';
-// import AddLocation from './pages/Admin/Locations/AddLocation';
-// import Locations from './pages/Admin/Locations/Locations';
-// import AdminLogin from './pages/Admin/Login/AdminLogin';
-// import RentRequets from './pages/Admin/RentRequets/RentRequets';
-// import Users from './pages/Admin/Users/Users';
-// import AddVehicle from './pages/Admin/Vehicles/AddVehicle';
-// import EditBike from './pages/Admin/Vehicles/EditBike';
-// import SingleBikeView from './pages/Admin/Vehicles/SingleBikeView';
-// import Vehicle from './pages/Admin/Vehicles/Vehicle';
-// import Bikes from './pages/User/Bikes/Bikes';
-// import Home from './pages/User/Home/Home';
-
-// import Login from "./pages/User/Login/Login";
-// import Otplogin from './pages/User/OTPLogin/Otplogin';
-// import Profile from './pages/User/Profile/Profile';
-// import RentBikes from './pages/User/Rent Bikes/RentBikes';
-// import ViewRentedBikes from './pages/User/Rent Bikes/ViewRentedBikes';
-
-// import Signup from "./pages/User/Signup/Signup";
-// import SingleView from './pages/User/SingleView/SingleView';
-// import Booking from './pages/User/Booking/Booking';
-// import Coupons from './pages/Admin/Coupons/Coupons';
-// import SuccessPage from './components/SuccessPage/SuccessPage';
-// import RentedRides from './pages/User/RentedRides/RentedRides';
 
 //LazyLoading
 const Bookings = lazy(() => import('./pages/Admin/Bookings/Bookings'));
@@ -55,6 +29,7 @@ const Booking = lazy(() => import('./pages/User/Booking/Booking'));
 const Coupons = lazy(() => import('./pages/Admin/Coupons/Coupons'));
 const SuccessPage = lazy(() => import('./components/SuccessPage/SuccessPage'));
 const RentedRides = lazy(() => import('./pages/User/RentedRides/RentedRides'));
+const Wallet = lazy(() => import('./pages/User/Wallet/Wallet'))
  
 function App() {
   const userdata = useSelector((state)=>state.userLoginReducer.userLoginDetails);
@@ -79,6 +54,7 @@ function App() {
           <Route exact path = '/booking-summary' element={userdata ? <Booking/> : <Navigate to = '/login'/>}></Route>
           <Route exact path = '/booking-success' element={<SuccessPage/>}></Route>
           <Route exact path = '/my-rents' element = {userdata ? <RentedRides/> : <Navigate to = '/login'/>}></Route>
+          <Route exact path = '/my-wallet' element = {userdata ? <Wallet/> : <Navigate to = '/login'/>}></Route>
 
 
           {/* admin */}

@@ -22,8 +22,8 @@ export const rentedRidesAction = () => async(dispatch) => {
     })
 }
 
-export const cancelRideAction = (bikeId,bookingId,startTime,endTime,userId) => async(dispatch) => {
-    cancelRideApi(bikeId,bookingId,startTime,endTime,userId).then((data) => {
+export const cancelRideAction = (bikeId,bookingId,startTime,endTime,userId,price) => async(dispatch) => {
+    cancelRideApi(bikeId,bookingId,startTime,endTime,userId,price).then((data) => {
         console.log('cancelRIdeAPI',data.data);
         dispatch({
             type : ActionTypes.CANCEL_RIDE_SUCCESS,

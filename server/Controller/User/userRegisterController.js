@@ -62,7 +62,7 @@ exports.signUpPost = async(req,res) => {
                                     walletHistory : [
                                         {
                                             Type : "Referral Bonus",
-                                            Amount : 100,
+                                            amountAdded : 100,
     
                                         }
                                     ]
@@ -84,7 +84,7 @@ exports.signUpPost = async(req,res) => {
                                         $push : {
                                             walletHistory : {
                                                 Type : "Referral Bonus",
-                                                Amount : 100
+                                                amountAdded : 100,
                                             }
                                         }
                                     }).then((res) => {
@@ -102,7 +102,8 @@ exports.signUpPost = async(req,res) => {
                             walletHistory : [
                                 {
                                     Type : "Refferal share",
-                                    Amount : 50
+                                    amountAdded : 50,
+                                    
                                 }
                             ]
                         }
