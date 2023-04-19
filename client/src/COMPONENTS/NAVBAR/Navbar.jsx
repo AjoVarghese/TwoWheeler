@@ -190,6 +190,11 @@ function Navbar() {
               
               <Link to = '/rent-bikes' style={{color :'black',textDecoration :'none'}}><h6>Rent Your Bike</h6></Link>
             </a>
+
+            <a className={classes.link}>
+              
+              <Link to = '/chat' style={{color :'black',textDecoration :'none'}}><h6>Chat with Bike Owners</h6></Link>
+            </a>
           </Group>
            {
             userLoginDetails ?

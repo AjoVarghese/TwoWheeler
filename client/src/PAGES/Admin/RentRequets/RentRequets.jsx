@@ -37,10 +37,10 @@ function RentRequets() {
     const rentData = useSelector((state) => state.rentRequestsReducer.rentRequestsData)
     console.log("rentData",rentData);
     const [selectedBike,SetSelectedBike]=useState('');
-    console.log("selected",selectedBike);
+    const [owner,setOwner] = useState('')
 
     const acceptRequest =() =>{
-           dispatch(acceptRentRequests(selectedBike))  
+           dispatch(acceptRentRequests(selectedBike,owner))  
     }
 
     const rejectRequest = () => {
@@ -58,6 +58,7 @@ function RentRequets() {
             {
               alertDialog ? <AlertDialog action="Accept"  closeDialog = {setAlertDialog} 
               bikeId = {selectedBike} functionToBeDone = {acceptRequest} 
+              ownerId={owner}
               message='Do you want proceed with the action'/> : ""
             }
 
@@ -126,6 +127,7 @@ function RentRequets() {
              <TableCell align="center"><h5>{data.Color}</h5></TableCell>
              <TableCell align="center"><h5>{data.Price}/hr</h5></TableCell>
              <TableCell align="center"><h5>{data.Status}</h5></TableCell>
+             
              <TableCell align="center">
              <Button variant="contained" color="success" 
              onClick={(e) => {
@@ -133,6 +135,7 @@ function RentRequets() {
                setRejectDialog(false)
                setAlertDialog(true)
                SetSelectedBike(data._id)
+               setOwner(data.OwnerId)
 
              }
               

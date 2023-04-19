@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import './Signup.css'
+// import './Signup.css'
 import 'semantic-ui-css/semantic.min.css'
 import {Form,Button} from 'semantic-ui-react'
 import { yupResolver } from "@hookform/resolvers/yup";

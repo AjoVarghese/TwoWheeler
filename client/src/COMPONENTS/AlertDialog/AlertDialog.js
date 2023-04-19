@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { acceptRentRequests } from '../../redux/Actions/ADMIN_ACTIONS/rentRequestsAction';
 import { toast } from 'react-hot-toast';
 
-export default function AlertDialog({closeDialog,Id,functionToBeDone,message,action}) {
+export default function AlertDialog({closeDialog,Id,ownerId,functionToBeDone,message,action}) {
     console.log("RENT DETAILS",Id);
     console.log("Action",action);
     // console.log("funtion to done",functionToBeDone);

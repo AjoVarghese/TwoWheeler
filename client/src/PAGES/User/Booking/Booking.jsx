@@ -3,6 +3,8 @@ import Navbar from '../../../components/NAVBAR/Navbar'
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
+// import Swal from 'sweetalert';
+// import 'sweetalert/dist/sweetalert.css';
 import { Button, Checkbox, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { MDBCard, MDBCardHeader, MDBListGroup, MDBListGroupItem } from 'mdb-react-ui-kit';
@@ -45,6 +47,7 @@ function Booking() {
     const [error,setError] = useState(false)
     const [value, setValue] = React.useState('female');
     const [modal,setModal] = useState(false)
+    const [blocked,setBlocked] = useState(false)
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -157,28 +160,36 @@ const walletBookingData = {
 }
 
 const handleCheckout = () => {
-  if(wallet === false && stripe === true){
-    setWalletError(false)
-    dispatch(bookingAction(stripeData))
-  } else if(wallet === true && stripe === false) {
-    console.log(totalAmount);
-    console.log(walletAmount.walletAmount);
-    if(walletAmount.walletAmount >= totalAmount) {
-      
+  let checkAuthorised = JSON.parse(localStorage.getItem('userInfo'))
+  console.log("CHECKAUTHORISED",checkAuthorised);
+  // if(checkAuthorised === true){
+    setBlocked(false)
+    if(wallet === false && stripe === true){
       setWalletError(false)
-      // dispatch(bookingAction(walletBookingData))
-      bookBikeApi(walletBookingData).then((data) => {
-        toast.success('Booking Successfull😃!')
-        setTimeout(() => {
-          navigate("/my-rents")
-        }, 3000);
-      })
+      dispatch(bookingAction(stripeData))
+    } else if(wallet === true && stripe === false) {
+      console.log(totalAmount);
+      console.log(walletAmount.walletAmount);
+      if(walletAmount.walletAmount >= totalAmount) {
+        
+        setWalletError(false)
+        bookBikeApi(walletBookingData).then((data) => {
+          toast.success('Booking Successfull😃!')
+          setTimeout(() => {
+            navigate("/my-rents")
+          }, 1500);
+        })
+        
+      }else {
+        setWalletError(true)
+      }
       
-    }else {
-      setWalletError(true)
     }
-    
-  }
+  // } else {
+  //      console.log('NOT Authorised');
+  //      setBlocked(true)
+  // }
+  
   
 }
   return (
@@ -402,9 +413,12 @@ const handleCheckout = () => {
     disabled
     // onClick={handleCheckout}
     >Checkout</Button>
-   
     
   }
+{/* 
+    {
+      blocked ? <p>Yor r being blocked</p> : ""
+    } */}
    
           </Item>
         </Box> : ""

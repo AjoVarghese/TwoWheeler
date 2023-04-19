@@ -32,7 +32,7 @@ export const adminAddBikeApi = (formData) => API.post('/add-bikes',formData,conf
 export const getAllBikesApi = () => API.get('/bikes',configToken)
 export const bikeSingleViewApi = (id) => API.get('/bike-detailed-view?id='+id , configToken)
 export const getRentRequetsApi = () => API.get('/rent-requests',configToken)
-export const acceptRentRequestsApi = (id) => API.get('/accept-request?id='+id,configToken)
+export const acceptRentRequestsApi = (id,owner) => API.get(`/accept-request?id=${id}&owner=${owner}`,configToken)
 export const rejectRentRequetsApi = (id) => API.get('/reject-requests?id='+id,configToken)
 export const deleteBikeAPi =(id) => API.get('/delete-bike?id='+id,configToken)
 export const editBikeApi = (id,formData) => API.post('/edit-bike?id='+id,formData,configFormData)

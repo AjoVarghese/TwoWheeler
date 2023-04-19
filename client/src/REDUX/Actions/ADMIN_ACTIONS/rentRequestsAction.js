@@ -21,13 +21,13 @@ export const getRentRequests = () => async(dispatch) => {
     })
 }
 
-export const acceptRentRequests = (id) => async(dispatch) => {
-    console.log("action id",id);
+export const acceptRentRequests = (id,owner) => async(dispatch) => {
+    console.log("action id",id,owner);
     dispatch({
         type : AdminActionTypes.ACCEPT_RENT_REQUESTS
     })
 
-    acceptRentRequestsApi(id).then((data) => {
+    acceptRentRequestsApi(id,owner).then((data) => {
         console.log("acceptRentRequests",data.data);
         dispatch({
             type : AdminActionTypes.ACCEPT_RENT_REQUESTS_SUCCESS,

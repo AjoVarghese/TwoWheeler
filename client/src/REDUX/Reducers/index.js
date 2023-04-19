@@ -20,6 +20,7 @@ import { rentedBikesReducer } from "./USER/rentedRidesReducer";
 import { bookingDetailsReducer } from "./ADMIN/bookingDetailsReducer";
 import { getWalletReducer } from "./USER/getWalletReducer";
 import { bookingReducer } from "./USER/bookingReducer";
+import { ownersReducer } from "./USER/ownersReducer";
 
 const reducers = combineReducers({
     userRegisterReducer : userRegisterReducer,
@@ -37,6 +38,7 @@ const reducers = combineReducers({
     rentedBikesReducer : rentedBikesReducer,
     getWalletReducer : getWalletReducer,
     bookingReducer : bookingReducer,
+    ownersReducer : ownersReducer,
 
 
     adminLoginReducer : adminLoginReducer,

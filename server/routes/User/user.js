@@ -20,6 +20,7 @@ const rentedRidesController = require('../../Controller/User/RentedRides/rentedR
 const endRideController = require('../../Controller/User/RentedRides/endRideController')
 
 const walletController = require('../../Controller/User/Wallet/walletController')
+const chatController = require('../../Controller/User/Chat/chatController')
 const {protect} = require('../../middleware/jwtAuth');
 
 
@@ -81,6 +82,12 @@ router.route('/cancel-ride').get(protect,rentedRidesController.cancelRide)
 router.route('/end-ride').get(protect,endRideController.endRide)
 
 router.route('/get-wallet').get(protect,walletController.walletController)
+
+router.route('/get-owners').get(chatController.getAllOwners)
+
+router.route('/send-message').post(chatController.addMessageController)
+
+router.route('/get-all-messages').get(chatController.getAllMessages)
 
 
 module.exports = router;

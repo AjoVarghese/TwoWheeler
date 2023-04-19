@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     Verfied : {type : String,default : "Not Verified"},
     isGoogle : {type : Boolean , default : false},
     ReferalCode : {type : String},
+    Role : {type : String},
     ProfileImage : {type : String ,
         default : "https://d36g7qg6pk2cm7.cloudfront.net/assets/profile-f17aa1dfbd0cb562142f1dcb10bb7ad33e1ac8417ad29a1cdab7dfbfbbfe2f15.png",
         required : true

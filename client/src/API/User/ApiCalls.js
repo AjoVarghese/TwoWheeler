@@ -77,4 +77,11 @@ export const cancelRideApi = (bikeId,bookingId,startTime,endTime,userId,price) =
 
 export const getWalletApi = () => API.get('/get-wallet?id='+ID,configTOken)
 
+export const getAllOwnersApi = () => API.get('/get-owners?id='+ID,configTOken)
+
+export const sendMessageAPi = (data) => API.post('/send-message',{data})
+
+export const getAllMessagesAPI = (data) => API.post("/get-all-messages", { data }, configTOken)
+
+
 
