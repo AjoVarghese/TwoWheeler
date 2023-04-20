@@ -21,6 +21,8 @@ import { bookingDetailsReducer } from "./ADMIN/bookingDetailsReducer";
 import { getWalletReducer } from "./USER/getWalletReducer";
 import { bookingReducer } from "./USER/bookingReducer";
 import { ownersReducer } from "./USER/ownersReducer";
+import { cancelledBookingsReducer, getDashBoardDetailsReducer, onRideBookingReducer, pendingBookingsReducer } from "./ADMIN/DashboardReducer";
+import { salesReportReducer } from "./ADMIN/salesReportReducer";
 
 const reducers = combineReducers({
     userRegisterReducer : userRegisterReducer,
@@ -52,6 +54,9 @@ const reducers = combineReducers({
     deleteLocationReducer : deleteLocationReducer,
     getCouponReducer : getCouponReducer,
     bookingDetailsReducer : bookingDetailsReducer,
+
+    getDashBoardDetailsReducer : getDashBoardDetailsReducer,
+    salesReportReducer : salesReportReducer,
 
 })
 

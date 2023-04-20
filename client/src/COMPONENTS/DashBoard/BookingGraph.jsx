@@ -17,7 +17,8 @@ ChartJS.register(
     Legend
 )
 
-function Test({pending,cancelled,onRide,title}) {
+function BookingGraph({pending,cancelled,onRide,title,rejected,accepted}) {
+
     const data = {
         labels : [''],
         datasets : [
@@ -45,9 +46,12 @@ function Test({pending,cancelled,onRide,title}) {
         ]
     }
 
+   
+
     const options = {
 
     }
+
   return (
     <div>
         <h5>{title}</h5>
@@ -63,4 +67,4 @@ function Test({pending,cancelled,onRide,title}) {
   )
 }
 
-export default Test
+export default BookingGraph

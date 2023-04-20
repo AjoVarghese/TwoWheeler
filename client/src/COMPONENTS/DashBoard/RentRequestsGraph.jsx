@@ -17,7 +17,8 @@ ChartJS.register(
     Legend
 )
 
-function Test({pending,cancelled,onRide,title}) {
+function RentRequestsGraph({pending,cancelled,onRide,title,rejected,accepted}) {
+
     const data = {
         labels : [''],
         datasets : [
@@ -29,15 +30,15 @@ function Test({pending,cancelled,onRide,title}) {
             borderWidth : 1
          },
          {
-            label : 'On-Ride',
-            data : [onRide],
+            label : 'Accepted',
+            data : [accepted],
             backgroundColor : '#5ADB96',
             borderColor : 'black',
             borderWidth : 1
          },
          {
-            label : 'Cancelled',
-            data : [cancelled],
+            label : 'Rejected',
+            data : [rejected],
             backgroundColor : '#F55E47',
             borderColor : 'black',
             borderWidth : 1
@@ -50,17 +51,17 @@ function Test({pending,cancelled,onRide,title}) {
     }
   return (
     <div>
-        <h5>{title}</h5>
+    <h5>{title}</h5>
 
-        <div>
-          <Bar
-            
-            data={data}
-            options={options}
-          ></Bar>  
-        </div>
+    <div>
+      <Bar
+        
+        data={data}
+        options={options}
+      ></Bar>  
     </div>
+</div>
   )
 }
 
-export default Test
+export default RentRequestsGraph

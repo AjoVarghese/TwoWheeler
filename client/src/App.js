@@ -3,6 +3,7 @@ import React ,{lazy,Suspense} from 'react';
 // import { ChakraProvider } from '@chakra-ui/react'
 import { useSelector } from 'react-redux';
 import {BrowserRouter as Router,Navigate,Route,Routes} from 'react-router-dom'
+import SalesReport from './pages/Admin/SaleReport/SalesReport';
 
 //LazyLoading
 const Bookings = lazy(() => import('./pages/Admin/Bookings/Bookings'));
@@ -72,6 +73,7 @@ function App() {
           <Route exact path='/admin/add-location' element={adminData ? <AddLocation/> : <Navigate to='/admin/login'/>}></Route>
           <Route exact path='/admin/bookings' element = {adminData ? <Bookings/> : <Navigate to={'/admin/login'}/>}></Route>
           <Route exact path='/admin/coupons' element = {adminData ? <Coupons/> : <Navigate to = '/admin/login'/>}></Route>
+          <Route exact path='/admin/sales-report' element = {adminData ? <SalesReport/> : <Navigate to = '/admin/login'/>}></Route>
           
           
         </Routes>

@@ -55,3 +55,18 @@ export const editCouponApi = (id,couponName,couponCode) => API.post('/edit-coupo
 export const deleteCouponApi = (id) => API.delete('/delete-coupon?id='+id,configToken)
 
 export const getBookedDetailsApi = () => API.get('/booking-details',configToken)
+
+//dashboard
+// export const getAllBookingsApi = () => API.get('/get-all-bookings',configToken)
+
+export const getPendingBookingsApi = () => API.get('/get-pending-bookings',configToken)
+
+export const getOnRideBookingsApi = () => API.get('/get-onRide-bookings',configToken)
+
+export const cancelledBookingsApi = () => API.get('/get-cancelled-bookings',configToken)
+
+//
+
+export const getDashBoardDetailsApi = () => API.get('get-dashboard-details',configToken)
+
+export const getSalesReportApi = () => API.get('/get-salesReport',configToken)
