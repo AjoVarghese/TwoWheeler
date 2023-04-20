@@ -24,12 +24,6 @@ const chatController = require('../../Controller/User/Chat/chatController')
 const {protect} = require('../../middleware/jwtAuth');
 
 
-// router.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Methods", "*");
-//     res.header("Access-Control-Allow-Headers", "*");
-//     next();});
-
 /* GET home page. */
 router.post('/signup',signupController.signUpPost)
 
@@ -87,7 +81,7 @@ router.route('/get-owners').get(chatController.getAllOwners)
 
 router.route('/send-message').post(chatController.addMessageController)
 
-router.route('/get-all-messages').get(chatController.getAllMessages)
+router.route('/get-all-messages').post(chatController.getAllMessages)
 
 
 module.exports = router;

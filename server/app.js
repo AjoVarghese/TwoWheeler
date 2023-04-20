@@ -8,6 +8,7 @@ const session = require('express-session')
 const {v4:uuidv4} = require('uuid')
 require('dotenv').config()
 const mongoose = require('mongoose')
+const socket = require('socket.io')
 
 var userRouter = require('./routes/User/user');
 var  adminRouter = require('./routes/Admin/admin');
@@ -65,5 +66,31 @@ app.use(function(req, res, next) {
 
 const PORT = process.env.PORT || 3001
 
-app.listen(PORT,console.log(`server running on port ${PORT}`))
+const server =  app.listen(PORT, (req, res) => {
+  console.log(`server is runnig http://localhost:${PORT}/`);
+})
+
+
+const io = socket(server,{
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true,
+  },
+})
+
+global.onlineUsers = new Map()
+
+io.on("connection",(socket)=>{
+  global.chatSocket = socket
+  socket.on("add-user",(userId)=>{
+    onlineUsers.set(userId,socket.id)
+  })
+
+  socket.on("send-msg", (data) => {
+    const sendUserSocket = onlineUsers.get(data.to);
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit("msg-receive", data.message);
+    }
+  });
+})
 module.exports = app;

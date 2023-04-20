@@ -1,5 +1,5 @@
 import { Box, Paper, Stack, styled } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from 'styled-components'
 import Navbar from '../../../components/NAVBAR/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,8 @@ import Contacts from '../../../components/Chat/Contacts';
 import { userLoginReducer } from '../../../redux/Reducers/USER/userLoginReducer';
 import Welcome from '../../../components/Chat/Welcome';
 import ChatContainer from '../../../components/Chat/ChatContainer';
+import { io } from 'socket.io-client'
+const socket = io("http://localhost:5000")
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -21,27 +23,43 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Chat() {
   const dispatch = useDispatch()
-  
+  const [contacts, setContacts] = useState([])
+  const [currentChat, setCurrentChat] = useState(undefined)
+  // const socket = useRef()
 
-  useEffect(() => {
-    dispatch(getAllOwnersAction())
-  },[])
 
-  // useEffect(() => {
-
-  // },[])
-  
-  const handleChatChange = (chat) => {
-     setCurrentChat(chat)
-  }
   const owners = useSelector((state) => state.ownersReducer.ownersData)
   // const currentUser = useSelector((sate) => userLoginReducer.userLoginDetails)
   // console.log('CURRENT',currentUser);
   const currentUser = JSON.parse(localStorage.getItem('userInfo'))
   console.log('CURRENT',currentUser);
 
-  const [contacts, setContacts] = useState([])
-  const [currentChat, setCurrentChat] = useState(undefined)
+  // useEffect(() => {
+  //   dispatch(getAllOwnersAction())
+  // },[])
+
+  useEffect(() => {
+    if(currentUser){
+      const details = async () => {
+        getAllOwnersApi().then((data) => {
+          setContacts(data.data)
+        })
+      }
+      details()
+    }
+  },[])
+
+  useEffect(() => {
+   if(currentUser){
+    // socket.current = io(host)
+    socket.emit("add-user",currentUser.id)
+   }
+  })
+  
+  const handleChatChange = (chat) => {
+     setCurrentChat(chat)
+  }
+  
 
   return (
     <>
@@ -54,7 +72,7 @@ function Chat() {
 
         <Container>
             <div className="container">
-              <Contacts contacts={owners} 
+              <Contacts contacts={contacts} 
               currentUser={currentUser}
               changeChat={handleChatChange}
               />
@@ -62,7 +80,10 @@ function Chat() {
                 currentChat === undefined ?(
                   <Welcome currentUser={currentUser}/>
                 ) : (
-                  <ChatContainer currentUser={currentUser} currentChat={currentChat}/>
+                  <ChatContainer currentUser={currentUser}
+                   currentChat={currentChat}
+                   socket={socket}
+                   />
                 )
               }
               

@@ -10,9 +10,9 @@ exports.getAllOwners = async(req,res) => {
             {
                 _id : {$ne : req.query.id}
             },
-            {
-                Role : {$exists : true}
-            }
+            // {
+            //     Role : {$exists : true}
+            // }
         ]
        }) .then((data) => {
         res.status(200).json(data)
@@ -56,6 +56,7 @@ exports.addMessageController = async(req,res) => {
 
 exports.getAllMessages = async(req,res) => {
     console.log("GET");
+    console.log(req.body);
     try {
         const {from,to} = req.body.data
         const messages = await chatSchema.find({
@@ -76,6 +77,7 @@ exports.getAllMessages = async(req,res) => {
 
        return res.status(200).json(projectedMessages)
     } catch (error) {
+        console.log("error finding msgs",error);
         return res.status(400).json("error while finding messages")
     }
 }
