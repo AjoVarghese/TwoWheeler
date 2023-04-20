@@ -5,21 +5,30 @@ exports.getAllOwners = async(req,res) => {
     console.log("ccc",req.query.id);
     console.log(typeof req.query.id);
     try {
-       userSchema.find({
-        $and :[
-            {
-                _id : {$ne : req.query.id}
-            },
-            // {
-            //     Role : {$exists : true}
-            // }
-        ]
-       }) .then((data) => {
-        res.status(200).json(data)
-       })
-       .catch((err) => {
-        console.log(err);
-       })
+       const contacts = await userSchema.find({
+        _id : {$ne : req.query.id}
+        // $and :[
+        //     {
+        //         _id : {$ne : req.query.id}
+        //     },
+        //     {
+        //         Role : {$exists : true}
+        //     }
+        // ]
+       }) 
+       .select([
+        "Email",
+        "Name",
+        'Status',
+        'ProfileImage'
+       ])
+       return res.status(200).json(contacts)
+    //    .then((data) => {
+    //     res.status(200).json(data)
+    //    })
+    //    .catch((err) => {
+    //     console.log(err);
+    //    })
     } catch (error) {
         console.log("ALL owners error",error);
     }
@@ -29,24 +38,20 @@ exports.addMessageController = async(req,res) => {
     console.log('ADD');
     console.log(req.body.data);
     try {
-        const {
-            from,
-            to,
-            message
-        } = req.body.data
+        const {from,to,message} = req.body.data
 
         const data = await chatSchema.create({
             message :{text:message},
-            users :[from,to],
-            sender : from,
+            users:[from,to],
+            sender:from
         })
 
         if(data){
-            console.log("yaaasss");
-             res.status(200).json({msg : "Message Added Successfully"})
-        } else {
-            console.log("failed");
-            res.status(400).json({msg : "Failed to add message to the db"})
+            res.status(201).json({msg:"Message added Succesfully"})
+            console.log('done it');
+        }else{
+            res.status(400).json({msg:"Failed to add Message to the database"})
+            console.log('not done it');
         }
     } catch (error) {
         console.log('error in adding msgs',error);

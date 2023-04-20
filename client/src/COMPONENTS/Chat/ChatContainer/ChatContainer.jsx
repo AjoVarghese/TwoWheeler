@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from 'styled-components'
-import ChatInput from './ChatInput'
-import Message from './Message'
-import { getAllMessagesAPI, sendMessageAPi } from '../../api/User/ApiCalls'
+import ChatInput from '../ChatInput/ChatInput'
+import Message from '../Message/Message'
+
 import {v4 as uuidv4}  from 'uuid'
+import { getAllMessagesAPI, sendMessageAPI } from '../../../api/User/ApiCalls'
 
 
 function ChatContainer({currentUser,currentChat,socket}) {
@@ -27,8 +28,8 @@ function ChatContainer({currentUser,currentChat,socket}) {
       }
     },[currentChat])
 
-    const handleSendMsg = async(msg) => {
-      await sendMessageAPi({
+    const handleSendMessage = async(msg) => {
+      await sendMessageAPI({
        from : currentUser.id,
        to : currentChat._id,
        message : msg
@@ -92,7 +93,7 @@ function ChatContainer({currentUser,currentChat,socket}) {
           })
         }
       </div>
-            <ChatInput handleSendMsg = {handleSendMsg}/>
+            <ChatInput handleSendMessage = {handleSendMessage}/>
             <div className="chat-input"></div>
     </Container>
   )

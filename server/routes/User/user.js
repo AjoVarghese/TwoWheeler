@@ -77,9 +77,11 @@ router.route('/end-ride').get(protect,endRideController.endRide)
 
 router.route('/get-wallet').get(protect,walletController.walletController)
 
-router.route('/get-owners').get(chatController.getAllOwners)
 
-router.route('/send-message').post(chatController.addMessageController)
+//chat
+router.route('/contacts').get(chatController.getAllOwners)
+
+router.route('/add-message').post(chatController.addMessageController)
 
 router.route('/get-all-messages').post(chatController.getAllMessages)
 

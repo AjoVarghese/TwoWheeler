@@ -5,12 +5,12 @@ import styles from 'styled-components'
 function Contacts({contacts,currentUser,changeChat}) {
   
   const [currentUserName,setCurrentUserName] = useState(undefined)
-  const [currentUserImage,setCurrentUserImage] = useState(undefined)
+  const [currentUserPhoto, setCurrentUserPhoto] = useState(undefined)
   const [currentSelected,setCurrentSelected] = useState(undefined)
 
   useEffect(() => {
    if(currentUser){
-    setCurrentUserImage(currentUser.ProfileImage)
+    setCurrentUserPhoto(currentUser.ProfileImage)
     setCurrentUserName(currentUser.Name)
    }
   },[currentUser])
@@ -23,11 +23,11 @@ function Contacts({contacts,currentUser,changeChat}) {
   return (
         <>
         {
-          currentUserName && currentUserImage && (
+          currentUserName &&  (
             <Container>
                <div className="brand">
                 <img src="https://media.istockphoto.com/id/1197203809/vector/live-chat-speech-bubbles-concept-vector-stock-illustration.jpg?s=612x612&w=0&k=20&c=DB02XNlZ0eeEfDO7WB0ylExYSKq1u0zRxNU2p86m-Oo=" alt="" />
-                <h3>Chat</h3>
+                <h3>Two Wheeler</h3>
                </div>
                <div className="contacts">
                 {
@@ -49,7 +49,7 @@ function Contacts({contacts,currentUser,changeChat}) {
                              </div>
                           </div>
                         )
-                  }) : "No Owners to chat with"
+                  }) : "No Contacts"
 
                   
                 }
@@ -57,7 +57,7 @@ function Contacts({contacts,currentUser,changeChat}) {
                <div className="current-user">
                <div className="avatar">
                 <img 
-                 src={currentUserImage} 
+                 src={currentUserPhoto} 
                   alt="sender"
                   />
                   </div>
@@ -84,6 +84,7 @@ grid-template-rows: 10% 78% 12%;
     justify-content: center;
     img {
       height: 3rem;
+      
     }
     p {
       color: white;
@@ -119,6 +120,7 @@ grid-template-rows: 10% 78% 12%;
       .avatar {
         img {
           height: 3rem;
+          border-radius:20px
         }
       }
       .username {
@@ -139,8 +141,9 @@ grid-template-rows: 10% 78% 12%;
     gap: 1rem;
     .avatar {
       img {
-        height: 3rem;
+        height: 4rem;
         max-inline-size: 100%;
+        border-radius:20px
       }
     }
     .username {

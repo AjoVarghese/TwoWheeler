@@ -3,12 +3,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from 'styled-components'
 import Navbar from '../../../components/NAVBAR/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllOwners, getAllOwnersApi } from '../../../api/User/ApiCalls';
-import { getAllOwnersAction } from '../../../redux/Actions/USER_ACTIONS/chatAction';
-import Contacts from '../../../components/Chat/Contacts';
+import { getAllUserContacts } from '../../../api/User/ApiCalls';
+// import { getAllOwnersAction } from '../../../redux/Actions/USER_ACTIONS/chatAction';
+import Contacts from '../../../components/Chat/Contacts/Contacts';
 import { userLoginReducer } from '../../../redux/Reducers/USER/userLoginReducer';
-import Welcome from '../../../components/Chat/Welcome';
-import ChatContainer from '../../../components/Chat/ChatContainer';
+import Welcome from '../../../components/Chat/Welcome/Welcome';
+import ChatContainer from '../../../components/Chat/ChatContainer/ChatContainer';
 import { io } from 'socket.io-client'
 const socket = io("http://localhost:5000")
 
@@ -29,30 +29,42 @@ function Chat() {
 
 
   const owners = useSelector((state) => state.ownersReducer.ownersData)
-  // const currentUser = useSelector((sate) => userLoginReducer.userLoginDetails)
-  // console.log('CURRENT',currentUser);
-  const currentUser = JSON.parse(localStorage.getItem('userInfo'))
-  console.log('CURRENT',currentUser);
+  // const user = useSelector((sate) => userLoginReducer.userLoginDetails)
+  // console.log('CURRENT',user);
+  const user = JSON.parse(localStorage.getItem('userInfo'))
+  console.log('CURRENT',user);
 
   // useEffect(() => {
   //   dispatch(getAllOwnersAction())
   // },[])
 
+  // useEffect(() => {
+  //   if(currentUser){
+  //     const details = async () => {
+  //       getAllOwnersApi().then((data) => {
+  //         setContacts(data.data)
+  //       })
+  //     }
+  //     details()
+  //   }
+  // },[])
+
   useEffect(() => {
-    if(currentUser){
+   
+    if (user) {
       const details = async () => {
-        getAllOwnersApi().then((data) => {
-          setContacts(data.data)
-        })
+       getAllUserContacts(user.id).then((data)=>{
+         setContacts(data.data)
+       })
       }
       details()
     }
   },[])
 
   useEffect(() => {
-   if(currentUser){
+   if(user){
     // socket.current = io(host)
-    socket.emit("add-user",currentUser.id)
+    socket.emit("add-user",user.id)
    }
   })
   
@@ -73,14 +85,14 @@ function Chat() {
         <Container>
             <div className="container">
               <Contacts contacts={contacts} 
-              currentUser={currentUser}
+              currentUser={user}
               changeChat={handleChatChange}
               />
               {
                 currentChat === undefined ?(
-                  <Welcome currentUser={currentUser}/>
+                  <Welcome currentUser={user}/>
                 ) : (
-                  <ChatContainer currentUser={currentUser}
+                  <ChatContainer currentUser={user}
                    currentChat={currentChat}
                    socket={socket}
                    />
