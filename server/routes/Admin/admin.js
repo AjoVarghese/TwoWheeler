@@ -80,22 +80,6 @@ router.route('/delete-coupon').delete(protect,CouponController.deleteCoupon)
 router.route('/booking-details').get(getBookedDetailsController.getBookedDetails)
 
 
-//Dashboard
-// router.route('/get-userCount').get(dashboardDetailsController.getUserCount)
-
-// router.route('/get-bikesCount').get(dashboardDetailsController.getBikesCount)
-
-// router.route('/get-rentRequestsCount').get(dashboardDetailsController.getRentRequestsCount)
-
-// router.route('/get-bookingsCount').get(dashboardDetailsController.getBookingsCount)
-
-// router.route('/get-pending-bookings').get(bookingDetailsController.getPendingBookings)
-
-// router.route('/get-onRide-bookings').get(bookingDetailsController.getOnRideBookings)
-
-// router.route('/get-cancelled-bookings').get(bookingDetailsController.getCancelledBookings)
-//
-
 router.route('/get-dashboard-details').get(dashboardDetailsController.getAllDetails)
 
 router.route('/get-salesReport').get(salesReportController.getSalesReport)

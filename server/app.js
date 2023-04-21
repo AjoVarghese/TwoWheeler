@@ -92,5 +92,6 @@ io.on("connection",(socket)=>{
       socket.to(sendUserSocket).emit("msg-receive", data.message);
     }
   });
+
 })
 module.exports = app;

@@ -21,6 +21,17 @@ exports.  bikeBookingController = async(req,res) => {
       
      let check = await bikeSchema.findOne({_id :bikeId})
      let isBooked = await bookingSchema.findOne({bikeId : bikeId})
+
+     let currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+    console.log(totalHours);
+      
+     if(startingTime < currentTime){
+      console.log("Nadakilaa mone");
+      res.status(400).json("Selected Day or Date is less than current day or date")
+     } else if(totalHours === 0) {
+      console.log('0 hrs');
+      res.status(400).json("Rent time should be min 1 hr")
+     }else {
      for(let i = 0 ; i < check.BookedTimeSlots.length ; i++){
      
       if( startingTime > check.BookedTimeSlots[i].endDate){
@@ -249,7 +260,9 @@ exports.  bikeBookingController = async(req,res) => {
      else {
       console.log('booking not allowed');
       res.status(400).json("Bike has been booked for the selected time..please change the time to book")
-     }   
+     }  
+    } 
+
     } catch (error) {
       console.log('Wallet error',error);
     }

@@ -22,32 +22,12 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 function Chat() {
-  const dispatch = useDispatch()
+
   const [contacts, setContacts] = useState([])
   const [currentChat, setCurrentChat] = useState(undefined)
-  // const socket = useRef()
 
-
-  const owners = useSelector((state) => state.ownersReducer.ownersData)
-  // const user = useSelector((sate) => userLoginReducer.userLoginDetails)
-  // console.log('CURRENT',user);
-  const user = JSON.parse(localStorage.getItem('userInfo'))
+  const user = useSelector((state) => state.userLoginReducer.userLoginDetails)
   console.log('CURRENT',user);
-
-  // useEffect(() => {
-  //   dispatch(getAllOwnersAction())
-  // },[])
-
-  // useEffect(() => {
-  //   if(currentUser){
-  //     const details = async () => {
-  //       getAllOwnersApi().then((data) => {
-  //         setContacts(data.data)
-  //       })
-  //     }
-  //     details()
-  //   }
-  // },[])
 
   useEffect(() => {
    

@@ -1,7 +1,9 @@
 const bookingSchema = require('../../../Models/bookingSchema')
+const bikeSchema = require('../../../Models/vehicleSchema')
 
 exports.getSalesReport = (req,res) => {
-    try {
+    try {    
+          
         bookingSchema.find().then((data) => {
             res.status(200).json(data)
         })

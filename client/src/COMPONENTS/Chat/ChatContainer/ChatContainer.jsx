@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from 'styled-components'
 import ChatInput from '../ChatInput/ChatInput'
-import Message from '../Message/Message'
-
 import {v4 as uuidv4}  from 'uuid'
 import { getAllMessagesAPI, sendMessageAPI } from '../../../api/User/ApiCalls'
 
@@ -39,6 +37,7 @@ function ChatContainer({currentUser,currentChat,socket}) {
        from : currentUser.id,
        message : msg
       })
+      
        const msgs = [...messages]
        msgs.push({ fromSelf: true, message: msg })
        setMessages(msgs)
@@ -47,14 +46,26 @@ function ChatContainer({currentUser,currentChat,socket}) {
    useEffect(() => {
       if(socket){
        socket.on("msg-receive",(msg) => {
+        console.log('msg',msg);
            setArrivalMessage({ fromSelf : false,message : msg })
+           setMessages(prevMessages => [...prevMessages, { fromSelf: false, message: msg }]);
        })
       }
-   },[])
+      return () => {
+        socket.off("msg-receive");
+      };
+   },[socket])
 
-   useEffect(() => {
-       arrivalMessage && setMessages((prev) => [...prev,arrivalMessage] )
-   },[arrivalMessage])
+  //  useEffect(() => {
+  //      arrivalMessage && setMessages((prev) => [...prev,arrivalMessage] )
+  //  },[arrivalMessage])
+
+  useEffect(() => {
+    if (arrivalMessage) {
+      setMessages(prevMessages => [...prevMessages, arrivalMessage]);
+      setArrivalMessage(null);
+    }
+  }, [arrivalMessage]);
 
 
    useEffect(() => {

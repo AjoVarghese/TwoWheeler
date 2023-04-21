@@ -46,6 +46,7 @@ function Booking() {
     const [stripe,setStripe] = useState(false)
     const [error,setError] = useState(false)
     const [value, setValue] = React.useState('female');
+
     const [modal,setModal] = useState(false)
     const [blocked,setBlocked] = useState(false)
 
@@ -220,13 +221,14 @@ const handleCheckout = () => {
           <Item>
           <Box style={{textAlign:"start"}}>
           <h3 >Select Time Slot</h3>
-          {
-            bookingError ? <p style={{color : "red"}}>{bookingError}</p> : ""
-          }
+          
           <RangePicker showTime={{format: "HH:mm"}} 
           format='MM DD YYYY HH:mm'
           onChange={selectTimeSlots}
           />
+          {
+            bookingError ? <p style={{color : "red"}}>{bookingError}</p> : ""
+          }
           </Box>
           <Box style={{textAlign: "start"}} className='mt-2'>
            
