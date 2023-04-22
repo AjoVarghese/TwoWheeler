@@ -31,7 +31,7 @@ function SingleView() {
 
   const {bikesData,bikeId} = location.state
 
-  const clickedBike = bikesData.find((bike) => bike._id === bikeId)
+  const clickedBike = bikesData?.data.find((bike) => bike._id === bikeId)
  
  
   return (

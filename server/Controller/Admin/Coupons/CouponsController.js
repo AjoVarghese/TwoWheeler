@@ -1,7 +1,7 @@
 const coupon = require('../../../Models/couponSchema')
 
 exports.addCoupon = async(req,res) => {
-    console.log(req.body);
+    
     try {
         coupon.create(req.body).then(() => {
             coupon.find().then((data) => {
@@ -24,7 +24,7 @@ exports.getCoupons = async(req,res) => {
 }
 
 exports.editCoupon = async(req,res) =>{
-    console.log(req.body);
+   
     let {couponName,couponCode} = req.body
     try {
         coupon.updateOne({_id : req.query.id},

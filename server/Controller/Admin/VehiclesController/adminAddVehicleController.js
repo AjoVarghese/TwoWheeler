@@ -16,8 +16,7 @@ const vehicleSchema = require('../../../Models/vehicleSchema')
 
 
 exports.addVehicle = async(req,res) => {
-     console.log("VEHICLE",req.body);
-     console.log("images",req.files);
+     
   try {
     const uploader = async (path) => await cloudinary.uploads(path, 'Images');
 
@@ -31,7 +30,7 @@ exports.addVehicle = async(req,res) => {
         fs.unlinkSync(path)
       }
   
-      console.log("URLS",urls);
+     
       
     //  let {BikeName,BikeModel,Brand,Fuel,EngineNo,Color,Description,Price} = req.body
 
@@ -57,7 +56,7 @@ exports.addVehicle = async(req,res) => {
      }
 
       vehicleSchema.create(details).then((data) => {
-         console.log("VEHICLE DATA : ",data);
+         
          res.status(200).json(data)
       } )
   

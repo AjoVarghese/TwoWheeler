@@ -20,8 +20,9 @@ import AllAcceptedBIkes from '../../../components/UserBikes/AllAcceptedBIkes';
 import PriceAscSortedBikes from '../../../components/UserBikes/PriceAscSortedBikes';
 import PriceDescSortedBikes from '../../../components/UserBikes/PriceDescSortedBikes';
 import { userGetLocation } from '../../../redux/Actions/USER_ACTIONS/locationActions';
-import { MDBContainer, MDBPagination, MDBPaginationItem, MDBPaginationLink, MDBRow } from 'mdb-react-ui-kit';
-import Pagination from 'react-js-pagination';
+import { MDBContainer, MDBRow } from 'mdb-react-ui-kit';
+import BasicPagination from '../../../components/Pagination/BasicPagination';
+import Paginator from '../../../components/Paginator/Paginator';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -59,7 +60,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.primary,
 }));
 
-function Bikes() {
+function BikePagination() {
    const dispatch = useDispatch()
 
    const [searchTerm,setSearchTerm] = useState('')
@@ -67,53 +68,32 @@ function Bikes() {
 
    const [value, setValue] = React.useState(0);
    const [state,setState] = useState()
-
-   //Pagination
    const [page,setPage] = useState(1)
    const [pageCount,setPageCount] = useState(0)
 
-   
-   
+
    const handleChange = (event, newValue) => {
      setValue(newValue);
    };
 
   const bikes = useSelector((state) => state.bikesReducer)
   const {loading , bikesData , bikesDataError} = bikes
-  console.log(bikesData,'.....');
 
   const location = useSelector((state) => state.userLocationReducer.locationData)
   console.log("LocatioNNNN",location);
 
-  useEffect(() => {
-    console.log('page at first',page);
-     dispatch(getBikesAction(page))
-     dispatch(userGetLocation())
-  },[state])
-
-  const handlePrev = () =>{
-    dispatch(getBikesAction(bikesData.pagination.currentPage - 1))
-    setPage(bikesData.pagination.currentPage - 1)
-  }
-
-  const handleNext = () => {
-    dispatch(getBikesAction(bikesData.pagination.currentPage + 1))
-    setPage(bikesData.pagination.currentPage + 1)
-  }
-
-
-  useEffect(() => {
-    if(bikesData) {
-      setPageCount(bikesData.pagination.pageCount)
-    }
-  },[bikesData])
+  // useEffect(() => {
+  //    dispatch(getBikesAction())
+  //    dispatch(userGetLocation())
+  // },[state])
 
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(bikeSearchAction(searchTerm))
     setSearchTerm('')
   }
- 
+  console.log("ddddd",page);
+
   return (
     
        <>
@@ -158,8 +138,8 @@ function Bikes() {
   </Grid>
   
 </Grid>
-          
-    <Box sx={{ width: '100%' }}>
+          <AllAcceptedBIkes/>
+    {/* <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="All Bikes"  />
@@ -171,7 +151,8 @@ function Bikes() {
 
       <AllAcceptedBIkes acceptedBikes={bikesData} 
       selectedLoc = {state}
-      />
+      setPage={setPage} 
+      setPageCount = {setPageCount}/>
 
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -182,41 +163,15 @@ function Bikes() {
       <TabPanel value={value} index={2}>
         <PriceDescSortedBikes priceDesc={bikesData}/>
       </TabPanel>
-    </Box>
-    <MDBPagination className='mb-0'>
-      {
-        page > 1 ? <MDBPaginationItem>
-        <MDBPaginationLink  aria-label='Previous'>
-          <span aria-hidden='true'  onClick={handlePrev}>« Prev</span>
-        </MDBPaginationLink>
-      </MDBPaginationItem> : ""
-      }
-        
-        {/* <MDBPaginationItem>
-          <MDBPaginationLink href='#'>1</MDBPaginationLink>
-        </MDBPaginationItem>
-        <MDBPaginationItem>
-          <MDBPaginationLink href='#'>2</MDBPaginationLink>
-        </MDBPaginationItem>
-        <MDBPaginationItem>
-          <MDBPaginationLink href='#'>3</MDBPaginationLink>
-        </MDBPaginationItem> */}
-        {
-          page === pageCount ? "" :<MDBPaginationItem>
-          <MDBPaginationLink  aria-label='Next'>
-            <span aria-hidden='true' onClick={handleNext}>Next »</span>
-          </MDBPaginationLink>
-        </MDBPaginationItem>
-        }
-        
-      </MDBPagination>
+    </Box> */}
+    
           </Item>
           
         </Grid>
       </Grid>
-    
+      
     </Box>
-   
+    
     </MDBContainer>
     </div>    
     
@@ -227,4 +182,4 @@ function Bikes() {
   )
 }
 
-export default Bikes
+export default BikePagination

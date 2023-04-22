@@ -1,19 +1,26 @@
 import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCol, MDBIcon, MDBRow } from 'mdb-react-ui-kit'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getBikesAction } from '../../redux/Actions/USER_ACTIONS/getBikesAction'
 import Loading from '../Loading/Loading'
+import Paginator from '../Paginator/Paginator'
 
-function AllAcceptedBIkes({acceptedBikes,selectedLoc}) {
+
+
+function AllAcceptedBIkes({acceptedBikes,selectedLoc,setPage,setPageCount}) {
     const dispatch = useDispatch()
    const navigate = useNavigate()
+
+  //  const [page,setPage] = useState(1)
+  //  const [pageCount,setPageCount] = useState(0)
+
    console.log('accepted loc',selectedLoc);
 
    console.log("accep",acceptedBikes);
-   useEffect(() => {
-    dispatch(getBikesAction())
- },[])
+//    useEffect(() => {
+//     dispatch(getBikesAction())
+//  },[])
 
  const bikes = useSelector((state) => state.bikesReducer)
   const {loading , bikesData , bikesDataError} = bikes
@@ -23,13 +30,13 @@ function AllAcceptedBIkes({acceptedBikes,selectedLoc}) {
         {
           loading ? <Loading/> : 
           //  selectedLoc ? 
-            acceptedBikes ? acceptedBikes.map((x,i) => {
+          acceptedBikes?.data ? acceptedBikes?.data.map((x,i) => {
               console.log(x._id);
               let Status 
               return (
                 <>
-                {
-                  
+
+                {       
                   Status ? 
                   
                   <MDBCol md="4 mt-3">
@@ -135,7 +142,10 @@ function AllAcceptedBIkes({acceptedBikes,selectedLoc}) {
             ) : ''
           
         }
+  
+ 
       </MDBRow>
+      
     </div>
   )
 }

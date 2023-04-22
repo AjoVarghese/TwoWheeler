@@ -60,7 +60,7 @@ function SalesReport() {
     },[])
 
     const salesData = useSelector((state) => state.salesReportReducer.salesReportData)
-    console.log('saleSData',salesData);
+    
 
     const labelStyles = {
       fontWeight: 'bold',

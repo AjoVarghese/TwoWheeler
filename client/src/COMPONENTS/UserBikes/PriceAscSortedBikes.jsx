@@ -10,7 +10,7 @@ function PriceAscSortedBikes({priceAsc}) {
   const bikes = useSelector((state) => state.bikesReducer)
    const {loading , bikesData , bikesDataError} = bikes
 
-   const asc = priceAsc ? priceAsc.sort((a,b) => a.Price - b.Price) : "erro"
+   const asc = priceAsc?.data ? priceAsc?.data.sort((a,b) => a.Price - b.Price) : "erro"
 
   return (
     <div>

@@ -2,12 +2,12 @@ import { userGetBikesApi } from "../../../api/User/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 import { ActionTypes } from "../../Constants/User/ActionTypes"
 
-export const getBikesAction = () => async(dispatch) => {
+export const getBikesAction = (page) => async(dispatch) => {
     dispatch({
        type : ActionTypes.GET_BIKES_REQ
     })
 
-    userGetBikesApi().then((data) => {
+    userGetBikesApi(page).then((data) => {
         console.log("userGetBikesApi",data.data);
         dispatch({
             type : ActionTypes.GET_BIKES_SUCCESS,

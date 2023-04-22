@@ -133,7 +133,7 @@ function YearlyReport({salesData}) {
         status: sale.status
       }));
       
-      console.log(data);
+     
     
       const options = {
         filterType: 'checkbox',
