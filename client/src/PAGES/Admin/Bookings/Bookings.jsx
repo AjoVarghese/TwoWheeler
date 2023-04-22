@@ -61,7 +61,7 @@ const [value, setValue] = React.useState(0);
   },[])
 
   const bookingDetails = useSelector((state) => state.bookingDetailsReducer.bookedDetails)
-  console.log("bookedDetails",bookingDetails);
+
   return (
     <div>
       <Box sx={{ display : 'flex' }}>
@@ -74,7 +74,7 @@ const [value, setValue] = React.useState(0);
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
           <Tab label="All Rides"  />
-          <Tab label="Ongoing Rides"  />
+          <Tab label="Ongoing Rides" />
           <Tab label="Completed Rides"  ></Tab>
           <Tab label="Pending Rides"  ></Tab>
           <Tab label="Cancelled Rides"  />
