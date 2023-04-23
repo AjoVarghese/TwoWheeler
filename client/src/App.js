@@ -1,6 +1,4 @@
 import React ,{lazy,Suspense} from 'react';
-// import './App.css';
-// import { ChakraProvider } from '@chakra-ui/react'
 import { useSelector } from 'react-redux';
 import {BrowserRouter as Router,Navigate,Route,Routes} from 'react-router-dom'
 import SalesReport from './pages/Admin/SaleReport/SalesReport';
@@ -32,6 +30,7 @@ const SuccessPage = lazy(() => import('./components/SuccessPage/SuccessPage'));
 const RentedRides = lazy(() => import('./pages/User/RentedRides/RentedRides'));
 const Wallet = lazy(() => import('./pages/User/Wallet/Wallet'))
 const Chat = lazy(() => import('./pages/User/Chat/Chat'))
+
  
 function App() {
   const userdata = useSelector((state)=>state.userLoginReducer.userLoginDetails);

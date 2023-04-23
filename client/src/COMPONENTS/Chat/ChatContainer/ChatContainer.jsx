@@ -8,7 +8,7 @@ import { getAllMessagesAPI, sendMessageAPI } from '../../../api/User/ApiCalls'
 function ChatContainer({currentUser,currentChat,socket}) {
 
     const [messages,setMessages] = useState([])
-    const [arrivalMessage,setArrivalMessage] = useState(null)
+    const [arrivalMessage,setArrivalMessage] = useState({})
     const scrollRef = useRef()
   
 
@@ -32,6 +32,7 @@ function ChatContainer({currentUser,currentChat,socket}) {
        to : currentChat._id,
        message : msg
       })
+      
       socket.emit("send-msg",{
         to : currentChat._id,
        from : currentUser.id,
@@ -48,24 +49,19 @@ function ChatContainer({currentUser,currentChat,socket}) {
        socket.on("msg-receive",(msg) => {
         console.log('msg',msg);
            setArrivalMessage({ fromSelf : false,message : msg })
-           setMessages(prevMessages => [...prevMessages, { fromSelf: false, message: msg }]);
        })
       }
-      return () => {
-        socket.off("msg-receive");
-      };
+      
    },[socket])
 
-  //  useEffect(() => {
-  //      arrivalMessage && setMessages((prev) => [...prev,arrivalMessage] )
-  //  },[arrivalMessage])
+   useEffect(() => {
+      //  arrivalMessage && setMessages((prev) => [...prev,arrivalMessage] )
+      if(arrivalMessage){
+         setMessages(prevMessages => [...prevMessages,arrivalMessage])
+      }
+   },[arrivalMessage])
 
-  useEffect(() => {
-    if (arrivalMessage) {
-      setMessages(prevMessages => [...prevMessages, arrivalMessage]);
-      setArrivalMessage(null);
-    }
-  }, [arrivalMessage]);
+
 
 
    useEffect(() => {

@@ -90,8 +90,10 @@ io.on("connection",(socket)=>{
     const sendUserSocket = onlineUsers.get(data.to);
     if (sendUserSocket) {
       socket.to(sendUserSocket).emit("msg-receive", data.message);
+      socket.emit("msg-sent", data.message); // emit message back to sender's socket
     }
   });
 
 })
+
 module.exports = app;

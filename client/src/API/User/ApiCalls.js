@@ -82,11 +82,14 @@ export const getAllUserContacts = (id) => API.get("/contacts?id=" + id, configTO
 export const sendMessageAPI = (data) => API.post("/add-message", { data }, configTOken)
 export const getAllMessagesAPI = (data) => API.post("/get-all-messages", { data }, configTOken)
 
-// export const getAllOwnersApi = () => API.get('/get-owners?id='+ID,configTOken)
+export const getAllOwnersApi = () => API.get('/get-owners?id='+ID,configTOken)
 
-// export const sendMessageAPi = (data) => API.post('/send-message',{data})
+export const sendMessageAPi = (data) => API.post('/send-message',{data})
 
 // export const getAllMessagesAPI = (data) => API.post('/get-all-messages', { data }, configTOken)
 
 
+//CHAT
+// export const getAllUserchatApi = (userId) => API.get(`/get-all-users?id=${userId}`)
 
+// export const getCurrentChatUserAPI = ()

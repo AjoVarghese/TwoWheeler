@@ -21,6 +21,7 @@ const endRideController = require('../../Controller/User/RentedRides/endRideCont
 
 const walletController = require('../../Controller/User/Wallet/walletController')
 const chatController = require('../../Controller/User/Chat/chatController')
+const messageController = require('../../Controller/User/Chat/messageController')
 const {protect} = require('../../middleware/jwtAuth');
 
 
@@ -41,17 +42,12 @@ router.route('/profileImageUpdate').post(protect,profilerImageUpdateController.p
 
 router.route('/edit-profile').post(protect,updateProfileController.updateProfile)
 
-// router.post('/profileImageUpdate',profilerImageUpdateController.profileImageUploadPost)
-
 router.route('/bikes').get(viewVehiclesController.viewVehicles)
 
-router.route('/hii').post(viewVehiclesController.blabla)
 
 router.route('/search-bikes').post(searchVehiclesController.searchBikes)
 
 router.route('/filter-location').get(filterbikeController.filterByLocation)
-
-// router.route('/view-bike').get(singleViewController.singleViewController)
 
 router.route('/get-location').get(locationController.getLocations)
 
@@ -84,6 +80,24 @@ router.route('/contacts').get(chatController.getAllOwners)
 router.route('/add-message').post(chatController.addMessageController)
 
 router.route('/get-all-messages').post(chatController.getAllMessages)
+
+
+//CHAT ROUTES
+//createmessage
+// router.route('/create-message').post(chatController.createMessage)
+
+// router.route('/get-message').get(chatController.getMessage)
+// router.route('/create-chat').post(chatController.createChat)
+
+// router.route('/get-all-users').get(chatController.getAllChatUsers)
+
+// router.route('/findChat').get(chatController.findSpecificChat)
+
+// router.route('/add-message').post(messageController.addMessage)
+
+// router.route('/get-message').get(messageController.getMessage)
+
+
 
 
 module.exports = router;
