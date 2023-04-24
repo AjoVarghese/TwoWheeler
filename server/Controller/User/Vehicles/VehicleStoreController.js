@@ -21,6 +21,7 @@ exports.viewVehicles = async(req,res) => {
     .skip((itemsPerPage * page) - itemsPerPage)
     .limit(itemsPerPage)
     .then((data) => {
+      
       vehicleSchema.countDocuments({
         $and: [
           { Status: 'Acccepted' },

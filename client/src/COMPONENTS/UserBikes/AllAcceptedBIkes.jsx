@@ -24,11 +24,14 @@ function AllAcceptedBIkes({ acceptedBikes, selectedLoc }) {
 
   const bikes = useSelector((state) => state.bikesReducer);
   const { loading, bikesData, bikesDataError } = bikes;
+  console.log("ACC BIKESDATA",bikesData?.data.length);
   return (
     <div>
 
-      
-      <MDBRow className="col-lg-12">
+      {
+        bikesData?.data.length === 0 ? <h6>No Data Available</h6> :
+
+        <MDBRow className="col-lg-12">
         
         {loading ? (
           <Loading />
@@ -94,7 +97,13 @@ function AllAcceptedBIkes({ acceptedBikes, selectedLoc }) {
                               borderRadius: "6px",
                               height: "3rem",
                               border: "none",
-                            }}
+                            }
+                          }
+                            // onClick={() => {
+    
+                            //   navigate('/booking-summary',{state : {bikesData,bikeId}})
+                              
+                            // }}
                           >
                             Book Now
                           </button>
@@ -176,6 +185,8 @@ function AllAcceptedBIkes({ acceptedBikes, selectedLoc }) {
           ""
         )}
       </MDBRow>
+      }
+      
     </div>
   );
 }

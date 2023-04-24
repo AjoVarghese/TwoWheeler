@@ -1,5 +1,4 @@
 import axios from "axios"
-// let token = user?.token
 const API = axios.create({baseURL : "http://localhost:3001/api/user"})
 
 const config = {
@@ -7,8 +6,7 @@ const config = {
       "Content-Type" : "application/json",
     }
 }
-let user = JSON.parse(localStorage.getItem('userInfo'))
-console.log("API CALL USER TOKEN",user);
+const user = JSON.parse(localStorage.getItem('userInfo'))
 
 const ID = user?.id
 
@@ -38,12 +36,6 @@ export const userProfileApi = (id) =>API.get('/profile?id='+id,configTOken)
 export const imageUploadApi = (id,image) => API.post('/profileImageUpdate?id='+id,{image},configTOken)
 export const editProfileApi = (name,email,mobile,id) => {
   return(
-    console.log("{PROFILE API",name),
-    console.log("{PROFILE API",email),
-    console.log("{PROFILE API",mobile),
-    console.log("{PROFILE API",id),
-    console.log("CONFIG",configTOken),
-    
       API.post('/edit-profile?id='+id,{name,email,mobile},configTOken)
   )
 }
@@ -56,10 +48,11 @@ export const userGetRentedBikesAPi = () => API.get('/rented-bikes?id='+ID,config
 export const userGetBikesApi = (page) => API.get(`/bikes?id=${ID}&page=${page}`,config)
 export const searchBikesApi = (searchTerm,page) => {
    return(
-    console.log("search api",searchTerm),
     API.post(`/search-bikes?page=${page}&id=${ID}`,{searchTerm},config)
    )
 }
+
+export const filterBikesApi = (location,brand,page) => API.post(`/filter-bikes?page=${page}`,{location,brand},config)
 
 export const bookBikeApi = (bookingData) => API.post('/bike-booking',{bookingData},config)
 
@@ -68,12 +61,19 @@ export const createOrderApi = (bookingDetails) => API.post('/booking-success',{b
 export const rentedRidesApi = () => API.get('/my-rents?id='+ID,configTOken)
 
 export const cancelRideApi = (bikeId,bookingId,startTime,endTime,userId,price) =>
- API.get(`/cancel-ride?bikeId=${bikeId}&bookingId=${bookingId}&startTime=${startTime}&endTime=${endTime}&userId=${userId}&price=${price}`,configTOken)
+ API.get(`/cancel-ride?bikeId=${bikeId}&bookingId=${bookingId}
+ &startTime=${startTime}&endTime=${endTime}&userId=${userId}
+ &price=${price}`,configTOken)
 
  export const endRideApi = (bikeId,bookingId,startTime,endTime,userId) =>
  API.get(`/end-ride?bikeId=${bikeId}
  &bookingId=${bookingId}&startTime=${startTime}
  &endTime=${endTime}&userId=${userId}`,configTOken)
+
+ export const payFineApi = (fineDetails) => API.post('/pay-fine?id='+ID,{fineDetails},configTOken)
+
+ export const paymentSuccessApi =(fineDetails) => API.post('/payment-success',{fineDetails},config)
+
 
 export const getWalletApi = () => API.get('/get-wallet?id='+ID,configTOken)
 

@@ -27,12 +27,12 @@ exports.searchBikes = (req, res) => {
         vehicle.countDocuments({
           $and: [
             { Status: 'Acccepted' },
-            {
-              $or: [
-                { OwnerId: { $ne: req.query.id } },
-                { OwnerId: { $exists: false } }
-              ]
-            }
+            // {
+            //   $or: [
+            //     { OwnerId: { $ne: req.query.id } },
+            //     { OwnerId: { $exists: false } }
+            //   ]
+            // }
           ]
         })
         .then((count) => {

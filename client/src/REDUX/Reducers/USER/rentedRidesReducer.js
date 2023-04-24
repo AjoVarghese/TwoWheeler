@@ -31,7 +31,17 @@ export const rentedBikesReducer = (state = {} , {type,payload}) => {
             return {
                 loading : false,
                 rentedRidesData : payload
-            }         
+            }  
+        case ActionTypes.PAYMENT_SUCCESS:
+            return {
+                loading : false,
+                rentedRidesData : payload
+            }       
+        case ActionTypes.PAYMENT_FAILED:
+            return {
+                loading : false,
+                rentedRidesDataError : payload
+            }        
         default : return state    
     }
 }

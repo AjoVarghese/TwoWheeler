@@ -30,13 +30,13 @@ const SuccessPage = lazy(() => import('./components/SuccessPage/SuccessPage'));
 const RentedRides = lazy(() => import('./pages/User/RentedRides/RentedRides'));
 const Wallet = lazy(() => import('./pages/User/Wallet/Wallet'))
 const Chat = lazy(() => import('./pages/User/Chat/Chat'))
+const PaymentSuccess = lazy(() => import('./components/PaymentSuccess/PaymentSuccess'))
 
  
 function App() {
   const userdata = useSelector((state)=>state.userLoginReducer.userLoginDetails);
   const adminData = useSelector((state) => state.adminLoginReducer.adminLoginData)
-  console.log("ADMINdata",adminData);
-  console.log("USRDATA",userdata);
+  
   return (
     <div className="App">
       
@@ -57,6 +57,7 @@ function App() {
           <Route exact path = '/my-rents' element = {userdata ? <RentedRides/> : <Navigate to = '/login'/>}></Route>
           <Route exact path = '/my-wallet' element = {userdata ? <Wallet/> : <Navigate to = '/login'/>}></Route>
           <Route exact path = '/chat' element = {userdata ? <Chat/> : <Navigate to = '/login'/>}></Route>
+          <Route exact path = '/payment-success' element = {userdata ? <PaymentSuccess/> : <Navigate to = '/login'/>}></Route>
 
 
           {/* admin */}

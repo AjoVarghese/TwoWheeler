@@ -79,7 +79,6 @@ function Bikes () {
 
   const bikes = useSelector(state => state.bikesReducer)
   const { loading, bikesData, bikesDataError } = bikes
-  console.log('BIkes page',bikesData?.data);
 
   const location = useSelector(state => state.userLocationReducer.locationData)
   console.log('LocatioNNNN', location)
@@ -120,13 +119,15 @@ function Bikes () {
         <div>
           <MDBContainer className='my-1'>
             <h2 style={{ textAlign: 'center' }}>Rent Bikes</h2>
+            
             <Box sx={{ flexGrow: 1 }}>
+              
               <Grid container spacing={2}>
                 <Grid item md={3}>
                   <Item>
                     <h4>FILTER</h4>
 
-                    <FilterSideBar loc={location} propState={setState} />
+                    <FilterSideBar loc={location} propState={setState} page={page} />
                   </Item>
                 </Grid>
                 <Grid item xs={9}>

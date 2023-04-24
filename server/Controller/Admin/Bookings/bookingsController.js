@@ -62,7 +62,7 @@ exports.getBookedDetails = async(req,res) => {
               let startTime = moment(data[i].startingTime, 'MMMM Do YYYY, h:mm:ss a').unix();
               let endTime = moment(data[i].endingTime, 'MMMM Do YYYY, h:mm:ss a').unix();
               
-              if(currentTime > endTime){
+              if(currentTime > endTime && data[i].status !== 'Completed'){
                 
                 booking.findOneAndUpdate(
                   {

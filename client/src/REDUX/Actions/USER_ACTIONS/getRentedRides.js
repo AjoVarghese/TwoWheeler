@@ -46,3 +46,4 @@ export const endRideAction = (data) => async(dispatch) => {
         payload : data
     })
 }
+

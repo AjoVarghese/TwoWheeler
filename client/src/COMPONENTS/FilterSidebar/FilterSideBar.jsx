@@ -2,23 +2,37 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button, FormControl } from "@mui/material";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import {useForm} from "react-hook-form"
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { bikeFilterAction } from "../../redux/Actions/USER_ACTIONS/bikeFilterAction";
 
-export default function FilterSideBar({ loc, propState }) {
+// const schema = yup.object().shape({
+
+// })
+
+export default function FilterSideBar({ loc, propState,page }) {
   console.log(loc, propState);
-  const [location, setLocation] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [location, setLocation] = useState(null);
+  const [brand, setBrand] = useState(null); 
+  const [error,setError] = useState(false) 
+  const [spaceError,setSpaceError] = useState(false)
+  const dispatch = useDispatch()
 
-  const submitHandler = () => {
-    console.log("submit");
-    console.log(location);
-    console.log(searchTerm);
+  const submitHandler = (e) => {
+    e.preventDefault()
     propState(location);
-    if (location !== null || searchTerm !== null) {
-      console.log("dispatch");
-    } else if (location === "" && searchTerm === "") {
-      window.alert("error");
-    }
+   
+      if (location !== null || brand !== null) {
+        setError(false)
+        dispatch(bikeFilterAction(location,brand,page))
+      } else if (location === null && brand === null) {
+        setError(true)
+      }
+    
+   
   };
   return (
     <div>
@@ -31,7 +45,7 @@ export default function FilterSideBar({ loc, propState }) {
         autoComplete="off"
       >
         <FormControl>
-          <h5 style={{ textAlign: "start" }}> Search By Brand</h5>
+          <h5 style={{ textAlign: "start" }}> Search By Location</h5>
           <div>
             <TextField
               id="standard-select-currency-native"
@@ -73,12 +87,17 @@ export default function FilterSideBar({ loc, propState }) {
           <div>
             <TextField
               id="standard-search"
+              name="brand"
               label="Search field"
               type="search"
               variant="standard"
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => setBrand(e.target.value)}
             />
           </div>
+          {
+            error ? <p style={{color : "red"}}>No inputs to filter</p> : ""
+          }
+          
         </FormControl>
         <Button variant="contained" onClick={submitHandler}>
           Apply Filter

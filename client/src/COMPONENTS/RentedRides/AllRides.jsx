@@ -12,6 +12,8 @@ import { Button } from '@mui/material';
 import { useState } from 'react';
 import CancelRide from '../Modal/CancelRide';
 import EndRideModal from '../Modal/EndRideModal';
+import { useDispatch } from 'react-redux';
+import { payFineAction } from '../../redux/Actions/USER_ACTIONS/payFineAction';
 
 
 export default function CustomizedTables({data}) {
@@ -24,7 +26,23 @@ export default function CustomizedTables({data}) {
   const [endTime,setEndTime] = useState('')
   const [price,setPrice] = useState('')
 
+  const dispatch = useDispatch()
+
   let userId = JSON.parse(localStorage.getItem("userInfo")).id
+
+ 
+  const handlePayFine = (bikeId,bookingId,startTime,endTime,price,photo,bikeName) => {
+    const fineDetails = {
+      bikeId : bikeId,
+      bookingId : bookingId,
+      startTime : startTime,
+      endTime : endTime,
+      price : price,
+      photo : photo,
+      bikeName : bikeName
+    }
+    dispatch(payFineAction(fineDetails))
+  }
   return (
     <>
     
@@ -103,9 +121,26 @@ export default function CustomizedTables({data}) {
                  }}
                  >
                  End Ride
-               </Button> : ""
+               </Button> : 
+                row.status === 'Time Exceeded' ?
+                <Button variant="contained" 
+                 color="error"
+                 onClick={(e) => {
+                  // setEndRide(true)
+                  // setSelectedBike(row.bikeId)
+                  // setSelectedBooking(row._id)
+                  // setStartTime(row.startingTime)
+                  // setEndTime(row.endingTime)
+                  handlePayFine(row.bikeId,row._id,
+                    row.startingTime,row.endingTime,
+                    row.totalAmount,row.photo,
+                    row.bikeName
+                    )
+                 }}
+                 >
+                 Pay Fine
+               </Button> : "ddddd"
                
-
                 }
               
               </TableCell>

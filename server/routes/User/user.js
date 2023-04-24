@@ -18,6 +18,7 @@ const filterbikeController = require('../../Controller/User/Vehicles/filterSortC
 const bookingController = require('../../Controller/User/Booking/BookingController')
 const rentedRidesController = require('../../Controller/User/RentedRides/rentedRidesController')
 const endRideController = require('../../Controller/User/RentedRides/endRideController')
+const payFineController = require('../../Controller/User/RentedRides/payFineController')
 
 const walletController = require('../../Controller/User/Wallet/walletController')
 const chatController = require('../../Controller/User/Chat/chatController')
@@ -47,7 +48,7 @@ router.route('/bikes').get(viewVehiclesController.viewVehicles)
 
 router.route('/search-bikes').post(searchVehiclesController.searchBikes)
 
-router.route('/filter-location').get(filterbikeController.filterByLocation)
+router.route('/filter-bikes').post(filterbikeController.filterBikes)
 
 router.route('/get-location').get(locationController.getLocations)
 
@@ -70,6 +71,10 @@ router.route('/my-rents').get(protect,rentedRidesController.rentedRides)
 router.route('/cancel-ride').get(protect,rentedRidesController.cancelRide)
 
 router.route('/end-ride').get(protect,endRideController.endRide)
+
+router.route('/pay-fine').post(protect,payFineController.payFine)
+
+router.route('/payment-success').post(payFineController.paymentSuccess)
 
 router.route('/get-wallet').get(protect,walletController.walletController)
 
