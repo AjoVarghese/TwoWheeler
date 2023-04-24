@@ -1,14 +1,10 @@
 const vehicleSchema = require('../../../Models/vehicleSchema')
 
 exports.viewVehicles = async(req,res) => {
-  console.log(req.query.id);
-  console.log(req.query.page)
-  // const itemsPerPage = 3
-  // const page = req.query.page
+
   const itemsPerPage = 3
   const page = req.query.page || 1
   let pageCount
-  let count
   let currentPage = parseInt(page)
   try {
     vehicleSchema.find({

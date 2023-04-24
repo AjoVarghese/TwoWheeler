@@ -29,7 +29,11 @@ function PriceAscSortedBikes({priceAsc}) {
                     style={{width:'20rem',height:'10rem',}}
                     position="top"
                     alt="Apple Computer"
-                    onClick={(e) => navigate('/bike-detailed-view',{state:{bikesData}})}
+                    onClick={(e) =>
+                      navigate("/bike-detailed-view", {
+                        state: { bikesData, bikeId: x._id },
+                      })
+                    }
                   />
                   <MDBCardBody style={{backgroundColor : "#DCDCDC"}}>
                     <div className="text-center">

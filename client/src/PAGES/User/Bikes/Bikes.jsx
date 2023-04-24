@@ -79,6 +79,7 @@ function Bikes () {
 
   const bikes = useSelector(state => state.bikesReducer)
   const { loading, bikesData, bikesDataError } = bikes
+  console.log('BIkes page',bikesData?.data);
 
   const location = useSelector(state => state.userLocationReducer.locationData)
   console.log('LocatioNNNN', location)
@@ -106,7 +107,7 @@ function Bikes () {
 
   const submitHandler = e => {
     e.preventDefault()
-    dispatch(bikeSearchAction(searchTerm))
+    dispatch(bikeSearchAction(searchTerm,page))
     setSearchTerm('')
   }
 
@@ -161,7 +162,9 @@ function Bikes () {
                         </Paper>
                       </Grid>
                     </Grid>
-
+                    {
+                      bikesData?.data === [] ? <h1>No Data</h1> : 
+                    <>
                     <Box sx={{ width: '100%' }}>
                       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <Tabs
@@ -201,15 +204,7 @@ function Bikes () {
                         ''
                       )}
 
-                      {/* <MDBPaginationItem>
-          <MDBPaginationLink href='#'>1</MDBPaginationLink>
-        </MDBPaginationItem>
-        <MDBPaginationItem>
-          <MDBPaginationLink href='#'>2</MDBPaginationLink>
-        </MDBPaginationItem>
-        <MDBPaginationItem>
-          <MDBPaginationLink href='#'>3</MDBPaginationLink>
-        </MDBPaginationItem> */}
+                      
                       {page === pageCount ? (
                         ''
                       ) : (
@@ -222,6 +217,8 @@ function Bikes () {
                         </MDBPaginationItem>
                       )}
                     </MDBPagination>
+                    </>
+                   }
                   </Item>
                 </Grid>
               </Grid>

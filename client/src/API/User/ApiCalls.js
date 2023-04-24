@@ -54,10 +54,10 @@ export const userAddBikeApi = (formData)=> API.post('/rent-bikes?id='+ID,formDat
 export const userGetRentedBikesAPi = () => API.get('/rented-bikes?id='+ID,configTOken)
 
 export const userGetBikesApi = (page) => API.get(`/bikes?id=${ID}&page=${page}`,config)
-export const searchBikesApi = (searchTerm) => {
+export const searchBikesApi = (searchTerm,page) => {
    return(
     console.log("search api",searchTerm),
-    API.post('/search-bikes',{searchTerm},config)
+    API.post(`/search-bikes?page=${page}&id=${ID}`,{searchTerm},config)
    )
 }
 

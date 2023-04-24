@@ -28,14 +28,8 @@ function AllAcceptedBIkes({ acceptedBikes, selectedLoc }) {
     <div>
 
       
-      {/* {
-        selectedLoc !== undefined ? 
-        acceptedBikes?.data ? acceptedBikes?.data.filter((x) => x.Location === selectedLoc)
-        .map((row,i) => {
-
-        }) : ""
-      }  */}
       <MDBRow className="col-lg-12">
+        
         {loading ? (
           <Loading />
         ) : acceptedBikes?.data ? (
