@@ -6,6 +6,8 @@ import { blockUnblockApi } from '../../../api/Admin/ApiCalls';
 import Loading from '../../../components/Loading/Loading';
 import AdminSideBar from '../../../components/NAVBAR/AdminSideBar'
 import { adminUserAction } from '../../../redux/Actions/ADMIN_ACTIONS/adminUserActions';
+// import UserTable from '../../../components/UserTable/UserTable';
+import { MDBPagination, MDBPaginationItem, MDBPaginationLink } from 'mdb-react-ui-kit';
 
 
 function Users() {
@@ -24,21 +26,16 @@ const [sucess,setSuccess]=useState(false);
 
   const adminUserdata = useSelector((state) => state.adminUserGetReducer)
   const {loading,adminUserData} = adminUserdata;
-  // console.log("USERS",users.id);
 
  const handleAction = (id) => {
     blockUnblockApi(id).then((data) => {
       console.log(data.data);
       localStorage.removeItem("userInfo")
-      // localStorage.setItem("userInfo",JSON.stringify(data.data))
-      // const item = JSON.parse( localStorage.getItem('userInfo') )
-      // console.log(item.Status);
       if(data){
         dispatch(adminUserAction())
         setLoading(false)
         setSuccess(true)
         setTimeout(() => {
-          // navigate("/admin/bikes",{state:{bikeAdded:true}})
           setSuccess(false)
         }, 3000);
       }
@@ -106,9 +103,31 @@ const [sucess,setSuccess]=useState(false);
         
       </tbody>
     </Table>
+    {/* <UserTable userData={adminUserData}/> */}
         </div>
       </Box>
+      
       </Box>
+      <Box>
+      {/* <MDBPagination className='mb-0'>
+        <MDBPaginationItem>
+          <MDBPaginationLink>Previous</MDBPaginationLink>
+        </MDBPaginationItem>
+        <MDBPaginationItem>
+          <MDBPaginationLink href='#'>1</MDBPaginationLink>
+        </MDBPaginationItem>
+        <MDBPaginationItem>
+          <MDBPaginationLink href='#'>2</MDBPaginationLink>
+        </MDBPaginationItem>
+        <MDBPaginationItem>
+          <MDBPaginationLink href='#'>3</MDBPaginationLink>
+        </MDBPaginationItem>
+        <MDBPaginationItem>
+          <MDBPaginationLink >Next</MDBPaginationLink>
+        </MDBPaginationItem>
+      </MDBPagination> */}
+      </Box>
+      
     </div>
   )
 }

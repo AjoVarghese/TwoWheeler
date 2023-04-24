@@ -29,7 +29,7 @@ export const adminLoginApi = (Email,Password) => API.post('/login',{Email,Passwo
 export const getUsersApi = () => API.get('/users',configToken)
 export const blockUnblockApi = (id) => API.get('/blockUnblock?id=' +id,configToken)
 export const adminAddBikeApi = (formData) => API.post('/add-bikes',formData,configFormData)
-export const getAllBikesApi = () => API.get('/bikes',configToken)
+export const getAllBikesApi = (page) => API.get(`/bikes?page=${page}`,configToken)
 export const bikeSingleViewApi = (id) => API.get('/bike-detailed-view?id='+id , configToken)
 export const getRentRequetsApi = () => API.get('/rent-requests',configToken)
 export const acceptRentRequestsApi = (id,owner) => API.get(`/accept-request?id=${id}&owner=${owner}`,configToken)
@@ -37,10 +37,10 @@ export const rejectRentRequetsApi = (id) => API.get('/reject-requests?id='+id,co
 export const deleteBikeAPi =(id) => API.get('/delete-bike?id='+id,configToken)
 export const editBikeApi = (id,formData) => API.post('/edit-bike?id='+id,formData,configFormData)
 
-export const adminSearchBikeApi = (searchTerm)=> {
+export const adminSearchBikeApi = (searchTerm,page)=> {
   return(
    console.log("search api",searchTerm),
-   API.post('/search-bikes',{searchTerm},configToken)
+   API.post(`/search-bikes?page=${page}`,{searchTerm},configToken)
   )
 }
 

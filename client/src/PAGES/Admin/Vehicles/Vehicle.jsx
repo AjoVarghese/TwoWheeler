@@ -4,8 +4,6 @@ import AdminSideBar from '../../../components/NAVBAR/AdminSideBar'
 import { MDBCol, MDBContainer } from 'mdb-react-ui-kit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-// import Table from 'react-bootstrap/Table';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -17,14 +15,13 @@ import {  Button,  } from '@mui/material';
 import Figure from 'react-bootstrap/Figure';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-// import { Alert, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { adminSearchBikeAction, deleteBikeAction, getAllBikesAction } from '../../../redux/Actions/ADMIN_ACTIONS/getAllBikesAction';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loading from '../../../components/Loading/Loading'
-// import { bikeSingleViewApi } from '../../../api/Admin/ApiCalls'
 import { bikeSingleViewAction } from '../../../redux/Actions/ADMIN_ACTIONS/bikeSingleViewAction';
 import AlertDialog from '../../../components/AlertDialog/AlertDialog';
+import { MDBPagination, MDBPaginationItem, MDBPaginationLink } from 'mdb-react-ui-kit';
 
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
@@ -55,32 +52,38 @@ function Vehicle() {
    const [deleteDialog,setDeleteDialog] = useState(false)
    const [selectedBike,setSelectedBike] = useState()
    const [searchTerm,setSearchTerm] = useState('')
-   console.log("store bike seleced",selectedBike);
+
+   const [page, setPage] = useState(1)
+  const [pageCount, setPageCount] = useState(0)
 
    const bikes = useSelector((state) => state.admingetAllBikesReducer)
    const {loading,bikesData,bikesDataError} = bikes
-   console.log("bikes",bikesData);
 
  
 
    const deleteBike = () =>{
-      console.log('dekete bike');
       dispatch(deleteBikeAction(selectedBike))
    }
 
   useEffect(() => {
-    dispatch(getAllBikesAction())
+    dispatch(getAllBikesAction(page))
   },[])
 
   const onSubmit = (e) => {
     e.preventDefault()
-    console.log("searcj");
-    dispatch(adminSearchBikeAction(searchTerm))
+    dispatch(adminSearchBikeAction(searchTerm,page))
     setSearchTerm('')
-    console.log('bikedData',bikesData);
   }
 
+   const handlePrev = () => {
+     dispatch(getAllBikesAction(bikesData.pagination.currentPage - 1))
+     setPage(bikesData.pagination.currentPage - 1)
+   }
 
+   const handleNext = () => {
+    dispatch(getAllBikesAction(bikesData.pagination.currentPage + 1))
+    setPage(bikesData.pagination.currentPage + 1)
+   }
   return (
 
     <>
@@ -128,6 +131,32 @@ function Vehicle() {
         <DirectionsIcon />
       </IconButton> */}
     </Paper>
+    <MDBPagination className='mb-0'>
+      {
+        page > 1 ? (
+          <MDBPaginationItem>
+          <MDBPaginationLink  aria-label='Previous' onClick={handlePrev}>
+            <span aria-hidden='true'>« Prev</span>
+          </MDBPaginationLink>
+        </MDBPaginationItem>
+        ) : (
+          ''
+        )
+      }
+       {
+        page === pageCount ? (
+          ''
+        ) : (
+          <MDBPaginationItem>
+          <MDBPaginationLink  aria-label='Next' onClick={handleNext}>
+            <span aria-hidden='true'>Next »</span>
+          </MDBPaginationLink>
+        </MDBPaginationItem>
+        )
+       }
+       
+        
+      </MDBPagination>
         <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -147,7 +176,7 @@ function Vehicle() {
         
           
           {
-            bikesData ? bikesData.map((data,i) => {
+            bikesData ? bikesData?.data.map((data,i) => {
               
               return(
                 

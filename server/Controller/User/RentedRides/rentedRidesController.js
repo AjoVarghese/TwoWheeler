@@ -70,7 +70,7 @@ exports.cancelRide = async(req,res) => {
     console.log(userId);
     console.log(startTime);
     console.log(endTime);
-    
+    let id = new mongoose.Types.ObjectId(bikeId)
    
      try {
         bikes.updateOne({

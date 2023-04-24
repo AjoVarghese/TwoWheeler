@@ -54,6 +54,10 @@ exports.viewVehicles = async(req,res) => {
       console.log(error)
       res.status(500).json({ message: 'Error occurred while fetching the data' })
     })
+    .catch((error) => {
+      console.log(error)
+      res.status(500).json({ message: 'Error occurred while fetching the count' })
+    })
   } catch (error) {
     console.log(error)
   }
