@@ -24,6 +24,11 @@ function Users() {
   const [load,setLoading]=useState(false);
 const [sucess,setSuccess]=useState(false);
 
+const [page, setPage] = useState(1)
+const [pageCount, setPageCount] = useState(0)
+
+
+
   const adminUserdata = useSelector((state) => state.adminUserGetReducer)
   const {loading,adminUserData} = adminUserdata;
 
@@ -48,9 +53,18 @@ const [sucess,setSuccess]=useState(false);
 
 
   useEffect(() => {
-    dispatch(adminUserAction())
+    dispatch(adminUserAction(page))
   },[])
 
+  const handlePrev = () => {
+    dispatch(adminUserAction(adminUserData.pagination.currentPage - 1))
+    setPage(adminUserData.pagination.currentPage - 1)
+   }
+   
+   const handleNext = () => {
+    dispatch(adminUserAction(adminUserData.pagination.currentPage + 1))
+    setPage(adminUserData.pagination.currentPage + 1)
+   }
   return (
     <div>
       
@@ -61,7 +75,39 @@ const [sucess,setSuccess]=useState(false);
         <DrawerHeader/>
         <h1>Users</h1>
         <div className="card container md-12">
-            
+        <MDBPagination className='mb-2 mt-2 d-flex justify-content-end'>
+        {
+        page > 1 ? (
+          <MDBPaginationItem>
+          <MDBPaginationLink  aria-label='Previous' onClick={handlePrev}>
+            <span aria-hidden='true'>« Prev</span>
+          </MDBPaginationLink>
+        </MDBPaginationItem>
+        ) : (
+          ''
+        )
+      }
+        {/* <MDBPaginationItem>
+          <MDBPaginationLink href='#'>1</MDBPaginationLink>
+        </MDBPaginationItem> */}
+        {/* <MDBPaginationItem>
+          <MDBPaginationLink href='#'>2</MDBPaginationLink>
+        </MDBPaginationItem> */}
+        {/* <MDBPaginationItem>
+          <MDBPaginationLink href='#'>3</MDBPaginationLink>
+        </MDBPaginationItem> */}
+      {
+        page === pageCount ? (
+          ''
+        ) : (
+          <MDBPaginationItem>
+          <MDBPaginationLink  aria-label='Next' onClick={handleNext}>
+            <span aria-hidden='true'>Next »</span>
+          </MDBPaginationLink>
+        </MDBPaginationItem>
+        )
+       }
+      </MDBPagination>
 
 <Table striped >
       <thead >
@@ -77,7 +123,7 @@ const [sucess,setSuccess]=useState(false);
       <tbody>
         
           {
-            loading? <Loading/> :adminUserData? adminUserData.map((m,index )=>{
+            loading? <Loading/> :adminUserData? adminUserData?.data.map((m,index )=>{
               // console.log(m);
               return(
                 <>
@@ -109,23 +155,7 @@ const [sucess,setSuccess]=useState(false);
       
       </Box>
       <Box>
-      {/* <MDBPagination className='mb-0'>
-        <MDBPaginationItem>
-          <MDBPaginationLink>Previous</MDBPaginationLink>
-        </MDBPaginationItem>
-        <MDBPaginationItem>
-          <MDBPaginationLink href='#'>1</MDBPaginationLink>
-        </MDBPaginationItem>
-        <MDBPaginationItem>
-          <MDBPaginationLink href='#'>2</MDBPaginationLink>
-        </MDBPaginationItem>
-        <MDBPaginationItem>
-          <MDBPaginationLink href='#'>3</MDBPaginationLink>
-        </MDBPaginationItem>
-        <MDBPaginationItem>
-          <MDBPaginationLink >Next</MDBPaginationLink>
-        </MDBPaginationItem>
-      </MDBPagination> */}
+      
       </Box>
       
     </div>

@@ -18,9 +18,6 @@ import { useForm } from "react-hook-form";
 import { getLocation } from '../../../redux/Actions/ADMIN_ACTIONS/locationActions';
 import { toast, Toaster } from 'react-hot-toast';
 
-// const schema = yup.object().shape({
-//   mySelec: yup.string().notOneOf([""], "You must select an option!")
-// });
 
 function AddVehicle() {
   const DrawerHeader = styled('div')(({ theme }) => ({
@@ -49,9 +46,6 @@ const dispatch = useDispatch()
 const navigate = useNavigate();
 
 const location = useSelector((state) => state.getLocationReducer.location)
-console.log('LOCATION',location);
- 
-// console.log('SDSDDSSD');
 
 
 useEffect(() => {
@@ -111,9 +105,7 @@ const onSubmit = (data) => {
         <DrawerHeader/>
         
         <Card className='container col-md-6' style={{ boxShadow : "2px 2px 2px 1px"}}>
-     {/* {
-      sucess?   <Alert severity="success">Bike Added Successfully!</Alert>:''
-     } */}
+     
       <Toaster
        position="top-right"
        reverseOrder={false}
@@ -121,29 +113,12 @@ const onSubmit = (data) => {
       />
         <Form onSubmit={handleSubmit(onSubmit)}>
         <div className="card flex flex-column md:flex-row gap-3">
-            {/* <div className="p-inputgroup flex-1">
-                <span className="p-inputgroup-addon">
-                    <i className="pi pi-user"></i>
-                </span> */}
+          
                 <h1 className='ms-4 mt-2'>Add Bike</h1>
                 
                 <MDBRow className='pt-2 ms-3 me-3 mb-4'>
         <MDBCol>
-        {/* <TextField 
-        id="bikeName" 
-        autoFocus
-        label="Bike Name" 
-        variant="outlined" 
-        {...register('bikeName',
-        {
-          required : "This is required",
-          minLength : 2
-        }
-        )}
-        onChange={(e) => setBikeName(e.target.value)}
-        // error = {!!errors.bikeName}
-        helperText = {errors.bikeName  && <div style={{color : 'red'}}>Please enter the bike name</div>}
-        /> */}
+        
           <Form.Field>
           <label htmlFor="">Bike Name</label>
           <MDBInput id='form3Example1' 
@@ -202,24 +177,7 @@ const onSubmit = (data) => {
         </MDBCol>
       </MDBRow>
       
-      {/* <TextField
-          id="outlined-select-currency"
-          select
-          label="Select"
-          defaultValue="EUR"
-          helperText="Please select your currency"
-        >
-          {
-          location ? location.map((option) => {
-            return(
-              <MenuItem key={option._id} >
-              {option.Location}
-            </MenuItem>
-            )
-           
-            }) : ""
-        }
-        </TextField> */}
+      
         <MDBRow className='pt-2 ms-3 me-3 mb-4'>
         <MDBCol>
         <Form.Field>

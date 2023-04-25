@@ -2,7 +2,7 @@ import React from 'react'
 import MUIDataTable from "mui-datatables";
 
 function AllReport({ salesData }) {
-
+console.log(salesData);
   const columns = [
     {
       name: "bikeId",
@@ -25,7 +25,7 @@ function AllReport({ salesData }) {
       label: "Location",
       options: {
         filter: true,
-        sort: false,
+        sort: true,
         customHeadLabelStyle: {
             fontWeight: 'bold',
             fontSize: '16px',
@@ -37,11 +37,11 @@ function AllReport({ salesData }) {
       }
     },
     {
-      name: "startDate",
-      label: "Start Date",
+      name: "bookedAt",
+      label: "Booked Date",
       options: {
         filter: true,
-        sort: false,
+        sort: true,
         customHeadLabelStyle: {
             fontWeight: 'bold',
             fontSize: '16px',
@@ -52,28 +52,13 @@ function AllReport({ salesData }) {
           },
       }
     },
-    {
-      name: "endDate",
-      label: "End Date",
-      options: {
-        filter: true,
-        sort: false,
-        customHeadLabelStyle: {
-            fontWeight: 'bold',
-            fontSize: '16px',
-            textAlign: 'center',
-          },
-          customBodyRender: (value, tableMeta, updateValue) => {
-            return <div style={{ textAlign: 'center' }}>{value}</div>;
-          },
-      }
-    },
+   
     {
       name: "totalHours",
       label: "Total Hours",
       options: {
         filter: true,
-        sort: false,
+        sort: true,
         customHeadLabelStyle: {
             fontWeight: 'bold',
             fontSize: '16px',
@@ -89,7 +74,7 @@ function AllReport({ salesData }) {
       label: "Total Amount (in Rs)",
       options: {
         filter: true,
-        sort: false,
+        sort: true,
         customHeadLabelStyle: {
             fontWeight: 'bold',
             fontSize: '16px',
@@ -105,7 +90,7 @@ function AllReport({ salesData }) {
       label: "Payment Type",
       options: {
         filter: true,
-        sort: false,
+        sort: true,
         customHeadLabelStyle: {
             fontWeight: 'bold',
             fontSize: '16px',
@@ -121,7 +106,7 @@ function AllReport({ salesData }) {
       label: "Status",
       options: {
         filter: true,
-        sort: false,
+        sort: true,
         customHeadLabelStyle: {
             fontWeight: 'bold',
             fontSize: '16px',
@@ -137,8 +122,7 @@ function AllReport({ salesData }) {
   const data = Array.isArray(salesData) ? salesData.map(sale => ({
     bikeId: sale.bikeId,
     location: sale.location,
-    startDate: sale.bookedTimeSlots.startDate,
-    endDate: sale.bookedTimeSlots.endDate,
+    bookedAt : sale.bookedAt,
     totalHours: sale.totalHours,
     totalAmount: sale.totalAmount,
     paymentType: sale.paymentType,

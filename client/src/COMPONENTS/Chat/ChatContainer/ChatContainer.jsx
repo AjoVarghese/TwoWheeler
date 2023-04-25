@@ -117,7 +117,7 @@ display: grid;
        grid-template-rows: 10% 78% 12%;
   }
   .chat-header {
-    background-color:#054D60;
+    background-color:#F5F5DC;
     display: flex;
     justify-content: space-between;
     align-items: center;

@@ -65,41 +65,14 @@ function Landing() {
         <Item className='mt-3'>
         <h3 className='text-dark'>Bikes Maintained So Good</h3>
         </Item>
-        <Item className='mt-3'>Item 3</Item>
+        <Item className='mt-3'>
+        <h3 className='text-dark'>Good Bikes To Rent From</h3>
+        </Item>
       </Stack>
     </Box>
               </MDBRow>
 
-              {/* <MDBInput wrapperClass='mb-4' label='Email' id='form1' type='email'/>
-              <MDBInput wrapperClass='mb-4' label='Password' id='form1' type='password'/> */}
-
-              {/* <div className='d-flex justify-content-center mb-4'>
-                <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
-              </div> */}
-
-              {/* <MDBBtn className='w-100 mb-4' size='md'>sign up</MDBBtn> */}
-
-              {/* <div className="text-center">
-
-                <p>or sign up with:</p>
-
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='facebook-f' size="sm"/>
-                </MDBBtn>
-
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='twitter' size="sm"/>
-                </MDBBtn>
-
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='google' size="sm"/>
-                </MDBBtn>
-
-                <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
-                  <MDBIcon fab icon='github' size="sm"/>
-                </MDBBtn>
-
-              </div> */}
+              
 
             </MDBCardBody>
           </MDBCard>

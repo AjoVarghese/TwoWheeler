@@ -189,8 +189,8 @@ function Booking () {
       dispatch(bookingAction(stripeData))
     } else if (wallet === true && stripe === false) {
       console.log(totalAmount)
-      console.log(walletAmount.walletAmount)
-      if (walletAmount.walletAmount >= totalAmount) {
+      console.log(walletAmount?.walletAmount)
+      if (walletAmount?.walletAmount >= totalAmount) {
         setWalletError(false)
         bookBikeApi(walletBookingData).then(data => {
           toast.success('Booking Successfull😃!')

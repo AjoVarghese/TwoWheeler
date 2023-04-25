@@ -1,7 +1,9 @@
 import React ,{lazy,Suspense} from 'react';
+import './App.js'
 import { useSelector } from 'react-redux';
 import {BrowserRouter as Router,Navigate,Route,Routes} from 'react-router-dom'
 import SalesReport from './pages/Admin/SaleReport/SalesReport';
+import BackdropLoading from './components/BackDrop/BackDrop';
 
 //LazyLoading
 const Bookings = lazy(() => import('./pages/Admin/Bookings/Bookings'));
@@ -41,7 +43,7 @@ function App() {
     <div className="App">
       
       <Router>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<BackdropLoading/>}>
         <Routes>
           <Route exact path = '/' element = {<Home/>}> </Route>
           <Route exact path = '/signup' element = {userdata?<Navigate to='../'/> :<Signup/>}></Route>

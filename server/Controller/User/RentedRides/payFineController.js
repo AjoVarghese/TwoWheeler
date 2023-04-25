@@ -22,9 +22,9 @@ exports.payFine = async(req,res) => {
         let eTime = moment(endTime,'MMMM Do YYYY, h:mm:ss a')
 
         let diffInHours = currTime.diff(eTime,'hours')
-       
+       console.log('DIFFHRS',diffInHours);
 
-        let totalFine = diffInHours * 30
+        let totalFine = diffInHours > 0 ? diffInHours * 30 : 30
         console.log(totalFine);
         console.log(photo);
         console.log(typeof photo);

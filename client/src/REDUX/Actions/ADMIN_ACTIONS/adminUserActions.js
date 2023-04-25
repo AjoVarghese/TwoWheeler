@@ -1,13 +1,12 @@
 import { getUsersApi } from "../../../api/Admin/ApiCalls"
 import { AdminActionTypes } from "../../Constants/Admin/AdminActionTypes"
 
-export const adminUserAction = () => async(dispatch) => {
+export const adminUserAction = (page) => async(dispatch) => {
     try {
         dispatch({
             type : AdminActionTypes.GET_USERS_REQ
         })
-        getUsersApi().then((data) => {
-            console.log("USERS API DATA",data.data);
+        getUsersApi(page).then((data) => {
           dispatch({
            type : AdminActionTypes.GET_USERS_SUCCESS,
            payload : data.data

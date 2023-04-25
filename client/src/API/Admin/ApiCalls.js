@@ -26,7 +26,7 @@ const configFormData = {
 }
 
 export const adminLoginApi = (Email,Password) => API.post('/login',{Email,Password},config)
-export const getUsersApi = () => API.get('/users',configToken)
+export const getUsersApi = (page) => API.get(`/users?page=${page}`,configToken)
 export const blockUnblockApi = (id) => API.get('/blockUnblock?id=' +id,configToken)
 export const adminAddBikeApi = (formData) => API.post('/add-bikes',formData,configFormData)
 export const getAllBikesApi = (page) => API.get(`/bikes?page=${page}`,configToken)
@@ -39,7 +39,6 @@ export const editBikeApi = (id,formData) => API.post('/edit-bike?id='+id,formDat
 
 export const adminSearchBikeApi = (searchTerm,page)=> {
   return(
-   console.log("search api",searchTerm),
    API.post(`/search-bikes?page=${page}`,{searchTerm},configToken)
   )
 }
@@ -56,16 +55,11 @@ export const deleteCouponApi = (id) => API.delete('/delete-coupon?id='+id,config
 
 export const getBookedDetailsApi = () => API.get('/booking-details',configToken)
 
-//dashboard
-// export const getAllBookingsApi = () => API.get('/get-all-bookings',configToken)
-
 export const getPendingBookingsApi = () => API.get('/get-pending-bookings',configToken)
 
 export const getOnRideBookingsApi = () => API.get('/get-onRide-bookings',configToken)
 
 export const cancelledBookingsApi = () => API.get('/get-cancelled-bookings',configToken)
-
-//
 
 export const getDashBoardDetailsApi = () => API.get('get-dashboard-details',configToken)
 

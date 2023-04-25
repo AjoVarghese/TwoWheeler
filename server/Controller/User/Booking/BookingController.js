@@ -24,13 +24,9 @@ exports.bikeBookingController = async (req, res) => {
     couponCode,
   } = req.body.bookingData;
   let session;
-  console.log("KKKK", user);
 
   //chcking user status
-  console.log("KKKK", user);
-  console.log(typeof user);
   let userData = await userSchema.findOne({ _id: user });
-  console.log("USERR", userData);
   try {
     let startingTime = bookedTimeSlots.startDate;
     let endingTime = bookedTimeSlots.endDate;
@@ -45,7 +41,7 @@ exports.bikeBookingController = async (req, res) => {
     if (startingTime < currentTime) {
       console.log(startingTime);
       console.log(currentTime);
-      console.log("Nadakilaa mone");
+      console.log("cant book");
       res
         .status(400)
         .json("Selected Day or Date is less than current day or date");
@@ -56,12 +52,14 @@ exports.bikeBookingController = async (req, res) => {
       for (let i = 0; i < check.BookedTimeSlots.length; i++) {
         if (startingTime > check.BookedTimeSlots[i].endDate) {
           status = true;
+          console.log("this true");
         } else if (
           startingTime &&
           startingTime <= check.BookedTimeSlots[i].endDate &&
           isBooked?.status !== "Completed" &&
           isBooked?.status !== "Cancelled"
         ) {
+          console.log('this false');
           status = false;
         }
       }
@@ -69,14 +67,8 @@ exports.bikeBookingController = async (req, res) => {
       //  date Status
       if (status === true) {
         if (paymentType === "Stripe") {
-          // const paymentIntent = await stripe.paymentIntents.create({
-          //   amount: totalAmount * 100,
-          //   currency: 'inr',
-          // });
-          // console.log('PeyIntent',paymentIntent);
           
           session = await stripe.checkout.sessions.create({
-            // paymenintentId: paymentIntent.id,
             line_items: [
               {
                 price_data: {
@@ -92,7 +84,6 @@ exports.bikeBookingController = async (req, res) => {
                       location: location,
                       startDate: bookedTimeSlots.startDate,
                       endDate: bookedTimeSlots.endDate,
-                      // userStatus: userData.Status,
                     },
                   },
                   unit_amount: totalAmount * 100,
@@ -111,23 +102,6 @@ exports.bikeBookingController = async (req, res) => {
             cancel_url: "http://localhost:3000/booking-cancelled",
           });
               
-          // Retrieve the payment intent
-// const sessionPaymentIntentId = session.paymenintentId;
-// const retrievedPaymentIntent = await stripe.paymentIntents.retrieve(sessionPaymentIntentId);
-// console.log('PAYMENT INTENT', retrievedPaymentIntent);
-          // const paymentIntent = await stripe.paymentIntents.retrieve(
-          //   paymentIntentId
-          // );
-
-          // const userStatus = paymentIntent.lines.data[0].metadata.user_status;
-
-          // if (userStatus === "false") {
-          //   // Handle blocked user
-          //   console.log('blocked');
-          //   log
-          // } else {
-          //   console.log('not blocked');
-          // }
           res
             .status(200)
             .json({

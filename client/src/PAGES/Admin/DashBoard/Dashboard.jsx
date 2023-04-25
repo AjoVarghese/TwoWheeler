@@ -72,9 +72,9 @@ function Dashboard() {
               </Grid>
               <Grid item xs={12} sm={6} md={6} lg={3}>
                 <BasicCard
-                value={"Somthing"}
-                title={'Something'}
-                desc={'something'}
+                value={details ? details.totalAmountCompletedBookings : "" }
+                title={"Total Rent Amount"}
+                desc={'Amount received for completed rides'}
                 />
               </Grid>
             </Grid>

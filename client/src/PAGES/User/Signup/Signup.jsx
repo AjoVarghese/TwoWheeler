@@ -202,7 +202,7 @@ function Signup() {
             sx={{ mt: 3, mb: 2 }}
             onClick={googleSignup}
           >
-            Sign Up with Ggogle
+            Sign Up with Google
           </Button>
 
   </MDBCol>
