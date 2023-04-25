@@ -64,6 +64,7 @@ exports.getAllDetails = async(req,res) => {
   try {
     let totalUsers = await userSchema.find().count()
 
+
     let totalBikes = await bikeSchema.find({
         Status : "Acccepted"
     }).count()

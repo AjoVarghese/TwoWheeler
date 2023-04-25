@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react'
 import styles from 'styled-components'
 import ChatInput from '../ChatInput/ChatInput'
@@ -21,48 +22,46 @@ function ChatContainer({currentUser,currentChat,socket}) {
             to : currentChat._id
           })
           setMessages(response.data)
+          console.log(response.data,"ALL MESSAGES")
         }
         messages()
       }
     },[currentChat])
 
     const handleSendMessage = async(msg) => {
-      await sendMessageAPI({
+       sendMessageAPI({
        from : currentUser.id,
        to : currentChat._id,
        message : msg
-      })
+      }).then((data)=>{
+        socket.emit("send-msg",{
+          to : currentChat._id,
+         from : currentUser.id,
+       
+         message : data.data
+        })
+        
+       console.log(messages,"THIS IS THE MESSAGE SENDINGG")
+         setMessages([...messages,data.data])
+      })  
       
-      socket.emit("send-msg",{
-        to : currentChat._id,
-       from : currentUser.id,
-       message : msg
-      })
-      
-       const msgs = [...messages]
-       msgs.push({ fromSelf: true, message: msg })
-       setMessages(msgs)
    }
 
    useEffect(() => {
-      if(socket){
+     if(socket){
        socket.on("msg-receive",(msg) => {
-        console.log('msg',msg);
-           setArrivalMessage({ fromSelf : false,message : msg })
+        //  console.log(messages,"THIS IS THE FCKING MESSAGES");
+        // console.log('msg',msg);
+          //  setMessages([msg,..messages]);
+          // setMessages([...messages, msg]); 
+          setMessages((prevMessages) => [...prevMessages, msg]);
+          console.log('msgeeeeeeee',messages);
        })
       }
       
-   },[socket])
+   },[])
 
-   useEffect(() => {
-      //  arrivalMessage && setMessages((prev) => [...prev,arrivalMessage] )
-      if(arrivalMessage){
-         setMessages(prevMessages => [...prevMessages,arrivalMessage])
-      }
-   },[arrivalMessage])
-
-
-
+  
 
    useEffect(() => {
      scrollRef.current?.scrollIntoView({ behaviour: "smooth" })
@@ -88,10 +87,13 @@ function ChatContainer({currentUser,currentChat,socket}) {
           messages.map((message) => {
             return (
               <div ref={scrollRef} key={uuidv4()}>
-                <div className={`message ${message.fromSelf ? "sended" : "received"}`}>
+                {console.log(message.sender, currentUser.id,"THISS IS IS IS IS")}
+                <div className={`message ${message.sender == currentUser.id  ? "sended" : "received"}`}>
                   <div className="content">
                     <p>
-                      {message.message}
+                      {message.message?.text}
+                      {console.log(message.message?.text)}
+
                     </p>
                   </div>
                 </div>
@@ -188,4 +190,4 @@ display: grid;
   }
  
 `
-export default ChatContainer
+export default ChatContainer

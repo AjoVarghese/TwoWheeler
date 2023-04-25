@@ -43,6 +43,8 @@ exports.bikeBookingController = async (req, res) => {
     console.log(totalHours);
 
     if (startingTime < currentTime) {
+      console.log(startingTime);
+      console.log(currentTime);
       console.log("Nadakilaa mone");
       res
         .status(400)

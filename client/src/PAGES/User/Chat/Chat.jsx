@@ -58,7 +58,7 @@ function Chat() {
     <Navbar/>
       <Box sx={{ width: '100%' }}>
         <Stack spacing={2} className='mt-3'>
-        <Item><h3>Chat with Bike Owners</h3></Item>
+        <Item><h3>Chat with Bike Users</h3></Item>
       </Stack>
         </Box>
 
