@@ -1,7 +1,5 @@
 const vehicle = require('../../../Models/vehicleSchema')
-// const module = await import('./path/to/module.js');
-// const vehicle =  import('../../../Models/vehicleSchema.js')
-// import vehicle from '../../../Models/vehicleSchema'
+
 
 exports.rentedBikes = async(req,res) => {
     try {
@@ -28,7 +26,7 @@ exports.acceptedRequests = async(req,res) => {
 
 exports.rejectedRequests = async(req,res) => {
     try {
-        console.log("reject req id",req.query.id);
+        
         vehicle.find({$and:[{OwnerId : req.query.id},{Status : "Rejected"}]}).then((data) => {
             res.status(200).json(data)
         })
@@ -39,7 +37,7 @@ exports.rejectedRequests = async(req,res) => {
 
 exports.pendingRequests = async(req,res) => {
     try {
-        console.log("pending req id",req.query.id);
+        
         vehicle.find({$and:[{OwnerId : req.query.id},{Status : "Pending"}]}).then((data) => {
             res.status(200).json(data)
         })

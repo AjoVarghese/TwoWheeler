@@ -5,12 +5,11 @@ exports.filterBikes = (req,res) => {
     const page = req.query.page || 1;
     let pageCount;
     let currentPage = parseInt(page);
-    console.log("filter",req.body);
+    
     const {location,brand} = req.body
     try {
         if(location !== null && brand === null){
-            console.log("LOCATION");
-            console.log(page);
+            
             try {
                 vehicle.find(
                     {
@@ -33,12 +32,7 @@ exports.filterBikes = (req,res) => {
                 Location : location
             },
             { Status: 'Acccepted' },
-            // {
-            //   $or: [
-            //     { OwnerId: { $ne: req.query.id } },
-            //     { OwnerId: { $exists: false } }
-            //   ]
-            // }
+          
           ]
         })
         .then((count) => {
@@ -63,9 +57,7 @@ exports.filterBikes = (req,res) => {
           console.log(error)
           res.status(500).json({ message: 'Error occurred while fetching the data in search bikes' })
         })
-                // .then((data) => {
-                //     res.status(200).json(data)
-                // })
+              
             } catch (error) {
                 console.log("ERROR in filter by loaction",error);
             }
@@ -97,12 +89,7 @@ exports.filterBikes = (req,res) => {
                         {
                             Status : "Acccepted"
                         }
-                      // {
-                      //   $or: [
-                      //     { OwnerId: { $ne: req.query.id } },
-                      //     { OwnerId: { $exists: false } }
-                      //   ]
-                      // }
+                     
                     ]
                   })
                   .then((count) => {
@@ -127,9 +114,7 @@ exports.filterBikes = (req,res) => {
                     console.log(error)
                     res.status(500).json({ message: 'Error occurred while fetching the data in search bikes' })
                   })
-                // .then((data) => {
-                //     res.status(200).json(data)
-                // })
+                
             } catch (error) {
                 console.log("Error in filter by brand",error);
             }
@@ -138,8 +123,7 @@ exports.filterBikes = (req,res) => {
             console.log("not bull");
             try {
                 vehicle.find({
-                    // $and : [
-                    //   {
+                    
                         $and : [
                             {
                                 Location : location
@@ -153,7 +137,7 @@ exports.filterBikes = (req,res) => {
                         ]
                       
                       
-                    // ]
+                    
                 })
                 .skip((itemsPerPage * page) - itemsPerPage)
                 .limit(itemsPerPage)
@@ -194,9 +178,7 @@ exports.filterBikes = (req,res) => {
                     console.log(error)
                     res.status(500).json({ message: 'Error occurred while fetching the data in search bikes' })
                   })
-                // .then((data) => {
-                //     res.status(200).json(data)
-                // })
+                
             } catch (error) {
                 console.log("error in filter by loca and brand",error);
             }

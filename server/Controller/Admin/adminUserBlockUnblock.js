@@ -9,10 +9,7 @@ exports.userBlockUnBlockPost = async(req,res) => {
                     res.status(200).json(data)
                 })
             })
-            // userSchema.findOneAndUpdate({_id:req.query.id},{$set:{Status:!result.Status}}).then((data)=>{
-            //     console.log(data);
-            //     res.status(200).json(data)
-            // })
+            
         })
        
         

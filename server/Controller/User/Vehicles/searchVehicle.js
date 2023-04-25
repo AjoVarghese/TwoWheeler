@@ -27,12 +27,7 @@ exports.searchBikes = (req, res) => {
         vehicle.countDocuments({
           $and: [
             { Status: 'Acccepted' },
-            // {
-            //   $or: [
-            //     { OwnerId: { $ne: req.query.id } },
-            //     { OwnerId: { $exists: false } }
-            //   ]
-            // }
+           
           ]
         })
         .then((count) => {
@@ -57,10 +52,5 @@ exports.searchBikes = (req, res) => {
           console.log(error)
           res.status(500).json({ message: 'Error occurred while fetching the data in search bikes' })
         })
-      
-    //   .then((data) => {
-    //     console.log(data);
-    //     res.status(200).json(data);
-    //   });
   } catch (error) {}
 };

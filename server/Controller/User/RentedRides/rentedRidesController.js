@@ -54,7 +54,7 @@ exports.rentedRides = (req,res) => {
             }
           ]
        ).then((data) => {
-        console.log(data);
+        
         res.status(200).json(data)
        })
     } catch (error) {  
@@ -69,13 +69,6 @@ exports.cancelRide = async(req,res) => {
     let endTime = req.query.endTime
     let userId = req.query.userId.trim()
     let price = req.query.price.trim()
-    console.log(bikeId);
-    console.log(bookingId);
-    console.log(userId);
-    console.log(startTime);
-    console.log(endTime);
-    console.log(price);
-    // let id = new mongoose.Types.ObjectId(bookingId)
    
      try {
   
@@ -103,7 +96,6 @@ exports.cancelRide = async(req,res) => {
         
       })
       .then(async(result) => {
-       console.log('ere',result);
        let walletExists = await walletSchema.findOne({userId : userId})
        if(!walletExists){
          const newWallet = {
@@ -133,7 +125,7 @@ exports.cancelRide = async(req,res) => {
               }
             }
           }).then((data) => {
-            console.log('wallet updated data',data);
+            
             bookingSchema.aggregate(
               [
                   {
@@ -181,10 +173,6 @@ exports.cancelRide = async(req,res) => {
                 ]
               )
              .then(async(data) => {
-              
-              
-                 
-                  
                    res.status(200).json(data)
              })
           })
@@ -193,8 +181,6 @@ exports.cancelRide = async(req,res) => {
               console.log(" cancelERROR",err);
              })
           }
-      
-          
          })
       })
    

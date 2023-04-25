@@ -7,13 +7,7 @@ exports.endRide = (req,res) => {
     let startTime = req.query.startTime
     let endTime = req.query.endTime
     let userId = req.query.userId
-    console.log(bikeId);
-    console.log(bookingId);
-    console.log(userId);
-    console.log(startTime);
-    console.log(endTime);
     
-   
      try {
         bikes.updateOne({
             _id : bikeId
@@ -26,7 +20,7 @@ exports.endRide = (req,res) => {
               }
             }
           }).then((resp) => {
-            console.log('bookingSlot deleted',resp);
+          
            
             booking.updateOne({
               _id : bookingId
@@ -36,7 +30,7 @@ exports.endRide = (req,res) => {
                 status : "Completed"
               }
             }).then((result) => {
-              console.log('Completed',result);
+              
               booking.aggregate(
                 [
                     {
@@ -83,8 +77,7 @@ exports.endRide = (req,res) => {
                     }
                   ]
                ).then((data) => {
-                console.log(data);
-                // console.log(data[0].photo);
+                
                 res.status(200).json(data)
                })
             })

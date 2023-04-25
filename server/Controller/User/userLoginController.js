@@ -54,7 +54,7 @@ exports.LoginPost = async(req,res) => {
             }
             res.status(200).json(result)
             } else {
-              console.log("INC PASS");
+             
               res.status(400).json("Incorrect Password")
             }
           })

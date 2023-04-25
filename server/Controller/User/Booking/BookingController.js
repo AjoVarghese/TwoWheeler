@@ -36,30 +36,27 @@ exports.bikeBookingController = async (req, res) => {
     let isBooked = await bookingSchema.findOne({ bikeId: bikeId });
 
     let currentTime = moment().format("MMMM Do YYYY, h:mm:ss a");
-    console.log(totalHours);
-
+   
     if (startingTime < currentTime) {
-      console.log(startingTime);
-      console.log(currentTime);
-      console.log("cant book");
+      
       res
         .status(400)
         .json("Selected Day or Date is less than current day or date");
     } else if (totalHours === 0) {
-      console.log("0 hrs");
+     
       res.status(400).json("Rent time should be min 1 hr");
     } else {
       for (let i = 0; i < check.BookedTimeSlots.length; i++) {
         if (startingTime > check.BookedTimeSlots[i].endDate) {
           status = true;
-          console.log("this true");
+          
         } else if (
           startingTime &&
           startingTime <= check.BookedTimeSlots[i].endDate &&
           isBooked?.status !== "Completed" &&
           isBooked?.status !== "Cancelled"
         ) {
-          console.log('this false');
+          
           status = false;
         }
       }

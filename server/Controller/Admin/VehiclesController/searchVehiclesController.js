@@ -30,7 +30,6 @@ exports.searchVehicle = (req,res) => {
                 currentPage : currentPage
               }
             }
-            console.log(data);
             res.status(200).json(response)
           })
           .catch((error) => {

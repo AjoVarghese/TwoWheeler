@@ -22,8 +22,6 @@ exports.profileImageUploadPost = async(req,res) => {
                         ProfileImage,
                         token : generateToken(id)
                       }
-
-                   
                     res.status(200).json(result)
                 })
                 

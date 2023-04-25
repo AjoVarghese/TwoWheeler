@@ -5,13 +5,10 @@ const mongoose = require('mongoose')
 const dotenv = require("dotenv");
 dotenv.config();
 const Stripe = require("stripe");
-// const { default: mongoose } = require('mongoose');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 exports.payFine = async(req,res) => {
-    console.log('ss');
-    console.log(req.body);
-    console.log(req.query.id);
+   
     let session
     try {
         const {bikeId,bookingId,startTime,endTime,price,photo,bikeName} = req.body.fineDetails
@@ -22,13 +19,9 @@ exports.payFine = async(req,res) => {
         let eTime = moment(endTime,'MMMM Do YYYY, h:mm:ss a')
 
         let diffInHours = currTime.diff(eTime,'hours')
-       console.log('DIFFHRS',diffInHours);
 
         let totalFine = diffInHours > 0 ? diffInHours * 30 : 30
-        console.log(totalFine);
-        console.log(photo);
-        console.log(typeof photo);
-        console.log(typeof totalFine);
+        
 
         session = await stripe.checkout.sessions.create({
             line_items : [
@@ -64,14 +57,7 @@ exports.payFine = async(req,res) => {
 
 
 exports.paymentSuccess = async(req,res) => {
-  console.log(req.body);
   const {userId,bikeId,bookingId,startTime,endTime} = req.body.fineDetails
-  console.log(bookingId);
-  console.log(bikeId);
-  console.log(typeof bookingId);
-  console.log(typeof bikeId);
-
-//   let id = new mongoose.Types.ObjectId(bookingId)
 
   try {
     let bikes = await bikeSchema.updateOne(

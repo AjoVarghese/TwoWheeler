@@ -5,7 +5,7 @@ const generateToken = require('../../Utils/generateToken')
 const shortid = require('shortid');
 
 exports.signUpPost = async(req,res) => {
-    // console.log(req.body);
+    
     try {
             let email = await userSchema.findOne({Email : req.body.Email})
             let mobile = await userSchema.findOne({Mobile : req.body.Mobile})
@@ -32,8 +32,7 @@ exports.signUpPost = async(req,res) => {
             } else if(mobile && !email){
                 res.status(401).json("Mobile No already Exists")
             } else {
-                    // console.log('referal',req.body);
-                    // console.log('referal',req.body.Referral);
+                    
                details.Password = await bcrypt.hash(details.Password,10)
                  
                 userSchema.create(details).then((result) => {
@@ -69,7 +68,7 @@ exports.signUpPost = async(req,res) => {
                                 }
 
                                 wallet.create(newWallet).then((data)=> {
-                                    // console.log("wallet",data);
+                                    
                                     
                                 })
 
@@ -108,7 +107,7 @@ exports.signUpPost = async(req,res) => {
                             ]
                         }
                         wallet.create(newUserWallet).then((response) => {
-                            console.log("created");
+                            
                         })
                     }
                     res.status(200).json(data)
