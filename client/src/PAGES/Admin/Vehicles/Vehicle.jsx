@@ -1,16 +1,6 @@
-import {
-  Box,
-  ButtonBase,
-  Pagination,
-  Stack,
-  TableFooter,
-  TablePagination,
-  styled,
-} from "@mui/material";
+import { Box, styled } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import AdminSideBar from "../../../components/NAVBAR/AdminSideBar";
-import { MDBCol, MDBContainer } from "mdb-react-ui-kit";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -21,17 +11,14 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
 import Figure from "react-bootstrap/Figure";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
 import { useDispatch, useSelector } from "react-redux";
 import {
   adminSearchBikeAction,
   deleteBikeAction,
   getAllBikesAction,
 } from "../../../redux/Actions/ADMIN_ACTIONS/getAllBikesAction";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Loading from "../../../components/Loading/Loading";
-import { bikeSingleViewAction } from "../../../redux/Actions/ADMIN_ACTIONS/bikeSingleViewAction";
+import { useNavigate } from "react-router-dom";
+
 import AlertDialog from "../../../components/AlertDialog/AlertDialog";
 import {
   MDBPagination,
@@ -40,11 +27,8 @@ import {
 } from "mdb-react-ui-kit";
 
 import InputBase from "@mui/material/InputBase";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import DirectionsIcon from "@mui/icons-material/Directions";
 import { Toaster } from "react-hot-toast";
 
 function Vehicle() {
@@ -57,12 +41,14 @@ function Vehicle() {
     ...theme.mixins.toolbar,
   }));
 
+  // const classes = useStyles();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [selectedBike, setSelectedBike] = useState();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
@@ -116,8 +102,8 @@ function Vehicle() {
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <DrawerHeader />
             <h1>Bikes</h1>
-           
-            <div className="card container md-12">
+
+            <div className="card container md-12 h-75">
               <Paper
                 component="form"
                 sx={{
@@ -127,7 +113,6 @@ function Vehicle() {
                   width: 400,
                 }}
               >
-                
                 <InputBase
                   sx={{ ml: 1, flex: 1 }}
                   placeholder="Search Bikes"
@@ -141,7 +126,6 @@ function Vehicle() {
                 >
                   <SearchIcon />
                 </IconButton>
-                
               </Paper>
               <MDBPagination className="mb-0 d-flex justify-content-end">
                 {page > 1 ? (
@@ -166,38 +150,59 @@ function Vehicle() {
                   </MDBPaginationItem>
                 )}
               </MDBPagination>
-              <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                  <TableHead>
+              <TableContainer component={Paper} 
+              sx={{
+                height: 600   
+              }} 
+              >
+                <Table 
+                sx={{
+                  height: "max-content"
+                }}
+                 aria-label="simple table" >
+                  <TableHead
+                  sx={{
+                    position: "sticky",
+                    top: 0,
+                    zIndex: 1,
+                    backgroundColor: "#fff"
+                  }}
+                  >
                     <TableRow>
-                      <TableCell>
+                      <TableCell  style={{ position: 'sticky', top: 0 }}>
                         <h4>Sl.No</h4>
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
                         <h4>Vehicle Name</h4>
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
                         <h4>Image</h4>
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
                         <h4>Brand</h4>
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
                         <h4>Vehicle Model</h4>
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
                         <h4>Color</h4>
                       </TableCell>
-                      <TableCell align="center">
+                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
                         <h4>Price</h4>
                       </TableCell>
 
-                      <TableCell align="center">
+                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
                         <h4>Action</h4>
                       </TableCell>
                     </TableRow>
                   </TableHead>
-                  <TableBody>
+                  <TableBody
+                        style={{
+                          maxHeight: 400,
+                          overflowY: 'auto',
+                        }}
+                  >
+            
                     {bikesData
                       ? bikesData?.data.map((data, i) => {
                           return (
@@ -269,10 +274,8 @@ function Vehicle() {
                         })
                       : "No data available"}
                   </TableBody>
-             
                 </Table>
               </TableContainer>
-
             </div>
           </Box>
         </Box>

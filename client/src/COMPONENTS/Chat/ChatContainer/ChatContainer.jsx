@@ -47,6 +47,7 @@ function ChatContainer({currentUser,currentChat,socket}) {
       
    }
 
+
    useEffect(() => {
      if(socket){
        socket.on("msg-receive",(msg) => {
@@ -88,13 +89,18 @@ function ChatContainer({currentUser,currentChat,socket}) {
             return (
               <div ref={scrollRef} key={uuidv4()}>
                 {console.log(message.sender, currentUser.id,"THISS IS IS IS IS")}
-                <div className={`message ${message.sender == currentUser.id  ? "sended" : "received"}`}>
+                <div className={`message ${message.sender === currentUser.id  ? "sended" : "received"}`}>
                   <div className="content">
-                    <p>
+                    {
+                      message.message?.text === '' ?
+                      <img src={message.message?.image} alt="" style={{width : '10rem',height : '10rem',background : 'none'}}/> : 
+                      <p>
                       {message.message?.text}
                       {console.log(message.message?.text)}
 
                     </p>
+                    }
+                    
                   </div>
                 </div>
               </div>
@@ -102,7 +108,13 @@ function ChatContainer({currentUser,currentChat,socket}) {
           })
         }
       </div>
-            <ChatInput handleSendMessage = {handleSendMessage}/>
+            <ChatInput handleSendMessage = {handleSendMessage} 
+            currentUser={currentUser}
+            currentChat = {currentChat}
+            socket = {socket}
+            message={messages}
+            setMessages={setMessages}
+            />
             <div className="chat-input"></div>
     </Container>
   )

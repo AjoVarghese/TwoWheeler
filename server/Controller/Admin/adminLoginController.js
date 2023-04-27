@@ -4,7 +4,7 @@ const generateToken = require('../../Utils/generateToken')
 
 
 exports.adminLoginPost = async(req,res) => {
-    console.log("ADMIN LOGIN",req.body);
+   
     try {
         let {Email,Password} = req.body
         let details = {Email,Password}

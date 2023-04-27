@@ -25,7 +25,7 @@ function WeeklyReport({salesData}) {
           label: "Location",
           options: {
             filter: true,
-            sort: false,
+            sort: true,
             customHeadLabelStyle: {
                 fontWeight: 'bold',
                 fontSize: '16px',

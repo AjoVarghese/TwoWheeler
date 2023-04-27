@@ -26,12 +26,12 @@ function AllAcceptedBIkes({ acceptedBikes, selectedLoc }) {
   const { loading, bikesData, bikesDataError } = bikes;
   console.log("ACC BIKESDATA",bikesData?.data.length);
   return (
-    <div>
+    <div className="d-flex justify-content-center">
 
       {
         bikesData?.data.length === 0 ? <h6>No Data Available</h6> :
 
-        <MDBRow className="col-lg-12">
+        <MDBRow className="col-lg-12 ">
         
         {loading ? (
           <Loading />
@@ -41,7 +41,7 @@ function AllAcceptedBIkes({ acceptedBikes, selectedLoc }) {
             return (
               <>
                 {Status ? (
-                  <MDBCol md="4 mt-3">
+                  <MDBCol className="col-md-6 mt-3">
                     <MDBCard className="text-black">
                       <MDBIcon
                         fab

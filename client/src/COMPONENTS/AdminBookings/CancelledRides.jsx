@@ -24,9 +24,24 @@ const rows = [
 function CancelledRides({data}) {
   return (
     <div>
-      <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
+      <TableContainer component={Paper}
+      sx={{
+        height: 600   
+      }} 
+      >
+      <Table 
+      sx={{
+        height: "max-content"
+      }}
+      >
+        <TableHead
+        sx={{
+          position: "sticky",
+          top: 0,
+          zIndex: 1,
+          backgroundColor: "#fff"
+        }}
+        >
           <TableRow>
             <TableCell>Sl.No</TableCell>
             <TableCell align="center">Image</TableCell>

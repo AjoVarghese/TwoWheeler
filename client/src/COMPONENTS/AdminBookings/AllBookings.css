@@ -1,0 +1,9 @@
+.MuiTableCell-root {
+    border-bottom: none;
+  }
+  .MuiTableCell-head {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 10;
+  }

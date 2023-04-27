@@ -86,6 +86,8 @@ export const getAllOwnersApi = () => API.get('/get-owners?id='+ID,configTOken)
 
 export const sendMessageAPi = (data) => API.post('/send-message',{data})
 
+export const imageSendApi = (data) => API.post('/send-image',{data})
+
 // export const getAllMessagesAPI = (data) => API.post('/get-all-messages', { data }, configTOken)
 
 

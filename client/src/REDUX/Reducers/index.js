@@ -1,15 +1,14 @@
 import { combineReducers } from "redux";
-import { adminBikesReducer } from "./ADMIN/adminBIkesReducer";
 import { getAllBikesReducer } from "./ADMIN/adminGetAllBikesReducer";
 import { singleViewBikeReducer } from "./ADMIN/adminGetSingleBikeReducer";
 import { adminLoginReducer } from "./ADMIN/adminLoginReducer";
 import { adminUserGetReducer } from "./ADMIN/adminUserReducer";
-import { addLocationReducer, deleteLocationReducer, getLocationReducer } from "./ADMIN/locationReducer";
+import {  deleteLocationReducer, getLocationReducer } from "./ADMIN/locationReducer";
 import { rentRequestsReducer } from "./ADMIN/rentRequetsReducer";
-import { singleBikeReducer } from "./ADMIN/singleBikeReducer";
-import { bikeSearchReducer, bikesReducer } from "./USER/bikesReducer";
+
+import {  bikesReducer } from "./USER/bikesReducer";
 import { imageUploadReducer } from "./USER/imageUploadReducer";
-import { locationReducer, userLocationReducer } from "./USER/locationReducer";
+import {  userLocationReducer } from "./USER/locationReducer";
 import { getAcceptedDataReducer, getPendingDataReducer, getRejectedDataReducer, getRentedBikesReducer } from "./USER/rentedBikesReducer";
 import { userGetProfileReduer } from "./USER/userGetProfileReducer";
 import { userHomeReducer } from "./USER/userHomeReducer";
@@ -21,7 +20,7 @@ import { bookingDetailsReducer } from "./ADMIN/bookingDetailsReducer";
 import { getWalletReducer } from "./USER/getWalletReducer";
 import { bookingReducer } from "./USER/bookingReducer";
 import { ownersReducer } from "./USER/ownersReducer";
-import { cancelledBookingsReducer, getDashBoardDetailsReducer, onRideBookingReducer, pendingBookingsReducer } from "./ADMIN/DashboardReducer";
+import {  getDashBoardDetailsReducer, } from "./ADMIN/DashboardReducer";
 import { salesReportReducer } from "./ADMIN/salesReportReducer";
 
 const reducers = combineReducers({
@@ -32,7 +31,7 @@ const reducers = combineReducers({
     imageUploadReducer : imageUploadReducer,
     bikesReducer : bikesReducer,
     userLocationReducer : userLocationReducer,
-    // bikeSearchReducer  : bikeSearchReducer,
+    
     getRentedBikesReducer : getRentedBikesReducer,
     getAcceptedDataReducer : getAcceptedDataReducer,
     getRejectedDataReducer : getRejectedDataReducer,
@@ -46,10 +45,10 @@ const reducers = combineReducers({
     adminLoginReducer : adminLoginReducer,
     adminUserGetReducer : adminUserGetReducer,
     admingetAllBikesReducer :getAllBikesReducer,
-    // singleBikeReducer : singleBikeReducer,
+    
     singleViewBikeReducer : singleViewBikeReducer,
     rentRequestsReducer : rentRequestsReducer,
-    // addLocationReducer : addLocationReducer,
+    
     getLocationReducer : getLocationReducer,
     deleteLocationReducer : deleteLocationReducer,
     getCouponReducer : getCouponReducer,

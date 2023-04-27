@@ -36,27 +36,23 @@ exports.bikeBookingController = async (req, res) => {
     let isBooked = await bookingSchema.findOne({ bikeId: bikeId });
 
     let currentTime = moment().format("MMMM Do YYYY, h:mm:ss a");
-   
+
     if (startingTime < currentTime) {
-      
       res
         .status(400)
         .json("Selected Day or Date is less than current day or date");
     } else if (totalHours === 0) {
-     
       res.status(400).json("Rent time should be min 1 hr");
     } else {
       for (let i = 0; i < check.BookedTimeSlots.length; i++) {
         if (startingTime > check.BookedTimeSlots[i].endDate) {
           status = true;
-          
         } else if (
           startingTime &&
           startingTime <= check.BookedTimeSlots[i].endDate &&
           isBooked?.status !== "Completed" &&
           isBooked?.status !== "Cancelled"
         ) {
-          
           status = false;
         }
       }
@@ -64,7 +60,6 @@ exports.bikeBookingController = async (req, res) => {
       //  date Status
       if (status === true) {
         if (paymentType === "Stripe") {
-          
           session = await stripe.checkout.sessions.create({
             line_items: [
               {
@@ -98,14 +93,12 @@ exports.bikeBookingController = async (req, res) => {
                         &paymentType=${paymentType}&couponCode=${couponCode}`,
             cancel_url: "http://localhost:3000/booking-cancelled",
           });
-              
-          res
-            .status(200)
-            .json({
-              url: session.url,
-              bookingData: req.body,
-              userData: userData,
-            });
+
+          res.status(200).json({
+            url: session.url,
+            bookingData: req.body,
+            userData: userData,
+          });
         } else {
           const booking = new bookingSchema({
             userId: user,

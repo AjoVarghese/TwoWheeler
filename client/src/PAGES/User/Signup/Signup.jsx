@@ -81,9 +81,7 @@ function Signup() {
     },[])
 
    const googleSignup = () => {
-    console.log('xxxxxx');
     signInWithPopup(auth,provider).then((data) => {
-      console.log('google',data);
       dispatch(googleSignupAction(data.user.displayName,data.user.email,data.user.phoneNumber,data.user.photoURL))
     })
    }

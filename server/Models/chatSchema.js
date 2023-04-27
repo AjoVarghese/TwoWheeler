@@ -18,16 +18,15 @@
 const mongoose = require("mongoose")
 
 const chatSchema = new mongoose.Schema(
-
-    // {
-    //     content : String,
-    //     sender : mongoose.Types.ObjectId
-    // }
     {
     message:{
         text:{
             type:String,
-            required:true
+            default : ''
+        },
+        image : {
+            type : String,
+            default : ''
         }
     },
     users: {

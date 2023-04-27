@@ -86,22 +86,7 @@ router.route('/add-message').post(chatController.addMessageController)
 
 router.route('/get-all-messages').post(chatController.getAllMessages)
 
-
-//CHAT ROUTES
-//createmessage
-// router.route('/create-message').post(chatController.createMessage)
-
-// router.route('/get-message').get(chatController.getMessage)
-// router.route('/create-chat').post(chatController.createChat)
-
-// router.route('/get-all-users').get(chatController.getAllChatUsers)
-
-// router.route('/findChat').get(chatController.findSpecificChat)
-
-// router.route('/add-message').post(messageController.addMessage)
-
-// router.route('/get-message').get(messageController.getMessage)
-
+router.route('/send-image').post(chatController.sendImages)
 
 
 

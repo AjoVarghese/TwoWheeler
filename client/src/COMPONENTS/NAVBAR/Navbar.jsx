@@ -193,7 +193,7 @@ function Navbar() {
 
             <a className={classes.link}>
               
-              <Link to = '/chat' style={{color :'black',textDecoration :'none'}}><h6>Chat with Bike Owners</h6></Link>
+              <Link to = '/chat' style={{color :'black',textDecoration :'none'}}><h6>Chat with users</h6></Link>
             </a>
           </Group>
            {
