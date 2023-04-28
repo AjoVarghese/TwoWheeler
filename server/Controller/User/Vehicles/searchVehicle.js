@@ -13,44 +13,53 @@ exports.searchBikes = (req, res) => {
           { Status: "Acccepted" },
           {
             $or: [
-                {
-                    OwnerId: { $ne: req.query.id }
-                },
-                { OwnerId: { $exists: false } }
-            ]
-        }
+              {
+                OwnerId: { $ne: req.query.id },
+              },
+              { OwnerId: { $exists: false } },
+            ],
+          },
         ],
       })
-      .skip((itemsPerPage * page) - itemsPerPage)
+      .skip(itemsPerPage * page - itemsPerPage)
       .limit(itemsPerPage)
       .then((data) => {
-        vehicle.countDocuments({
-          $and: [
-            { Status: 'Acccepted' },
-           
-          ]
-        })
-        .then((count) => {
-            pageCount = Math.ceil(count / itemsPerPage)
+        vehicle
+          .countDocuments({
+            $and: [{ Status: "Acccepted" }],
+          })
+          .then((count) => {
+            pageCount = Math.ceil(count / itemsPerPage);
             const response = {
               data: data,
               pagination: {
                 count: count,
                 pageCount: pageCount,
-                currentPage : currentPage
-              }
-            }
+                currentPage: currentPage,
+              },
+            };
             console.log(data);
-            res.status(200).json(response)
+            res.status(200).json(response);
           })
           .catch((error) => {
-            console.log(error)
-            res.status(500).json({ message: 'Error occurred while fetching the count in search bikes' })
-          })
-        })
-        .catch((error) => {
-          console.log(error)
-          res.status(500).json({ message: 'Error occurred while fetching the data in search bikes' })
-        })
-  } catch (error) {}
+            console.log(error);
+            res
+              .status(500)
+              .json({
+                message:
+                  "Error occurred while fetching the count in search bikes",
+              });
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+        res
+          .status(500)
+          .json({
+            message: "Error occurred while fetching the data in search bikes",
+          });
+      });
+  } catch (error) {
+    res.status(500).json("Internal Server Error");
+  }
 };

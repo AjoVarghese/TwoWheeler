@@ -80,8 +80,8 @@ function Booking () {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const { bikesData, bikeId } = location.state
-  const selectedBike = bikesData?.data.find(bike => bike._id === bikeId)
+  const { bikesData, bikeId , bikes} = location.state
+  const selectedBike = bikesData?.data.find(bike => bike._id === bikeId) || bikes.find( bike => bike._id === bikeId)
 
   useEffect(() => {
     dispatch(getCoupons())

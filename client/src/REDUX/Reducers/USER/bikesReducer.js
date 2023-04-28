@@ -20,6 +20,23 @@ export const bikesReducer = (state = {}, { type, payload }) => {
         bikesDataError: payload
       }
 
+    case ActionTypes.GET_HOME_BIKES_REQ:
+      return {
+        loading : true
+      }
+
+    case ActionTypes.GET_HOME_BIKES_SUCCESS:
+      return {
+        loading : false,
+        homeBikesData : payload
+      }  
+
+    case ActionTypes.GET_HOME_BIKES_FAILED:
+      return {
+        loading : false,
+        homeBikesDataError : payload
+      }  
+
     case ActionTypes.GET_SEARCHED_BIKES_REQ:
       return {
         loading: true

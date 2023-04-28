@@ -29,9 +29,10 @@ function SingleView() {
   const [pickTime,setpickTime] = useState(null)
   const [dropTime,setDropTime] = useState(null)
 
-  const {bikesData,bikeId} = location.state
+  const {bikesData,bikeId,bikes} = location.state
+  console.log("LOCAION>STATE",location.state);
 
-  const clickedBike = bikesData?.data.find((bike) => bike._id === bikeId)
+  const clickedBike = bikesData?.data.find((bike) => bike._id === bikeId) || bikes.find((bike) => bike._id === bikeId)
  
  
   return (
@@ -103,7 +104,7 @@ function SingleView() {
     style={{width:"100%",backgroundColor:'#fed250'}}
     onClick={() => {
     
-      navigate('/booking-summary',{state : {bikesData,bikeId}})
+      navigate('/booking-summary',{state : {bikesData,bikeId,bikes}})
       
     }}
     >Book Now</Button>{' '}

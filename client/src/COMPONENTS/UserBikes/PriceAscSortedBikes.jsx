@@ -20,7 +20,8 @@ function PriceAscSortedBikes({priceAsc}) {
           asc  ? asc.map((x,i) => {
                 
               return (
-                <MDBCol md="4 mt-3">
+                
+                <MDBCol className="col-md-4 mt-3 mx-auto ">
                 <MDBCard className="text-black">
                   <MDBIcon fab icon="apple" size="md" className="px-3 pt-3 pb-2" />
                   <MDBCardImage

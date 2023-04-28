@@ -9,6 +9,11 @@ dotenv.config();
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
+//global_Variables
+
+const COMPLETED = "Completed"
+const CANCELLED = "Cancelled"
+
 exports.bikeBookingController = async (req, res) => {
   const {
     user,
@@ -50,8 +55,8 @@ exports.bikeBookingController = async (req, res) => {
         } else if (
           startingTime &&
           startingTime <= check.BookedTimeSlots[i].endDate &&
-          isBooked?.status !== "Completed" &&
-          isBooked?.status !== "Cancelled"
+          isBooked?.status !== COMPLETED &&
+          isBooked?.status !== CANCELLED
         ) {
           status = false;
         }
@@ -279,6 +284,7 @@ exports.bikeBookingController = async (req, res) => {
     }
   } catch (error) {
     console.log("Wallet error", error);
+    res.status(400).json("Internal Server Error");
   }
 };
 
@@ -466,5 +472,7 @@ exports.createOrderController = async (req, res) => {
       console.log("fffffffff", err);
       res.status(500).send("Server error");
     }
-  } catch (error) {}
+  } catch (error) {
+    res.status(400).json("Internal Server Error");
+  }
 };

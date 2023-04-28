@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from './redux/Store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 
 
 
@@ -14,9 +15,15 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     // <ChakraProvider>
+   
     <Provider store={store}>
+    <ErrorBoundary>
+    {/* <React.StrictMode> */}
       <App />  
+      {/* </React.StrictMode> */}
+    </ErrorBoundary>
     </Provider>
+   
     // </ChakraProvider>
     
  

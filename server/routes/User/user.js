@@ -6,6 +6,7 @@ const signupController = require('../../Controller/User/userRegisterController')
 const loginController = require('../../Controller/User/userLoginController')
 const profilerImageUpdateController = require('../../Controller/User/profileImageUpdateController')
 const updateProfileController = require('../../Controller/User/updateProfileController')
+const userHomeController = require('../../Controller/User/getUserHomeController')
 const viewVehiclesController = require('../../Controller/User/Vehicles/VehicleStoreController')
 const searchVehiclesController = require('../../Controller/User/Vehicles/searchVehicle')
 const singleViewController = require('../../Controller/User/Vehicles/singleViewController')
@@ -35,7 +36,8 @@ router.route('/otp-login').post(loginController.otpLoginPost)
 
 router.route('/google-signup').post(loginController.googleSignup)
 
-router.get('/')
+// router.get('/')
+router.route('/home-bikes').get(userHomeController.getUserHome)
 
 router.route('/profile').get(protect,userProfileController.getUserProfile)
 

@@ -32,6 +32,8 @@ export const OTPLoginApi = (mobile) => API.post('/otp-login',{mobile},config)
 
 export const userHomeApi = () => API.get('/',config)
 
+export const getHomeBikesActionApi = () => API.get('/home-bikes',config)
+
 export const userProfileApi = (id) =>API.get('/profile?id='+id,configTOken)
 export const imageUploadApi = (id,image) => API.post('/profileImageUpdate?id='+id,{image},configTOken)
 export const editProfileApi = (name,email,mobile,id) => {
@@ -88,10 +90,4 @@ export const sendMessageAPi = (data) => API.post('/send-message',{data})
 
 export const imageSendApi = (data) => API.post('/send-image',{data})
 
-// export const getAllMessagesAPI = (data) => API.post('/get-all-messages', { data }, configTOken)
 
-
-//CHAT
-// export const getAllUserchatApi = (userId) => API.get(`/get-all-users?id=${userId}`)
-
-// export const getCurrentChatUserAPI = ()

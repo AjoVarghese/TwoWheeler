@@ -44,7 +44,8 @@ function AllAcceptedBIkes({ acceptedBikes, selectedLoc }) {
               <>
 
                 {Status ? (
-                  <MDBCol className="col-md-6 mt-3">
+                  
+                  <MDBCol className="col-md-4 mt-3 ">
                     <MDBCard className="text-black">
                       <MDBIcon
                         fab

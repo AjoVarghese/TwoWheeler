@@ -37,6 +37,17 @@ body{
     width: 100%;
     margin-left: 20%; */
 }
+.banner-image{
+    max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .banner-image {
+    max-width: 100%;
+    height: auto;
+  }
+}
 /* .left-section{
     margin-top: 6%;
     margin-left: 15%;

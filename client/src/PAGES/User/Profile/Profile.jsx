@@ -21,7 +21,7 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 import {  useNavigate } from 'react-router-dom';
-import { getUserProfileAction, getUserProfileReducer, imageUploadAction } from '../../../redux/Actions/USER_ACTIONS/userProfileAction';
+import { imageUploadAction } from '../../../redux/Actions/USER_ACTIONS/userProfileAction';
 import ModalBox from '../../../components/Modal/ModalBox';
 import { getWalletAction } from '../../../redux/Actions/USER_ACTIONS/getWalletAction';
 
@@ -100,7 +100,7 @@ function Profile() {
                 <p className="text-muted mb-1">{profileData.Name}</p>
                 <p className="text-muted mb-4">{profileData.Email}</p>
                 <div className="d-flex justify-content-center mb-2">
-                 
+                <div className="d-flex flex-column align-items-center mb-2">
                   <Button variant="secondary"><input type="file"
                    accept=".jpg,.jpeg,.png,.webp"
                   onChange={(e) => setImage(e.target.files[0])}
@@ -108,11 +108,12 @@ function Profile() {
                   className='ms-3'
                   /></Button>{' '}
                   
-                  <Button variant="warning ms-3" 
+                  <Button variant="warning ms-3 mt-3" 
                   onClick={handleClick} 
                   style={{backgroundColor : "#fed250"}}
                   className='me-3'
                   >Upload</Button>{' '}
+                  </div>
                 </div>
                 
                   {error && <p style={{color : "red"}}>{error}</p>}
@@ -127,14 +128,14 @@ function Profile() {
                   <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
                     <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
                     <p>Wallet Amount: <span><h4>Rs.{wallet ?.walletAmount}.00</h4></span></p>
-                   
+                    <div className="d-flex flex-wrap justify-content-center">
                     <Button variant="warning ms-4" 
                     style={{backgroundColor : "#fed250"}}
                     onClick = {(e) => {
                       navigate('/my-wallet',{state:{wallet}})
                     }}
                     >My Wallet</Button>{' '}
-                    
+                    </div>
                    
                   </MDBListGroupItem>
                 </MDBListGroup>

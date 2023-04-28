@@ -4,6 +4,7 @@ import styles from 'styled-components'
 import ChatInput from '../ChatInput/ChatInput'
 import {v4 as uuidv4}  from 'uuid'
 import { getAllMessagesAPI, sendMessageAPI } from '../../../api/User/ApiCalls'
+import ChatImage from '../../ChatImage/ChatImage'
 
 
 function ChatContainer({currentUser,currentChat,socket}) {
@@ -11,6 +12,7 @@ function ChatContainer({currentUser,currentChat,socket}) {
     const [messages,setMessages] = useState([])
     const [arrivalMessage,setArrivalMessage] = useState({})
     const [showImage,setshowImage] = useState(false)
+    const [image , setImage] = useState('')
     const scrollRef = useRef()
   
 
@@ -44,8 +46,7 @@ function ChatContainer({currentUser,currentChat,socket}) {
         
        console.log(messages,"THIS IS THE MESSAGE SENDINGG")
          setMessages([...messages,data.data])
-      })  
-      
+      })   
    }
 
 
@@ -67,11 +68,18 @@ function ChatContainer({currentUser,currentChat,socket}) {
 
    useEffect(() => {
      scrollRef.current?.scrollIntoView({ behaviour: "smooth" })
-   }, [messages])
+   }, [messages,showImage])
 
 
   return (
-    <Container>
+    <>
+        {
+        showImage ? <ChatImage setShowImage = {setshowImage}
+         message = {messages}
+         image ={image}
+         currentUser = {currentUser}
+         /> : 
+         <Container>
       
         <div className="chat-header">
             <div className="user-details">
@@ -83,9 +91,7 @@ function ChatContainer({currentUser,currentChat,socket}) {
                     </div>
                 </div>
             </div>
-            {
-        showImage ? <p>Image</p> : ""
-      }
+        
             {/* <Message/> */}
             <div className="chat-messages">
         {
@@ -102,6 +108,7 @@ function ChatContainer({currentUser,currentChat,socket}) {
                        style={{width : '10rem',height : '10rem',background : 'none'}}
                        onClick={() => {
                         setshowImage(true)
+                        setImage(message.message?.image)
                        }}
                        /> : 
                       <p>
@@ -127,6 +134,9 @@ function ChatContainer({currentUser,currentChat,socket}) {
             />
             <div className="chat-input"></div>
     </Container>
+      }
+    
+    </>
   )
 }
 

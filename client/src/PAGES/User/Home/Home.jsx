@@ -10,6 +10,8 @@ import { userHomeReducer } from '../../../redux/Reducers/USER/userHomeReducer'
 import { Toaster } from 'react-hot-toast'
 import Footer from '../../../components/Footer/Footer'
 import Landing from '../../../components/Landing/Landing'
+import LandingBikes from '../../../components/Landing/LandingBikes'
+import {  homeGetBikesAction } from '../../../redux/Actions/USER_ACTIONS/getBikesAction'
 
 
 
@@ -21,10 +23,13 @@ function Home() {
   console.log("HOME USERDATA",userData);
 
   useEffect(() => {
-    let userInfo = localStorage.getItem("userInfo")
-    console.log("HOME USERINFO",userInfo);
+    // let userInfo = localStorage.getItem("userInfo")
+    dispatch(homeGetBikesAction())
     navigate('/')
   },[])
+ 
+  const bikesData = useSelector((state) => state.bikesReducer.homeBikesData)
+  console.log("HOME BIKE",bikesData);
   return (
    
     <div>
@@ -38,12 +43,17 @@ function Home() {
       <Box>
        <div className='landing-page'>
        <img src={require('../../../assets/Images/banner.png')} 
-       className='img-fluid' alt='...' 
+       className='img-fluid ' alt='...' 
        style={{height:'110%',width:'100%'}}
        />
        </div>
-       <Box className='container mt-3' >
+       <Box className='container mt-2' >
         <Landing/>
+       </Box>
+       <Box className='container mt-5 mb-3' >
+         <h1 className='d-flex justify-content-center'>Rent your Bikes</h1>
+           <LandingBikes bikes={bikesData}/>
+           
        </Box>
        </Box>
         <Box className='mt-5'>
