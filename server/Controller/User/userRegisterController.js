@@ -26,11 +26,11 @@ exports.signUpPost = async(req,res) => {
             }
     
             if(email && mobile){
-                res.status(401).json("Email and Mobile No already exists")
+                res.status(400).json("Email and Mobile No already exists")
             } else if(email && !mobile){
-                res.status(401).json("Email already exists")
+                res.status(400).json("Email already exists")
             } else if(mobile && !email){
-                res.status(401).json("Mobile No already Exists")
+                res.status(400).json("Mobile No already Exists")
             } else {
                     
                details.Password = await bcrypt.hash(details.Password,10)

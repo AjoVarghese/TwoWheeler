@@ -42,9 +42,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function Wallet() {
-  const dispatch = useDispatch()
   const location = useLocation()
-  console.log("WALLET DETAILS",location.state.wallet);
   let data = location.state.wallet.walletHistory
 
   if (!data || data.length === 0) {
@@ -61,9 +59,24 @@ function Wallet() {
         </Box>
 
         <Box sx={{ width: '100%' }}>
-        <TableContainer component={Paper} className='container mt-5'>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
+        <TableContainer component={Paper} 
+        className='container mt-5'
+        sx={{
+          height: 350
+        }} 
+        >
+      <Table  sx={{
+            height: "max-content"
+          }}
+          aria-label="customized table">
+        <TableHead
+        sx={{
+          position: "sticky",
+          top: 0,
+          zIndex: 1,
+          backgroundColor: "#fff"
+        }}
+        >
           <TableRow>
             <StyledTableCell>Sl.No</StyledTableCell>
             <StyledTableCell align="center">Transactions</StyledTableCell>

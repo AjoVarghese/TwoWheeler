@@ -10,6 +10,7 @@ function ChatContainer({currentUser,currentChat,socket}) {
 
     const [messages,setMessages] = useState([])
     const [arrivalMessage,setArrivalMessage] = useState({})
+    const [showImage,setshowImage] = useState(false)
     const scrollRef = useRef()
   
 
@@ -71,6 +72,7 @@ function ChatContainer({currentUser,currentChat,socket}) {
 
   return (
     <Container>
+      
         <div className="chat-header">
             <div className="user-details">
                 <div className="avatar">
@@ -81,7 +83,9 @@ function ChatContainer({currentUser,currentChat,socket}) {
                     </div>
                 </div>
             </div>
-
+            {
+        showImage ? <p>Image</p> : ""
+      }
             {/* <Message/> */}
             <div className="chat-messages">
         {
@@ -93,7 +97,13 @@ function ChatContainer({currentUser,currentChat,socket}) {
                   <div className="content">
                     {
                       message.message?.text === '' ?
-                      <img src={message.message?.image} alt="" style={{width : '10rem',height : '10rem',background : 'none'}}/> : 
+                      <img src={message.message?.image}
+                       alt="" 
+                       style={{width : '10rem',height : '10rem',background : 'none'}}
+                       onClick={() => {
+                        setshowImage(true)
+                       }}
+                       /> : 
                       <p>
                       {message.message?.text}
                       {console.log(message.message?.text)}

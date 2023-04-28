@@ -3,14 +3,12 @@ import Navbar from '../../../components/NAVBAR/Navbar'
 import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
-// import Swal from 'sweetalert';
-// import 'sweetalert/dist/sweetalert.css';
 import {
+  Alert,
   Button,
   Checkbox,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Grid,
   Radio,
   RadioGroup,
@@ -18,19 +16,23 @@ import {
 } from '@mui/material'
 import { useLocation, useNavigate } from 'react-router-dom'
 import {
+  MDBBtn,
   MDBCard,
   MDBCardHeader,
-  MDBListGroup,
-  MDBListGroupItem
+  MDBCardImage,
+  MDBCol,
+  MDBContainer,
+  MDBIcon,
+  MDBListGroupItem,
+  MDBRow
 } from 'mdb-react-ui-kit'
 import { DatePicker } from 'antd'
 import moment from 'moment'
+import { keyframes } from "@emotion/react";
 import { useDispatch, useSelector } from 'react-redux'
 import { bookingAction } from '../../../redux/Actions/USER_ACTIONS/bookingAction'
-import { getCouponsApi } from '../../../api/Admin/ApiCalls'
 import { getCoupons } from '../../../redux/Actions/ADMIN_ACTIONS/couponActions'
 import { getWalletAction } from '../../../redux/Actions/USER_ACTIONS/getWalletAction'
-import WalletBookingSuccess from '../../../components/Modal/WalletBookingSuccess'
 import { Toaster, toast } from 'react-hot-toast'
 import { bookBikeApi } from '../../../api/User/ApiCalls'
 
@@ -43,6 +45,15 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary
 }))
+
+const slideInFromRight = keyframes`
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+`;
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
 
@@ -61,9 +72,6 @@ function Booking () {
   const [error, setError] = useState(false)
   const [value, setValue] = React.useState('female')
 
-  const [modal, setModal] = useState(false)
-  // const [blocked, setBlocked] = useState(false)
-
   const handleChange = event => {
     setValue(event.target.value)
   }
@@ -81,17 +89,15 @@ function Booking () {
   }, [])
 
   const coupons = useSelector(state => state.getCouponReducer.couponData)
-  console.log('ALl COUPONS', coupons)
 
   const walletAmount = useSelector(state => state.getWalletReducer.walletData)
 
   const bookingData = useSelector(state => state.bookingReducer)
-  const { loading, bookingSuccessData, bookingError } = bookingData
+  const {  bookingError } = bookingData
 
-  const walletBooking = useSelector(
-    state => state.bookingReducer.walletBookingSuccess
-  )
-  console.log('walletBookinf', walletBooking)
+  // const walletBooking = useSelector(
+  //   state => state.bookingReducer.walletBookingSuccess
+  // )
 
   const selectTimeSlots = value => {
     setStartDate(moment(value[0].$d).format('MMMM Do YYYY, h:mm:ss a'))
@@ -108,22 +114,20 @@ function Booking () {
       if (filteredCoupons.length > 0) {
         filteredCoupons.forEach(coupon => {
           if (coupon.users.some(user => user.userId === userId)) {
-            console.log(` has already applied coupon `)
             setCouponApplied(true)
             setError(false)
           } else {
-            console.log(` has not applied coupon  yet`)
+            
             setCouponApplied(false)
             setCouponVerified(true)
             setError(false)
             setOffer(
               coupons.find(x => x.couponCode === coupon)?.couponPrice || 0
             )
-            console.log('offer', offer)
           }
         })
       } else {
-        console.log('Nothing found')
+        
       }
     } else {
       setCouponVerified(false)
@@ -180,16 +184,12 @@ function Booking () {
   }
 
   const handleCheckout = () => {
-    // let checkAuthorised = JSON.parse(localStorage.getItem('userInfo'))
-    // console.log('CHECKAUTHORISED', checkAuthorised)
-    // if(checkAuthorised === true){
-    // setBlocked(false)
+    
     if (wallet === false && stripe === true) {
       setWalletError(false)
       dispatch(bookingAction(stripeData))
     } else if (wallet === true && stripe === false) {
-      console.log(totalAmount)
-      console.log(walletAmount?.walletAmount)
+
       if (walletAmount?.walletAmount >= totalAmount) {
         setWalletError(false)
         bookBikeApi(walletBookingData).then(data => {
@@ -214,24 +214,27 @@ function Booking () {
           reverseOrder={false}
           toastOptions={{ duration: 4000 }}
         />
-        <Grid container spacing={2}>
-          <Grid item xs={6} md={6}>
-            <Item>
-              <figure className='figure'>
-                <img
-                  src={selectedBike.Photo[0]}
-                  className='figure-img img-fluid rounded shadow-3 mb-3'
-                  alt='...'
-                />
-                <figcaption className='figure-caption'>
-                  <h4>{selectedBike.vehicleName}</h4>
-                </figcaption>
-              </figure>
-            </Item>
-          </Grid>
-          <Grid item xs={6} md={6}>
-            <Item>
-              <Box style={{ textAlign: 'start' }}>
+
+
+<MDBContainer fluid className="p-3 my-5 h-custom">
+
+<MDBRow>
+
+  <MDBCol col='10' md='6'>
+ 
+    <MDBCard className='mb-3'>
+        <MDBCardImage position='top' src={selectedBike.Photo[0]} alt='...' />
+        
+      </MDBCard>
+  </MDBCol>
+
+  <MDBCol col='4' md='6'>
+
+    <div className="d-flex flex-row align-items-center justify-content-center">
+
+    </div>
+
+    <Box style={{ textAlign: 'start' }}>
                 <h3>Select Time Slot</h3>
 
                 <RangePicker
@@ -240,7 +243,19 @@ function Booking () {
                   onChange={selectTimeSlots}
                 />
                 {bookingError ? (
-                  <p style={{ color: 'red' }}>{bookingError}</p>
+                  <Alert
+                  sx={{
+                    position: "fixed",
+                    top: "40px",
+                    right: "20px",
+                    width: "35%",
+                    margin: "20px 0",
+                    animation: `${slideInFromRight} 0.3s forwards ease-in`,
+                  }}
+                  severity="error"
+                >
+                  {bookingError} — check it out!
+                </Alert>
                 ) : (
                   ''
                 )}
@@ -286,8 +301,13 @@ function Booking () {
                   ''
                 )}
               </Box>
+    {/* <div className="d-flex justify-content-between mb-4">
+      <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
+      <a href="!#">Forgot password?</a>
+    </div> */}
 
-              <Box className='mt-3 ms-2'>
+    <div className='text-center text-md-start mt-4 pt-2'>
+    <Box className='mt-3 ms-2'>
                 {startDate && endDate ? (
                   <Box gridColumn='span 4'>
                     <Item>
@@ -465,19 +485,44 @@ function Booking () {
                           Checkout
                         </Button>
                       )}
-                      {/* 
-    {
-      blocked ? <p>Yor r being blocked</p> : ""
-    } */}
                     </Item>
                   </Box>
                 ) : (
                   ''
                 )}
               </Box>
-            </Item>
-          </Grid>
-        </Grid>
+    </div>
+
+  </MDBCol>
+
+</MDBRow>
+
+<div className="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5">
+  
+
+  <div>
+
+    <MDBBtn tag='a' color='none' className='mx-3' style={{ color: 'white' }}>
+      <MDBIcon fab icon='facebook-f' size="md"/>
+    </MDBBtn>
+
+    <MDBBtn tag='a' color='none' className='mx-3' style={{ color: 'white'  }}>
+      <MDBIcon fab icon='twitter' size="md"/>
+    </MDBBtn>
+
+    <MDBBtn tag='a' color='none' className='mx-3' style={{ color: 'white'  }}>
+      <MDBIcon fab icon='google' size="md"/>
+    </MDBBtn>
+
+    <MDBBtn tag='a' color='none' className='mx-3' style={{ color: 'white'  }}>
+      <MDBIcon fab icon='linkedin-in' size="md"/>
+    </MDBBtn>
+
+  </div>
+
+</div>
+
+</MDBContainer>
       </Box>
     </div>
   )

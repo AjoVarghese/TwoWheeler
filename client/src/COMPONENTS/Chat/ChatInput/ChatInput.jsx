@@ -7,9 +7,14 @@ import { IconButton } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import { imageSendApi } from "../../../api/User/ApiCalls";
 
-
-function ChatInput({ handleSendMessage,currentUser,currentChat,socket ,setMessages,message}) {
-  
+function ChatInput({
+  handleSendMessage,
+  currentUser,
+  currentChat,
+  socket,
+  setMessages,
+  message,
+}) {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState("");
 
@@ -32,37 +37,36 @@ function ChatInput({ handleSendMessage,currentUser,currentChat,socket ,setMessag
     }
   };
 
-
   const sendImage = (e) => {
-    if(e.target.files.length !== 0){
-      let image = e.target.files[0]
+    if (e.target.files.length !== 0) {
+      let image = e.target.files[0];
       //cloudinary
-      const formData = new FormData()
-      formData.append('file',image)
-      formData.append("upload_preset","ml_default")
-      formData.append("cloud_name","dxt9i7gl6")
-      fetch("https://api.cloudinary.com/v1_1/dxt9i7gl6/image/upload",{
-      method : "post",
-      body : formData
-    })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log('Cloud',data.url);
-      const imageMessageDetails = {
-        from : currentUser.id,
-        to : currentChat._id,
-        image : data.secure_url
-      }
-      imageSendApi(imageMessageDetails).then((data) => {
-        console.log("Image send api",data);
-        console.log('messaes',message);
-        setMessages([...message,data.data])
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", "ml_default");
+      formData.append("cloud_name", "dxt9i7gl6");
+      fetch("https://api.cloudinary.com/v1_1/dxt9i7gl6/image/upload", {
+        method: "post",
+        body: formData,
       })
-    })
-
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Cloud", data.url);
+          const imageMessageDetails = {
+            from: currentUser.id,
+            to: currentChat._id,
+            image: data.secure_url,
+          };
+          imageSendApi(imageMessageDetails).then((data) => {
+            console.log("Image send api", data);
+            console.log("messaes", message);
+            setMessages([...message, data.data]);
+          });
+        });
     }
-    
-  }
+  };
+
+  
 
   return (
     <Container>
@@ -72,16 +76,16 @@ function ChatInput({ handleSendMessage,currentUser,currentChat,socket ,setMessag
           {showEmojiPicker && <EmojiPicker onEmojiClick={handleEmojiClick} />}
         </div>
       </div>
-      
+
       <form className="input-container" onSubmit={(e) => sendChat(e)}>
-      <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="label"
-            >
-              <input hidden accept="image/*" type="file" onChange={sendImage}/>
-              <PhotoCamera />
-            </IconButton>
+        <IconButton
+          color="primary"
+          aria-label="upload picture"
+          component="label"
+        >
+          <input hidden accept="image/*" type="file" onChange={sendImage} />
+          <PhotoCamera />
+        </IconButton>
         <input
           type="text"
           placeholder="type your messages here"

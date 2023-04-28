@@ -3,37 +3,26 @@ import React, { useEffect, useState ,useRef  } from 'react'
 import Navbar from '../../../components/NAVBAR/Navbar'
 import './Profile.css'
 import Button from 'react-bootstrap/Button';
-import AddIcon from '@mui/icons-material/Add';
+
 
 import {
   MDBCol,
   MDBContainer,
   MDBRow,
   MDBCard,
-  MDBCardText,
   MDBCardBody,
   MDBCardImage,
-  MDBBtn,
-  MDBBreadcrumb,
-  MDBBreadcrumbItem,
-  MDBProgress,
-  MDBProgressBar,
   MDBIcon,
   MDBListGroup,
   MDBListGroupItem,
   MDBInput
 } from 'mdb-react-ui-kit';
-// import { MDBIcon } from 'mdb-react-ui-kit';
-import { Toast } from 'primereact/toast';
-import { FileUpload } from 'primereact/fileupload';
-// import { Tooltip, Button } from '@mantine/core';
+
 
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { getUserProfileAction, getUserProfileReducer, imageUploadAction } from '../../../redux/Actions/USER_ACTIONS/userProfileAction';
 import ModalBox from '../../../components/Modal/ModalBox';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import { getWalletAction } from '../../../redux/Actions/USER_ACTIONS/getWalletAction';
 
 
@@ -58,7 +47,6 @@ function Profile() {
   console.log('wallet',wallet);
  
     const profileData = useSelector((state)=>state.userLoginReducer.userLoginDetails)
-     console.log("profileData",profileData);
             
  
 
@@ -68,20 +56,16 @@ function Profile() {
     formData.append("file",image)
     formData.append("upload_preset","ml_default")
     formData.append("cloud_name","dxt9i7gl6")
-    console.log("FORM DATA",formData);
     fetch("https://api.cloudinary.com/v1_1/dxt9i7gl6/image/upload",{
       method : "post",
       body : formData
     })
     .then((res) => res.json())
     .then((data) => {
-      console.log("image format",data);
       if (data.format !== 'jpg' && data.format !== 'jpeg' && data.format !== 'png') {
-        console.log('format error');
         setError('Please upload a JPEG or PNG file');
         return;
       }
-      console.log("DDDATAAATA",data.url);
       dispatch(imageUploadAction(data.url))
     })
   }
@@ -113,21 +97,26 @@ function Profile() {
                   className="circle"
                   style={{ width: '200px',height:"200x",borderRadius:"50%" }}
                   fluid />
-                <p className="text-muted mb-1">Full Stack Developer</p>
-                <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                <p className="text-muted mb-1">{profileData.Name}</p>
+                <p className="text-muted mb-4">{profileData.Email}</p>
                 <div className="d-flex justify-content-center mb-2">
-                  {/* <MDBBtn><input type="file" /></MDBBtn> */}
-                  {/* <input type="file" /> */}
-                  {/* <MDBBtn outline className="ms-1">Message</MDBBtn> */}
+                 
                   <Button variant="secondary"><input type="file"
                    accept=".jpg,.jpeg,.png,.webp"
-                  onChange={(e) => setImage(e.target.files[0])}/></Button>{' '}
+                  onChange={(e) => setImage(e.target.files[0])}
+                  style = {{width : '15rem'}}
+                  className='ms-3'
+                  /></Button>{' '}
                   
-                  <Button variant="warning ms-4" onClick={handleClick} style={{backgroundColor : "#fed250"}}>Upload</Button>{' '}
+                  <Button variant="warning ms-3" 
+                  onClick={handleClick} 
+                  style={{backgroundColor : "#fed250"}}
+                  className='me-3'
+                  >Upload</Button>{' '}
                 </div>
-                {/* <div> */}
+                
                   {error && <p style={{color : "red"}}>{error}</p>}
-                  {/* </div> */}
+                  
               </MDBCardBody>
             </MDBCard>
 
@@ -160,9 +149,6 @@ function Profile() {
               <MDBCardBody>
                 <label htmlFor="">Username</label>
                 <MDBRow>
-                  {/* <MDBCol sm="3">
-                    <MDBCardText>Full Name</MDBCardText>
-                  </MDBCol> */}
                  <MDBInput
       
       placeholder={profileData.Name}
@@ -171,15 +157,9 @@ function Profile() {
       readonly
     />
          
-                  {/* <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
-                  </MDBCol> */}
                 </MDBRow>
                 <label htmlFor="">Email</label>
                 <MDBRow>
-                  {/* <MDBCol sm="3">
-                    <MDBCardText>Full Name</MDBCardText>
-                  </MDBCol> */}
                  <MDBInput
      
       placeholder={profileData.Email}
@@ -187,15 +167,11 @@ function Profile() {
       type='text'
       readonly
     />
-                  {/* <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
-                  </MDBCol> */}
+                  
                 </MDBRow>
                 <label htmlFor="">Mobile No</label>
                 <MDBRow>
-                  {/* <MDBCol sm="3">
-                    <MDBCardText>Full Name</MDBCardText>
-                  </MDBCol> */}
+                  
                  <MDBInput
      
       placeholder={profileData.Mobile}
@@ -206,7 +182,10 @@ function Profile() {
             
                 </MDBRow>
                 <MDBRow>
-                <Button variant="warning ms-6 me-6 mt-3" style={{backgroundColor : "#fed250"}} onClick = {(e) => 
+                <Button variant="warning ms-4 me-4 mt-3" 
+                style={{backgroundColor : "#fed250",width : '50rem'}} 
+
+                onClick = {(e) => 
                   {setModal(true)}
                   } 
                   >Edit Details</Button>{' '}

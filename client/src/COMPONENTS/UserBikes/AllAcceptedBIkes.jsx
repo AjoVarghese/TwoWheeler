@@ -1,21 +1,23 @@
 import {
+  MDBBtn,
   MDBCard,
   MDBCardBody,
   MDBCardImage,
   MDBCardTitle,
+  MDBCheckbox,
   MDBCol,
+  MDBContainer,
   MDBIcon,
+  MDBInput,
   MDBRow,
 } from "mdb-react-ui-kit";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getBikesAction } from "../../redux/Actions/USER_ACTIONS/getBikesAction";
 import Loading from "../Loading/Loading";
-import Paginator from "../Paginator/Paginator";
+
 
 function AllAcceptedBIkes({ acceptedBikes, selectedLoc }) {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   console.log("selectedloc", selectedLoc);
@@ -24,9 +26,9 @@ function AllAcceptedBIkes({ acceptedBikes, selectedLoc }) {
 
   const bikes = useSelector((state) => state.bikesReducer);
   const { loading, bikesData, bikesDataError } = bikes;
-  console.log("ACC BIKESDATA",bikesData?.data.length);
+
   return (
-    <div className="d-flex justify-content-center">
+    <div className="d-flex justify-content-center col-md-12">
 
       {
         bikesData?.data.length === 0 ? <h6>No Data Available</h6> :
@@ -40,6 +42,7 @@ function AllAcceptedBIkes({ acceptedBikes, selectedLoc }) {
             let Status;
             return (
               <>
+
                 {Status ? (
                   <MDBCol className="col-md-6 mt-3">
                     <MDBCard className="text-black">
@@ -99,11 +102,6 @@ function AllAcceptedBIkes({ acceptedBikes, selectedLoc }) {
                               border: "none",
                             }
                           }
-                            // onClick={() => {
-    
-                            //   navigate('/booking-summary',{state : {bikesData,bikeId}})
-                              
-                            // }}
                           >
                             Book Now
                           </button>
@@ -123,7 +121,7 @@ function AllAcceptedBIkes({ acceptedBikes, selectedLoc }) {
                       <MDBCardImage
                         className="d-flex justify-content-center"
                         src={x.Photo[0]}
-                        style={{ width: "20rem", height: "10rem" }}
+                        style={{ width: "17.2rem", height: "10rem" }}
                         position="top"
                         alt="Apple Computer"
                         onClick={(e) =>

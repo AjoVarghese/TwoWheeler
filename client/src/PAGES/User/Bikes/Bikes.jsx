@@ -104,20 +104,30 @@ function Bikes () {
     }
   }, [bikesData])
 
+
   const submitHandler = e => {
     e.preventDefault()
     dispatch(bikeSearchAction(searchTerm,page))
-    setSearchTerm('')
-  }
+    setSearchTerm(null)
+}
 
-  console.log('STATE', state)
+// useEffect(() => {
+//   console.log('second');
+//   console.log(searchTerm,'searcihahfki');
+//   if(searchTerm === null) {
+//     console.log('nulll');
+//     dispatch(getBikesAction(page))
+//   }
+// },[])
+
+  console.log('STATE', searchTerm)
 
   return (
     <>
       <Navbar />
       <div className='cards mt-5'>
         <div>
-          <MDBContainer className='my-1'>
+          <MDBContainer className='my-1 '>
             <h2 style={{ textAlign: 'center' }}>Rent Bikes</h2>
             
             <Box sx={{ flexGrow: 1 }}>
