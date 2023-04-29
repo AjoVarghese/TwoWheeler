@@ -2,23 +2,16 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button, FormControl } from "@mui/material";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import {useForm} from "react-hook-form"
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { bikeFilterAction } from "../../redux/Actions/USER_ACTIONS/bikeFilterAction";
 
-// const schema = yup.object().shape({
-
-// })
 
 export default function FilterSideBar({ loc, propState,page }) {
   console.log(loc, propState);
   const [location, setLocation] = useState(null);
   const [brand, setBrand] = useState(null); 
   const [error,setError] = useState(false) 
-  const [spaceError,setSpaceError] = useState(false)
   const dispatch = useDispatch()
 
   const submitHandler = (e) => {

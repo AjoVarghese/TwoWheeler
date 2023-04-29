@@ -10,13 +10,12 @@ import {
   MDBModalFooter,
 } from 'mdb-react-ui-kit';
 import { Box} from '@mantine/core';
-import { CircularProgress, TextField, Typography,Button } from '@mui/material';
+import { TextField,Button } from '@mui/material';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { addLocation, editLocation } from '../../redux/Actions/ADMIN_ACTIONS/locationActions';
-import { useLocation } from 'react-router-dom';
 
 
 const schema = yup.object().shape({    
@@ -96,7 +95,7 @@ const LocationModal = ({closeModal,message,action,locationId}) => {
               </Button>
 
               <Button type='submit' variant="contained" color="info" className='ms-3'>
-            {action ?. add ? "ADD" : "Edit"}
+            {action?.add ? "ADD" : "Edit"}
               </Button>
             </MDBModalFooter> 
             </>
