@@ -1,34 +1,47 @@
-import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCol, MDBIcon, MDBRow } from 'mdb-react-ui-kit'
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import Loading from '../Loading/Loading'
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBCardTitle,
+  MDBCol,
+  MDBIcon,
+  MDBRow,
+} from "mdb-react-ui-kit";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Loading from "../Loading/Loading";
 
+function PriceDescSortedBikes({ priceDesc }) {
+  const navigate = useNavigate();
 
+  const bikes = useSelector((state) => state.bikesReducer);
+  const { loading, bikesData, bikesDataError } = bikes;
 
-function PriceDescSortedBikes({priceDesc}) {
-    const navigate = useNavigate()
- 
-  const bikes = useSelector((state) => state.bikesReducer)
-   const {loading , bikesData , bikesDataError} = bikes
-
-   const desc = priceDesc?.data ? priceDesc?.data.sort((a,b) => b.Price - a.Price) : "desc Sort Error"
+  const desc = priceDesc?.data
+    ? priceDesc?.data.sort((a, b) => b.Price - a.Price)
+    : "desc Sort Error";
 
   return (
     <div>
-     <MDBRow className="col-lg-12">
-        {
-          loading ? <Loading/> : 
-          desc  ? desc.map((x,i) => {
-                
-              return (
-                <MDBCol md="4 mt-3">
+      <MDBRow className="col-lg-12">
+        {loading ? (
+          <Loading />
+        ) : desc ? (
+          desc.map((x, i) => {
+            return (
+              <MDBCol md="4 mt-3">
                 <MDBCard className="text-black">
-                  <MDBIcon fab icon="apple" size="md" className="px-3 pt-3 pb-2" />
+                  <MDBIcon
+                    fab
+                    icon="apple"
+                    size="md"
+                    className="px-3 pt-3 pb-2"
+                  />
                   <MDBCardImage
-                  className='d-flex justify-content-center'
+                    className="d-flex justify-content-center"
                     src={x.Photo[0]}
-                    style={{width:'20rem',height:'10rem',}}
+                    style={{ width: "20rem", height: "10rem" }}
                     position="top"
                     alt="Apple Computer"
                     onClick={(e) =>
@@ -37,7 +50,7 @@ function PriceDescSortedBikes({priceDesc}) {
                       })
                     }
                   />
-                  <MDBCardBody style={{backgroundColor : "#DCDCDC"}}>
+                  <MDBCardBody style={{ backgroundColor: "#DCDCDC" }}>
                     <div className="text-center">
                       <MDBCardTitle>{x.vehicleName}</MDBCardTitle>
                       <p className="text-muted mb-4">{x.Description}</p>
@@ -52,6 +65,10 @@ function PriceDescSortedBikes({priceDesc}) {
                         <span>{x.Brand}</span>
                       </div>
                       <div className="d-flex justify-content-between">
+                        <span>Location</span>
+                        <span>{x.Location}</span>
+                      </div>
+                      <div className="d-flex justify-content-between">
                         <span>Color</span>
                         <span>{x.Color}</span>
                       </div>
@@ -60,18 +77,31 @@ function PriceDescSortedBikes({priceDesc}) {
                       <span>Rent Amount(per hr)</span>
                       <span>Rs.{x.Price}</span>
                     </div>
-                    <div className='mt-3'>
-                    <button type="button" style={{width : "100%",backgroundColor: '#fed250',borderRadius : '6px',height : '3rem',border : 'none'}}>Book Now</button>
+                    <div className="mt-3">
+                      <button
+                        type="button"
+                        style={{
+                          width: "100%",
+                          backgroundColor: "#fed250",
+                          borderRadius: "6px",
+                          height: "3rem",
+                          border: "none",
+                        }}
+                      >
+                        Book Now
+                      </button>
                     </div>
                   </MDBCardBody>
                 </MDBCard>
-              </MDBCol>       
-              )
-            }) : 'No data available'
-        }
+              </MDBCol>
+            );
+          })
+        ) : (
+          "No data available"
+        )}
       </MDBRow>
     </div>
-  )
+  );
 }
 
-export default PriceDescSortedBikes
+export default PriceDescSortedBikes;

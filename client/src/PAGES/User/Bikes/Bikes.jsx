@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../../../components/NAVBAR/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { getBikesAction } from "../../../redux/Actions/USER_ACTIONS/getBikesAction";
-// import { useNavigate } from 'react-router-dom';
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -25,7 +24,6 @@ import {
   MDBPagination,
   MDBPaginationItem,
   MDBPaginationLink,
-  MDBRow,
 } from "mdb-react-ui-kit";
 
 function TabPanel(props) {
@@ -78,12 +76,11 @@ function Bikes() {
   };
 
   const bikes = useSelector((state) => state.bikesReducer);
-  const { loading, bikesData, bikesDataError } = bikes;
+  const {  bikesData } = bikes;
 
   const location = useSelector(
     (state) => state.userLocationReducer.locationData
   );
-  console.log("LocatioNNNN", location);
 
   useEffect(() => {
     dispatch(getBikesAction(page));
@@ -106,20 +103,15 @@ function Bikes() {
     }
   }, [bikesData]);
 
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const submitHandler = () => {
     dispatch(bikeSearchAction(searchTerm, page));
     setSearchTerm(null);
   };
 
-  // useEffect(() => {
-  //   console.log('second');
-  //   console.log(searchTerm,'searcihahfki');
-  //   if(searchTerm === null) {
-  //     console.log('nulll');
-  //     dispatch(getBikesAction(page))
-  //   }
-  // },[])
+  useEffect(() => {
+    submitHandler();
+  }, [searchTerm]);
+  
 
   console.log("STATE", searchTerm);
 
@@ -170,7 +162,7 @@ function Bikes() {
                             type="button"
                             sx={{ p: "10px" }}
                             aria-label="search"
-                            onClick={submitHandler}
+                            // onClick={submitHandler}
                           >
                             <SearchIcon />
                           </IconButton>

@@ -48,27 +48,36 @@ function Vehicle() {
 
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [selectedBike, setSelectedBike] = useState();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [page, setPage] = useState(1);
-  const [pageCount, setPageCount] = useState(0);
+  const [pageCount,setPageCount] = useState(0);
 
   const bikes = useSelector((state) => state.admingetAllBikesReducer);
-  const { loading, bikesData, bikesDataError } = bikes;
+  const {  bikesData } = bikes;
 
   const deleteBike = () => {
     dispatch(deleteBikeAction(selectedBike));
   };
+ 
+
+  console.log("this is serch term",searchTerm);
+
 
   useEffect(() => {
     dispatch(getAllBikesAction(page));
   }, []);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+
+  useEffect(() => {
+      onSubmitSearch(page)
+  },[searchTerm])
+ 
+  const onSubmitSearch = (e,page) => {
+    console.log('CALLED');
     dispatch(adminSearchBikeAction(searchTerm, page));
-    setSearchTerm("");
   };
+
 
   const handlePrev = () => {
     dispatch(getAllBikesAction(bikesData.pagination.currentPage - 1));
@@ -116,13 +125,18 @@ function Vehicle() {
                 <InputBase
                   sx={{ ml: 1, flex: 1 }}
                   placeholder="Search Bikes"
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e) =>{
+                    console.log("E",e);
+                    setSearchTerm(e.target.value)
+                   
+                  } 
+                }
                 />
                 <IconButton
                   type="button"
                   sx={{ p: "10px" }}
                   aria-label="search"
-                  onClick={onSubmit}
+                 
                 >
                   <SearchIcon />
                 </IconButton>
@@ -150,64 +164,85 @@ function Vehicle() {
                   </MDBPaginationItem>
                 )}
               </MDBPagination>
-              <TableContainer component={Paper} 
-              sx={{
-                height: 600   
-              }} 
-              >
-                <Table 
+              <TableContainer
+                component={Paper}
                 sx={{
-                  height: "max-content"
+                  height: 600,
                 }}
-                 aria-label="simple table" >
-                  <TableHead
+              >
+                <Table
                   sx={{
-                    position: "sticky",
-                    top: 0,
-                    zIndex: 1,
-                    backgroundColor: "#fff"
+                    height: "max-content",
                   }}
+                  aria-label="simple table"
+                >
+                  <TableHead
+                    sx={{
+                      position: "sticky",
+                      top: 0,
+                      zIndex: 1,
+                      backgroundColor: "#fff",
+                    }}
                   >
                     <TableRow>
-                      <TableCell  style={{ position: 'sticky', top: 0 }}>
+                      <TableCell style={{ position: "sticky", top: 0 }}>
                         <h4>Sl.No</h4>
                       </TableCell>
-                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
+                      <TableCell
+                        align="center"
+                        style={{ position: "sticky", top: 0 }}
+                      >
                         <h4>Vehicle Name</h4>
                       </TableCell>
-                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
+                      <TableCell
+                        align="center"
+                        style={{ position: "sticky", top: 0 }}
+                      >
                         <h4>Image</h4>
                       </TableCell>
-                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
+                      <TableCell
+                        align="center"
+                        style={{ position: "sticky", top: 0 }}
+                      >
                         <h4>Brand</h4>
                       </TableCell>
-                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
+                      <TableCell
+                        align="center"
+                        style={{ position: "sticky", top: 0 }}
+                      >
                         <h4>Vehicle Model</h4>
                       </TableCell>
-                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
+                      <TableCell
+                        align="center"
+                        style={{ position: "sticky", top: 0 }}
+                      >
                         <h4>Color</h4>
                       </TableCell>
-                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
+                      <TableCell
+                        align="center"
+                        style={{ position: "sticky", top: 0 }}
+                      >
                         <h4>Price</h4>
                       </TableCell>
 
-                      <TableCell align="center"  style={{ position: 'sticky', top: 0 }}>
+                      <TableCell
+                        align="center"
+                        style={{ position: "sticky", top: 0 }}
+                      >
                         <h4>Action</h4>
                       </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody
-                        style={{
-                          maxHeight: 400,
-                          overflowY: 'auto',
-                        }}
+                    style={{
+                      maxHeight: 400,
+                      overflowY: "auto",
+                    }}
                   >
-            
                     {bikesData
                       ? bikesData?.data.map((data, i) => {
                           return (
                             <TableRow
-                              // key={data._id}
                               sx={{
                                 "&:last-child td, &:last-child th": {
                                   border: 0,
@@ -228,9 +263,7 @@ function Vehicle() {
                                     alt="171x180"
                                     src={data.Photo[0]}
                                   />
-                                  <Figure.Caption>
-                                    {/* Nulla vitae elit libero, a pharetra augue mollis interdum. */}
-                                  </Figure.Caption>
+                                  <Figure.Caption></Figure.Caption>
                                 </Figure>
                               </TableCell>
                               <TableCell align="center">
