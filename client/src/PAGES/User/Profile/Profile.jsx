@@ -22,6 +22,9 @@ import { useNavigate } from "react-router-dom";
 import { imageUploadAction } from "../../../redux/Actions/USER_ACTIONS/userProfileAction";
 import ModalBox from "../../../components/Modal/ModalBox";
 import { getWalletAction } from "../../../redux/Actions/USER_ACTIONS/getWalletAction";
+import { imageUploadApi } from "../../../api/User/ApiCalls";
+import { Toaster, toast } from "react-hot-toast";
+import { CircularProgress } from "@mui/material";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -30,6 +33,7 @@ function Profile() {
   const [image, setImage] = useState("");
   const [modal, setModal] = useState(false);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     dispatch(getWalletAction());
@@ -43,14 +47,18 @@ function Profile() {
 
   const handleClick = (e) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData();
     formData.append("file", image);
-    formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET );
+    formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET);
     formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
-    fetch(`https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`, {
-      method: "post",
-      body: formData,
-    })
+    fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
+      {
+        method: "post",
+        body: formData,
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (
@@ -61,7 +69,12 @@ function Profile() {
           setError("Please upload a JPEG or PNG file");
           return;
         }
-        dispatch(imageUploadAction(data.url));
+        imageUploadApi(profileData.id, data.url).then((data) => {
+          dispatch(imageUploadAction(data.data));
+          setLoading(false);
+          toast.success("Profile Image Uploaded successfully!");
+          setTimeout(() => {}, 3000);
+        });
       });
   };
 
@@ -70,6 +83,11 @@ function Profile() {
       <Navbar />
 
       <section>
+        <Toaster
+          position="top-right"
+          reverseOrder={false}
+          toastOptions={{ duration: 4000 }}
+        />
         <MDBContainer className="py-5">
           <MDBRow>
             <MDBCol></MDBCol>
@@ -112,14 +130,24 @@ function Profile() {
                           className="ms-3"
                         />
                       </Button>{" "}
-                      <Button
-                        variant="warning ms-3 mt-3"
-                        onClick={handleClick}
-                        style={{ backgroundColor: "#fed250" }}
-                        className="me-3"
-                      >
-                        Upload
-                      </Button>{" "}
+                      {loading ? (
+                        <Button
+                          className="mb-4 container col-md-4 sm-3"
+                          style={{ backgroundColor: "#fed250" }}
+                          disabled
+                        >
+                          <CircularProgress />
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="warning ms-3 mt-3"
+                          onClick={handleClick}
+                          style={{ backgroundColor: "#fed250" }}
+                          className="me-3"
+                        >
+                          Upload
+                        </Button>
+                      )}
                     </div>
                   </div>
 
@@ -207,8 +235,7 @@ function Profile() {
               </MDBCard>
 
               <MDBRow>
-                <MDBCol md="12">
-                </MDBCol>
+                <MDBCol md="12"></MDBCol>
               </MDBRow>
             </MDBCol>
           </MDBRow>

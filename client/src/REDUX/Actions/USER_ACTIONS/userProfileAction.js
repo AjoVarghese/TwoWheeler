@@ -29,18 +29,18 @@ export const getUserProfileAction = () => async(dispatch) => {
 }
 
 
-export const imageUploadAction = (image) => async(dispatch) => {
+export const imageUploadAction = (data) => async(dispatch) => {
     try {
          const user = JSON.parse(localStorage.getItem("userInfo"))
         
-        imageUploadApi(user.id,image).then((data) => {
-            console.log("imageuploadApiData",data.data);
-            localStorage.setItem("userInfo",JSON.stringify(data.data))
+        // imageUploadApi(user.id,image).then((data) => {
+            console.log("imageuploadApiData",data);
+            localStorage.setItem("userInfo",JSON.stringify(data))
             dispatch({
                 type : ActionTypes.UPDATE_PROFILE,
-                payload : data.data
+                payload : data
             })
-        })
+        // })
     } catch (error) {
         
     }
