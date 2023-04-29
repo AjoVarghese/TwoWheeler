@@ -8,6 +8,7 @@ exports.viewVehicles = async(req,res) => {
   let currentPage = parseInt(page)
   try {
     vehicleSchema.find({
+      
       $and: [
         { Status: 'Acccepted' },
         {
@@ -47,20 +48,20 @@ exports.viewVehicles = async(req,res) => {
       })
       .catch((error) => {
         console.log(error)
-        res.status(500).json({ message: 'Error occurred while fetching the count' })
+        res.status(400).json({ message: 'Error occurred while fetching the count' })
       })
     })
     .catch((error) => {
       console.log(error)
-      res.status(500).json({ message: 'Error occurred while fetching the data' })
+      res.status(400).json({ message: 'Error occurred while fetching the data' })
     })
     .catch((error) => {
       console.log(error)
-      res.status(500).json({ message: 'Error occurred while fetching the count' })
+      res.status(400).json({ message: 'Error occurred while fetching the count' })
     })
   } catch (error) {
     console.log(error)
-    res.status(500).json("Internal Server Error")
+    res.status(400).json("Internal Server Error")
   }
 }
 

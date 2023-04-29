@@ -1,103 +1,103 @@
-import React, { useEffect, useState } from "react";
-import EmojiPicker from "emoji-picker-react";
-import { IoMdSend } from "react-icons/io";
-import { BsEmojiSmileFill } from "react-icons/bs";
-import styled from "styled-components";
-import { IconButton } from "@mui/material";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
-import { imageSendApi } from "../../../api/User/ApiCalls";
+import React, { useEffect, useState } from 'react'
+import EmojiPicker from 'emoji-picker-react'
+import { IoMdSend } from 'react-icons/io'
+import { BsEmojiSmileFill } from 'react-icons/bs'
+import styled from 'styled-components'
+import { IconButton } from '@mui/material'
+import PhotoCamera from '@mui/icons-material/PhotoCamera'
+import { imageSendApi } from '../../../api/User/ApiCalls'
 
-function ChatInput({
+function ChatInput ({
   handleSendMessage,
   currentUser,
   currentChat,
   socket,
   setMessages,
-  message,
+  message
 }) {
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const [msg, setMsg] = useState("");
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false)
+  const [msg, setMsg] = useState('')
 
   const handleEmojiPickerHideShow = () => {
-    setShowEmojiPicker(!showEmojiPicker);
-  };
+    setShowEmojiPicker(!showEmojiPicker)
+  }
 
   const handleEmojiClick = (emojiData, event) => {
-    let message = msg;
-    message += emojiData.emoji;
-    setMsg(message);
-  };
+    let message = msg
+    message += emojiData.emoji
+    setMsg(message)
+  }
 
   // send chat
-  const sendChat = (event) => {
-    event.preventDefault();
+  const sendChat = event => {
+    event.preventDefault()
     if (msg.length > 0) {
-      handleSendMessage(msg);
-      setMsg("");
+      handleSendMessage(msg)
+      setMsg('')
     }
-  };
+  }
 
-  const sendImage = (e) => {
+  const sendImage = e => {
     if (e.target.files.length !== 0) {
-      let image = e.target.files[0];
+      let image = e.target.files[0]
       //cloudinary
-      const formData = new FormData();
-      formData.append("file", image);
-      formData.append("upload_preset", "ml_default");
-      formData.append("cloud_name", "dxt9i7gl6");
-      fetch("https://api.cloudinary.com/v1_1/dxt9i7gl6/image/upload", {
-        method: "post",
-        body: formData,
+      const formData = new FormData()
+      formData.append('file', image)
+      formData.append('upload_preset', 'ml_default')
+      formData.append('cloud_name', 'dxt9i7gl6')
+      fetch('https://api.cloudinary.com/v1_1/dxt9i7gl6/image/upload', {
+        method: 'post',
+        body: formData
       })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("Cloud", data.url);
+        .then(res => res.json())
+        .then(data => {
+          console.log('Cloud', data.url)
           const imageMessageDetails = {
             from: currentUser.id,
             to: currentChat._id,
-            image: data.secure_url,
-          };
-          imageSendApi(imageMessageDetails).then((data) => {
-            console.log("Image send api", data);
-            console.log("messaes", message);
-            setMessages([...message, data.data]);
-          });
-        });
+            image: data.secure_url
+          }
+          handleSendMessage(image)
+          imageSendApi(imageMessageDetails).then(data => {
+            console.log('Image send api', data.data.message.image)
+            console.log('messaes', message)
+            handleSendMessage(data.data)
+            setMessages(prevMessages => [...prevMessages, data.data])
+          })
+        })
     }
-  };
-
-  
+  }
 
   return (
     <Container>
-      <div className="button-container">
-        <div className="emoji">
+      <div className='button-container'>
+        <div className='emoji'>
           <BsEmojiSmileFill onClick={handleEmojiPickerHideShow} />
           {showEmojiPicker && <EmojiPicker onEmojiClick={handleEmojiClick} />}
         </div>
       </div>
 
-      <form className="input-container" onSubmit={(e) => sendChat(e)}>
+      <form className='input-container' onSubmit={e => sendChat(e)}>
         <IconButton
-          color="primary"
-          aria-label="upload picture"
-          component="label"
+          color='primary'
+          aria-label='upload picture'
+          component='label'
         >
-          <input hidden accept="image/*" type="file" onChange={sendImage} />
+          <input hidden accept='image/*' type='file' onChange={sendImage} />
           <PhotoCamera />
         </IconButton>
         <input
-          type="text"
-          placeholder="type your messages here"
-          onChange={(e) => setMsg(e.target.value)}
+          type='text'
+          placeholder='type your messages here'
+          onChange={e => setMsg(e.target.value)}
           value={msg}
         />
-        <button className="submit">
+        <button className='submit'>
           <IoMdSend />
         </button>
       </form>
     </Container>
-  );
+  )
 }
 
 const Container = styled.div`
@@ -191,6 +191,6 @@ const Container = styled.div`
       }
     }
   }
-`;
+`
 
-export default ChatInput;
+export default ChatInput

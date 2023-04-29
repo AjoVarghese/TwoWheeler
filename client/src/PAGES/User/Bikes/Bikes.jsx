@@ -76,7 +76,9 @@ function Bikes() {
   };
 
   const bikes = useSelector((state) => state.bikesReducer);
-  const {  bikesData } = bikes;
+  const {  bikesData,bikesDataError } = bikes;
+  console.log("NNJJJK",bikes);
+  console.log('data error',bikesDataError);
 
   const location = useSelector(
     (state) => state.userLocationReducer.locationData

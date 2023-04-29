@@ -16,9 +16,10 @@ export const getBikesAction = (page) => async(dispatch) => {
     })
 
     .catch((error) => {
+        console.log('userGETBIKE API ERROR',error);
         dispatch({
             type : ActionTypes.GET_BIKES_FAILED,
-            payload : error.response.message
+            payload : error
         })
     })
 }

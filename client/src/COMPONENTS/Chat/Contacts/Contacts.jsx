@@ -160,6 +160,13 @@ grid-template-rows: 10% 78% 12%;
         }
       }
     }
+    @media screen and (max-width: 720px) {
+      .contacts {
+        .contact {
+          width: 100%;
+        }
+      }
+    }
   }
 `;
 export default Contacts

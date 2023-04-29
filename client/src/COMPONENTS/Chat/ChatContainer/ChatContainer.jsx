@@ -1,143 +1,146 @@
+import React, { useEffect, useRef, useState } from "react";
+import styles from "styled-components";
+import ChatInput from "../ChatInput/ChatInput";
+import { v4 as uuidv4 } from "uuid";
+import { getAllMessagesAPI, sendMessageAPI } from "../../../api/User/ApiCalls";
+import ChatImage from "../../ChatImage/ChatImage";
 
-import React, { useEffect, useRef, useState } from 'react'
-import styles from 'styled-components'
-import ChatInput from '../ChatInput/ChatInput'
-import {v4 as uuidv4}  from 'uuid'
-import { getAllMessagesAPI, sendMessageAPI } from '../../../api/User/ApiCalls'
-import ChatImage from '../../ChatImage/ChatImage'
+function ChatContainer({ currentUser, currentChat, socket }) {
+  const [messages, setMessages] = useState([]);
+  const [arrivalMessage, setArrivalMessage] = useState({});
+  const [showImage, setshowImage] = useState(false);
+  const [image, setImage] = useState("");
+  const scrollRef = useRef();
 
+  useEffect(() => {
+    if (currentChat) {
+      const messages = async () => {
+        const response = await getAllMessagesAPI({
+          from: currentUser.id,
+          to: currentChat._id,
+        });
+        setMessages(response.data);
+        console.log(response.data, "ALL MESSAGES");
+      };
+      messages();
+    }
+  }, [currentChat]);
 
-function ChatContainer({currentUser,currentChat,socket}) {
+  const handleSendMessage = async (msg) => {
+    sendMessageAPI({
+      from: currentUser.id,
+      to: currentChat._id,
+      message: msg,
+    }).then((data) => {
+      socket.emit("send-msg", {
+        to: currentChat._id,
+        from: currentUser.id,
 
-    const [messages,setMessages] = useState([])
-    const [arrivalMessage,setArrivalMessage] = useState({})
-    const [showImage,setshowImage] = useState(false)
-    const [image , setImage] = useState('')
-    const scrollRef = useRef()
-  
+        message: data.data,
+      });
 
-    useEffect(() => {
-      if(currentChat) {
-       
-        const messages = async () => {
-          const response = await getAllMessagesAPI({
-            from : currentUser.id,
-            to : currentChat._id
-          })
-          setMessages(response.data)
-          console.log(response.data,"ALL MESSAGES")
-        }
-        messages()
-      }
-    },[currentChat])
+      console.log(messages, "THIS IS THE MESSAGE SENDINGG");
+      setMessages([...messages, data.data]);
+    });
+  };
 
-    const handleSendMessage = async(msg) => {
-       sendMessageAPI({
-       from : currentUser.id,
-       to : currentChat._id,
-       message : msg
-      }).then((data)=>{
-        socket.emit("send-msg",{
-          to : currentChat._id,
-         from : currentUser.id,
-       
-         message : data.data
-        })
-        
-       console.log(messages,"THIS IS THE MESSAGE SENDINGG")
-         setMessages([...messages,data.data])
-      })   
-   }
-
-
-   useEffect(() => {
-     if(socket){
-       socket.on("msg-receive",(msg) => {
+  useEffect(() => {
+    if (socket) {
+      socket.on("msg-receive", (msg) => {
         //  console.log(messages,"THIS IS THE FCKING MESSAGES");
         // console.log('msg',msg);
-          //  setMessages([msg,..messages]);
-          // setMessages([...messages, msg]); 
-          setMessages((prevMessages) => [...prevMessages, msg]);
-          console.log('msgeeeeeeee',messages);
-       })
-      }
-      
-   },[])
+        //  setMessages([msg,..messages]);
+        // setMessages([...messages, msg]);
+        setMessages((prevMessages) => [...prevMessages, msg]);
+        console.log("msgeeeeeeee", messages);
+      });
+    }
+  }, []);
 
-  
-
-   useEffect(() => {
-     scrollRef.current?.scrollIntoView({ behaviour: "smooth" })
-   }, [messages,showImage])
-
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behaviour: "smooth" });
+  }, [messages, showImage]);
 
   return (
     <>
-        {
-        showImage ? <ChatImage setShowImage = {setshowImage}
-         message = {messages}
-         image ={image}
-         currentUser = {currentUser}
-         /> : 
-         <Container>
-      
-        <div className="chat-header">
+      {showImage ? (
+        <ChatImage
+          setShowImage={setshowImage}
+          message={messages}
+          image={image}
+          currentUser={currentUser}
+        />
+      ) : (
+        <Container>
+          <div className="chat-header">
             <div className="user-details">
-                <div className="avatar">
-                    <img src={currentChat.ProfileImage} alt="" />
-                </div>    
-                    <div className="username">
-                        <h3>{currentChat.Name}</h3>
-                    </div>
-                </div>
+              <div className="avatar">
+                <img src={currentChat.ProfileImage} alt="" />
+              </div>
+              <div className="username">
+                <h3>{currentChat.Name}</h3>
+              </div>
             </div>
-        
-            {/* <Message/> */}
-            <div className="chat-messages">
-        {
-          messages.map((message) => {
-            return (
-              <div ref={scrollRef} key={uuidv4()}>
-                {console.log(message.sender, currentUser.id,"THISS IS IS IS IS")}
-                <div className={`message ${message.sender === currentUser.id  ? "sended" : "received"}`}>
-                  <div className="content">
-                    {
-                      message.message?.text === '' ?
-                      <img src={message.message?.image}
-                       alt="" 
-                       style={{width : '10rem',height : '10rem',background : 'none'}}
-                       onClick={() => {
-                        setshowImage(true)
-                        setImage(message.message?.image)
-                       }}
-                       /> : 
-                      <p>
-                      {message.message?.text}
-                      {console.log(message.message?.text)}
+          </div>
 
-                    </p>
-                    }
-                    
+          {/* <Message/> */}
+          <div className="chat-messages">
+            {messages.map((message) => {
+              return (
+                <div ref={scrollRef} key={uuidv4()}>
+                  {console.log(
+                    message.sender,
+                    currentUser.id,
+                    "THISS IS IS IS IS"
+                  )}
+                  <div
+                    className={`message ${
+                      message.sender === currentUser.id ? "sended" : "received"
+                    }`}
+                  >
+                    <div className="content">
+                      {message.message?.text === "" ? (
+                        <img
+                          src={message.message?.image}
+                          alt=""
+                          style={{
+                            width: "10rem",
+                            height: "10rem",
+                            background: "none",
+                          }}
+                          onClick={() => {
+                            setshowImage(true);
+                            setImage(message.message?.image);
+                          }}
+                          key={message.message?.id} 
+                        />
+                      ) : (
+                        <p>
+                          {message.message?.text}
+                          {console.log("wwwwww",message.message?.text)}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
-          })
-        }
-      </div>
-            <ChatInput handleSendMessage = {handleSendMessage} 
+              );
+            })}
+          </div>
+
+          <ChatInput
+            handleSendMessage={handleSendMessage}
             currentUser={currentUser}
-            currentChat = {currentChat}
-            socket = {socket}
+            currentChat={currentChat}
+            socket={socket}
             message={messages}
             setMessages={setMessages}
-            />
-            <div className="chat-input"></div>
-    </Container>
-      }
-    
+          />
+          
+          <div className="chat-input"></div>
+        </Container>
+      )}
     </>
-  )
+  );
 }
 
 const Container = styles.div`
@@ -221,5 +224,5 @@ display: grid;
     }
   }
  
-`
-export default ChatContainer
+`;
+export default ChatContainer;
