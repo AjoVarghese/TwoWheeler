@@ -44,7 +44,7 @@ function Chat() {
     }
   });
 
-  
+
   const handleChatChange = (chat) => {
     setCurrentChat(chat);
   };
