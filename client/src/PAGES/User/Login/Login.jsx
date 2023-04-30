@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import "semantic-ui-css/semantic.min.css";
 import { Button } from "semantic-ui-react";
@@ -9,19 +9,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { userLoginAction } from "../../../redux/Actions/USER_ACTIONS/LoginAction";
 import { keyframes } from "@emotion/react";
-import { Alert, Box, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  CircularProgress,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
-import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
-import { styled } from "@mui/material/styles";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
 
 const schema = yup.object().shape({
   mobile: yup
@@ -35,13 +31,15 @@ const schema = yup.object().shape({
     .max(12, "password should have a maximum length of 12")
     .required("password is required"),
 });
+
 function Login() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const userLoginData = useSelector((state) => state.userLoginReducer);
 
-  const { userLoginDetails, userLoginError, loading } = userLoginData;
+  const { userLoginError, loading } = userLoginData;
 
   const {
     register,
@@ -52,8 +50,11 @@ function Login() {
   });
 
   const submitHandler = async (data) => {
+    setButtonLoading(true);
     try {
       dispatch(userLoginAction(data.mobile, data.password));
+
+      setButtonLoading(false);
     } catch (error) {}
   };
 
@@ -74,6 +75,7 @@ function Login() {
             <img
               src={require("../../../assets/Images/userLogin.png")}
               class="img-fluid"
+              alt="login"
             />
           </MDBCol>
 
@@ -130,16 +132,26 @@ function Login() {
                 helperText={errors.password ? errors.password.message : ""}
                 {...register("password")}
               />
-
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                style={{ backgroundColor: "#F7CA18" }}
-              >
-                Sign In
-              </Button>
+              {buttonLoading ? (
+                <Button
+                  className="mb-4 container col-md-4 sm-3 mt-4"
+                  style={{ backgroundColor: "#fed250" }}
+                  disabled
+                >
+                  <CircularProgress />
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  className="mt-2"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  style={{ backgroundColor: "#F7CA18", width: "100%" }}
+                >
+                  Sign In
+                </Button>
+              )}
             </Box>
 
             <div className="divider d-flex align-items-center my-4">
@@ -147,38 +159,39 @@ function Login() {
             </div>
             <Box sx={{ width: "100%" }}>
               <Stack spacing={2}>
-                <Item>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
+                <Button
+                  type="submit"
+                  fullWidth
+                  className="mt-2"
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  style={{ backgroundColor: "#ffff99" }}
+                >
+                  <Link
+                    to="/otp-login"
+                    style={{ textDecoration: "none", color: "black" }}
                   >
-                    <Link
-                      to="/signup"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      {" "}
-                      Sign Up
-                    </Link>
-                  </Button>
-                </Item>
-                <Item>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
+                    {" "}
+                    Login with OTP
+                  </Link>
+                </Button>
+
+                <Button
+                  type="submit"
+                  className="mt-4"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  style={{ backgroundColor: "#ffff99" }}
+                >
+                  <Link
+                    to="/signup"
+                    style={{ textDecoration: "none", color: "black" }}
                   >
-                    <Link
-                      to="/otp-login"
-                      style={{ textDecoration: "none", color: "black" }}
-                    >
-                      {" "}
-                      Login with OTP
-                    </Link>
-                  </Button>
-                </Item>
+                    {" "}
+                    Don't have an account? Sign Up Here
+                  </Link>
+                </Button>
               </Stack>
             </Box>
           </MDBCol>

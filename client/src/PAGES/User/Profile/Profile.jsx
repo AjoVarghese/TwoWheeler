@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
-// import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn } from 'mdb-react-ui-kit';
+import React, { useEffect, useState,  } from "react";
 import Navbar from "../../../components/NAVBAR/Navbar";
 import "./Profile.css";
 import Button from "react-bootstrap/Button";
@@ -48,6 +47,7 @@ function Profile() {
   const handleClick = (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null)
     const formData = new FormData();
     formData.append("file", image);
     formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET);
@@ -67,13 +67,14 @@ function Profile() {
           data.format !== "png"
         ) {
           setError("Please upload a JPEG or PNG file");
+          setLoading(false)
           return;
         }
         imageUploadApi(profileData.id, data.url).then((data) => {
           dispatch(imageUploadAction(data.data));
           setLoading(false);
           toast.success("Profile Image Uploaded successfully!");
-          setTimeout(() => {}, 3000);
+          setTimeout(() => {}, 2500);
         });
       });
   };
@@ -132,7 +133,7 @@ function Profile() {
                       </Button>{" "}
                       {loading ? (
                         <Button
-                          className="mb-4 container col-md-4 sm-3"
+                          className="mb-4 container col-md-4 sm-3 mt-4"
                           style={{ backgroundColor: "#fed250" }}
                           disabled
                         >
@@ -167,7 +168,11 @@ function Profile() {
                       <p>
                         Wallet Amount:{" "}
                         <span>
-                          <h4>Rs.{wallet?.walletAmount}.00</h4>
+                          {wallet?.walletAmount ? (
+                            <h4>Rs.{wallet?.walletAmount}.00</h4>
+                          ) : (
+                            <h4>Rs.0.00</h4>
+                          )}
                         </span>
                       </p>
                       <div className="d-flex flex-wrap justify-content-center">

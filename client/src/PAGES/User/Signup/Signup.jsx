@@ -11,7 +11,7 @@ import { keyframes } from "@emotion/react";
 import { userRegister } from "../../../redux/Actions/USER_ACTIONS/RegisterAction";
 import { userSignupApi } from "../../../api/User/ApiCalls";
 import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
-import { Alert, Box, TextField, Typography } from "@mui/material";
+import { Alert, Box, CircularProgress, TextField, Typography } from "@mui/material";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../../firebase/firebase.config";
 import { googleSignupAction } from "../../../redux/Actions/USER_ACTIONS/googleSignupAction";
@@ -54,6 +54,7 @@ function Signup() {
 
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [loading,setLoading] = useState(false)
 
   const {
     register,
@@ -64,7 +65,7 @@ function Signup() {
   });
 
   const submitHandler = async (data) => {
-    console.log("sdsd", data);
+    setLoading(true)
     const Name = data.name;
     const Email = data.email;
     const Password = data.password;
@@ -74,6 +75,7 @@ function Signup() {
       userSignupApi(Name, Email, Mobile, Password, Referral)
         .then((data) => {
           dispatch(userRegister(data.data));
+          setLoading(false)
           navigate("/login");
         })
         .catch((err) => {
@@ -83,7 +85,6 @@ function Signup() {
     } catch (error) {}
   };
 
-  let signupData = useSelector((state) => state.userRegisterReducer);
 
   useEffect(() => {
     let userInfo = localStorage.getItem("userInfo");
@@ -133,7 +134,7 @@ function Signup() {
             <img
               src={require("../../../assets/Images/userSignup.png")}
               class="img-fluid"
-              alt="Phone image"
+              alt="signup"
             />
           </MDBCol>
 
@@ -202,16 +203,28 @@ function Signup() {
                 label="Referal Code(optional)"
                 {...register("referalCode")}
               />
-
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                style={{ backgroundColor: "#F7CA18" }}
+              
+              {
+                loading ? 
+                <Button
+                className="mb-4 container col-md-4 sm-3 mt-4"
+                style={{ backgroundColor: "#fed250" }}
+                disabled
               >
-                Sign Up
+                <CircularProgress />
               </Button>
+                  : <Button
+                  type="submit"
+                  className="mt-3"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  style={{ backgroundColor: "#F7CA18" ,width : '100%'}}
+                >
+                  Sign Up
+                </Button>
+              }
+             
             </Box>
 
             <div className="divider d-flex align-items-center my-4">

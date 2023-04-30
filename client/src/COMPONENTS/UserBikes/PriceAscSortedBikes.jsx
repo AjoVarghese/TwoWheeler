@@ -7,8 +7,8 @@ import {
   MDBIcon,
   MDBRow,
 } from "mdb-react-ui-kit";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import {  useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 
@@ -16,21 +16,21 @@ function PriceAscSortedBikes({ priceAsc }) {
   const navigate = useNavigate();
 
   const bikes = useSelector((state) => state.bikesReducer);
-  const { loading, bikesData, bikesDataError } = bikes;
+  const { loading, bikesData } = bikes;
 
   const asc = priceAsc?.data
     ? priceAsc?.data.sort((a, b) => a.Price - b.Price)
-    : "erro";
+    : "error";
 
   return (
-    <div>
+    <div className="d-flex justify-content-center col-md-12">
       <MDBRow className="col-lg-12">
         {loading ? (
           <Loading />
         ) : asc ? (
           asc.map((x, i) => {
             return (
-              <MDBCol className="col-md-4 mt-3 mx-auto ">
+              <MDBCol className="col-md-4 mt-3">
                 <MDBCard className="text-black">
                   <MDBIcon
                     fab
@@ -41,7 +41,7 @@ function PriceAscSortedBikes({ priceAsc }) {
                   <MDBCardImage
                     className="d-flex justify-content-center"
                     src={x.Photo[0]}
-                    style={{ width: "20rem", height: "10rem" }}
+                    style={{ width: "17.2rem", height: "10rem" }}
                     position="top"
                     alt="Apple Computer"
                     onClick={(e) =>
@@ -87,6 +87,11 @@ function PriceAscSortedBikes({ priceAsc }) {
                           height: "3rem",
                           border: "none",
                         }}
+                        onClick={(e) =>
+                          navigate("/booking-summary", {
+                            state: { bikesData, bikeId: x._id },
+                          })
+                        }
                       >
                         Book Now
                       </button>
