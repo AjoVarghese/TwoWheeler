@@ -11,14 +11,16 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const socket = require('socket.io')
 
-var userRouter = require('./routes/User/user');
-var  adminRouter = require('./routes/Admin/admin');
+const userRouter = require('./routes/User/user');
+const  adminRouter = require('./routes/Admin/admin');
 
-var app = express();
+const app = express();
 
-//mongodb
+const uri = process.env.ATLAS_URI
+
+//database_connection
 mongoose.connect(
-  "mongodb+srv://ajo:ajo123@cluster0.sbqdgbs.mongodb.net/?retryWrites=true&w=majority"
+  uri
 ).then((data)=>{
   console.log("CONNECTED");
 })

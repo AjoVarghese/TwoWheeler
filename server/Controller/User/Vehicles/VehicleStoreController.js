@@ -34,6 +34,7 @@ exports.viewVehicles = async(req,res) => {
           }
         ]
       })
+      .sort({ createdAt: -1 })
       .then((count) => {
         pageCount = Math.ceil(count / itemsPerPage)
         const response = {

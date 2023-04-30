@@ -15,8 +15,10 @@ const userSchema = new mongoose.Schema({
         default : "https://d36g7qg6pk2cm7.cloudfront.net/assets/profile-f17aa1dfbd0cb562142f1dcb10bb7ad33e1ac8417ad29a1cdab7dfbfbbfe2f15.png",
         required : true
     }
-
-})
+},{
+    timestamps: true,
+  }
+)
 
 const model = mongoose.model("User",userSchema)
 

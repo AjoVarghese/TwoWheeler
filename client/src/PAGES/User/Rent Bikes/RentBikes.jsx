@@ -105,7 +105,7 @@ function RentBikes() {
                         id="form3Example1"
                         {...register("bikeName", {
                           required: true,
-                          minLength: 3,
+                          minLength: 2,
                         })}
                         onChange={(e) => setBikeName(e.target.value)}
                       />

@@ -15,7 +15,9 @@ exports.addCoupon = async(req,res) => {
 
 exports.getCoupons = async(req,res) => {
     try {
-        coupon.find().then((data) => {
+        coupon.find()
+        .sort({ createdAt: -1 })
+        .then((data) => {
             res.status(200).json(data)
         })
     } catch (error) {

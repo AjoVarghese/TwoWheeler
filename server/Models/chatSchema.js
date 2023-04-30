@@ -1,47 +1,30 @@
-// const mongoose = require("mongoose");
-
-// const chatSchema = new mongoose.Schema(
-//   {
-//     members: {
-//       type: Array,
-//     },
-//   },
-//   {
-//     timestamps: true,
-//   }
-// );
-
-// const model = mongoose.model("Chat", chatSchema);
-// module.exports = model;
-
-
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
 const chatSchema = new mongoose.Schema(
-    {
-    message:{
-        text:{
-            type:String,
-            default : ''
-        },
-        image : {
-            type : String,
-            default : ''
-        }
+  {
+    message: {
+      text: {
+        type: String,
+        default: "",
+      },
+      image: {
+        type: String,
+        default: "",
+      },
     },
     users: {
-        type: Array
+      type: Array,
     },
     sender: {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
-        required:true
-    }
-},
-    {
-        timestamps:true
-    }
-)
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const model = mongoose.model("Chat",chatSchema)
-module.exports = model
+const model = mongoose.model("Chat", chatSchema);
+module.exports = model;

@@ -1,51 +1,52 @@
-const mongoose = require('mongoose')
-const moment = require('moment')
+const mongoose = require("mongoose");
+const moment = require("moment");
 
-const bookingSchema = new mongoose.Schema({
-    bikeId : {
-        type :mongoose.Schema.Types.ObjectId
+const bookingSchema = new mongoose.Schema(
+  {
+    bikeId: {
+      type: mongoose.Schema.Types.ObjectId,
     },
-    userId : {
-        type:String
+    userId: {
+      type: String,
     },
-    bookedTimeSlots:{
-        startDate : {
-         type :String
-        },
-        endDate :{
-         type :String
-        }   
-     },
-     location : {
-        type : String
-     },
-     needHelmet:{
-        type : Boolean
+    bookedTimeSlots: {
+      startDate: {
+        type: String,
+      },
+      endDate: {
+        type: String,
+      },
     },
-    totalHours :{
-        type : Number
+    location: {
+      type: String,
     },
-    totalAmount :{
-        type :Number
+    needHelmet: {
+      type: Boolean,
     },
-    stripeSessionId :{
-        type : String
+    totalHours: {
+      type: Number,
     },
-    status : {
-        type : String
+    totalAmount: {
+      type: Number,
     },
-    bookedAt : {
-        type : String,
+    stripeSessionId: {
+      type: String,
     },
-    paymentType : {
-        type : String
-    }
-},{
-    timestamps : true
-}
-    
-)
+    status: {
+      type: String,
+    },
+    bookedAt: {
+      type: String,
+    },
+    paymentType: {
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const model = mongoose.model("Booking",bookingSchema)
+const model = mongoose.model("Booking", bookingSchema);
 
-module.exports = model
+module.exports = model;

@@ -8,6 +8,7 @@ exports.viewVehicles = async(req,res) => {
   let currentPage = parseInt(page)
    try {
       vehicleSchema.find({Status : "Acccepted"})
+      .sort({ createdAt: -1 })
       .skip((itemsPerPage * page) - itemsPerPage)
       .limit(itemsPerPage)
       .then((data) => {
