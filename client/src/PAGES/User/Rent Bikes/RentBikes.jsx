@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { userGetLocation } from "../../../redux/Actions/USER_ACTIONS/locationActions";
 import { Toaster, toast } from "react-hot-toast";
+import Footer from "../../../components/Footer/Footer";
 
 function RentBikes() {
   const [bikeName, setBikeName] = useState("");
@@ -373,7 +374,9 @@ function RentBikes() {
             </Form>
           </Card>
         </Box>
+        
       </Box>
+      <Footer/>
     </div>
   );
 }

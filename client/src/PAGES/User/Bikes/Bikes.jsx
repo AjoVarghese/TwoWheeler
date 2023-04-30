@@ -25,6 +25,7 @@ import {
   MDBPaginationItem,
   MDBPaginationLink,
 } from "mdb-react-ui-kit";
+import Footer from "../../../components/Footer/Footer";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -234,6 +235,7 @@ function Bikes() {
             </Box>
           </MDBContainer>
         </div>
+        <Footer/>
       </div>
     </>
   );
