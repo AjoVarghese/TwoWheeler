@@ -85,6 +85,8 @@ function Bikes() {
     (state) => state.userLocationReducer.locationData
   );
 
+  console.log("SEARCH TERm",searchTerm);
+
   useEffect(() => {
     dispatch(getBikesAction(page));
     dispatch(userGetLocation());
@@ -107,11 +109,13 @@ function Bikes() {
   }, [bikesData]);
 
   const submitHandler = () => {
+    
     dispatch(bikeSearchAction(searchTerm, page));
     setSearchTerm(null);
   };
 
   useEffect(() => {
+   
     submitHandler();
   }, [searchTerm]);
   
@@ -161,14 +165,14 @@ function Bikes() {
                             placeholder="Search Bikes"
                             onChange={(e) => setSearchTerm(e.target.value)}
                           />
-                          <IconButton
+                          {/* <IconButton
                             type="button"
                             sx={{ p: "10px" }}
                             aria-label="search"
                             // onClick={submitHandler}
                           >
                             <SearchIcon />
-                          </IconButton>
+                          </IconButton> */}
                         </Paper>
                       </Grid>
                     </Grid>

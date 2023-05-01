@@ -51,33 +51,29 @@ function Vehicle() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [page, setPage] = useState(1);
-  const [pageCount,setPageCount] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
 
   const bikes = useSelector((state) => state.admingetAllBikesReducer);
-  const {  bikesData } = bikes;
+  const { bikesData } = bikes;
 
   const deleteBike = () => {
     dispatch(deleteBikeAction(selectedBike));
   };
- 
 
-  console.log("this is serch term",searchTerm);
-
+  console.log("this is serch term", searchTerm);
 
   useEffect(() => {
     dispatch(getAllBikesAction(page));
   }, []);
 
-
   useEffect(() => {
-      onSubmitSearch(page)
-  },[searchTerm])
- 
-  const onSubmitSearch = (e,page) => {
-    console.log('CALLED');
+    onSubmitSearch(page);
+  }, [searchTerm]);
+
+  const onSubmitSearch = (e, page) => {
+    console.log("CALLED");
     dispatch(adminSearchBikeAction(searchTerm, page));
   };
-
 
   const handlePrev = () => {
     dispatch(getAllBikesAction(bikesData.pagination.currentPage - 1));
@@ -125,21 +121,11 @@ function Vehicle() {
                 <InputBase
                   sx={{ ml: 1, flex: 1 }}
                   placeholder="Search Bikes"
-                  onChange={(e) =>{
-                    console.log("E",e);
-                    setSearchTerm(e.target.value)
-                   
-                  } 
-                }
+                  onChange={(e) => {
+                    console.log("E", e);
+                    setSearchTerm(e.target.value);
+                  }}
                 />
-                <IconButton
-                  type="button"
-                  sx={{ p: "10px" }}
-                  aria-label="search"
-                 
-                >
-                  <SearchIcon />
-                </IconButton>
               </Paper>
               <MDBPagination className="mb-0 d-flex justify-content-end">
                 {page > 1 ? (
@@ -279,7 +265,7 @@ function Vehicle() {
                                 <h5>{data.Price} /hr</h5>
                               </TableCell>
                               <TableCell align="center">
-                                <Button
+                                {/* <Button
                                   variant="contained"
                                   color="info"
                                   onClick={(e) => {
@@ -300,7 +286,45 @@ function Vehicle() {
                                   }}
                                 >
                                   Delete
-                                </Button>
+                                </Button> */}
+                                <style jsx>{`
+                                  @media (max-width: 600px) {
+                                    .button-container {
+                                      display: flex;
+                                      flex-direction: column;
+                                      align-items: center;
+                                      justify-content: center;
+                                      margin-top: 10px;
+                                    }
+                                    .button-container button {
+                                      margin: 5px 0;
+                                    }
+                                  }
+                                `}</style>
+                                <div className="button-container">
+                                  <Button
+                                    variant="contained"
+                                    color="info"
+                                    onClick={(e) => {
+                                      navigate("/admin/edit-bike", {
+                                        state: { data },
+                                      });
+                                    }}
+                                  >
+                                    Edit
+                                  </Button>
+                                  <Button
+                                    variant="contained"
+                                    color="error"
+                                    className="ms-3"
+                                    onClick={(e) => {
+                                      setDeleteDialog(true);
+                                      setSelectedBike(data._id);
+                                    }}
+                                  >
+                                    Delete
+                                  </Button>
+                                </div>
                               </TableCell>
                             </TableRow>
                           );
