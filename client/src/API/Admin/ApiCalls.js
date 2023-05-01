@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: process.env.REACT_APP_ADMIN_BASE_URL });
+const API = axios.create({ baseURL: "http://localhost:3001/api/admin" });
 
 const admin = JSON.parse(localStorage.getItem("adminInfo"));
 console.log("Admin Config", admin ? admin : "");
