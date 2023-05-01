@@ -2,7 +2,7 @@ import React from 'react'
 import MUIDataTable from "mui-datatables";
 import moment from 'moment'
 
-function YearlyReport({salesData}) {
+function MonthlyReport({salesData}) {
     const columns = [
         {
           name: "bikeId",
@@ -25,7 +25,7 @@ function YearlyReport({salesData}) {
           label: "Location",
           options: {
             filter: true,
-            sort: false,
+            sort: true,
             customHeadLabelStyle: {
                 fontWeight: 'bold',
                 fontSize: '16px',
@@ -57,7 +57,7 @@ function YearlyReport({salesData}) {
           label: "Total Hours",
           options: {
             filter: true,
-            sort: false,
+            sort: true,
             customHeadLabelStyle: {
                 fontWeight: 'bold',
                 fontSize: '16px',
@@ -73,7 +73,7 @@ function YearlyReport({salesData}) {
           label: "Total Amount (in Rs)",
           options: {
             filter: true,
-            sort: false,
+            sort: true,
             customHeadLabelStyle: {
                 fontWeight: 'bold',
                 fontSize: '16px',
@@ -160,4 +160,4 @@ function YearlyReport({salesData}) {
   )
 }
 
-export default YearlyReport
+export default MonthlyReport

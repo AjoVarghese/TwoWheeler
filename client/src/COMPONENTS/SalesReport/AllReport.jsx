@@ -41,7 +41,7 @@ console.log(salesData);
       label: "Booked Date",
       options: {
         filter: true,
-        sort: true,
+        sort: false,
         customHeadLabelStyle: {
             fontWeight: 'bold',
             fontSize: '16px',
@@ -90,7 +90,7 @@ console.log(salesData);
       label: "Payment Type",
       options: {
         filter: true,
-        sort: true,
+        sort: false,
         customHeadLabelStyle: {
             fontWeight: 'bold',
             fontSize: '16px',
@@ -106,7 +106,7 @@ console.log(salesData);
       label: "Status",
       options: {
         filter: true,
-        sort: true,
+        sort: false,
         customHeadLabelStyle: {
             fontWeight: 'bold',
             fontSize: '16px',

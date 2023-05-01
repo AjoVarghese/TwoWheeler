@@ -91,21 +91,22 @@ function SalesReport() {
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-              <Box className="container">
+              
                 <AllReport salesData={salesData} />
-              </Box>
+             
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <Box className="container">
+             
                 <WeeklyReport salesData={salesData} />
-              </Box>
+             
             </TabPanel>
             <TabPanel value={value} index={2}>
-              <Box className="container">
+             
                 <MonthlyReport salesData={salesData} />
-              </Box>
+              
             </TabPanel>
             <TabPanel value={value} index={3}>
+              
               <YearlyReport salesData={salesData} />
             </TabPanel>
           </Box>

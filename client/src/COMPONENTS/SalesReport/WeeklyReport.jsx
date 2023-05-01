@@ -57,7 +57,7 @@ function WeeklyReport({salesData}) {
           label: "Total Hours",
           options: {
             filter: true,
-            sort: false,
+            sort: true,
             customHeadLabelStyle: {
                 fontWeight: 'bold',
                 fontSize: '16px',
@@ -73,7 +73,7 @@ function WeeklyReport({salesData}) {
           label: "Total Amount (in Rs)",
           options: {
             filter: true,
-            sort: false,
+            sort: true,
             customHeadLabelStyle: {
                 fontWeight: 'bold',
                 fontSize: '16px',
@@ -133,7 +133,7 @@ function WeeklyReport({salesData}) {
         status: sale.status
       }));
       
-      console.log(data);
+     
     
       const options = {
         filterType: 'checkbox',

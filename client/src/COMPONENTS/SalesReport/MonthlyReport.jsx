@@ -25,7 +25,7 @@ function MonthlyReport({salesData}) {
           label: "Location",
           options: {
             filter: true,
-            sort: false,
+            sort: true,
             customHeadLabelStyle: {
                 fontWeight: 'bold',
                 fontSize: '16px',
@@ -57,7 +57,7 @@ function MonthlyReport({salesData}) {
           label: "Total Hours",
           options: {
             filter: true,
-            sort: false,
+            sort: true,
             customHeadLabelStyle: {
                 fontWeight: 'bold',
                 fontSize: '16px',
@@ -73,7 +73,7 @@ function MonthlyReport({salesData}) {
           label: "Total Amount (in Rs)",
           options: {
             filter: true,
-            sort: false,
+            sort: true,
             customHeadLabelStyle: {
                 fontWeight: 'bold',
                 fontSize: '16px',
