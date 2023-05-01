@@ -95,9 +95,6 @@ function Booking () {
   const bookingData = useSelector(state => state.bookingReducer)
   const {  bookingError } = bookingData
 
-  // const walletBooking = useSelector(
-  //   state => state.bookingReducer.walletBookingSuccess
-  // )
 
   const selectTimeSlots = value => {
     setStartDate(moment(value[0].$d).format('MMMM Do YYYY, h:mm:ss a'))

@@ -8,7 +8,7 @@ import Contacts from "../../../components/Chat/Contacts/Contacts";
 import Welcome from "../../../components/Chat/Welcome/Welcome";
 import ChatContainer from "../../../components/Chat/ChatContainer/ChatContainer";
 import { io } from "socket.io-client";
-const socket = io("http://localhost:3001");
+const socket = io("https://twowheeler.online/");
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
