@@ -8,7 +8,8 @@ exports.getPendingBookings = (req,res) => {
             res.status(200).json(data)
         })
     } catch (error) {
-        console.log('pending booking error',error);
+        res.status(400).status("Pending booking error")
+        
     }
 }
 
@@ -20,7 +21,8 @@ exports.getCancelledBookings = (req,res) => {
             res.status(200).json(data)
         })
     } catch (error) {
-        console.log('cancelled booking error',error);
+        res.status(400).json("Cancelled booking error")
+        
     }
 }
 
@@ -32,6 +34,7 @@ exports.getOnRideBookings = (req,res) => {
             res.status(200).json(data)
         })
     } catch (error) {
-        console.log('onRide booking error',error);
+        res.status(400).json("onRide booking error")
+        
     }
 }

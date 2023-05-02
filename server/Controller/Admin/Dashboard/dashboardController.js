@@ -56,6 +56,7 @@ exports.getAllDetails = async (req, res) => {
 
     res.status(200).json(data);
   } catch (error) {
-    console.log("error in getting dashboard details", error);
+    res.status(400).json("Cancelled booking error")
+    
   }
 };
