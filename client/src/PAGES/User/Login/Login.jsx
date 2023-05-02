@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { userLoginAction } from "../../../redux/Actions/USER_ACTIONS/LoginAction";
-import { keyframes } from "@emotion/react";
+// import { keyframes } from "@emotion/react";
 import {
   Alert,
   Box,
@@ -58,14 +58,14 @@ function Login() {
     } catch (error) {}
   };
 
-  const slideInFromRight = keyframes`
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-`;
+//   const slideInFromRight = keyframes`
+//   0% {
+//     transform: translateX(100%);
+//   }
+//   100% {
+//     transform: translateX(0);
+//   }
+// `;
 
   return (
     <div className="login">
@@ -92,7 +92,7 @@ function Login() {
                   right: "20px",
                   width: "35%",
                   margin: "20px 0",
-                  animation: `${slideInFromRight} 0.3s forwards ease-in`,
+                  // animation: `${slideInFromRight} 0.3s forwards ease-in`,
                 }}
                 severity="error"
               >

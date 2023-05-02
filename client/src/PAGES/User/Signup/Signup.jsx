@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { keyframes } from "@emotion/react";
+// import { keyframes } from "@emotion/react";
 
 import { userRegister } from "../../../redux/Actions/USER_ACTIONS/RegisterAction";
 import { userSignupApi } from "../../../api/User/ApiCalls";
@@ -38,14 +38,14 @@ const schema = yup.object().shape({
   referalCode: yup.string().optional(),
 });
 
-const slideInFromRight = keyframes`
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-`;
+// const slideInFromRight = keyframes`
+//   0% {
+//     transform: translateX(100%);
+//   }
+//   100% {
+//     transform: translateX(0);
+//   }
+// `;
 
 
 function Signup() {
@@ -120,7 +120,7 @@ function Signup() {
               right: "20px",
               width: "35%",
               margin: "20px 0",
-              animation: `${slideInFromRight} 0.3s forwards ease-in`,
+              // animation: `${slideInFromRight} 0.3s forwards ease-in`,
             }}
             severity="error"
           >

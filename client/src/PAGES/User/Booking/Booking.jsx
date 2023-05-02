@@ -28,7 +28,7 @@ import {
 } from 'mdb-react-ui-kit'
 import { DatePicker } from 'antd'
 import moment from 'moment'
-import { keyframes } from "@emotion/react";
+// import { keyframes } from "@emotion/react";
 import { useDispatch, useSelector } from 'react-redux'
 import { bookingAction } from '../../../redux/Actions/USER_ACTIONS/bookingAction'
 import { getCoupons } from '../../../redux/Actions/ADMIN_ACTIONS/couponActions'
@@ -46,14 +46,14 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary
 }))
 
-const slideInFromRight = keyframes`
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-`;
+// const slideInFromRight = keyframes`
+//   0% {
+//     transform: translateX(100%);
+//   }
+//   100% {
+//     transform: translateX(0);
+//   }
+// `;
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } }
 
@@ -247,7 +247,7 @@ function Booking () {
                     right: "20px",
                     width: "35%",
                     margin: "20px 0",
-                    animation: `${slideInFromRight} 0.3s forwards ease-in`,
+                    // animation: `${slideInFromRight} 0.3s forwards ease-in`,
                   }}
                   severity="error"
                 >
