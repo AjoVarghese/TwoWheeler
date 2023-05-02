@@ -44,14 +44,12 @@ exports.payFine = async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: `http://localhost:3000/payment-success?userId=${userId}&bikeId=${bikeId}
+      success_url: `https://twowheelerrent.netlify.app/payment-success?userId=${userId}&bikeId=${bikeId}
             &bookingId=${bookingId}&startTime=${startTime}&endTime=${endTime}`,
-      cancel_url: "http://localhost:3000/payment-cancelled",
+      cancel_url: "https://twowheelerrent.netlify.app/payment-cancelled",
     });
-    console.log(session.url);
     res.status(200).json({ url: session.url });
   } catch (error) {
-    console.log("ERROR", error);
     res.status(500).json("Internal Server Error");
   }
 };
@@ -86,8 +84,7 @@ exports.paymentSuccess = async (req, res) => {
         },
       }
     );
-    console.log(bookings);
   } catch (error) {
-    console.log("error in fine pay completinf ride", error);
+    res.status(400).json("error in fine pay completing ride")
   }
 };

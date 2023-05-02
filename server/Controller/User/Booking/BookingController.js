@@ -270,7 +270,7 @@ exports.bikeBookingController = async (req, res) => {
                 res.status(200).json({ message: "Booking Successfull" });
               })
               .catch((err) => {});
-            // res.status(200).status({message : "Booking Confirmed"})
+            
           } catch (error) {}
         }
       } else {
@@ -317,7 +317,6 @@ exports.createOrderController = async (req, res) => {
       status: "Booked",
       paymentType: paymentType,
       bookedAt: moment().format("MMMM Do YYYY, h:mm:ss a"),
-      // stripeSessionId: session.id // store the session id for future reference
     });
 
     try {
@@ -353,7 +352,7 @@ exports.createOrderController = async (req, res) => {
             }
           )
           .then((response) => {
-            console.log(response);
+            
           });
       }
 

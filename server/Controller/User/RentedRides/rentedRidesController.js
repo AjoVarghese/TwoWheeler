@@ -190,7 +190,6 @@ exports.cancelRide = async (req, res) => {
           });
       });
   } catch (error) {
-    console.log("some error in cancelling ride", error);
     res.status(500).json("Internal Server Error");
   }
 };
