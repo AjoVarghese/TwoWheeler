@@ -90,7 +90,7 @@ exports.bikeBookingController = async (req, res) => {
               },
             ],
             mode: "payment",
-            success_url: `http://localhost:3000/booking-success?userId=${user}
+            success_url: `https://twowheelerrent.netlify.app/booking-success?userId=${user}
                         &userName=${userName}&bikeId=${bikeId}&bikeName=${bikeDetails.vehicleName}
                         &bikeModel=${bikeDetails.vehicleModel}&image=${bikeDetails.Photo[0]}
                         &totalAmount=${totalAmount}&totalHours=${totalHours}
