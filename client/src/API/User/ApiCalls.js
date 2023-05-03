@@ -1,6 +1,6 @@
 import axios from "axios";
-// const API = axios.create({ baseURL: "https://twowheeler.online/api/user" });
-const API = axios.create({baseURL : "http://localhost:2000/api/user"})
+const API = axios.create({ baseURL: "https://twowheeler.online/api/user" });
+// const API = axios.create({baseURL : "http://localhost:2000/api/user"})
 
 
 
