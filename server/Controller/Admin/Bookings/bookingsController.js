@@ -55,7 +55,9 @@ exports.getBookedDetails = async(req,res) => {
               ]
             )
             
-            let currentTime = moment().format('X');
+            let currentTime = moment().format("MMMM Do YYYY, h:mm:ss a");
+            let currTime = moment(currentTime,'MMMM Do YYYY, h:mm:ss a')
+            //  const currTimeStamp = currTime.unix();
 
             for(let i = 0 ; i < data.length ; i++){
              

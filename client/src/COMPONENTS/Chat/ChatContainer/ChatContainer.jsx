@@ -7,7 +7,6 @@ import ChatImage from "../../ChatImage/ChatImage";
 
 function ChatContainer({ currentUser, currentChat, socket }) {
   const [messages, setMessages] = useState([]);
-  const [arrivalMessage, setArrivalMessage] = useState({});
   const [showImage, setshowImage] = useState(false);
   const [image, setImage] = useState("");
   const scrollRef = useRef();
@@ -19,8 +18,6 @@ function ChatContainer({ currentUser, currentChat, socket }) {
           from: currentUser.id,
           to: currentChat._id,
         });
-        setMessages(response.data);
-        console.log(response.data, "ALL MESSAGES");
       };
       messages();
     }
@@ -39,7 +36,6 @@ function ChatContainer({ currentUser, currentChat, socket }) {
         message: data.data,
       });
 
-      console.log(messages, "THIS IS THE MESSAGE SENDINGG");
       setMessages([...messages, data.data]);
     });
   };
@@ -47,12 +43,7 @@ function ChatContainer({ currentUser, currentChat, socket }) {
   useEffect(() => {
     if (socket) {
       socket.on("msg-receive", (msg) => {
-        //  console.log(messages,"THIS IS THE FCKING MESSAGES");
-        // console.log('msg',msg);
-        //  setMessages([msg,..messages]);
-        // setMessages([...messages, msg]);
         setMessages((prevMessages) => [...prevMessages, msg]);
-        console.log("msgeeeeeeee", messages);
       });
     }
   }, []);
@@ -88,11 +79,6 @@ function ChatContainer({ currentUser, currentChat, socket }) {
             {messages.map((message) => {
               return (
                 <div ref={scrollRef} key={uuidv4()}>
-                  {console.log(
-                    message.sender,
-                    currentUser.id,
-                    "THISS IS IS IS IS"
-                  )}
                   <div
                     className={`message ${
                       message.sender === currentUser.id ? "sended" : "received"
@@ -112,13 +98,10 @@ function ChatContainer({ currentUser, currentChat, socket }) {
                             setshowImage(true);
                             setImage(message.message?.image);
                           }}
-                          key={message.message?.id} 
+                          key={message.message?.id}
                         />
                       ) : (
-                        <p>
-                          {message.message?.text}
-                          {console.log("wwwwww",message.message?.text)}
-                        </p>
+                        <p>{message.message?.text}</p>
                       )}
                     </div>
                   </div>
@@ -135,7 +118,7 @@ function ChatContainer({ currentUser, currentChat, socket }) {
             message={messages}
             setMessages={setMessages}
           />
-          
+
           <div className="chat-input"></div>
         </Container>
       )}

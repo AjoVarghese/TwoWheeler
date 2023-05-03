@@ -22,8 +22,6 @@ function PriceDescSortedBikes({ priceDesc }) {
     ? priceDesc?.data.sort((a, b) => b.Price - a.Price)
     : "desc Sort Error";
 
-    console.log("DESC",desc);
-
   return (
     <div className="d-flex justify-content-center col-md-12">
       <MDBRow className="col-lg-12">

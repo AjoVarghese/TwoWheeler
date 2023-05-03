@@ -30,14 +30,13 @@ exports.addVehicle = async(req,res) => {
         fs.unlinkSync(path)
       }
   
-     
-
-
+    
     let Photo = [];
 
     for(let i = 0 ; i < urls.length; i++){
       Photo.push(urls[i].url)
     }
+    
      let details = {
       vehicleName : req.body.bikeName,
       vehicleModel : req.body.bikeModel,

@@ -6,26 +6,22 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { bikeFilterAction } from "../../redux/Actions/USER_ACTIONS/bikeFilterAction";
 
-
-export default function FilterSideBar({ loc, propState,page }) {
-  console.log(loc, propState);
+export default function FilterSideBar({ loc, propState, page }) {
   const [location, setLocation] = useState(null);
-  const [brand, setBrand] = useState(null); 
-  const [error,setError] = useState(false) 
-  const dispatch = useDispatch()
+  const [brand, setBrand] = useState(null);
+  const [error, setError] = useState(false);
+  const dispatch = useDispatch();
 
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     propState(location);
-   
-      if (location !== null || brand !== null) {
-        setError(false)
-        dispatch(bikeFilterAction(location,brand,page))
-      } else if (location === null && brand === null) {
-        setError(true)
-      }
-    
-   
+
+    if (location !== null || brand !== null) {
+      setError(false);
+      dispatch(bikeFilterAction(location, brand, page));
+    } else if (location === null && brand === null) {
+      setError(true);
+    }
   };
   return (
     <div>
@@ -87,10 +83,7 @@ export default function FilterSideBar({ loc, propState,page }) {
               onChange={(e) => setBrand(e.target.value)}
             />
           </div>
-          {
-            error ? <p style={{color : "red"}}>No inputs to filter</p> : ""
-          }
-          
+          {error ? <p style={{ color: "red" }}>No inputs to filter</p> : ""}
         </FormControl>
         <Button variant="contained" onClick={submitHandler}>
           Apply Filter

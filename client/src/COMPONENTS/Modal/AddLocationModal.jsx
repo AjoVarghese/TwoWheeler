@@ -14,7 +14,7 @@ const schema = yup.object().shape({
     .required("Location is required"),
 });
 
-function AddLocationModal({ open, onClose }) {
+function AddLocationModal({ open, onClose,message }) {
   const dispatch = useDispatch();
 
   const {
@@ -36,7 +36,7 @@ function AddLocationModal({ open, onClose }) {
       <BasicModal
         open={open}
         onClose={onClose}
-        title="Add Coupon"
+        title={message}
         content={
           <Box component="form" onSubmit={handleSubmit(submitHandler)}>
             <TextField

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import AdminSideBar from '../../../components/NAVBAR/AdminSideBar'
 import CouponTable from '../../../components/Tables/CouponTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLocation } from '../../../redux/Actions/ADMIN_ACTIONS/locationActions';
 import { getCoupons } from '../../../redux/Actions/ADMIN_ACTIONS/couponActions';
 import AddCouponModal from '../../../components/Modal/AddCouponModal';
 
@@ -21,12 +20,14 @@ function Coupons() {
 
     const [modal,setModal] = useState(false)
 
+    const coupons = useSelector((state) => state.getCouponReducer.couponData)
+
     useEffect(() => {
       dispatch(getCoupons())
     },[modal])
 
-    const coupons = useSelector((state) => state.getCouponReducer.couponData)
-    console.log("COUPONS",coupons);
+    
+   
   return (
     <div>
        <Box sx={{ display : 'flex' }}>
@@ -37,7 +38,6 @@ function Coupons() {
         <Button variant="contained" color="info"
         className='mb-4 mt-3'
         onClick={(e) =>{
-          console.log('ssss');
           setModal(true)
         }}
          >

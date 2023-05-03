@@ -2,7 +2,6 @@ import React from 'react'
 import MUIDataTable from "mui-datatables";
 
 function UserTable({userData}) {
-    console.log('usrDa',userData);
 
     const columns = [
         {
@@ -69,15 +68,7 @@ function UserTable({userData}) {
           },
           customBodyRender: (value, tableMeta, updateValue) => {
             const userId = userData[tableMeta.rowIndex].UserId;
-            // if (tableMeta.columnData.name === 'Status') {
-            //   const isBlocked = value === 'Blocked';
-            // //   const blockButton = (
-            // //     <button onClick={() => handleBlockClick(userId)}>
-            // //       {isBlocked ? 'Unblock' : 'Block'}
-            // //     </button>
-            // //   );
-            //   return <div style={{ textAlign: 'center' }}>{blockButton}</div>;
-            // }
+           
             return <div style={{ textAlign: 'center' }}>{value}</div>;
           },
         };

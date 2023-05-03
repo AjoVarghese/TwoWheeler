@@ -16,9 +16,7 @@ import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
 function Otplogin() {
   const [otp, setOtp] = useState("");
   const [phone, setPhone] = useState("");
-  // const [loading,setLoading] = useState(false)
   const [showOTP, setShowOTP] = useState(false);
-  // const [user, setUser] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -88,7 +86,7 @@ function Otplogin() {
       <MDBContainer className="p-3 my-5 mt-5">
         <MDBRow>
           <MDBCol col='10' md='4' className='mt-5'>
-          <img src={require('../../../assets/Images/otpLogin.jpg')} class="img-fluid" alt="Phone image" />
+          <img src={require('../../../assets/Images/userLogin.png')} class="img-fluid" alt="Phone image" />
           </MDBCol>
           <MDBCol  col='8' md='6'  className='mt-5 ms-0 me-0'>
           <div className="otp-login">
@@ -119,8 +117,8 @@ function Otplogin() {
               )}
               <Button
                 type="submit"
-                className="otp-button"
-                style={{ backgroundColor: "#0e7be8", color: "white" }}
+                className="otp-button mt-2"
+                style={{ backgroundColor: "#fed250", color: "black" }}
                 onClick={onOTPVerify}
               >
                 LOGIN
@@ -149,7 +147,7 @@ function Otplogin() {
               <Button
                 type="submit"
                 className="otp-button mt-3"
-                style={{ backgroundColor: "#0e7be8", color: "white" }}
+                style={{ backgroundColor: "#fed250", color: "black" }}
                 onClick={onSignup}
               >
                 Send OTP via SMS

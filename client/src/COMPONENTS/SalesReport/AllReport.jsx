@@ -1,8 +1,7 @@
-import React from 'react'
+import React from "react";
 import MUIDataTable from "mui-datatables";
 
 function AllReport({ salesData }) {
-console.log(salesData);
   const columns = [
     {
       name: "bikeId",
@@ -11,14 +10,14 @@ console.log(salesData);
         filter: true,
         sort: true,
         customHeadLabelStyle: {
-            fontWeight: 'bold',
-            fontSize: '16px',
-            textAlign: 'center',
-          },
-          customBodyRender: (value, tableMeta, updateValue) => {
-            return <div style={{ textAlign: 'center' }}>{value}</div>;
-          },
-      }
+          fontWeight: "bold",
+          fontSize: "16px",
+          textAlign: "center",
+        },
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div style={{ textAlign: "center" }}>{value}</div>;
+        },
+      },
     },
     {
       name: "location",
@@ -27,14 +26,14 @@ console.log(salesData);
         filter: true,
         sort: true,
         customHeadLabelStyle: {
-            fontWeight: 'bold',
-            fontSize: '16px',
-            textAlign: 'center',
-          },
-          customBodyRender: (value, tableMeta, updateValue) => {
-            return <div style={{ textAlign: 'center' }}>{value}</div>;
-          },
-      }
+          fontWeight: "bold",
+          fontSize: "16px",
+          textAlign: "center",
+        },
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div style={{ textAlign: "center" }}>{value}</div>;
+        },
+      },
     },
     {
       name: "bookedAt",
@@ -43,16 +42,16 @@ console.log(salesData);
         filter: true,
         sort: false,
         customHeadLabelStyle: {
-            fontWeight: 'bold',
-            fontSize: '16px',
-            textAlign: 'center',
-          },
-          customBodyRender: (value, tableMeta, updateValue) => {
-            return <div style={{ textAlign: 'center' }}>{value}</div>;
-          },
-      }
+          fontWeight: "bold",
+          fontSize: "16px",
+          textAlign: "center",
+        },
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div style={{ textAlign: "center" }}>{value}</div>;
+        },
+      },
     },
-   
+
     {
       name: "totalHours",
       label: "Total Hours",
@@ -60,14 +59,14 @@ console.log(salesData);
         filter: true,
         sort: true,
         customHeadLabelStyle: {
-            fontWeight: 'bold',
-            fontSize: '16px',
-            textAlign: 'center',
-          },
-          customBodyRender: (value, tableMeta, updateValue) => {
-            return <div style={{ textAlign: 'center' }}>{value}</div>;
-          },
-      }
+          fontWeight: "bold",
+          fontSize: "16px",
+          textAlign: "center",
+        },
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div style={{ textAlign: "center" }}>{value}</div>;
+        },
+      },
     },
     {
       name: "totalAmount",
@@ -76,14 +75,14 @@ console.log(salesData);
         filter: true,
         sort: true,
         customHeadLabelStyle: {
-            fontWeight: 'bold',
-            fontSize: '16px',
-            textAlign: 'center',
-          },
-          customBodyRender: (value, tableMeta, updateValue) => {
-            return <div style={{ textAlign: 'center' }}>{value}</div>;
-          },
-      }
+          fontWeight: "bold",
+          fontSize: "16px",
+          textAlign: "center",
+        },
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div style={{ textAlign: "center" }}>{value}</div>;
+        },
+      },
     },
     {
       name: "paymentType",
@@ -92,14 +91,14 @@ console.log(salesData);
         filter: true,
         sort: false,
         customHeadLabelStyle: {
-            fontWeight: 'bold',
-            fontSize: '16px',
-            textAlign: 'center',
-          },
-          customBodyRender: (value, tableMeta, updateValue) => {
-            return <div style={{ textAlign: 'center' }}>{value}</div>;
-          },
-      }
+          fontWeight: "bold",
+          fontSize: "16px",
+          textAlign: "center",
+        },
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div style={{ textAlign: "center" }}>{value}</div>;
+        },
+      },
     },
     {
       name: "status",
@@ -108,37 +107,39 @@ console.log(salesData);
         filter: true,
         sort: false,
         customHeadLabelStyle: {
-            fontWeight: 'bold',
-            fontSize: '16px',
-            textAlign: 'center',
-          },
-          customBodyRender: (value, tableMeta, updateValue) => {
-            return <div style={{ textAlign: 'center' }}>{value}</div>;
-          },
-      }
+          fontWeight: "bold",
+          fontSize: "16px",
+          textAlign: "center",
+        },
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <div style={{ textAlign: "center" }}>{value}</div>;
+        },
+      },
     },
   ];
 
-  const data = Array.isArray(salesData) ? salesData.map(sale => ({
-    bikeId: sale.bikeId,
-    location: sale.location,
-    bookedAt : sale.bookedAt,
-    totalHours: sale.totalHours,
-    totalAmount: sale.totalAmount,
-    paymentType: sale.paymentType,
-    status: sale.status
-  })) : [];
+  const data = Array.isArray(salesData)
+    ? salesData.map((sale) => ({
+        bikeId: sale.bikeId,
+        location: sale.location,
+        bookedAt: sale.bookedAt,
+        totalHours: sale.totalHours,
+        totalAmount: sale.totalAmount,
+        paymentType: sale.paymentType,
+        status: sale.status,
+      }))
+    : [];
 
   const options = {
-    filterType: 'checkbox',
+    filterType: "checkbox",
     customHeadLabelStyle: {
-        fontWeight: 'bold',
-        fontSize: '16px',
-        textAlign: 'center',
-      },
-      customBodyRender: (value, tableMeta, updateValue) => {
-        return <div style={{ textAlign: 'center' }}>{value}</div>;
-      },
+      fontWeight: "bold",
+      fontSize: "16px",
+      textAlign: "center",
+    },
+    customBodyRender: (value, tableMeta, updateValue) => {
+      return <div style={{ textAlign: "center" }}>{value}</div>;
+    },
   };
 
   return (
@@ -150,7 +151,7 @@ console.log(salesData);
         options={options}
       />
     </div>
-  )
+  );
 }
 
-export default AllReport
+export default AllReport;

@@ -17,13 +17,6 @@ export default function AlertDialog({closeDialog,Id,ownerId,functionToBeDone,mes
   const [open, setOpen] = React.useState(true);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
-  // const[loading,setLoading] = React.useState(false)
-
-//   const handleClickOpen = () => {
-//     setOpen(true);
-//   };
-
 const dispatch = useDispatch()
 
   const handleClose = () => {

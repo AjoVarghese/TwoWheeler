@@ -15,10 +15,6 @@ import Loading from "../Loading/Loading";
 function AllAcceptedBIkes({ acceptedBikes, selectedLoc }) {
   const navigate = useNavigate();
 
-  console.log("selectedloc", selectedLoc);
-
-  console.log("accep", acceptedBikes);
-
   const bikes = useSelector((state) => state.bikesReducer);
   const { loading, bikesData } = bikes;
 

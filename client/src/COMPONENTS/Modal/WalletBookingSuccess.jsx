@@ -5,7 +5,6 @@ import { Box } from '@mui/material';
 
 
 function WalletBookingSuccess({open,onClose,message}) {
-  console.log("MODAL MESSAGE",message);
   return (
     <div>
         <BasicModal

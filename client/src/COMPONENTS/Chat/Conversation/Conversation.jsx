@@ -4,15 +4,6 @@ function Conversation({chat,currentUserId}) {
     
     const [userData,setUserData] = useState(null)
 
-    // useEffect(() => {
-    //     //checking from chats collection members field and getting id not equal to logged in user id
-    //     // const userId = chat?.members.find((id) => id !== currentUserId.id)
-    //     // console.log(userId,'xxxxxxxxxx');
-    //    const getUserData = async() => {
-    // //      const {data} = await getUser
-    // //      setUserData(data)
-    //    }
-    // },[])
   return (
     <>
       <div className="follower conversation">

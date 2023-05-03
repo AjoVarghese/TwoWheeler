@@ -1,14 +1,10 @@
 import React from 'react';
 import {
-  MDBBtn,
   MDBContainer,
   MDBRow,
   MDBCol,
   MDBCard,
   MDBCardBody,
-  MDBInput,
-  MDBCheckbox,
-  MDBIcon
 }
 from 'mdb-react-ui-kit';
 import { Box, Paper, Stack, styled } from '@mui/material';
@@ -50,13 +46,7 @@ function Landing() {
             <MDBCardBody className='p-5'>
 
               <MDBRow>
-                {/* <MDBCol col='6'>
-                  <MDBInput wrapperClass='mb-4' label='First name' id='form1' type='text'/>
-                </MDBCol>
-
-                <MDBCol col='6'>
-                  <MDBInput wrapperClass='mb-4' label='Last name' id='form1' type='text'/>
-                </MDBCol> */}
+              
                 <Box sx={{ width: '100%' }}>
       <Stack spacing={2} className='mt-3'>
         <Item className='mt-3'>

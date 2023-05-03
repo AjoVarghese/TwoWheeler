@@ -12,7 +12,7 @@ function Pending() {
     },[dispatch])
     
     const rentedBikes = useSelector((state) => state.getRentedBikesReducer.rentedBikesData)
-    console.log("Rented Bikes",rentedBikes);
+   
   return (
     <div>
         <TableContainer component={Paper}>

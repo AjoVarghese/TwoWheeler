@@ -2,20 +2,11 @@ import React from "react";
 import BasicModal from "../BasicModal/BasicModal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Box, Button, TextField, styled } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { editLocation } from "../../redux/Actions/ADMIN_ACTIONS/locationActions";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
 
 const schema = yup.object().shape({
   location: yup
@@ -37,7 +28,6 @@ function EditLocationModal({ open, onClose, locationId, loc }) {
   });
 
   const submitHandler = (data) => {
-    console.log("edit data", data);
     const location = data.location;
     dispatch(editLocation(locationId, location));
     onClose();

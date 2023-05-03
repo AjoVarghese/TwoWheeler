@@ -17,10 +17,10 @@ function DeleteLocationModal({open,onClose,locationId,message}) {
         <BasicModal
     open={open}
     onClose={onClose}
-    title = {message}
+    title = "Are u sure?"
     content={
              <Box>
-              {/* <p>Delete location</p> */}
+              <p>Delete location</p>
               <Grid container spacing={2} columns={16}>
         <Grid item xs={8}>
             <Button

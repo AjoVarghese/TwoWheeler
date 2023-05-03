@@ -176,7 +176,9 @@ function Profile() {
                         </span>
                       </p>
                       <div className="d-flex flex-wrap justify-content-center">
-                        <Button
+                        {
+                          wallet?.walletAmount > 0 ?
+                          <Button
                           variant="warning ms-4"
                           style={{ backgroundColor: "#fed250" }}
                           onClick={(e) => {
@@ -184,7 +186,9 @@ function Profile() {
                           }}
                         >
                           My Wallet
-                        </Button>{" "}
+                        </Button> : ""
+                        }
+                        
                       </div>
                     </MDBListGroupItem>
                   </MDBListGroup>

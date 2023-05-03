@@ -48,7 +48,6 @@ const schema = yup.object().shape({
 });
 
 export default function ModalBox({ closeModal, details }) {
-  console.log("DETILAS", details);
   const [basicModal, setBasicModal] = useState(true);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -65,7 +64,6 @@ export default function ModalBox({ closeModal, details }) {
 
   const submitHandler = (data) => {
     setLoading(true);
-    console.log("MODAL DATA", data);
     let name = data.name;
     let email = data.email;
     let mobile = data.mobile;

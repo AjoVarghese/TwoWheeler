@@ -3,12 +3,11 @@ import { useForm } from "react-hook-form";
 import "semantic-ui-css/semantic.min.css";
 import { Button } from "semantic-ui-react";
 import "./Login.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { userLoginAction } from "../../../redux/Actions/USER_ACTIONS/LoginAction";
-// import { keyframes } from "@emotion/react";
 import {
   Alert,
   Box,
@@ -58,15 +57,6 @@ function Login() {
     } catch (error) {}
   };
 
-//   const slideInFromRight = keyframes`
-//   0% {
-//     transform: translateX(100%);
-//   }
-//   100% {
-//     transform: translateX(0);
-//   }
-// `;
-
   return (
     <div className="login">
       <MDBContainer className="p-3 my-5 mt-5">
@@ -92,7 +82,7 @@ function Login() {
                   right: "20px",
                   width: "35%",
                   margin: "20px 0",
-                  // animation: `${slideInFromRight} 0.3s forwards ease-in`,
+                 
                 }}
                 severity="error"
               >

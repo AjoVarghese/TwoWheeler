@@ -42,7 +42,6 @@ function EditCouponModal({open,onClose,couponId}) {
     })
     
     const submitHandler = (data) => {
-        console.log(data);
         let couponName = data.couponName
         let couponCode = data.couponCode
         dispatch(editCoupon(couponId,couponName,couponCode))

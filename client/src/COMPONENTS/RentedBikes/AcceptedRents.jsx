@@ -13,10 +13,8 @@ function AcceptedRents() {
     },[dispatch])
 
     const rentedBikes = useSelector((state) => state.getRentedBikesReducer.rentedBikesData)
-    console.log("Rented Bikes",rentedBikes);
-
-    // const accepted = useSelector((state) => state.getAcceptedDataReducer.acceptedData)
-    // console.log("ACCEPTEDDD",accepted);
+    
+   
   return (
     <div>
          <TableContainer component={Paper}>

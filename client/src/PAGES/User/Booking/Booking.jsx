@@ -102,6 +102,13 @@ function Booking () {
     setTotalHours(value[1].diff(value[0], 'hours'))
   }
 
+   // disable date
+   function disabledDate(current) {
+    // Disable dates before today's date
+    return current && current < moment().startOf('day');
+  }
+
+  //coupon_verification
   const verifyCoupon = coupon => {
     let checkCoupon = coupons.find(check => check.couponCode === coupon)
     let userId = JSON.parse(localStorage.getItem('userInfo')).id
@@ -133,6 +140,7 @@ function Booking () {
     }
   }
 
+  //totalAmount
   let totalAmount =
     needHelmet === true && couponVerified === true
       ? totalHours * selectedBike.Price +
@@ -238,6 +246,7 @@ function Booking () {
                   showTime={{ format: 'HH:mm' }}
                   format='MM DD YYYY HH:mm'
                   onChange={selectTimeSlots}
+                  disabledDate={disabledDate} // Set the disabledDate function
                 />
                 {bookingError ? (
                   <Alert

@@ -34,37 +34,54 @@ exports.bikeBookingController = async (req, res) => {
   let userData = await userSchema.findOne({ _id: user });
   try {
     let startingTime = bookedTimeSlots.startDate;
+    let sTime = moment(startingTime,'MMMM Do YYYY, h:mm:ss a')
+    let startTimeStamp = sTime.unix()
     let endingTime = bookedTimeSlots.endDate;
-    let status = true;
+    let status = 'allowed';
 
     let check = await bikeSchema.findOne({ _id: bikeId });
     let isBooked = await bookingSchema.findOne({ bikeId: bikeId });
 
     let currentTime = moment().format("MMMM Do YYYY, h:mm:ss a");
+    let currTime = moment(currentTime,'MMMM Do YYYY, h:mm:ss a')
+    const currTimeStamp = currTime.unix();
+    console.log('stamp',currTimeStamp);
+    console.log('startstampe',startTimeStamp);
+    // console.log("start",startingTime);
+    // console.log("curre",currentTime);
 
-    // if (startingTime < currentTime) {
-    //   res
-    //     .status(400)
-    //     .json("Selected Day or Date is less than current day or date");
-    // } else
-    if (totalHours === 0) {
+    
+    if (startTimeStamp< currTimeStamp) {
+      res
+        .status(400)
+        .json("Selected Day or Date is less than current day or date");
+    } else if (totalHours === 0) {
       res.status(400).json("Rent time should be min 1 hr");
     } else {
       for (let i = 0; i < check.BookedTimeSlots.length; i++) {
-        if (startingTime > check.BookedTimeSlots[i].endDate) {
-          status = true;
-        } else if (
-          startingTime &&
-          startingTime <= check.BookedTimeSlots[i].endDate &&
+       console.log("start tme",check.BookedTimeSlots[i].startDate);
+       console.log("end Time",check.BookedTimeSlots[i].endDate);
+
+       let checkEnd = moment(check.BookedTimeSlots[i].endDate,'MMMM Do YYYY, h:mm:ss a')
+       let checkTimeStamp = checkEnd.unix()
+
+        if (  startTimeStamp > checkTimeStamp) {
+          console.log("OKK");
+          status = "allowed" ;
+        } 
+        else if (
+          startTimeStamp &&
+          startTimeStamp <= checkTimeStamp &&
           isBooked?.status !== COMPLETED &&
           isBooked?.status !== CANCELLED
         ) {
-          status = false;
+          console.log('set');
+          status = "not allowed";
         }
       }
-
+   console.log("status",status);
       //  date Status
-      if (status === true) {
+      if (status === "allowed") {
         if (paymentType === "Stripe") {
           session = await stripe.checkout.sessions.create({
             line_items: [
@@ -90,7 +107,7 @@ exports.bikeBookingController = async (req, res) => {
               },
             ],
             mode: "payment",
-            success_url: `https://twowheelerrent.netlify.app/booking-success?userId=${user}
+            success_url: `http://localhost:3000/booking-success?userId=${user}
                         &userName=${userName}&bikeId=${bikeId}&bikeName=${bikeDetails.vehicleName}
                         &bikeModel=${bikeDetails.vehicleModel}&image=${bikeDetails.Photo[0]}
                         &totalAmount=${totalAmount}&totalHours=${totalHours}
@@ -272,7 +289,7 @@ exports.bikeBookingController = async (req, res) => {
               .catch((err) => {});
           } catch (error) {}
         }
-      } else {
+      } else if(status === 'not allowed') {
         res
           .status(400)
           .json(

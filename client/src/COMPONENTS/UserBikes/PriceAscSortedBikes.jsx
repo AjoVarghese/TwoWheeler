@@ -8,7 +8,7 @@ import {
   MDBRow,
 } from "mdb-react-ui-kit";
 import React from "react";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Loading from "../Loading/Loading";
 

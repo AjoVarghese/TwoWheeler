@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "https://twowheeler.online/api/admin" });
-
+// const API = axios.create({ baseURL: "https://twowheeler.online/api/admin" });
+const API = axios.create({baseURL : "http://localhost:2000/api/admin"})
 
 const admin = JSON.parse(localStorage.getItem("adminInfo"));
-console.log("Admin Config", admin ? admin : "");
 
 const config = {
   headers: {

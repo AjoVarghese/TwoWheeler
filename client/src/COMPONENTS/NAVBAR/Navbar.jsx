@@ -1,7 +1,6 @@
 import React from "react";
 import "./Navbar.css";
-// import { FaBeer } from 'react-icons/fa';
-// import {GiHamburgerMenu} from 'react-icons/gi'
+
 import { Link, useNavigate } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -10,16 +9,12 @@ import { userLogoutAction } from "../../redux/Actions/USER_ACTIONS/LogoutAction"
 import {
   createStyles,
   Header,
-  HoverCard,
   Group,
   Button,
   UnstyledButton,
   Text,
-  SimpleGrid,
   ThemeIcon,
-  Anchor,
   Divider,
-  Center,
   Box,
   Burger,
   Drawer,
@@ -28,7 +23,6 @@ import {
   rem,
   Avatar,
 } from "@mantine/core";
-import { MantineLogo } from "@mantine/ds";
 import { useDisclosure } from "@mantine/hooks";
 import {
   IconNotification,
@@ -37,7 +31,6 @@ import {
   IconChartPie3,
   IconFingerprint,
   IconCoin,
-  IconChevronDown,
 } from "@tabler/icons-react";
 
 const useStyles = createStyles((theme) => ({
@@ -148,7 +141,6 @@ function Navbar() {
 
   const user = useSelector((state) => state.userLoginReducer);
   const { userLoginDetails } = user;
-  console.log("DDDDD", userLoginDetails);
 
   const logout = () => {
     dispatch(userLogoutAction());
@@ -183,7 +175,11 @@ function Navbar() {
         <Header height={60} px="md" style={{ backgroundColor: "#fed250" }}>
           <Group position="apart" sx={{ height: "100%" }}>
             {/* <MantineLogo size={30} /> */}
-            <h1 style={{ fontSize: "27px" }}>Two Wheeler</h1>
+            <h1 style={{ fontSize: "27px" }}
+            onClick={() => {
+              navigate('/')
+            }}
+            >Two Wheeler</h1>
 
             <Group
               sx={{ height: "100%" }}
