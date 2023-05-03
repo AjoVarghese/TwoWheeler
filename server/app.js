@@ -18,10 +18,6 @@ const app = express();
 
 const uri = process.env.ATLAS_URI;
 
-app.get('/',(req,res) => {
-  res.send('it is working')
-})
-
 
 //database_connection
 mongoose.connect(uri).then((data) => {
@@ -57,7 +53,6 @@ app.use(
 //cors
 const corsOptions = {
   origin: "https://twowheelerrent.netlify.app",
-  
   credentials: true,
   optioSuccessStatus: 200,
 };

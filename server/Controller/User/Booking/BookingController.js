@@ -11,8 +11,8 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 //global_Variables
 
-const COMPLETED = "Completed"
-const CANCELLED = "Cancelled"
+const COMPLETED = "Completed";
+const CANCELLED = "Cancelled";
 
 exports.bikeBookingController = async (req, res) => {
   const {
@@ -42,11 +42,12 @@ exports.bikeBookingController = async (req, res) => {
 
     let currentTime = moment().format("MMMM Do YYYY, h:mm:ss a");
 
-    if (startingTime < currentTime) {
-      res
-        .status(400)
-        .json("Selected Day or Date is less than current day or date");
-    } else if (totalHours === 0) {
+    // if (startingTime < currentTime) {
+    //   res
+    //     .status(400)
+    //     .json("Selected Day or Date is less than current day or date");
+    // } else
+    if (totalHours === 0) {
       res.status(400).json("Rent time should be min 1 hr");
     } else {
       for (let i = 0; i < check.BookedTimeSlots.length; i++) {
@@ -89,7 +90,7 @@ exports.bikeBookingController = async (req, res) => {
               },
             ],
             mode: "payment",
-            success_url: `https://twowheelerrent.netlify.app/booking-success?userId=${user}
+            success_url: `http://localhost:3000/booking-success?userId=${user}
                         &userName=${userName}&bikeId=${bikeId}&bikeName=${bikeDetails.vehicleName}
                         &bikeModel=${bikeDetails.vehicleModel}&image=${bikeDetails.Photo[0]}
                         &totalAmount=${totalAmount}&totalHours=${totalHours}
@@ -121,7 +122,6 @@ exports.bikeBookingController = async (req, res) => {
 
           try {
             await booking.save();
-            console.log("Booking saved successfully");
 
             // find the bike in the database and update its booking slot field
             const bike = await bikeSchema.findOneAndUpdate(
@@ -270,11 +270,9 @@ exports.bikeBookingController = async (req, res) => {
                 res.status(200).json({ message: "Booking Successfull" });
               })
               .catch((err) => {});
-            
           } catch (error) {}
         }
       } else {
-        console.log("booking not allowed");
         res
           .status(400)
           .json(
@@ -321,7 +319,6 @@ exports.createOrderController = async (req, res) => {
 
     try {
       await booking.save();
-      console.log("Booking saved successfully");
 
       // find the bike in the database and update its booking slot field
       const bike = await bikeSchema.findOneAndUpdate(
@@ -339,7 +336,6 @@ exports.createOrderController = async (req, res) => {
       //checking coupon
 
       if (couponCode !== "null" && couponCode !== "") {
-        // let findUser = couponSchema.findOne({users : userId})
         couponSchema
           .updateOne(
             { couponCode: couponCode },
@@ -351,9 +347,7 @@ exports.createOrderController = async (req, res) => {
               },
             }
           )
-          .then((response) => {
-            
-          });
+          .then((response) => {});
       }
 
       //wallet setting
@@ -440,7 +434,6 @@ exports.createOrderController = async (req, res) => {
 
             walletSchema.create(newWallet);
           } else {
-            console.log("exists");
             walletSchema
               .updateOne(
                 {
@@ -458,17 +451,13 @@ exports.createOrderController = async (req, res) => {
                   },
                 }
               )
-              .then((response) => {
-                console.log("response", response);
-              });
+              .then((response) => {});
           }
         }
         //
       } else {
-        console.log("NOTHING");
       }
     } catch (err) {
-      console.log("fffffffff", err);
       res.status(500).send("Server error");
     }
   } catch (error) {

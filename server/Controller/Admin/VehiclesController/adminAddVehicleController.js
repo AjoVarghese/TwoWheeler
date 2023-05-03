@@ -31,8 +31,7 @@ exports.addVehicle = async(req,res) => {
       }
   
      
-      
-    //  let {BikeName,BikeModel,Brand,Fuel,EngineNo,Color,Description,Price} = req.body
+
 
     let Photo = [];
 
@@ -40,7 +39,6 @@ exports.addVehicle = async(req,res) => {
       Photo.push(urls[i].url)
     }
      let details = {
-      // OwnerName : req.body.OwnerName,
       vehicleName : req.body.bikeName,
       vehicleModel : req.body.bikeModel,
       Brand : req.body.brand,
