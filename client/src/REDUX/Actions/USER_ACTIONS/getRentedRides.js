@@ -22,21 +22,21 @@ export const rentedRidesAction = () => async(dispatch) => {
     })
 }
 
-export const cancelRideAction = (bikeId,bookingId,startTime,endTime,userId,price) => async(dispatch) => {
-    cancelRideApi(bikeId,bookingId,startTime,endTime,userId,price).then((data) => {
-        console.log('cancelRIdeAPI',data.data);
+export const cancelRideAction = (data) => async(dispatch) => {
+    // cancelRideApi(bikeId,bookingId,startTime,endTime,userId,price).then((data) => {
+        // console.log('cancelRIdeAPI',data);
         dispatch({
             type : ActionTypes.CANCEL_RIDE_SUCCESS,
-            payload : data.data
+            payload : data
        })
-    })
-    .catch((err) => {
-        console.log('error in cancel ride',err);
-        dispatch({
-            type : ActionTypes.CANCEL_RIDE_FAILED,
-            payload : err.response
-        })
-    })
+    // })
+    // .catch((err) => {
+    //     console.log('error in cancel ride',err);
+    //     dispatch({
+    //         type : ActionTypes.CANCEL_RIDE_FAILED,
+    //         payload : err.response
+    //     })
+    // })
     
 }
 

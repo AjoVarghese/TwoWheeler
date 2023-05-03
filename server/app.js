@@ -57,6 +57,7 @@ app.use(
 //cors
 const corsOptions = {
   origin: "https://twowheelerrent.netlify.app",
+  
   credentials: true,
   optioSuccessStatus: 200,
 };
@@ -79,6 +80,7 @@ const server = app.listen(PORT, (req, res) => {
 const io = socket(server, {
   cors: {
     origin: "https://twowheelerrent.netlify.app",
+    
     credentials: true,
   },
 });

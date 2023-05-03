@@ -1,13 +1,8 @@
-import { Alert, Box, CircularProgress, styled, TextField } from '@mui/material';
+import {  Box, CircularProgress, styled } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { Card } from 'primereact/card';
-import MenuItem from '@mui/material/MenuItem';
 import AdminSideBar from '../../../components/NAVBAR/AdminSideBar';
 import {  MDBCol, MDBInput, MDBRow } from 'mdb-react-ui-kit';
-
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import * as yup from "yup";
-
 import { useDispatch, useSelector } from 'react-redux';
 import { adminAddBikeApi } from '../../../api/Admin/ApiCalls';
 import { adminAddBikeAction } from '../../../redux/Actions/ADMIN_ACTIONS/adminAddBike';
@@ -40,7 +35,7 @@ const [loc,setLocation] = useState('')
 const [color,setColor] = useState('')
 const [images,setImages] = useState([])
 const [loading,setLoading]=useState(false);
-const [sucess,setSuccess]=useState(false);
+const [success,setSuccess]=useState(false);
 
 const dispatch = useDispatch()
 const navigate = useNavigate();
@@ -79,12 +74,10 @@ const onSubmit = (data) => {
     formdata.append("color", color);
     
  adminAddBikeApi(formdata).then((data) => {
-  console.log("ADMIN BIKE API DATA",data.data);
-  // <Alerts/>
+
   dispatch(adminAddBikeAction(data.data))
   setLoading(false)
-  // toast.success("added")
-  // setSuccess(true)
+
   toast.success('Bike successfully added to the garage!')
   setTimeout(() => {
     navigate("/admin/bikes",{state:{bikeAdded:true}})

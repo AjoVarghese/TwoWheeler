@@ -1,32 +1,26 @@
-import { Box, Button, Grid } from '@mui/material'
 import React from 'react'
 import BasicModal from '../BasicModal/BasicModal'
-import { endRideApi } from '../../api/User/ApiCalls'
+import { Box, Button, Grid } from '@mui/material'
 import { useDispatch } from 'react-redux'
-import { endRideAction } from '../../redux/Actions/USER_ACTIONS/getRentedRides'
+import { deleteLocation } from '../../redux/Actions/ADMIN_ACTIONS/locationActions'
 
-
-function EndRideModal({bikeId,bookingId,startTime,endTime,userId,open,onClose}) {
+function DeleteLocationModal({open,onClose,locationId,message}) {
 
     const dispatch = useDispatch()
 
-    const handleEndRide = () => {
-      endRideApi(bikeId,bookingId,startTime,endTime,userId).then((data) => {
-         dispatch(endRideAction(data.data))
+    const handleDelete = (id) => {
+        dispatch(deleteLocation(id))
         onClose()
-       
-        
-      })
     }
   return (
     <div>
         <BasicModal
     open={open}
     onClose={onClose}
-    title = "Are u sure?"
+    title = {message}
     content={
              <Box>
-              <p>This will cancel your ride?</p>
+              {/* <p>Delete location</p> */}
               <Grid container spacing={2} columns={16}>
         <Grid item xs={8}>
             <Button
@@ -42,10 +36,10 @@ function EndRideModal({bikeId,bookingId,startTime,endTime,userId,open,onClose}) 
               variant="contained"
               color="error"
               onClick={(e) => {
-                handleEndRide(bikeId,bookingId)
+                handleDelete(locationId)
               }}
               >
-               End Ride
+               Delete
           </Button>
         </Grid>
       </Grid>
@@ -57,4 +51,4 @@ function EndRideModal({bikeId,bookingId,startTime,endTime,userId,open,onClose}) 
   )
 }
 
-export default EndRideModal
+export default DeleteLocationModal

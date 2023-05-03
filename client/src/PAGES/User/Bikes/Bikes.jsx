@@ -120,8 +120,6 @@ function Bikes() {
   }, [searchTerm]);
   
 
-  console.log("STATE", searchTerm);
-
   return (
     <>
       <Navbar />
@@ -165,14 +163,7 @@ function Bikes() {
                             placeholder="Search Bikes"
                             onChange={(e) => setSearchTerm(e.target.value)}
                           />
-                          {/* <IconButton
-                            type="button"
-                            sx={{ p: "10px" }}
-                            aria-label="search"
-                            // onClick={submitHandler}
-                          >
-                            <SearchIcon />
-                          </IconButton> */}
+                        
                         </Paper>
                       </Grid>
                     </Grid>

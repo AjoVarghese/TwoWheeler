@@ -77,7 +77,7 @@ export default function CustomizedTables({data}) {
                     width={171}
                     height={180}
                     alt="llll"
-                    src={row.photo[0]}
+                    src={row?.photo[0]}
                   />
                 <Figure.Caption>
       

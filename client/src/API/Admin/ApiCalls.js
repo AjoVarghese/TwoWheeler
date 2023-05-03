@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API = axios.create({ baseURL: "https://twowheeler.online/api/admin" });
 
+
 const admin = JSON.parse(localStorage.getItem("adminInfo"));
 console.log("Admin Config", admin ? admin : "");
 
@@ -51,8 +52,8 @@ export const rejectRentRequetsApi = (id) =>
   API.get("/reject-requests?id=" + id, configToken);
 
   //bike-actions
-export const deleteBikeAPi = (id) =>
-  API.get("/delete-bike?id=" + id, configToken);
+export const deleteBikeAPi = (id,page) =>
+  API.get(`/delete-bike?id=${id}&page=${page}`, configToken);
 export const editBikeApi = (id, formData) =>
   API.post("/edit-bike?id=" + id, formData, configFormData);
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 const API = axios.create({ baseURL: "https://twowheeler.online/api/user" });
 
+
 const config = {
   headers: {
     "Content-Type": "application/json",

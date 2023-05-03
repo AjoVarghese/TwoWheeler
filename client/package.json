@@ -1,6 +1,6 @@
 {
   "name": "bike-rental",
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:2000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

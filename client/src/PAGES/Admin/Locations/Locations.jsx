@@ -1,13 +1,11 @@
 import { Box, Button, styled } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-// import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import AdminSideBar from '../../../components/NAVBAR/AdminSideBar'
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,8 +13,9 @@ import { getLocation } from '../../../redux/Actions/ADMIN_ACTIONS/locationAction
 import LocationModal from '../../../components/LocationModal/LocationModal';
 import AlertDialog from '../../../components/AlertDialog/AlertDialog';
 import { deleteLocation } from '../../../redux/Actions/ADMIN_ACTIONS/locationActions';
-import BasicModal from '../../../components/BasicModal/BasicModal';
 import EditLocationModal from '../../../components/Modal/EditLocationModal';
+import DeleteLocationModal from '../../../components/Modal/DeleteLocationModal';
+import AddLocationModal from '../../../components/Modal/AddLocationModal';
 
 
 function Locations() {
@@ -36,7 +35,7 @@ const [editModal,setEditModal] = useState(false)
 const [deleteDialog,setDeletedialog] = useState(false)
 const [selectedLoc,setSelectedLocation] = useState(false)
 
-const [open,setOpen] = useState(false)
+// const [open,setOpen] = useState(false)
 
 
 let close
@@ -66,7 +65,6 @@ useEffect(() => {
 
   return (
     <div>
-     
       <Box sx={{ display : 'flex' }}>
       <AdminSideBar/>
       <Box component = 'main' sx={{flexGrow : 1,p:3}}>
@@ -84,14 +82,17 @@ useEffect(() => {
        </div>
 
        {
-        modal ? <LocationModal closeModal = {setModal}
+        modal ? <AddLocationModal closeModal = {setModal}
+        open={modal}
+        onClose = {() => setModal(false)}
          message='Add a new location' 
          action="add" Close={close}/> : ""
        }
 
        {
-        deleteDialog ? <AlertDialog closeDialog={setModal}
+        deleteDialog ? <DeleteLocationModal onClose={() => setDeletedialog(false)}
          locationId = {selectedLoc}
+         open={deleteDialog}
          functionToBeDone={doDelete}
          message='Are You sure? Do U want to delete this location?'
          /> : ""

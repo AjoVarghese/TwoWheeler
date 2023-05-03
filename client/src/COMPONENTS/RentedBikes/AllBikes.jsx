@@ -55,7 +55,7 @@ function AllBikes() {
                     width={171}
                     height={180}
                     alt="171x180"
-                    src={x.Photo[0]}
+                    src={x.Photo[0] }
                   />
                 <Figure.Caption>
         {/* Nulla vitae elit libero, a pharetra augue mollis interdum. */}

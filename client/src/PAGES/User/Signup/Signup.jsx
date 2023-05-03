@@ -6,15 +6,20 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-// import { keyframes } from "@emotion/react";
-
 import { userRegister } from "../../../redux/Actions/USER_ACTIONS/RegisterAction";
-import { userSignupApi } from "../../../api/User/ApiCalls";
+import { googleSignupApi, userSignupApi } from "../../../api/User/ApiCalls";
 import { MDBCol, MDBContainer, MDBRow } from "mdb-react-ui-kit";
-import { Alert, Box, CircularProgress, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  CircularProgress,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../../firebase/firebase.config";
 import { googleSignupAction } from "../../../redux/Actions/USER_ACTIONS/googleSignupAction";
+import { ActionTypes } from "../../../redux/Constants/User/ActionTypes";
 
 const schema = yup.object().shape({
   name: yup
@@ -38,23 +43,13 @@ const schema = yup.object().shape({
   referalCode: yup.string().optional(),
 });
 
-// const slideInFromRight = keyframes`
-//   0% {
-//     transform: translateX(100%);
-//   }
-//   100% {
-//     transform: translateX(0);
-//   }
-// `;
-
-
 function Signup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -65,7 +60,7 @@ function Signup() {
   });
 
   const submitHandler = async (data) => {
-    setLoading(true)
+    setLoading(true);
     const Name = data.name;
     const Email = data.email;
     const Password = data.password;
@@ -75,7 +70,7 @@ function Signup() {
       userSignupApi(Name, Email, Mobile, Password, Referral)
         .then((data) => {
           dispatch(userRegister(data.data));
-          setLoading(false)
+          setLoading(false);
           navigate("/login");
         })
         .catch((err) => {
@@ -84,7 +79,6 @@ function Signup() {
         });
     } catch (error) {}
   };
-
 
   useEffect(() => {
     let userInfo = localStorage.getItem("userInfo");
@@ -98,14 +92,23 @@ function Signup() {
 
   const googleSignup = () => {
     signInWithPopup(auth, provider).then((data) => {
-      dispatch(
-        googleSignupAction(
-          data.user.displayName,
-          data.user.email,
-          data.user.phoneNumber,
-          data.user.photoURL
-        )
-      );
+      googleSignupApi(
+        data.user.displayName,
+        data.user.email,
+        data.user.phoneNumber,
+        data.user.photoURL
+      )
+        .then((data) => {
+          dispatch(googleSignupAction(data.data));
+          localStorage.setItem("userInfo", JSON.stringify(data.data));
+          navigate("/");
+        })
+        .catch((err, dispatch) => {
+          dispatch({
+            type: ActionTypes.GOOGLE_SIGNUP_FAILED,
+            payload: err.response,
+          });
+        });
     });
   };
 
@@ -120,7 +123,6 @@ function Signup() {
               right: "20px",
               width: "35%",
               margin: "20px 0",
-              // animation: `${slideInFromRight} 0.3s forwards ease-in`,
             }}
             severity="error"
           >
@@ -142,7 +144,6 @@ function Signup() {
             <Typography component="h1" variant="h5">
               Sign In To Your Account!!
             </Typography>
-
 
             <Box
               component="form"
@@ -203,28 +204,27 @@ function Signup() {
                 label="Referal Code(optional)"
                 {...register("referalCode")}
               />
-              
-              {
-                loading ? 
+
+              {loading ? (
                 <Button
-                className="mb-4 container col-md-4 sm-3 mt-4"
-                style={{ backgroundColor: "#fed250" }}
-                disabled
-              >
-                <CircularProgress />
-              </Button>
-                  : <Button
+                  className="mb-4 container col-md-4 sm-3 mt-4"
+                  style={{ backgroundColor: "#fed250" }}
+                  disabled
+                >
+                  <CircularProgress />
+                </Button>
+              ) : (
+                <Button
                   type="submit"
                   className="mt-3"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
-                  style={{ backgroundColor: "#F7CA18" ,width : '100%'}}
+                  style={{ backgroundColor: "#F7CA18", width: "100%" }}
                 >
                   Sign Up
                 </Button>
-              }
-             
+              )}
             </Box>
 
             <div className="divider d-flex align-items-center my-4">

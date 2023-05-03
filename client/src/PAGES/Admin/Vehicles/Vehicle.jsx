@@ -27,9 +27,8 @@ import {
 } from "mdb-react-ui-kit";
 
 import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
 import { Toaster } from "react-hot-toast";
+import DeleteBikeModal from "../../../components/Modal/DeleteBikeModal";
 
 function Vehicle() {
   const DrawerHeader = styled("div")(({ theme }) => ({
@@ -71,7 +70,6 @@ function Vehicle() {
   }, [searchTerm]);
 
   const onSubmitSearch = (e, page) => {
-    console.log("CALLED");
     dispatch(adminSearchBikeAction(searchTerm, page));
   };
 
@@ -87,11 +85,14 @@ function Vehicle() {
   return (
     <>
       {deleteDialog ? (
-        <AlertDialog
+        <DeleteBikeModal
           message="Do you want to delete the bike from the store"
+          open={deleteDialog}
+          page={page}
+          onClose={() => setDeleteDialog(false)}
           bikeId={selectedBike}
-          functionToBeDone={deleteBike}
-          closeDialog={setDeleteDialog}
+          // functionToBeDone={deleteBike}
+          // closeDialog={setDeleteDialog}
         />
       ) : (
         ""
@@ -119,10 +120,10 @@ function Vehicle() {
                 }}
               >
                 <InputBase
+                className="pt-2"
                   sx={{ ml: 1, flex: 1 }}
                   placeholder="Search Bikes"
                   onChange={(e) => {
-                    console.log("E", e);
                     setSearchTerm(e.target.value);
                   }}
                 />
@@ -144,8 +145,10 @@ function Vehicle() {
                   ""
                 ) : (
                   <MDBPaginationItem>
-                    <MDBPaginationLink aria-label="Next" onClick={handleNext}>
-                      <span aria-hidden="true">Next »</span>
+                    <MDBPaginationLink aria-label="Next">
+                      <span aria-hidden="true" onClick={handleNext}>
+                        Next »
+                      </span>
                     </MDBPaginationLink>
                   </MDBPaginationItem>
                 )}

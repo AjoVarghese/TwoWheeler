@@ -8,7 +8,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
-import { acceptRentRequests } from '../../redux/Actions/ADMIN_ACTIONS/rentRequestsAction';
 import { toast } from 'react-hot-toast';
 
 export default function AlertDialog({closeDialog,Id,ownerId,functionToBeDone,message,action}) {
@@ -28,7 +27,7 @@ export default function AlertDialog({closeDialog,Id,ownerId,functionToBeDone,mes
 const dispatch = useDispatch()
 
   const handleClose = () => {
-    setOpen(false);
+    closeDialog(false);
   };
 
 //   const onProceed = () => {
