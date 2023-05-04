@@ -11,6 +11,8 @@ import { Button, Tooltip } from '@mui/material';
 import { useState } from 'react';
 import EditLocationModal from '../Modal/EditLocationModal';
 import DeleteLocationModal from '../Modal/DeleteLocationModal';
+import { useEffect } from 'react';
+import { getLocation } from '../../redux/Actions/ADMIN_ACTIONS/locationActions';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -36,9 +38,15 @@ function LocationTable({data}) {
     const [deleteModal,setDeleteModal] = useState(false)
     const [selected,setSelected]  = useState('')
 
+    useEffect(() => {
+      getLocation()
+    },[editModal,deleteModal])
+
     if (!data || data.length === 0) {
         return <h4>No location available</h4>;
       }
+
+      
   return (
     <div className='container mt-2'>
     <TableContainer component={Paper}>
@@ -74,6 +82,7 @@ function LocationTable({data}) {
                 <Button variant="contained" color="info"
                   onClick={(e) => {
                     setEditModal(true)
+                    // editLoc(true)
                     setSelected(row._id,row.Location)
 
                   }}

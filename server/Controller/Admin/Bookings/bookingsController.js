@@ -56,16 +56,19 @@ exports.getBookedDetails = async (req, res) => {
     let currTime = moment(currentTime, "MMMM Do YYYY, h:mm:ss a").unix();
 
     for (let i = 0; i < data.length; i++) {
-      let startTime = moment(
-        data[i].startingTime,
-        "MMMM Do YYYY, h:mm:ss a"
-      ).unix();
-      let endTime = moment(
-        data[i].endingTime,
-        "MMMM Do YYYY, h:mm:ss a"
-      ).unix();
-
-      if (currTime > endTime && data[i].status !== "Completed") {
+      // let startTime = moment(
+      //   data[i].startingTime,
+      //   "MMMM Do YYYY, h:mm:ss a"
+      // )
+      // let endTime = moment(
+      //   data[i].endingTime,
+      //   "MMMM Do YYYY, h:mm:ss a"
+      // )
+      let startTime = data[i].startTime
+      let endTime = data[i].endingTime
+       
+      // console.log();
+      if (currentTime > endTime && data[i].status !== "Completed") {
         booking
           .findOneAndUpdate(
             {
@@ -77,8 +80,10 @@ exports.getBookedDetails = async (req, res) => {
               },
             }
           )
-          .then((res) => {});
-      } else if (currTime < startTime && data[i].status !== "Cancelled") {
+          .then((response) => {
+            // res.status(200).json(response)
+          });
+      } else if (currentTime < startTime && data[i].status !== "Cancelled") {
         booking
           .findOneAndUpdate(
             {
@@ -90,11 +95,14 @@ exports.getBookedDetails = async (req, res) => {
               },
             }
           )
-          .then((res) => {});
+          .then((resp) => {
+              // res.status(200).json(resp)
+          });
       } else if (
-        currTime >= startTime &&
-        currTime <= endTime &&
+        currentTime >= startTime &&
+        currentTime <= endTime &&
         data[i].status !== "Completed"
+        // data[i].status === 'Booked'
       ) {
         booking
           .findOneAndUpdate(
@@ -107,7 +115,9 @@ exports.getBookedDetails = async (req, res) => {
               },
             }
           )
-          .then((res) => {});
+          .then((result) => {
+            // res.status(200).json(result)
+          });
       }
     }
     res.status(200).json(data);
