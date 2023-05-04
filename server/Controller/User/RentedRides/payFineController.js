@@ -44,7 +44,7 @@ exports.payFine = async (req, res) => {
         },
       ],
       mode: "payment",
-      success_url: `https://twowheelerrent.netlify.app/payment-success?userId=${userId}&bikeId=${bikeId}
+      success_url: `https://twowheelerrent.netlify.app'/payment-success?userId=${userId}&bikeId=${bikeId}
             &bookingId=${bookingId}&startTime=${startTime}&endTime=${endTime}`,
       cancel_url: "https://twowheelerrent.netlify.app/payment-cancelled",
     });

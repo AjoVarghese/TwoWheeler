@@ -7,8 +7,6 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import InputBase from "@mui/material/InputBase";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
 import { bikeSearchAction } from "../../../redux/Actions/USER_ACTIONS/bikeSearchAction";
 import FilterSideBar from "../../../components/FilterSidebar/FilterSideBar";
 import PropTypes from "prop-types";
@@ -78,14 +76,12 @@ function Bikes() {
 
   const bikes = useSelector((state) => state.bikesReducer);
   const {  bikesData,bikesDataError } = bikes;
-  console.log("NNJJJK",bikes);
-  console.log('data error',bikesDataError);
+ 
 
   const location = useSelector(
     (state) => state.userLocationReducer.locationData
   );
 
-  console.log("SEARCH TERm",searchTerm);
 
   useEffect(() => {
     dispatch(getBikesAction(page));

@@ -62,7 +62,7 @@ function RentedRides() {
   },[])
 
   const rentedRides = useSelector((state) => state.rentedBikesReducer.rentedRidesData)
-      console.log(rentedRides ? rentedRides : "");
+     
 
   return (
     <div>
