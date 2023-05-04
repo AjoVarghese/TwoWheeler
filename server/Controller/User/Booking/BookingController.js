@@ -217,6 +217,7 @@ exports.bikeBookingController = async (req, res) => {
                               {
                                 Type: "Bike rent Share",
                                 amountAdded: withoutCouponAmount * 0.25,
+                                Date : moment().format("MMMM Do YYYY, h:mm:ss a"),
                               },
                             ],
                           };
@@ -237,6 +238,7 @@ exports.bikeBookingController = async (req, res) => {
                                   walletHistory: {
                                     Type: "Bike Rent Share",
                                     amountAdded: withoutCouponAmount * 0.25,
+                                    Date : moment().format("MMMM Do YYYY, h:mm:ss a"),
                                   },
                                 },
                               }
@@ -255,6 +257,7 @@ exports.bikeBookingController = async (req, res) => {
                           {
                             Type: "Bike rent Share",
                             amountAdded: bookingAmount,
+                            Date : moment().format("MMMM Do YYYY, h:mm:ss a"),
                           },
                         ],
                       };
@@ -275,6 +278,7 @@ exports.bikeBookingController = async (req, res) => {
                               walletHistory: {
                                 Type: "Bike Rent Share",
                                 amountAdded: totalAmount * 0.25,
+                                Date : moment().format("MMMM Do YYYY, h:mm:ss a"),
                               },
                             },
                           }

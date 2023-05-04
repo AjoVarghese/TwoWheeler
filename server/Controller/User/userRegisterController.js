@@ -3,6 +3,7 @@ const wallet = require("../../Models/walletSchema");
 const bcrypt = require("bcrypt");
 const generateToken = require("../../Utils/generateToken");
 const shortid = require("shortid");
+const moment = require("moment");
 
 exports.signUpPost = async (req, res) => {
   try {
@@ -53,6 +54,7 @@ exports.signUpPost = async (req, res) => {
                     {
                       Type: "Referral Bonus",
                       amountAdded: 100,
+                      Date : moment().format("MMMM Do YYYY, h:mm:ss a"),
                     },
                   ],
                 };
@@ -70,6 +72,7 @@ exports.signUpPost = async (req, res) => {
                         walletHistory: {
                           Type: "Referral Bonus",
                           amountAdded: 100,
+                          Date : moment().format("MMMM Do YYYY, h:mm:ss a"),
                         },
                       },
                     }
@@ -85,6 +88,7 @@ exports.signUpPost = async (req, res) => {
               {
                 Type: "Refferal share",
                 amountAdded: 50,
+                Date : moment().format("MMMM Do YYYY, h:mm:ss a"),
               },
             ],
           };

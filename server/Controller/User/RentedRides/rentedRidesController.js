@@ -2,6 +2,7 @@ const bikeSchema = require("../../../Models/vehicleSchema");
 const bookingSchema = require("../../../Models/bookingSchema");
 const walletSchema = require("../../../Models/walletSchema");
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 exports.rentedRides = (req, res) => {
   try {
@@ -108,6 +109,7 @@ exports.cancelRide = async (req, res) => {
                   {
                     Type: "Cancellation Refund",
                     amountAdded: price,
+                    Date : moment().format("MMMM Do YYYY, h:mm:ss a"),
                   },
                 ],
               };
@@ -127,6 +129,7 @@ exports.cancelRide = async (req, res) => {
                       walletHistory: {
                         Type: "Cancellation Refund",
                         amountAdded: price,
+                        Date : moment().format("MMMM Do YYYY, h:mm:ss a"),
                       },
                     },
                   }
@@ -178,11 +181,10 @@ exports.cancelRide = async (req, res) => {
                         },
                       },
                     ])
-                    .then(async (data) => {
+                    .then((data) => {
                       res.status(200).json(data);
                     });
                 })
-
                 .catch((err) => {
                   console.log(" cancelERROR", err);
                 });

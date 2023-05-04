@@ -70,6 +70,11 @@ exports.getBookedDetails = async (req, res) => {
       console.log("startTime",startTime);
       console.log("endTime",endTime);
       console.log("currTime",currentTime);
+      if(currentTime <= endTime){
+        console.log('true');
+      } else {
+        console.log('false');
+      }
       if (currentTime > endTime && data[i].status !== "Completed") {
         booking
           .findOneAndUpdate(

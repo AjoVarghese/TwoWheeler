@@ -23,7 +23,7 @@ const walletSchema = new mongoose.Schema(
           },
           Date: {
             type: String,
-            default: moment().format("MMMM Do YYYY, h:mm:ss a"),
+            // default: moment().format("MMMM Do YYYY, h:mm:ss a"),
           },
         },
       ],

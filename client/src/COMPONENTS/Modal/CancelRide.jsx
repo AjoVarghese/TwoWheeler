@@ -17,7 +17,7 @@ function CancelRide({
 }) {
   const dispatch = useDispatch();
 
-  const handleCancel = (bikeId, bookingId) => {
+  const handleCancel = () => {
     cancelRideApi(bikeId, bookingId, startTime, endTime, userId, price).then((data) => {
       dispatch(cancelRideAction(data.data))
       onClose()
