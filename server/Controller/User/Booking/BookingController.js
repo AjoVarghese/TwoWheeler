@@ -51,7 +51,7 @@ exports.bikeBookingController = async (req, res) => {
     // console.log("curre",currentTime);
 
     
-    if (startTimeStamp< currTimeStamp) {
+    if (startTimeStamp < currTimeStamp) {
       res
         .status(400)
         .json("Selected Day or Date is less than current day or date");
@@ -107,7 +107,7 @@ exports.bikeBookingController = async (req, res) => {
               },
             ],
             mode: "payment",
-            success_url: `https://twowheelerrent.netlify.app'/booking-success?userId=${user}
+            success_url: `https://twowheelerrent.netlify.app/booking-success?userId=${user}
                         &userName=${userName}&bikeId=${bikeId}&bikeName=${bikeDetails.vehicleName}
                         &bikeModel=${bikeDetails.vehicleModel}&image=${bikeDetails.Photo[0]}
                         &totalAmount=${totalAmount}&totalHours=${totalHours}
@@ -172,6 +172,7 @@ exports.bikeBookingController = async (req, res) => {
                     walletHistory: {
                       Type: "Bike rented",
                       amountDeducted: totalAmount,
+                      Date : moment().format("MMMM Do YYYY, h:mm:ss a"),
                     },
                   },
                   // }
