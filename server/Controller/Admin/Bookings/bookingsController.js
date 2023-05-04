@@ -53,7 +53,7 @@ exports.getBookedDetails = async (req, res) => {
     ]);
 
     let currentTime = moment().format("MMMM Do YYYY, h:mm:ss a");
-    let currTime = moment(currentTime, "MMMM Do YYYY, h:mm:ss a").unix();
+    // let currTime = moment(currentTime, "MMMM Do YYYY, h:mm:ss a").unix();
 
     for (let i = 0; i < data.length; i++) {
       // let startTime = moment(
@@ -64,10 +64,12 @@ exports.getBookedDetails = async (req, res) => {
       //   data[i].endingTime,
       //   "MMMM Do YYYY, h:mm:ss a"
       // )
-      let startTime = data[i].startTime
+      let startTime = data[i].startingTime
       let endTime = data[i].endingTime
        
-      // console.log();
+      console.log("startTime",startTime);
+      console.log("endTime",endTime);
+      console.log("currTime",currentTime);
       if (currentTime > endTime && data[i].status !== "Completed") {
         booking
           .findOneAndUpdate(
